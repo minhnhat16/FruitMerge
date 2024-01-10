@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d0463f2fcd4c1fe479444f4bd4e4f913
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Brocil
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: fceedf1765eeaa3499af3b634debb53e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
