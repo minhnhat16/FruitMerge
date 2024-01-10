@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using UnityEditor.U2D.Aseprite;
@@ -20,6 +21,7 @@ public class EndlessLevel : MonoBehaviour
     public int score;
     private float spawnCooldown = 0.1f;
     [SerializeField]private List<CircleObject> _circles ;
+    [SerializeField] private List<CircleObject> _sortedTest;
 
     [HideInInspector]
     public  List<CircleObject> _Circles { get { return _circles; }}
@@ -159,11 +161,12 @@ public class EndlessLevel : MonoBehaviour
     public void UsingTomato()
     {
         var sortedCircles = _circles;
-        BubbleSortCircle(sortedCircles);
+        //BubbleSortCircle(sortedCircles);
+        sortedCircles.OrderBy(c => c.TypeID);
         sortedCircles = CirclesBelow3(sortedCircles);
         foreach( var c in sortedCircles)
         {
-            _circles.Remove(c);
+            RemoveCircle(c);
             c.RemoveCircle();
         }
     }
@@ -172,22 +175,20 @@ public class EndlessLevel : MonoBehaviour
         List<CircleObject> below3 = new();
         for(int i = 0; i < circles.Count; i++)
         {
-            if (circles[i].TypeID < 2)
+            if (circles[i].TypeID <3 && circles[i].TypeID > 0) 
             {
                 below3.Add(circles[i]);
             }
         }
+        _sortedTest = below3;
         return below3;
     }
+
     public static void BubbleSortCircle(List<CircleObject> circles)
     {
         int n = circles.Count;
-        bool swapped;
-
         for (int i = 0; i < n - 1; i++)
         {
-            swapped = false;
-
             for (int j = 0; j < n - i - 1; j++)
             {
                 if (circles[j].TypeID > circles[j + 1].TypeID)
@@ -196,13 +197,8 @@ public class EndlessLevel : MonoBehaviour
                     var temp = circles[j];
                     circles[j] = circles[j + 1];
                     circles[j + 1] = temp;
-                    swapped = true;
                 }
             }
-
-            // If no two elements were swapped by inner loop, then break
-            if (!swapped)
-                break;
         }
     }
 
@@ -219,27 +215,27 @@ public class EndlessLevel : MonoBehaviour
         switch (id)
         {
             case 1:
-                return "One";
+                return "blueberry_whiteStroke";
             case 2:
-                return "Two";
+                return "cherry_whiteStroke";
             case 3:
-                return "Three";
+                return "lemon_whiteStroke";
             case 4:
-                return "Four";
+                return "mango_whiteStroke";
             case 5:
-                return "Five";
+                return "orange_whiteStroke";
             case 6:
-                return "Six";
+                return "apple_whiteStroke";
             case 7:
-                return "Seven";
+                return "peach_whiteStroke";
             case 8:
-                return "Eight";
+                return "coconut_whiteStroke";
             case 9:
-                return "Nine";
+                return "melon_whiteStroke";
             case 10:
-                return "Ten";
+                return "pineapple_whiteStroke";
             case 11:
-                return "Eleven";
+                return "watermelon_whiteStroke";
             default:
                 return null;
         }

@@ -9,15 +9,15 @@ public class CircleObject : FSMSystem
     [HideInInspector] public DropState Drop;
     [HideInInspector] public MergeState Merge;
     [HideInInspector] public GroundedState Grounded;
-    private CircleTypeConfigRecord record;
-    private Rigidbody2D ridBody;
+    [SerializeField] CircleTypeConfigRecord record;
+    [SerializeField] private Rigidbody2D ridBody;
     [SerializeField]
     private CircleCollider2D col;
-    private CircleObject contactCircle;
-    private int typeID;
-    private float instanceID;
-    private float fallSpeed;
-    private float smoothTime;
+    [SerializeField] private CircleObject contactCircle;
+    [SerializeField] private int typeID;
+    [SerializeField] private float instanceID;
+    [SerializeField] private float fallSpeed;
+    [SerializeField] float smoothTime;
     [SerializeField] private bool isDropping;
     [SerializeField] private bool isMerged;
     public Vector2 force;
@@ -56,7 +56,7 @@ public class CircleObject : FSMSystem
         Merge.Setup(this);
         Grounded.Setup(this);
         ridBody = GetComponent<Rigidbody2D>();
-        col = GetComponent<CircleCollider2D>();
+        col = GetComponentInChildren<CircleCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     // Start is called before the first frame update
@@ -78,11 +78,11 @@ public class CircleObject : FSMSystem
         if (/*contact.collider.*/collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
         {
             instanceID = Time.time;
-            CircleObject otherCircle = collision.gameObject.GetComponent<CircleObject>();
+            CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
 
             if (isMerged || otherCircle.isMerged)
                 return;
-            contactCircle = collision.gameObject.GetComponent<CircleObject>();
+            contactCircle = collision.gameObject.GetComponentInParent<CircleObject>();
             SwitchCircleOption(otherCircle);
             return;
         }
@@ -127,7 +127,7 @@ public class CircleObject : FSMSystem
     }
     public void PopAroundCircle()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, GetComponent<CircleCollider2D>().radius);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, GetComponentInChildren<CircleCollider2D>().radius);
         foreach (Collider2D col in hits)
         {
             if (col.gameObject != this.gameObject)
@@ -148,7 +148,7 @@ public class CircleObject : FSMSystem
         int t = typeID + 1;
         tween = col.transform.DOMove(transform.position, 0.2f);
         tween.OnComplete(() => tween?.Kill());
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), col.GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
 
         yield return new WaitForSeconds(0.25f);
         EndlessLevel.Instance.RemoveCircle(col.GetComponent<CircleObject>());
@@ -180,6 +180,7 @@ public class CircleObject : FSMSystem
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(i);
         //Debug.Log("RECORD ID" + record.ID);
         SetSpriteByID(record.ID);
+        spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
         tween = transform.DOScale(record.Scale, 0.25f);
         tween.OnComplete(()=>tween?.Kill());
     }
@@ -187,7 +188,6 @@ public class CircleObject : FSMSystem
     {
         mergeVfx.GetComponent<ParticleSystem>().Play();
         CirclePool.instance.pool.DeSpawnNonGravity(this);
-        
     }
     public void DropMergeStartCoroutine()
     {

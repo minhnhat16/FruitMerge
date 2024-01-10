@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class IngameController : MonoBehaviour
 {
@@ -120,7 +121,6 @@ public class IngameController : MonoBehaviour
     public void TomatoItem()
     {
         int total = DataAPIController.instance.GetItemTotal("0");
-        EndlessLevel.Instance.UsingTomato();
         Debug.Log("TOMATO ITEM ");
         tomatoItemEvent?.Invoke(total);
     }

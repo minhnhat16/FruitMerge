@@ -1,7 +1,9 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour ,   IPointerDownHandler
 {
     public static Player instance;
     public bool canDrop = false;
@@ -58,14 +60,18 @@ public class Player : MonoBehaviour
             mainCircle = EndlessLevel.Instance.main;
         }
     }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        MouseDown();
+    }
     IEnumerator DropCircle()
     {
-        if (Input.GetMouseButtonDown(0) && !canDrop)
+        if (Input.GetMouseButtonDown(0) && !canDrop && !EventSystem.current.IsPointerOverGameObject())
         {
             canDrop = true;
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
+        else if (Input.GetMouseButton(0) && canDrop && mainCircle != null &&!EventSystem.current.IsPointerOverGameObject())
         {
 
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);

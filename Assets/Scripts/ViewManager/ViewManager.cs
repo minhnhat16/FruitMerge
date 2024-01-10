@@ -25,7 +25,6 @@ public class ViewManager : MonoBehaviour
         {
             string viewName = viewIndex.ToString();
             GameObject view = Instantiate(Resources.Load("Prefab/UI/Views/" + viewName, typeof(GameObject))) as GameObject;
-
             view.transform.SetParent(anchorView, false);
             view.GetComponent<BaseView>().Init();
             dicView.Add(viewIndex, view.GetComponent<BaseView>());
@@ -46,14 +45,14 @@ public class ViewManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Show Next View");
+            //Debug.Log("Show Next View");
             ShowNextView(newView, viewParam, callback);
         }
     }
 
     private void ShowNextView(ViewIndex newView, ViewParam viewParam = null, Action callback = null)
     {
-        Debug.Log("Show Next View");
+        //Debug.Log("Show Next View");
         currentView = dicView[newView];
         currentView.gameObject.SetActive(true);
         currentView.Setup(viewParam);

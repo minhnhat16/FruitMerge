@@ -1,10 +1,12 @@
+using DG.Tweening;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GamePlayView : BaseView
+public class GamePlayView : BaseView, IPointerClickHandler
 {
     [HideInInspector] GamePlayAnim anim;
     [SerializeField] Text score_lb;
@@ -16,7 +18,7 @@ public class GamePlayView : BaseView
     [SerializeField] private Text tomato_lb;
     [SerializeField] private Text hammerAll_lb;
     [SerializeField] private Animator goldAnim;
-
+    [SerializeField] Button tomato_Btn;
 
     [HideInInspector]
     public UnityEvent<int> setNextCircleEvent = new UnityEvent<int>();
@@ -55,6 +57,10 @@ public class GamePlayView : BaseView
     public override void OnStartShowView()
     {
         base.OnStartShowView();
+        if (tomato_Btn != null)
+        {
+            tomato_Btn.onClick.AddListener(OnClickTomato);
+        }
     }
     public override void OnStartHideView()
     {
@@ -118,9 +124,14 @@ public class GamePlayView : BaseView
     //}
     public void NextCircleImage(int id)
     {
+        nextBlock.transform.DOScale(0.1f, 0);
+        Tween tween = nextBlock.transform.DOScale(0.5f, 0.25f);
         var name = EndlessLevel.Instance.GetSpriteName(id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
+        tween.OnComplete(() => {
+            tween?.Kill();
+        });
     }
     public void OnClickBomb()
     {
@@ -131,6 +142,7 @@ public class GamePlayView : BaseView
         int total = DataAPIController.instance.GetItemTotal("0");
         if (total > 0)
         {
+            Debug.Log("ON CLICK TOMATO ");
             IngameController.instance.TomatoItem();
         }
     }
@@ -141,46 +153,17 @@ public class GamePlayView : BaseView
     public void TomatoItem(int i)
     {
         tomato_lb.text = i.ToString();
-    }
-    //public void OnClickHammer()
-    //{
-    //    int total = DataAPIController.instance.GetItemTotal("0");
-    //    if (total > 0)
-    //    {
-    //        bool onHammer = GridSystem.instance.isHammerOne = true;
-    //        onHammer = !onHammer;
-    //        if (!onHammer)
-    //        {
+        EndlessLevel.Instance.UsingTomato();
 
-    //            GridSystem.instance.CanShift = false;
-    //            GridSystem.instance.HammerOnOneBlock();
-    //        }
-    //        else
-    //        {
-    //            GridSystem.instance.isHammerOne = false;
-    //            GridSystem.instance.CanShift = true;
-    //            GridSystem.instance.MoveState();
-    //        }
-    //    }
-    //}
-    //public void OnClickHammerAll()
-    //{
-    //    int total = DataAPIController.instance.GetItemTotal("1");
-    //    if (total > 0)
-    //    {
-    //        bool onHammer = GridSystem.instance.isHammerAll = true;
-    //        onHammer = !onHammer;
-    //        if (!onHammer)
-    //        {
-    //            GridSystem.instance.CanShift = false;
-    //            GridSystem.instance.HammerOnAllBlockSameValue();
-    //        }
-    //        else
-    //        {
-    //            GridSystem.instance.isHammerAll = false;
-    //            GridSystem.instance.CanShift = true;
-    //            GridSystem.instance.MoveState();
-    //        }
-    //    }
-    //}
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Check if the mouse is over the button and not interacting with the specified game object
+        if (eventData.pointerCurrentRaycast.gameObject == tomato_Btn.gameObject /*&&
+            eventData.pointerPress != GetComponent<Player>()*/)
+        {
+            // Handle button click
+            OnClickTomato();
+        }
+    }
 }
