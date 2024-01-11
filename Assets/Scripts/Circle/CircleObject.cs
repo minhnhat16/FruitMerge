@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,19 +22,25 @@ public class CircleObject : FSMSystem
     [SerializeField] float smoothTime;
     [SerializeField] private bool isDropping;
     [SerializeField] private bool isMerged;
+    [SerializeField] private bool isBeingTarget;
     public Vector2 force;
 
     [SerializeField]
     private GameObject mergeVfx;
+    [SerializeField]
+    private TargetRender targetRender;
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     public int TypeID { get { return typeID; } }
     public bool IsMerged { get { return IsMerged; } }
     public bool IsDropping { get { return isDropping; } }
+    public bool IsBeingTarget { get { return isBeingTarget; } }
+
 
     public Rigidbody2D RigBody { get { return ridBody; } }
     public CircleObject ContactCircle { get { return contactCircle; } }
+    public TargetRender TargetRender { get { return targetRender; } }
     public void SetIsDropping(bool isDropping)
     {
         this.isDropping = isDropping;
@@ -168,7 +176,6 @@ public class CircleObject : FSMSystem
         PopAroundCircle();
         int score = typeID + c.typeID;
         IngameController.instance.AddScore(score);
-        EndlessLevel.Instance.AddCircle(c);
         EndlessLevel.Instance.FindLargestType(typeID + 1);
     }
     public void SpawnCircle(int i)
@@ -181,6 +188,8 @@ public class CircleObject : FSMSystem
         //Debug.Log("RECORD ID" + record.ID);
         SetSpriteByID(record.ID);
         spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
+        EndlessLevel.Instance.AddCircle(this);
+
         tween = transform.DOScale(record.Scale, 0.25f);
         tween.OnComplete(()=>tween?.Kill());
     }
@@ -195,7 +204,7 @@ public class CircleObject : FSMSystem
     }
     public IEnumerator DropMergeCooldown()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         isDropping = false;
     }
     public void SetSpriteByID(int id)
@@ -218,6 +227,17 @@ public class CircleObject : FSMSystem
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(TypeID);
         col.GetComponent<CircleCollider2D>().radius = record.Radius;
     }
+    
+    public void EnableTarget()
+    {
+        isBeingTarget = true;
+        targetRender.EnableTarget();
+    }
+    public void DisableTarget()
+    {
+        isBeingTarget = false;
+        targetRender.DisableTarget();
+    }
     public void SetRigidBodyVelocity(Vector3 vl)
     {
         ridBody.velocity = vl;
@@ -233,6 +253,30 @@ public class CircleObject : FSMSystem
     public void SetRigidBodyToKinematic()
     {
         ridBody.bodyType = RigidbodyType2D.Kinematic;
+    }
+    public void DeSpawnOnBomb(Action callback)
+    {
+        EndlessLevel.Instance.RemoveCircle(this);
+        gameObject.SetActive(false);
+    }
+    private void OnMouseDown()
+    {
+        if (IsBeingTarget)
+        {
+            if (EndlessLevel.Instance.IsBomb)
+            {
+                Debug.Log("CLICKED ON BOMB");
+                DeSpawnOnBomb(() =>
+                {
+                    EndlessLevel.Instance.DisableTargetCircles();
+                });
+            }
+            else if(EndlessLevel.Instance.IsUpgrade)
+            {
+                Debug.Log("CLICKED ON UPGRADE");
+                SpawnCircle(TypeID + 1);
+            }
+        }
     }
 }
 

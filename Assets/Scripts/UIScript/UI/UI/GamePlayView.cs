@@ -16,9 +16,13 @@ public class GamePlayView : BaseView, IPointerClickHandler
     [SerializeField] private Text nextValue;
     [SerializeField] public Text gold_lb;
     [SerializeField] private Text tomato_lb;
+    [SerializeField] private Text bomb_lb;
+    [SerializeField] private Text upgrade_lb;
     [SerializeField] private Text hammerAll_lb;
     [SerializeField] private Animator goldAnim;
     [SerializeField] Button tomato_Btn;
+    [SerializeField] Button bomb_Btn;
+
 
     [HideInInspector]
     public UnityEvent<int> setNextCircleEvent = new UnityEvent<int>();
@@ -41,7 +45,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         tomatoItemEvent = IngameController.instance.tomatoItemEvent;
         tomatoItemEvent.AddListener(TomatoItem);
         bombItemEvent = IngameController.instance.bombItemEvent;
-        bombItemEvent.AddListener(ScoreChange);
+        bombItemEvent.AddListener(BombItem);
         upgradeItemEvent = IngameController.instance.setScoreEvent;
         upgradeItemEvent.AddListener(ScoreChange);
     }
@@ -50,9 +54,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
         setScoreEvent.RemoveListener(ScoreChange);
         setNextCircleEvent.RemoveListener(NextCircleImage);
         tomatoItemEvent.AddListener(TomatoItem);
-        //bombItemEvent.AddListener(ScoreChange);
+        bombItemEvent.AddListener(BombItem);
         //upgradeItemEvent.AddListener(ScoreChange);
-
     }
     public override void OnStartShowView()
     {
@@ -60,6 +63,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         if (tomato_Btn != null)
         {
             tomato_Btn.onClick.AddListener(OnClickTomato);
+            bomb_Btn.onClick.AddListener(OnClickBomb);
         }
     }
     public override void OnStartHideView()
@@ -104,28 +108,10 @@ public class GamePlayView : BaseView, IPointerClickHandler
             IngameController.instance.isPause = true;
         });
     }
-    //private void HammerOneChange()
-    //{
-    //    int total = DataAPIController.instance.GetItemTotal("0");
-
-    //    if (hammerOne_lb.text != total.ToString())
-    //    {
-    //        hammerOne_lb.text = total.ToString();
-    //    };
-    //}
-    //private void HammerAllChange()
-    //{
-    //    int total = DataAPIController.instance.GetItemTotal("1");
-
-    //    if (hammerAll_lb.text != total.ToString())
-    //    {
-    //        hammerAll_lb.text = total.ToString();
-    //    };
-    //}
-    public void NextCircleImage(int id)
+   public void NextCircleImage(int id)
     {
         nextBlock.transform.DOScale(0.1f, 0);
-        Tween tween = nextBlock.transform.DOScale(0.5f, 0.25f);
+        Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
         var name = EndlessLevel.Instance.GetSpriteName(id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
@@ -135,7 +121,12 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void OnClickBomb()
     {
-      
+        int total = DataAPIController.instance.GetItemTotal("1");
+        if (total > 0)
+        {
+            Debug.Log("ON CLICK BOMB ");
+            IngameController.instance.BombItem();
+        }
     }
     public void OnClickTomato()
     {
@@ -150,11 +141,15 @@ public class GamePlayView : BaseView, IPointerClickHandler
     {
 
     }
+    public void BombItem(int i)
+    {
+        bomb_lb.text = i.ToString();
+        EndlessLevel.Instance.UsingBombItem();
+    }
     public void TomatoItem(int i)
     {
         tomato_lb.text = i.ToString();
         EndlessLevel.Instance.UsingTomato();
-
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -164,6 +159,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         {
             // Handle button click
             OnClickTomato();
+            OnClickBomb();
         }
     }
 }

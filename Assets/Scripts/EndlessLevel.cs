@@ -20,18 +20,25 @@ public class EndlessLevel : MonoBehaviour
     public int randomValue;
     public int score;
     private float spawnCooldown = 0.1f;
+    [SerializeField]
+    private bool isBomb = false;
+    [SerializeField]
+    private bool isUpgrade = false;
     [SerializeField]private List<CircleObject> _circles ;
     [SerializeField] private List<CircleObject> _sortedTest;
 
     [HideInInspector]
     public  List<CircleObject> _Circles { get { return _circles; }}
+    public bool IsBomb { get { return isBomb; }}
+    public bool IsUpgrade { get { return isUpgrade; }}
     public void AddCircle(CircleObject item)
     {
         _Circles.Add(item);
     }
     public void RemoveCircle(CircleObject item)
     {
-        _Circles.Find(item=> _circles.Remove(item));
+      var find = _Circles.Find(c => c == item);
+        _circles.Remove(find);
     }
     // Start is called before the first frame update
     private void Awake()
@@ -183,7 +190,34 @@ public class EndlessLevel : MonoBehaviour
         _sortedTest = below3;
         return below3;
     }
-
+    public void UsingBombItem()
+    {
+        Player.instance.canDrop = false;
+        isBomb = true;
+        EnableTargetCircles();
+    }
+    public void AfterUsingBombItem()
+    {
+        Player.instance.canDrop = true;
+        isBomb = false;
+        EnableTargetCircles();
+    }
+    public void EnableTargetCircles()
+    {
+        Debug.Log("EnableTargetCircles");
+        foreach (var c in _circles)
+        {
+            c.EnableTarget();
+        }
+    }
+    public void DisableTargetCircles()
+    {
+        Debug.Log("EnableTargetCircles");
+        foreach (var c in _circles)
+        {
+            c.DisableTarget();
+        }
+    }
     public static void BubbleSortCircle(List<CircleObject> circles)
     {
         int n = circles.Count;
@@ -201,7 +235,6 @@ public class EndlessLevel : MonoBehaviour
             }
         }
     }
-
     public void Clear()
     {
         level = 1;

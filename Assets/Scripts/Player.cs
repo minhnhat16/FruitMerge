@@ -9,7 +9,7 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     public bool canDrop = false;
     public Vector2 spawnPoint;
     public CircleObject mainCircle;
-    private float dropCoolDown;
+    [SerializeField] private float dropCoolDown;
     [SerializeField] private SpriteRenderer _render;
     [SerializeField] private LineRenderer _lineRenderer;
     public Vector3 Pos { get { return transform.position; } }
@@ -22,7 +22,8 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     // Start is called before the first frame update
     void Start()
     {
-        dropCoolDown = 0.5f;
+        dropCoolDown = 0.25f;
+        canDrop = true;
     }
 
     // Update is called once per frame
@@ -66,9 +67,8 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     }
     IEnumerator DropCircle()
     {
-        if (Input.GetMouseButtonDown(0) && !canDrop && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0) &&!EventSystem.current.IsPointerOverGameObject())
         {
-            canDrop = true;
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0) && canDrop && mainCircle != null &&!EventSystem.current.IsPointerOverGameObject())
@@ -76,19 +76,19 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
 
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
             mainCircle.transform.position = new Vector3(gameObject.transform.position.x, 7.75f);
-            yield return new WaitForSeconds(dropCoolDown);
-
+          
         }
         else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)
         {
+            canDrop = false;
             //Debug.Log("Release mouse button");
             mainCircle.GotoState(mainCircle.Drop);
             EndlessLevel.Instance.intQueue.Remove(EndlessLevel.Instance.intQueue[0]);
             EndlessLevel.Instance.main = null;
             EndlessLevel.Instance.RandomCircle();
-            EndlessLevel.Instance.AddCircle(mainCircle);
             IngameController.instance.FirstCircle();
-            canDrop = false;
+            yield return new WaitForSeconds(dropCoolDown);
+            canDrop = true;
         }
     }
 }

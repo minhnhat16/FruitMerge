@@ -124,4 +124,9 @@ public class IngameController : MonoBehaviour
         Debug.Log("TOMATO ITEM ");
         tomatoItemEvent?.Invoke(total);
     }
+    public void BombItem()
+    {
+        int total = DataAPIController.instance.GetItemTotal("1");
+        bombItemEvent?.Invoke(total);
+    }
 }
