@@ -33,12 +33,12 @@ public class TargetRender : MonoBehaviour
 
     public void EnableTarget()
     {
-        Debug.Log("ENABLE TARGET");
+        //Debug.Log("ENABLE TARGET");
         gameObject.SetActive(true);
     }
     public void DisableTarget()
     {
-        Debug.Log("ENABLE TARGET");
+        //Debug.Log("DISABLE TARGET");
         gameObject.SetActive(false);
     }
 }

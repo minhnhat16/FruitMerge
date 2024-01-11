@@ -173,8 +173,12 @@ public class EndlessLevel : MonoBehaviour
         sortedCircles = CirclesBelow3(sortedCircles);
         foreach( var c in sortedCircles)
         {
-            RemoveCircle(c);
-            c.RemoveCircle();
+            if (c != main)
+            {
+                RemoveCircle(c);
+                c.RemoveCircle();
+            }
+          
         }
     }
     public  List<CircleObject> CirclesBelow3(List<CircleObject> circles)
@@ -196,26 +200,42 @@ public class EndlessLevel : MonoBehaviour
         isBomb = true;
         EnableTargetCircles();
     }
+    public void UsingUpgradeItem()
+    {
+        Player.instance.canDrop = false;
+        isUpgrade = true;
+        EnableTargetCircles();
+    }
+
     public void AfterUsingBombItem()
     {
         Player.instance.canDrop = true;
         isBomb = false;
-        EnableTargetCircles();
+        DisableTargetCircles();
+    }
+    public void AfterUpgradeItem()
+    {
+        Player.instance.canDrop = false;
+        isUpgrade = false;
+        DisableTargetCircles();
     }
     public void EnableTargetCircles()
     {
-        Debug.Log("EnableTargetCircles");
-        foreach (var c in _circles)
+        //Debug.Log("EnableTargetCircles");
+        if (_circles == null) return;
+        for (int i  = 0; i  <_circles.Count -1; i++)
         {
-            c.EnableTarget();
+            _circles[i].EnableTarget();
         }
+      
     }
     public void DisableTargetCircles()
     {
-        Debug.Log("EnableTargetCircles");
-        foreach (var c in _circles)
+        //Debug.Log("DisableTargetCircles");
+        if (_circles == null) return;
+        for (int i = 0; i < _circles.Count - 1; i++)
         {
-            c.DisableTarget();
+            _circles[i].DisableTarget();
         }
     }
     public static void BubbleSortCircle(List<CircleObject> circles)

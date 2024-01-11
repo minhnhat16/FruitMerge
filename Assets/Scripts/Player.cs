@@ -67,22 +67,22 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     }
     IEnumerator DropCircle()
     {
-        if (Input.GetMouseButtonDown(0) &&!EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0) )
         {
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        else if (Input.GetMouseButton(0) && canDrop && mainCircle != null &&!EventSystem.current.IsPointerOverGameObject())
+        else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
         {
 
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
             mainCircle.transform.position = new Vector3(gameObject.transform.position.x, 7.75f);
           
         }
-        else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)
+        else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null )
         {
             canDrop = false;
             //Debug.Log("Release mouse button");
-            mainCircle.GotoState(mainCircle.Drop);
+            mainCircle.GotoState(mainCircle.Drop);  
             EndlessLevel.Instance.intQueue.Remove(EndlessLevel.Instance.intQueue[0]);
             EndlessLevel.Instance.main = null;
             EndlessLevel.Instance.RandomCircle();

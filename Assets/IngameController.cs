@@ -120,13 +120,18 @@ public class IngameController : MonoBehaviour
     }
     public void TomatoItem()
     {
-        int total = DataAPIController.instance.GetItemTotal("0");
+        int tomato = DataAPIController.instance.GetItemTotal("0");
         Debug.Log("TOMATO ITEM ");
-        tomatoItemEvent?.Invoke(total);
+        tomatoItemEvent?.Invoke(tomato);
     }
     public void BombItem()
     {
-        int total = DataAPIController.instance.GetItemTotal("1");
-        bombItemEvent?.Invoke(total);
+        int bomb = DataAPIController.instance.GetItemTotal("1");
+        bombItemEvent?.Invoke(bomb);
+    }
+    public void UpgradeItem()
+    {
+        int upgrade = DataAPIController.instance.GetItemTotal("2");
+        bombItemEvent?.Invoke(upgrade);
     }
 }

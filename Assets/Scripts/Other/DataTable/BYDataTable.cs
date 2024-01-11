@@ -49,7 +49,7 @@ public  class ConfigCompare<T> : IComparer<T> where T : class, new()
     public  T SetValueSearch(params object[] value)
     {
         T key = new T();
-        Debug.Log("SetValueSearch" + value);
+        //Debug.Log("SetValueSearch" + value);
         for (int i = 0; i < value.Length; i++)
         {
             keyInfos[i].SetValue(key, value[i]);
@@ -146,7 +146,7 @@ public abstract class BYDataTable<T> : BYDataBase where T : class, new()
     {
         T objectkey = configCompare.SetValueSearch(key); 
         int index = records.BinarySearch(objectkey, configCompare);
-        Debug.Log("OBJECT KEY" + objectkey);
+        //Debug.Log("OBJECT KEY" + objectkey);
         if (index >= 0 && index < records.Count)
             return records[index];
         else

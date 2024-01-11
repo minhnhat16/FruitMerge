@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,9 +19,9 @@ public class GamePlayView : BaseView, IPointerClickHandler
     [SerializeField] private Text upgrade_lb;
     [SerializeField] private Text hammerAll_lb;
     [SerializeField] private Animator goldAnim;
-    [SerializeField] Button tomato_Btn;
-    [SerializeField] Button bomb_Btn;
-
+    [SerializeField] Toggle tomato_Btn;
+    [SerializeField] Toggle bomb_Btn;
+    [SerializeField] Toggle upgrade_Btn;
 
     [HideInInspector]
     public UnityEvent<int> setNextCircleEvent = new UnityEvent<int>();
@@ -48,6 +47,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         bombItemEvent.AddListener(BombItem);
         upgradeItemEvent = IngameController.instance.setScoreEvent;
         upgradeItemEvent.AddListener(ScoreChange);
+    
     }
     private void OnDisable()
     {
@@ -60,11 +60,9 @@ public class GamePlayView : BaseView, IPointerClickHandler
     public override void OnStartShowView()
     {
         base.OnStartShowView();
-        if (tomato_Btn != null)
-        {
-            tomato_Btn.onClick.AddListener(OnClickTomato);
-            bomb_Btn.onClick.AddListener(OnClickBomb);
-        }
+        //tomato_Btn.onValueChanged.AddListener(OnClickTomato);
+        //bomb_Btn.onValueChanged.AddListener(OnClickBomb);
+        //upgrade_Btn.onValueChanged.AddListener(OnClickUpgrade);
     }
     public override void OnStartHideView()
     {
@@ -80,7 +78,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     private void Update()
     {
-     
+
     }
     public void ShowGoldAnim(int gold)
     {
@@ -90,7 +88,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
 
         _curGold = _changeGold;
         Debug.LogWarning("GOLD SHOW ANIM");
-        goldAnim.gameObject.SetActive(true) ;
+        goldAnim.gameObject.SetActive(true);
         goldAnim.Play("GoldAddShow");
         gold_lb.text = gold.ToString();
 
@@ -108,43 +106,76 @@ public class GamePlayView : BaseView, IPointerClickHandler
             IngameController.instance.isPause = true;
         });
     }
-   public void NextCircleImage(int id)
+    public void NextCircleImage(int id)
     {
         nextBlock.transform.DOScale(0.1f, 0);
         Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
         var name = EndlessLevel.Instance.GetSpriteName(id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
-        tween.OnComplete(() => {
+        tween.OnComplete(() =>
+        {
             tween?.Kill();
         });
     }
-    public void OnClickBomb()
+
+    public void OnClickTomato(bool isOn)
     {
-        int total = DataAPIController.instance.GetItemTotal("1");
-        if (total > 0)
-        {
-            Debug.Log("ON CLICK BOMB ");
-            IngameController.instance.BombItem();
-        }
-    }
-    public void OnClickTomato()
-    {
+
         int total = DataAPIController.instance.GetItemTotal("0");
-        if (total > 0)
+        bomb_Btn.isOn = isOn;
+        upgrade_Btn.isOn = isOn;
+        if (total > 0 && EndlessLevel.Instance._Circles.Count != 0 && isOn)
         {
             Debug.Log("ON CLICK TOMATO ");
             IngameController.instance.TomatoItem();
         }
+        else
+        {
+          
+            return;
+        }
     }
-    public void OnClickUpgrade()
+    public void OnClickBomb(bool isOn)
     {
-
+        int total = DataAPIController.instance.GetItemTotal("1");
+        tomato_Btn.isOn = isOn;
+        upgrade_Btn.isOn = isOn;
+        if (total > 0 && EndlessLevel.Instance._Circles.Count != 0 && isOn)
+        {
+            Debug.Log("ON CLICK BOMB ");
+            IngameController.instance.BombItem();
+        }
+        else
+        {
+            
+            return;
+        }
+    }
+    public void OnClickUpgrade(bool isOn)
+    {
+        int total = DataAPIController.instance.GetItemTotal("2");
+        tomato_Btn.isOn = isOn;
+        bomb_Btn.isOn = isOn;
+        if (total > 0 && EndlessLevel.Instance._Circles.Count != 0 && isOn)
+        {
+            Debug.Log("ON CLICK TOMATO ");
+            IngameController.instance.UpgradeItem();
+        }
+        else
+        {
+            return;
+        }
     }
     public void BombItem(int i)
     {
         bomb_lb.text = i.ToString();
         EndlessLevel.Instance.UsingBombItem();
+    }
+    public void UpgradeItem(int i)
+    {
+        upgrade_lb.text = i.ToString();
+        EndlessLevel.Instance.UsingUpgradeItem();
     }
     public void TomatoItem(int i)
     {
@@ -153,13 +184,22 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Check if the mouse is over the button and not interacting with the specified game object
-        if (eventData.pointerCurrentRaycast.gameObject == tomato_Btn.gameObject /*&&
-            eventData.pointerPress != GetComponent<Player>()*/)
+        // Check if the mouse is over the toggle
+        if (eventData.pointerCurrentRaycast.gameObject == tomato_Btn.gameObject)
         {
-            // Handle button click
-            OnClickTomato();
-            OnClickBomb();
+            // Handle toggle click
+            OnClickTomato(tomato_Btn.isOn);
+        }
+        else if (eventData.pointerCurrentRaycast.gameObject == bomb_Btn.gameObject)
+        {
+            // Handle toggle click
+            OnClickBomb(bomb_Btn.isOn);
+        }
+        else if (eventData.pointerCurrentRaycast.gameObject == upgrade_lb.gameObject)
+        {
+            // Handle toggle click
+            OnClickUpgrade(upgrade_Btn.isOn);
         }
     }
+
 }

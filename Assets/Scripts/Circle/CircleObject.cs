@@ -108,8 +108,11 @@ public class CircleObject : FSMSystem
     public void ClaimPosition()
     {
         float x = transform.position.x;
-        x = Mathf.Clamp(x, CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
-        transform.position = new Vector3(x, transform.position.y);
+        if(CameraMain.instance.main != null)
+        {
+            x = Mathf.Clamp(x, CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
+            transform.position = new Vector3(x, transform.position.y);
+        }
     }
     public virtual void SwitchCircleOption(CircleObject otherCircle)
     {
@@ -236,7 +239,10 @@ public class CircleObject : FSMSystem
     public void DisableTarget()
     {
         isBeingTarget = false;
-        targetRender.DisableTarget();
+        targetRender.transform.DOScale(0f, 0.15f).OnComplete(() =>
+        {
+            targetRender.DisableTarget();
+        });
     }
     public void SetRigidBodyVelocity(Vector3 vl)
     {
@@ -257,7 +263,12 @@ public class CircleObject : FSMSystem
     public void DeSpawnOnBomb(Action callback)
     {
         EndlessLevel.Instance.RemoveCircle(this);
-        gameObject.SetActive(false);
+        transform.DOScale(0, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+            callback?.Invoke();
+        });
+       
     }
     private void OnMouseDown()
     {
@@ -268,7 +279,7 @@ public class CircleObject : FSMSystem
                 Debug.Log("CLICKED ON BOMB");
                 DeSpawnOnBomb(() =>
                 {
-                    EndlessLevel.Instance.DisableTargetCircles();
+                    EndlessLevel.Instance.AfterUsingBombItem();
                 });
             }
             else if(EndlessLevel.Instance.IsUpgrade)
