@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -78,19 +77,19 @@ public class CircleObject : FSMSystem
         ClaimPosition();
         StartCoroutine(ResetMerge());
     }
+    public void SetRotation(Vector3 rotate)
+    {
+        transform.rotation = new Quaternion(rotate.x, rotate.y, rotate.z, 0);
+    }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        //ContactPoint2D[] contacts = collision.contacts;
-        //for each (ContactPoint2D contact in contacts)
-        //{
-        if (/*contact.collider.*/collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
+        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
         {
             instanceID = Time.time;
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
 
-            if (isMerged || otherCircle.isMerged)
-                return;
-            contactCircle = collision.gameObject.GetComponentInParent<CircleObject>();
+            if (isMerged || otherCircle.isMerged) return;
+            contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
             return;
         }
@@ -102,13 +101,13 @@ public class CircleObject : FSMSystem
     }
     IEnumerator ResetMerge()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         isMerged = false;
     }
     public void ClaimPosition()
     {
         float x = transform.position.x;
-        if(CameraMain.instance.main != null)
+        if (CameraMain.instance.main != null)
         {
             x = Mathf.Clamp(x, CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
             transform.position = new Vector3(x, transform.position.y);
@@ -118,9 +117,15 @@ public class CircleObject : FSMSystem
     {
 
 
-        if (typeID == 11) return; //return when reach maximum
+        if (typeID == 11)
+        {
+            otherCircle.RemoveCircle();
+            RemoveCircle();
+            return; //return when reach maximum
+        }
         if (typeID != contactCircle.GetComponent<CircleObject>().typeID)
         {
+            contactCircle = null;
             return;
         }
         else
@@ -141,7 +146,7 @@ public class CircleObject : FSMSystem
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, GetComponentInChildren<CircleCollider2D>().radius);
         foreach (Collider2D col in hits)
         {
-            if (col.gameObject != this.gameObject)
+            if (col.gameObject != gameObject)
             {
                 Rigidbody2D rb = col.GetComponent<Rigidbody2D>();
                 if (rb != null)
@@ -158,19 +163,24 @@ public class CircleObject : FSMSystem
     {
         int t = typeID + 1;
         tween = col.transform.DOMove(transform.position, 0.2f);
-        tween.OnComplete(() => tween?.Kill());
+        tween.OnComplete(() =>
+        {
+            EndlessLevel.Instance.RemoveCircle(col.GetComponent<CircleObject>());
+            EndlessLevel.Instance.RemoveCircle(this);
+            col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
+            tween?.Kill();
+        });
         Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
-
         yield return new WaitForSeconds(0.25f);
-        EndlessLevel.Instance.RemoveCircle(col.GetComponent<CircleObject>());
-        EndlessLevel.Instance.RemoveCircle(this);
-        
+      
+
         col.SetActive(false);
         gameObject.SetActive(false);
         var c = CirclePool.instance.pool.SpawnNonGravity();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
+
         c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID - 1);
         c.col.GetComponent<CircleCollider2D>().radius = c.record.Radius;
         c.mergeVfx.GetComponent<ParticleSystem>().Play();
@@ -183,22 +193,20 @@ public class CircleObject : FSMSystem
     }
     public void SpawnCircle(int i)
     {
-        //Debug.Log("Spawn Circle" + type.spriteType[i - 1] + " " + type.scale[i - 1]);
-        //int i = intQueue.Dequeue();
         instanceID = 0;
-        //spriteRenderer.sprite = type.spriteType[i - 1];
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(i);
-        //Debug.Log("RECORD ID" + record.ID);
+        DisableTarget();
         SetSpriteByID(record.ID);
         spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
         EndlessLevel.Instance.AddCircle(this);
-
+        isDropping = false;
         tween = transform.DOScale(record.Scale, 0.25f);
-        tween.OnComplete(()=>tween?.Kill());
+        tween.OnComplete(() => tween?.Kill());
     }
     public void RemoveCircle()
     {
         mergeVfx.GetComponent<ParticleSystem>().Play();
+        Reset();
         CirclePool.instance.pool.DeSpawnNonGravity(this);
     }
     public void DropMergeStartCoroutine()
@@ -230,7 +238,7 @@ public class CircleObject : FSMSystem
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(TypeID);
         col.GetComponent<CircleCollider2D>().radius = record.Radius;
     }
-    
+
     public void EnableTarget()
     {
         isBeingTarget = true;
@@ -268,7 +276,16 @@ public class CircleObject : FSMSystem
             gameObject.SetActive(false);
             callback?.Invoke();
         });
-       
+
+    }
+    private void Reset()
+    {
+        instanceID = 0;
+        isBeingTarget = false;
+        isDropping = false;
+        isMerged = false;
+        contactCircle = null;
+        typeID = 0;
     }
     private void OnMouseDown()
     {
@@ -282,11 +299,11 @@ public class CircleObject : FSMSystem
                     EndlessLevel.Instance.AfterUsingBombItem();
                 });
             }
-            else if(EndlessLevel.Instance.IsUpgrade)
+            else if (EndlessLevel.Instance.IsUpgrade)
             {
                 Debug.Log("CLICKED ON UPGRADE");
                 SpawnCircle(TypeID + 1);
-                    EndlessLevel.Instance.AfterUpgradeItem();
+                EndlessLevel.Instance.AfterUpgradeItem();
 
             }
         }

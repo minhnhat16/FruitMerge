@@ -26,7 +26,7 @@ public class BaseDialog : MonoBehaviour
     {
         baseDialogAnim.ShowDialogAnimation(() =>
         {
-            Debug.Log("Show Dialog anim");
+            //Debug.Log("Show Dialog anim");
             OnStartShowDialog();
             callback?.Invoke();
             OnEndShowDialog();
@@ -37,7 +37,7 @@ public class BaseDialog : MonoBehaviour
     {
         baseDialogAnim.HideDialogAnimation(() =>
         {
-            Debug.Log("Hide dialog anim");
+            //Debug.Log("Hide dialog anim");
             OnStartHideDialog();
             callback?.Invoke();
             OnEndHideDialog();

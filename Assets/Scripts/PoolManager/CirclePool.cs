@@ -10,6 +10,6 @@ public class CirclePool : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        pool = new BY_Local_Pool<CircleObject>(prefab, 500, this.transform);
+        pool = new BY_Local_Pool<CircleObject>(prefab, 200, this.transform);
     }
 }

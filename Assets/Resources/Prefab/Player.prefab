@@ -157,7 +157,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_Positions:
   - {x: 0, y: 0.5, z: 0}
   - {x: 0, y: -10, z: 0}
@@ -269,5 +269,6 @@ MonoBehaviour:
   canDrop: 0
   spawnPoint: {x: 0, y: 0}
   mainCircle: {fileID: 0}
+  dropCoolDown: 0
   _render: {fileID: 956752078171109762}
   _lineRenderer: {fileID: 620834657546224542}

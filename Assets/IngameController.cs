@@ -78,7 +78,7 @@ public class IngameController : MonoBehaviour
         var p = FindObjectOfType<Player>();
         if(p == null)
         {
-            p = Instantiate(player, transform.parent).GetComponent<Player>();
+            p = Instantiate(player, transform).GetComponent<Player>();
             player = p.gameObject;
         }
     }
@@ -87,7 +87,7 @@ public class IngameController : MonoBehaviour
         var w = FindObjectOfType<WallScript>();
         if(w == null)
         {
-            wall = Instantiate(wall, transform.parent);
+            wall = Instantiate(wall,transform);
            
         }
         wall.gameObject.SetActive(true);
@@ -97,7 +97,7 @@ public class IngameController : MonoBehaviour
         var l = FindObjectOfType<EndlessLevel>();
         if (l == null)
         {
-            Level = Instantiate(Level, transform.parent);
+            Level = Instantiate(Level, transform);
         }
     }
     public void PauseGame()

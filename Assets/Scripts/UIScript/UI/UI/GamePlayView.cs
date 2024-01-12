@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NaughtyAttributes.Test;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -72,6 +73,10 @@ public class GamePlayView : BaseView, IPointerClickHandler
         onTomato = false;
         onBomb = false;
         onUpgrade = false;
+
+        tomato_lb.text = DataAPIController.instance.GetItemTotal("0").ToString();
+        bomb_lb.text = DataAPIController.instance.GetItemTotal("1").ToString();
+        upgrade_lb.text = DataAPIController.instance.GetItemTotal("2").ToString();
         //tomato_Btn.onValueChanged.AddListener(OnClickTomato);
         //bomb_Btn.onValueChanged.AddListener(OnClickBomb);
         //upgrade_Btn.onValueChanged.AddListener(OnClickUpgrade);
@@ -153,7 +158,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         {
             CancelItem(false) ;
         }
-        else
+        else if(onTomato && onUpgrade && onBomb) {  }
         {
             ItemConfirmParam param = new();
             param.type = type;
@@ -172,24 +177,47 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void CancelItem(bool onUse)
     {
-        onTomato = false;
-        onUpgrade = false;
-        onBomb = false;
+        onTomato = onUse;
+        onUpgrade = onUse;
+        onBomb = onUse;
+        Player.instance.canDrop = true;
+        EndlessLevel.Instance.DisableTargetCircles();
     }
     public void OnClickTomato()
     {
-        onTomato = true;
-        ItemUsing(0);
+        onTomato = !onTomato;
+        if(onTomato == false)
+        {
+            CancelItem(false);
+        }
+        else
+        {
+            ItemUsing(0);
+        }
     }
     public void OnClickBomb()
     {
-        onBomb = true;
+        onBomb = !onBomb;
+        if (onBomb == false)
+        {
+            CancelItem(false);
+        }
+        else
+        {
         ItemUsing(1);
+        }
     }
     public void OnClickUpgrade()
     {
-        onUpgrade = true;
-        ItemUsing(2);
+        onUpgrade = !onUpgrade;
+        if (onUpgrade == false)
+        {
+            CancelItem(false);
+        }
+        else
+        {
+            ItemUsing(2);
+        }
     }
     public void BombItem(int i)
     {
