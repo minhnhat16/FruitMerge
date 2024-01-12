@@ -1,3 +1,4 @@
+using NaughtyAttributes.Test;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         //Debug.Log($"camera top{CameraMain.instance.GetTop() - 2f} " +
         //    $" point {point.x}");
-        if (point.y > CameraMain.instance.GetTop() - 2f || point.y < CameraMain.instance.GetBottom() + 2f)
+        if (point.y > CameraMain.instance.GetTop() - 2f || point.y < CameraMain.instance.GetBottom() + 2f )
         {
             return false;
         }

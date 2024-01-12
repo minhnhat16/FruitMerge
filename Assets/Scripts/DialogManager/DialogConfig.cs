@@ -11,6 +11,7 @@ public enum DialogIndex
     WinDialog = 3,
     ReviveDialog =4,
     BuyConfirmDialog = 5,
+    ItemConfirmDialog = 6,
 }
 
 public class DialogParam { }
@@ -58,7 +59,11 @@ public class LevelConfirm : DialogParam
 {
     public string levelnum;
 }
-
+public class ItemConfirmParam : DialogParam 
+{
+    public int type;
+    public string name;
+}
 public class DialogConfig
 {
     public static DialogIndex[] dialogArray = {
@@ -68,5 +73,7 @@ public class DialogConfig
         DialogIndex.WinDialog,
         DialogIndex.ReviveDialog,
         DialogIndex.BuyConfirmDialog,
+        DialogIndex.ItemConfirmDialog,
+
     };
 }

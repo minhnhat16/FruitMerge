@@ -31,6 +31,8 @@ public class IngameController : MonoBehaviour
     public UnityEvent<int> bombItemEvent = new UnityEvent<int>();
     [HideInInspector]
     public UnityEvent<int> upgradeItemEvent = new UnityEvent<int>();
+    [HideInInspector]
+    public UnityEvent<bool> cancleItemEvent = new UnityEvent<bool>();
     private void OnEnable()
     {
         
@@ -121,17 +123,23 @@ public class IngameController : MonoBehaviour
     public void TomatoItem()
     {
         int tomato = DataAPIController.instance.GetItemTotal("0");
-        Debug.Log("TOMATO ITEM ");
+        tomato -= 1;
+        DataAPIController.instance.SetItemTotal("0", tomato);
         tomatoItemEvent?.Invoke(tomato);
     }
     public void BombItem()
     {
         int bomb = DataAPIController.instance.GetItemTotal("1");
-        bombItemEvent?.Invoke(bomb);
+       bombItemEvent?.Invoke(bomb);
     }
     public void UpgradeItem()
     {
         int upgrade = DataAPIController.instance.GetItemTotal("2");
-        bombItemEvent?.Invoke(upgrade);
+
+        upgradeItemEvent?.Invoke(upgrade);
+    }
+    public void CancelItem()
+    {
+        cancleItemEvent?.Invoke(false); 
     }
 }

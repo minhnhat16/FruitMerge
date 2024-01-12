@@ -286,6 +286,8 @@ public class CircleObject : FSMSystem
             {
                 Debug.Log("CLICKED ON UPGRADE");
                 SpawnCircle(TypeID + 1);
+                    EndlessLevel.Instance.AfterUpgradeItem();
+
             }
         }
     }

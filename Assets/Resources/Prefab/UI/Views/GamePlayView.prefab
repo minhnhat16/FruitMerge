@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1528036530874519714}
   - component: {fileID: 5954782454262421553}
   - component: {fileID: 1578428195952929674}
-  - component: {fileID: 1503032389391295282}
+  - component: {fileID: 8070686478369414742}
   m_Layer: 5
   m_Name: Bomb
   m_TagString: Untagged
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1503032389391295282
+--- !u!114 &8070686478369414742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 119952588264462157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -194,16 +194,13 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1578428195952929674}
-  toggleTransition: 1
-  graphic: {fileID: 1978584431499832964}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -3336551113069758065}
         m_TargetAssemblyTypeName: GamePlayView, Assembly-CSharp
         m_MethodName: OnClickBomb
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -212,7 +209,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
 --- !u!1 &131813228627122909
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,9 +712,16 @@ MonoBehaviour:
   upgrade_lb: {fileID: 8757710499939229105}
   hammerAll_lb: {fileID: 5242642160144172577}
   goldAnim: {fileID: 1792601179171057751}
-  tomato_Btn: {fileID: 8423888576515872160}
-  bomb_Btn: {fileID: 1503032389391295282}
-  upgrade_Btn: {fileID: 2187924904953866087}
+  tomato_Btn: {fileID: 1278026041310385901}
+  bomb_Btn: {fileID: 8070686478369414742}
+  upgrade_Btn: {fileID: 6200619254166948762}
+  onTomato: 0
+  onBomb: 0
+  onUpgrade: 0
+  exit_img:
+  - {fileID: 7287672332795910431}
+  - {fileID: 2141785047853173023}
+  - {fileID: 1978584431499832964}
   setNextCircleEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -745,7 +748,7 @@ GameObject:
   - component: {fileID: 1053522652875688384}
   - component: {fileID: 3354634101183468636}
   - component: {fileID: 8682753039968888484}
-  - component: {fileID: 8423888576515872160}
+  - component: {fileID: 1278026041310385901}
   m_Layer: 5
   m_Name: TomatoDestroyer
   m_TagString: Untagged
@@ -812,7 +815,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8423888576515872160
+--- !u!114 &1278026041310385901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -821,7 +824,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2637600668787447667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -853,16 +856,13 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 8682753039968888484}
-  toggleTransition: 1
-  graphic: {fileID: 2141785047853173023}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -3336551113069758065}
         m_TargetAssemblyTypeName: GamePlayView, Assembly-CSharp
         m_MethodName: OnClickTomato
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -871,7 +871,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
 --- !u!1 &3797748425456246370
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,7 +882,7 @@ GameObject:
   - component: {fileID: 907932577846648251}
   - component: {fileID: 7507261676906158225}
   - component: {fileID: 1135498489266077082}
-  - component: {fileID: 2187924904953866087}
+  - component: {fileID: 6200619254166948762}
   m_Layer: 5
   m_Name: Upgrade
   m_TagString: Untagged
@@ -950,7 +949,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2187924904953866087
+--- !u!114 &6200619254166948762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -959,7 +958,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3797748425456246370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -991,16 +990,13 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1135498489266077082}
-  toggleTransition: 1
-  graphic: {fileID: 7287672332795910431}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -3336551113069758065}
         m_TargetAssemblyTypeName: GamePlayView, Assembly-CSharp
         m_MethodName: OnClickUpgrade
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1009,7 +1005,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
 --- !u!1 &3807615175644688853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,9 +1705,9 @@ RectTransform:
   - {fileID: 2535576111869598919}
   - {fileID: 5021350517762227783}
   - {fileID: 6654912718309832791}
-  - {fileID: 907932577846648251}
   - {fileID: 1053522652875688384}
   - {fileID: 1528036530874519714}
+  - {fileID: 907932577846648251}
   - {fileID: 6177733816220173798}
   - {fileID: 5789456278788721153}
   m_Father: {fileID: 7918432571867840421}
