@@ -155,12 +155,12 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: -1132098503
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0.5, z: 0}
-  - {x: 0, y: -10, z: 0}
+  - {x: 0, y: -0.6, z: 0}
+  - {x: 0, y: -8, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.15
@@ -272,3 +272,4 @@ MonoBehaviour:
   dropCoolDown: 0
   _render: {fileID: 956752078171109762}
   _lineRenderer: {fileID: 620834657546224542}
+  pos: {x: 0, y: 6, z: 0}

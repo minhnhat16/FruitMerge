@@ -24,9 +24,9 @@ public class WallScript : MonoBehaviour
 
             colliders[1].transform.position = new Vector2(CameraMain.instance.GetRight() + 0.5f, 0f);
 
-            colliders[2].transform.position = new Vector2(0f, CameraMain.instance.GetTop() -2f);
+            colliders[2].transform.position = new Vector2(0f, CameraMain.instance.GetTop() -5f);
 
-            colliders[3].transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 1.25f);
+            colliders[3].transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3);
         }
 
     }

@@ -288,6 +288,12 @@ MonoBehaviour:
   upgradeItemEvent:
     m_PersistentCalls:
       m_Calls: []
+  cancleItemEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  gameOverEnvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &337470830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 796424603190720411, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 796424603190720411, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_TagString
@@ -922,19 +928,19 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e3d5e6eaf55b4fb469275d55a852dcfa, type: 3}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_Color.b
-      value: 0.2264151
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_Color.g
-      value: 0.2264151
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_Color.r
-      value: 0.2264151
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_SortingOrder
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8732692112151108031, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_Enabled

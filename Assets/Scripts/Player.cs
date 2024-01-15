@@ -13,12 +13,13 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     [SerializeField] private float dropCoolDown;
     [SerializeField] private SpriteRenderer _render;
     [SerializeField] private LineRenderer _lineRenderer;
-    public Vector3 Pos { get { return transform.position; } }
+    [SerializeField] private Vector3 pos;
+    public Vector3 Pos { get { return pos; } }
     private void Awake()
     {
         instance = this;
         _render = GetComponentInChildren<SpriteRenderer>();
-        transform.position = new Vector3(0, 7.75f);
+         transform.position = pos ;
     }
     // Start is called before the first frame update
     void Start()
@@ -48,15 +49,15 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     private void SetPlayerPosition()
     {
         float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 1, CameraMain.instance.GetRight() - 1);
-        transform.position = new Vector3(x, 7.75f);
+        transform.position = new Vector3(x, pos.y);
         _lineRenderer.SetPosition(0, transform.position);
-        var pos = _lineRenderer.GetPosition(1);
-        _lineRenderer.SetPosition(1, new Vector3(transform.position.x, pos.y));
+        var linePos = _lineRenderer.GetPosition(1);
+        _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
     }
     void MouseDown()
     {
 
-        if (CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause)
+        if (gameObject.activeSelf ==true &&CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause)
         {
             StartCoroutine(DropCircle());
             mainCircle = EndlessLevel.Instance.main;

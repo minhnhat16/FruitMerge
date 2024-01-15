@@ -93,6 +93,21 @@ public class CircleObject : FSMSystem
             SwitchCircleOption(otherCircle);
             return;
         }
+    
+
+    }
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
+        {
+            instanceID = Time.time;
+            CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
+
+            if (isMerged || otherCircle.isMerged) return;
+            contactCircle = otherCircle;
+            SwitchCircleOption(otherCircle);
+            return;
+        }
         else if (collision.gameObject.CompareTag("Topwall") && transform.position.y > 8)
         {
             IngameController.instance.isGameOver = true;
@@ -172,11 +187,10 @@ public class CircleObject : FSMSystem
         });
         Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
         yield return new WaitForSeconds(0.25f);
-      
 
-        col.SetActive(false);
-        gameObject.SetActive(false);
-        var c = CirclePool.instance.pool.SpawnNonGravity();
+        CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
+        CirclePool.instance.pool.DeSpawnNonGravity(this);
+         var c = CirclePool.instance.pool.SpawnNonGravity();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
@@ -274,6 +288,7 @@ public class CircleObject : FSMSystem
         transform.DOScale(0, 0.2f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             gameObject.SetActive(false);
+            CirclePool.instance.pool.DeSpawnNonGravity(this);
             callback?.Invoke();
         });
 

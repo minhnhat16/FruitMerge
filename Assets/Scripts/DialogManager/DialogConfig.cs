@@ -35,9 +35,7 @@ public class ReviveDialogParam : DialogParam
 
 public class LoseDialogParam : DialogParam
 {
-    public int levelNum;
     public int score;
-    public int bestScore;
 }
 
 public class WinDialogParam : DialogParam

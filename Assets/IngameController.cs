@@ -33,6 +33,8 @@ public class IngameController : MonoBehaviour
     public UnityEvent<int> upgradeItemEvent = new UnityEvent<int>();
     [HideInInspector]
     public UnityEvent<bool> cancleItemEvent = new UnityEvent<bool>();
+    [HideInInspector]
+    public UnityEvent<bool> gameOverEnvent = new UnityEvent<bool>();
     private void OnEnable()
     {
         

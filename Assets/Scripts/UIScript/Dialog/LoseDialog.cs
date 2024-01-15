@@ -1,11 +1,20 @@
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
 public class LoseDialog : BaseDialog
 {
+    [SerializeField] private Text score_lb;
+    public override void Setup(DialogParam dialogParam)
+    {
+        base.Setup(dialogParam);
+    }
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
         IngameController.instance.isGameOver = false;
         IngameController.instance.isPause = true;
-        EndlessLevel.Instance.Clear();
+        //EndlessLevel.Instance.Clear();
     }
     public void HomeBtn()
     {
