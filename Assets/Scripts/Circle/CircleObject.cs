@@ -36,7 +36,6 @@ public class CircleObject : FSMSystem
     public bool IsDropping { get { return isDropping; } }
     public bool IsBeingTarget { get { return isBeingTarget; } }
 
-
     public Rigidbody2D RigBody { get { return ridBody; } }
     public CircleObject ContactCircle { get { return contactCircle; } }
     public TargetRender TargetRender { get { return targetRender; } }
@@ -83,7 +82,7 @@ public class CircleObject : FSMSystem
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
+        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false && state != "SpawnState")
         {
             instanceID = Time.time;
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
@@ -141,6 +140,7 @@ public class CircleObject : FSMSystem
         if (typeID != contactCircle.GetComponent<CircleObject>().typeID)
         {
             contactCircle = null;
+            GotoState(Grounded);
             return;
         }
         else
@@ -186,7 +186,7 @@ public class CircleObject : FSMSystem
             tween?.Kill();
         });
         Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
 
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
@@ -225,7 +225,8 @@ public class CircleObject : FSMSystem
     }
     public void DropMergeStartCoroutine()
     {
-        StartCoroutine(DropMergeCooldown());
+        if(gameObject.activeSelf == true) StartCoroutine(DropMergeCooldown());
+
     }
     public IEnumerator DropMergeCooldown()
     {
@@ -292,6 +293,11 @@ public class CircleObject : FSMSystem
             callback?.Invoke();
         });
 
+    }
+    public string GetCurrentState()
+    {
+        string crString = currentState.ToString();
+        return crString;
     }
     private void Reset()
     {

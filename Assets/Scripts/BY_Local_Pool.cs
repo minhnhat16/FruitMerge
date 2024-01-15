@@ -26,7 +26,7 @@ public class BY_Local_Pool<T> where T : MonoBehaviour
 
         }
     }
-    public T SpawnNonGravity()
+    public  T SpawnNonGravity()
     {
         //Debug.Log("SPAWN");
         index++;
@@ -34,7 +34,23 @@ public class BY_Local_Pool<T> where T : MonoBehaviour
         T trans = list[index];
         trans.gameObject.SetActive(true);
         return trans;
-
+    }
+    public  T SpawnNonGravityNext()
+    {
+        index++;
+        if (index >= list.Count) index = 0;
+        T trans = list[index];
+        if(trans.gameObject.activeSelf == true)
+        {
+            index++;
+            trans = SpawnNonGravityNext();
+            return trans;
+        }
+        else
+        {
+            trans.gameObject.SetActive(true);
+            return trans;
+        }
     }
     public T SpawnNonGravityWithIndex(int index)
     {

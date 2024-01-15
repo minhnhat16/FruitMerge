@@ -34,7 +34,7 @@ public class IngameController : MonoBehaviour
     [HideInInspector]
     public UnityEvent<bool> cancleItemEvent = new UnityEvent<bool>();
     [HideInInspector]
-    public UnityEvent<bool> gameOverEnvent = new UnityEvent<bool>();
+    public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
     private void OnEnable()
     {
         
@@ -56,7 +56,6 @@ public class IngameController : MonoBehaviour
   
     public void SetUpIngame()
     {
-        GameOver();
         //backGround.GetComponent<BackGroundInGame>().SetUpBG();
         SetUpPlayer();
         SetUpWall();
@@ -110,10 +109,7 @@ public class IngameController : MonoBehaviour
     {
         Time.timeScale = 1;
     }
-    public void GameOver()
-    {
-        if (isGameOver) DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog);
-    }
+
     public void FirstCircle()
     {
        if(EndlessLevel.Instance.intQueue.Count != 0)
@@ -143,5 +139,9 @@ public class IngameController : MonoBehaviour
     public void CancelItem()
     {
         cancleItemEvent?.Invoke(false); 
+    }
+    public void GameOver()
+    {
+        gameOverEvent?.Invoke(true);
     }
 }

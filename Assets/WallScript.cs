@@ -5,6 +5,8 @@ public class WallScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private List<Collider2D> colliders;
+    [SerializeField] private SpriteRenderer _box;
+
     void Start()
     {
         SetUpCollider();
@@ -19,14 +21,11 @@ public class WallScript : MonoBehaviour
     {
         if (CameraMain.instance != null)
         {
-            
+            _box.size *= GameManager.instance.UIRoot.rate;
             colliders[0].transform.position = new Vector2(CameraMain.instance.GetLeft() - 0.5f, 0f);
-
             colliders[1].transform.position = new Vector2(CameraMain.instance.GetRight() + 0.5f, 0f);
-
-            colliders[2].transform.position = new Vector2(0f, CameraMain.instance.GetTop() -5f);
-
             colliders[3].transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3);
+            colliders[2].transform.position = colliders[3].transform.position + new Vector3(0, 15, 0);
         }
 
     }

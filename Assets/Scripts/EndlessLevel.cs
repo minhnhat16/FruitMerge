@@ -109,32 +109,32 @@ public class EndlessLevel : MonoBehaviour
         {
             case 1:
                 //Debug.Log("IN CASE 1");
-                CircleObject no1 = CirclePool.instance.pool.SpawnNonGravity();
+                CircleObject no1 = CirclePool.instance.pool.SpawnNonGravityNext();
                 no1.SetTypeID(i);
                 return no1;
             case 2:
                 //Debug.Log("IN CASE 2");
-                CircleObject no2 = CirclePool.instance.pool.SpawnNonGravity();
+                CircleObject no2 = CirclePool.instance.pool.SpawnNonGravityNext();
                 no2.SetTypeID(i);
                 return no2;
             case 3:
                 //Debug.Log("IN CASE 3");
-                CircleObject no3 = CirclePool.instance.pool.SpawnNonGravity();
+                CircleObject no3 = CirclePool.instance.pool.SpawnNonGravityNext();
                 no3.SetTypeID(i);
                 return no3;
             case 4:
                 //Debug.Log("IN CASE 4");
-                CircleObject no4 = CirclePool.instance.pool.SpawnNonGravity();
+                CircleObject no4 = CirclePool.instance.pool.SpawnNonGravityNext();
                 no4.SetTypeID(i);
                 return no4;
             case 5:
                 //Debug.Log("IN CASE 4");
-                CircleObject no5 = CirclePool.instance.pool.SpawnNonGravity();
+                CircleObject no5 = CirclePool.instance.pool.SpawnNonGravityNext();
                 no5.SetTypeID(i);
                 return no5;
             case 6:
                 //Debug.Log("IN CASE 4");
-                CircleObject no6 = CirclePool.instance.pool.SpawnNonGravity();
+                CircleObject no6 = CirclePool.instance.pool.SpawnNonGravityNext();
                 no6.SetTypeID(i);
                 return no6;
             default:

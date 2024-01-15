@@ -35,8 +35,8 @@ MonoBehaviour:
     scale: 1.5
     radius: 1.2
   - id: 8
-    scale: 2
-    radius: 1.1
+    scale: 1.6
+    radius: 0.85
   - id: 9
     scale: 2.1
     radius: 1.2

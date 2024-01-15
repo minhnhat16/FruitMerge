@@ -1,10 +1,8 @@
-using NaughtyAttributes.Test;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Player : MonoBehaviour ,   IPointerDownHandler
+public class Player : MonoBehaviour, IPointerClickHandler
 {
     public static Player instance;
     public bool canDrop = false;
@@ -19,7 +17,7 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     {
         instance = this;
         _render = GetComponentInChildren<SpriteRenderer>();
-         transform.position = pos ;
+        transform.position = pos;
     }
     // Start is called before the first frame update
     void Start()
@@ -31,6 +29,7 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
+        pos = transform.position;
         MouseDown();
         SetPlayerPosition();
     }
@@ -39,7 +38,7 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         //Debug.Log($"camera top{CameraMain.instance.GetTop() - 2f} " +
         //    $" point {point.x}");
-        if (point.y > CameraMain.instance.GetTop() - 2f || point.y < CameraMain.instance.GetBottom() + 2f )
+        if (point.y > CameraMain.instance.GetTop() - 2f || point.y < CameraMain.instance.GetBottom() + 2f)
         {
             return false;
         }
@@ -57,34 +56,38 @@ public class Player : MonoBehaviour ,   IPointerDownHandler
     void MouseDown()
     {
 
-        if (gameObject.activeSelf ==true &&CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause)
+        if (CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause)
         {
-            StartCoroutine(DropCircle());
             mainCircle = EndlessLevel.Instance.main;
+            if (mainCircle != null) StartCoroutine(DropCircle());
         }
     }
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        MouseDown();
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+        }
     }
     IEnumerator DropCircle()
     {
-        if (Input.GetMouseButtonDown(0) )
+        yield return new WaitUntil(() => mainCircle != null);
+        if (Input.GetMouseButtonDown(0))
         {
+            mainCircle.SetIsMerge(false);
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
         {
 
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
-            mainCircle.transform.position = new Vector3(gameObject.transform.position.x, 7.75f);
-          
+            mainCircle.transform.position = new Vector3(gameObject.transform.position.x, pos.y);
+
         }
-        else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null )
+        else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)
         {
             canDrop = false;
             //Debug.Log("Release mouse button");
-            mainCircle.GotoState(mainCircle.Drop);  
+            mainCircle.GotoState(mainCircle.Drop);
             EndlessLevel.Instance.intQueue.Remove(EndlessLevel.Instance.intQueue[0]);
             EndlessLevel.Instance.main = null;
             EndlessLevel.Instance.RandomCircle();
