@@ -84,9 +84,8 @@ public class CircleObject : FSMSystem
     {
         if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false && state != "SpawnState")
         {
-            instanceID = Time.time;
+            instanceID = Time.time; 
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
-
             if (isMerged || otherCircle.isMerged) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
@@ -195,7 +194,7 @@ public class CircleObject : FSMSystem
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
 
-        c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID - 1);
+        c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID );
         c.col.GetComponent<CircleCollider2D>().radius = c.record.Radius;
         c.mergeVfx.GetComponent<ParticleSystem>().Play();
         c.transform.SetPositionAndRotation(transform.position, Quaternion.identity);

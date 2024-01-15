@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1485253530810863928}
   - component: {fileID: 8156623892944169765}
-  - component: {fileID: 8732692112151108031}
+  - component: {fileID: 8001149653443402615}
   m_Layer: 0
   m_Name: IngameBG
   m_TagString: Untagged
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 41781004f3540b54396394f4ba3349e1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6a55b7342f0a614b98e9ddc13a45090, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8732692112151108031
+--- !u!114 &8001149653443402615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,6 +94,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 796424603190720411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea2b1919765960c4dae9dbe45ddefabf, type: 3}
+  m_Script: {fileID: 11500000, guid: c15392ce13453ff46ba394f3a48df474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

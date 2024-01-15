@@ -13,6 +13,11 @@ public class Player : MonoBehaviour, IPointerClickHandler
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private Vector3 pos;
     public Vector3 Pos { get { return pos; } }
+    public LineRenderer LineRenderer { get { return _lineRenderer; } }
+    public void SetLineRenderer(LineRenderer line)
+    {
+        this._lineRenderer = line;
+    }
     private void Awake()
     {
         instance = this;
@@ -49,7 +54,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     {
         float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 1, CameraMain.instance.GetRight() - 1);
         transform.position = new Vector3(x, pos.y);
-        _lineRenderer.SetPosition(0, transform.position);
+        _lineRenderer.SetPosition(0, transform.position - new Vector3(0,0.15f));
         var linePos = _lineRenderer.GetPosition(1);
         _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
     }

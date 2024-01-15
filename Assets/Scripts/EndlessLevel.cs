@@ -1,14 +1,8 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.WebSockets;
-using System.Runtime.CompilerServices;
-using UnityEditor.U2D.Aseprite;
-using UnityEditor.XR;
 using UnityEngine;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class EndlessLevel : MonoBehaviour

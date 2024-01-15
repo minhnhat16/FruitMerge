@@ -16,11 +16,10 @@ public class TopWall : MonoBehaviour
         {
             Debug.Log("MergeCircle");
             var circle = collision.GetComponentInParent<CircleObject>();
-            if (circle.GetCurrentState() != "SpawnState")
+            if (circle != null )
             {
                 Debug.Log("TRIGGER COLLIDER ");
-
-                IngameController.instance.GameOver();
+                if(circle.GetCurrentState() != "SpawnState") IngameController.instance.GameOver();
             }
         }
     }
