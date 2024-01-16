@@ -13,7 +13,11 @@ public class ConfigFileManager : MonoBehaviour
     [Header("CSV configs")]
     [SerializeField] private CircleTypeConfig circleConfig;
 
+    [Header("Factory")]
+    [SerializeField] private SoundFactory soundFactory;
+
     public CircleTypeConfig CircleConfig { get => circleConfig; }
+    public SoundFactory SoundFactory { get => soundFactory; }
     private void Awake()
     {
         Instance = this;
@@ -27,9 +31,11 @@ public class ConfigFileManager : MonoBehaviour
 
     IEnumerator WaitInit(Action callback)
     {
-        circleConfig = Resources.Load("Configs/CircleTypeConfig", typeof(ScriptableObject)) as CircleTypeConfig;
+        circleConfig = Resources.Load("Config/CircleTypeConfig", typeof(ScriptableObject)) as CircleTypeConfig;
         yield return new WaitUntil(() => circleConfig != null);
+        soundFactory = Resources.Load("Factory/SoundFactory", typeof(ScriptableObject)) as SoundFactory;
         Debug.Log("(BOOT) // INIT CONFIG DONE");
+        yield return new WaitUntil(() => soundFactory != null);
 
         yield return null;
         callback?.Invoke();

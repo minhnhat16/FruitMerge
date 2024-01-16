@@ -181,15 +181,15 @@ public class CircleObject : FSMSystem
         {
             EndlessLevel.Instance.RemoveCircle(col.GetComponent<CircleObject>());
             EndlessLevel.Instance.RemoveCircle(this);
-            col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
+          
             tween?.Kill();
         });
         Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
         yield return new WaitForSeconds(0.1f);
-
+        col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
-         var c = CirclePool.instance.pool.SpawnNonGravity();
+        var c = CirclePool.instance.pool.SpawnNonGravity();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);

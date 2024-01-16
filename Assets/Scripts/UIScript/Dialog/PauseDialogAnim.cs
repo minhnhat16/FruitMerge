@@ -10,12 +10,14 @@ public class PauseDialogAnim : BaseDialogAnimation
     public override void HideDialogAnimation(Action callback)
     {
         this.callback = callback;
+        Debug.Log("HideDialogAnimation");
         animator.Play("PauseDialogHide");
     }
 
     public override void ShowDialogAnimation(Action callback)
     {
         this.callback = callback;
+        Debug.Log("ShowDialogAnimation");
         animator.Play("PauseDialogShow");
     }
 

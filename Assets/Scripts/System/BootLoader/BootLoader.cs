@@ -12,12 +12,15 @@ public class BootLoader : MonoBehaviour
         gameManager = GetComponentInChildren<GameManager>();
         DataAPIController.instance.InitData(() =>
         {
-            gameManager.SetupGameManager();
-            ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+            ConfigFileManager.Instance.Init(() =>
             {
-                GameManager.instance.LoadIngameSence();
-
+                gameManager.SetupGameManager();
+                ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+                {
+                    GameManager.instance.LoadIngameSence();
+                });
             });
+
         });
     }
     //private void LoadBuffer()

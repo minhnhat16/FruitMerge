@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PauseDialog : BaseDialog
@@ -19,16 +18,16 @@ public class PauseDialog : BaseDialog
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
-                CameraMain.instance.main.gameObject.SetActive(false);
+            CameraMain.instance.main.gameObject.SetActive(false);
 
-                Debug.Log("LOAD SCENE BUFFER FROM QUIT");
-                ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, () =>
-                {
-                    EndlessLevel.Instance.Clear();
-                });
+            Debug.Log("LOAD SCENE BUFFER FROM QUIT");
+            ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, () =>
+            {
+                EndlessLevel.Instance.Clear();
+            });
         });
 
-       
+
 
     }
     public void RestartButton()
@@ -36,7 +35,18 @@ public class PauseDialog : BaseDialog
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
         //GridSystem.instance.Reset();
         //GridSystem.instance.Init();
-        IngameController.instance.isPause = false;
+        EndlessLevel.Instance.Clear();
+        LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
+        {
+            ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+            {
+                EndlessLevel.Instance.LoadLevel(() =>
+                {
+                    IngameController.instance.isPause = false;
+                    IngameController.instance.ResetScore();
+                });
+            });
+        });
     }
     public void CloseBtn()
     {
