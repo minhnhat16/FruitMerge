@@ -8,7 +8,6 @@ public class SoundGameObjPool : MonoBehaviour
     public BY_Local_Pool<SFXGameObj> pool;
     public SFXGameObj prefab;
     public static SoundGameObjPool instance;
-
     private void Awake()
     {
         instance = this;

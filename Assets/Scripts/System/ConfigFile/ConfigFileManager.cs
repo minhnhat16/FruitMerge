@@ -35,6 +35,7 @@ public class ConfigFileManager : MonoBehaviour
         yield return new WaitUntil(() => circleConfig != null);
         soundFactory = Resources.Load("Factory/SoundFactory", typeof(ScriptableObject)) as SoundFactory;
         Debug.Log("(BOOT) // INIT CONFIG DONE");
+        SoundManager.Instance.Init();
         yield return new WaitUntil(() => soundFactory != null);
 
         yield return null;

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CircleObject : FSMSystem
 {
@@ -22,6 +23,8 @@ public class CircleObject : FSMSystem
     [SerializeField] private bool isDropping;
     [SerializeField] private bool isMerged;
     [SerializeField] private bool isBeingTarget;
+    [SerializeField] private bool isSFXPlayed;
+
     public Vector2 force;
 
     [SerializeField]
@@ -35,10 +38,14 @@ public class CircleObject : FSMSystem
     public bool IsMerged { get { return IsMerged; } }
     public bool IsDropping { get { return isDropping; } }
     public bool IsBeingTarget { get { return isBeingTarget; } }
-
+    public bool IsSFXPlayed { get { return isSFXPlayed; } }
     public Rigidbody2D RigBody { get { return ridBody; } }
     public CircleObject ContactCircle { get { return contactCircle; } }
     public TargetRender TargetRender { get { return targetRender; } }
+    public void SetIsSFXPlayed(bool isPFXPlayed)
+    {
+        this.isSFXPlayed = isPFXPlayed;
+    }
     public void SetIsDropping(bool isDropping)
     {
         this.isDropping = isDropping;
@@ -54,6 +61,56 @@ public class CircleObject : FSMSystem
     public void SetTypeID(int typeID)
     {
         this.typeID = typeID;
+    }
+    public void SetSpriteByID(int id)
+    {
+        var spriteName = EndlessLevel.Instance.GetSpriteName(id);
+        spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
+    }
+    public void SetDropVelocity()
+    {
+        fallSpeed = 10f;
+        float currentVelocity = 0f;
+        float newVelocity = Mathf.SmoothDamp(ridBody.velocity.y, fallSpeed, ref currentVelocity, smoothTime);
+
+        // Apply the new velocity to the Rigidbody
+        ridBody.velocity = new Vector2(ridBody.velocity.x, newVelocity);
+
+    }
+    public void SetColliderRadius()
+    {
+        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(TypeID);
+        col.GetComponent<CircleCollider2D>().radius = record.Radius;
+    }
+
+    public void EnableTarget()
+    {
+        isBeingTarget = true;
+        targetRender.EnableTarget();
+    }
+    public void DisableTarget()
+    {
+        isBeingTarget = false;
+        targetRender.transform.DOScale(0f, 0.15f).OnComplete(() =>
+        {
+            targetRender.DisableTarget();
+        });
+    }
+    public void SetRigidBodyVelocity(Vector3 vl)
+    {
+        ridBody.velocity = vl;
+    }
+    public void SetRigidBodyToDynamic()
+    {
+        ridBody.bodyType = RigidbodyType2D.Dynamic;
+    }
+    public void SetAngularVelocity(float vl)
+    {
+        ridBody.angularVelocity = vl;
+    }
+    public void SetRigidBodyToKinematic()
+    {
+        ridBody.bodyType = RigidbodyType2D.Kinematic;
     }
     private void Awake()
     {
@@ -84,14 +141,14 @@ public class CircleObject : FSMSystem
     {
         if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false && state != "SpawnState")
         {
-            instanceID = Time.time; 
+            instanceID = Time.time;
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
             if (isMerged || otherCircle.isMerged) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
             return;
         }
-    
+
 
     }
     public void OnCollisionStay2D(Collision2D collision)
@@ -181,7 +238,7 @@ public class CircleObject : FSMSystem
         {
             EndlessLevel.Instance.RemoveCircle(col.GetComponent<CircleObject>());
             EndlessLevel.Instance.RemoveCircle(this);
-          
+
             tween?.Kill();
         });
         Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
@@ -189,20 +246,36 @@ public class CircleObject : FSMSystem
         col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
+
+        RandomMergeSFX();// MERGE SFX
+
         var c = CirclePool.instance.pool.SpawnNonGravity();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
 
-        c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID );
+        c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID);
         c.col.GetComponent<CircleCollider2D>().radius = c.record.Radius;
-        c.mergeVfx.GetComponent<ParticleSystem>().Play();
+        PlayMergeVFX(c);//play spawn particles
+
         c.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
         c.ridBody.bodyType = RigidbodyType2D.Dynamic;
         PopAroundCircle();
         int score = typeID + c.typeID;
         IngameController.instance.AddScore(score);
         EndlessLevel.Instance.FindLargestType(typeID + 1);
+    }
+    public void PlayMergeVFX(CircleObject circle)
+    {
+        var vfx = circle.mergeVfx.GetComponent<ParticleSystem>();
+        var color = circle.record.Color;
+        SetParticleColor(color, vfx);
+        vfx.Play();
+    }
+    void SetParticleColor(Color color, ParticleSystem particle)
+    {
+        ParticleSystem.MainModule mainModule = particle.main;
+        mainModule.startColor= color;
     }
     public void SpawnCircle(int i)
     {
@@ -224,7 +297,7 @@ public class CircleObject : FSMSystem
     }
     public void DropMergeStartCoroutine()
     {
-        if(gameObject.activeSelf == true) StartCoroutine(DropMergeCooldown());
+        if (gameObject.activeSelf == true) StartCoroutine(DropMergeCooldown());
 
     }
     public IEnumerator DropMergeCooldown()
@@ -232,56 +305,7 @@ public class CircleObject : FSMSystem
         yield return new WaitForSeconds(0.1f);
         isDropping = false;
     }
-    public void SetSpriteByID(int id)
-    {
-        var spriteName = EndlessLevel.Instance.GetSpriteName(id);
-        spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
-    }
-    public void SetDropVelocity()
-    {
-        fallSpeed = 10f;
-        float currentVelocity = 0f;
-        float newVelocity = Mathf.SmoothDamp(ridBody.velocity.y, fallSpeed, ref currentVelocity, smoothTime);
 
-        // Apply the new velocity to the Rigidbody
-        ridBody.velocity = new Vector2(ridBody.velocity.x, newVelocity);
-
-    }
-    public void SetColliderRadius()
-    {
-        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(TypeID);
-        col.GetComponent<CircleCollider2D>().radius = record.Radius;
-    }
-
-    public void EnableTarget()
-    {
-        isBeingTarget = true;
-        targetRender.EnableTarget();
-    }
-    public void DisableTarget()
-    {
-        isBeingTarget = false;
-        targetRender.transform.DOScale(0f, 0.15f).OnComplete(() =>
-        {
-            targetRender.DisableTarget();
-        });
-    }
-    public void SetRigidBodyVelocity(Vector3 vl)
-    {
-        ridBody.velocity = vl;
-    }
-    public void SetRigidBodyToDynamic()
-    {
-        ridBody.bodyType = RigidbodyType2D.Dynamic;
-    }
-    public void SetAngularVelocity(float vl)
-    {
-        ridBody.angularVelocity = vl;
-    }
-    public void SetRigidBodyToKinematic()
-    {
-        ridBody.bodyType = RigidbodyType2D.Kinematic;
-    }
     public void DeSpawnOnBomb(Action callback)
     {
         EndlessLevel.Instance.RemoveCircle(this);
@@ -292,6 +316,39 @@ public class CircleObject : FSMSystem
             callback?.Invoke();
         });
 
+    }
+
+    public void RandomYaySFX(int value)
+    {
+        int positive = Random.Range(0, 50);
+        if (positive == 1 && isSFXPlayed == false)
+        {
+            if (value < 4)
+            {
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.DropCircleSFX);
+                SetIsSFXPlayed(true);
+                return;
+            }
+        }
+    }
+    public void RandomMergeSFX()
+    {
+        int rand = Random.Range(0, 3);
+        switch (rand)
+        {
+            case 0:
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.PopSFX);
+                break;
+            case 1:
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.PopSFX_2);
+                break;
+            case 2:
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.PopSFX_3);
+                break;
+            case 3:
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.PopSFX_4);
+                break;
+        }
     }
     public string GetCurrentState()
     {

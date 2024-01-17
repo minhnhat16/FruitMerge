@@ -10,7 +10,6 @@ public class GroundedState : FSMState<CircleObject>
     public override void OnEnter()
     {
         base.OnEnter();
-
+        sys.RandomYaySFX(sys.TypeID);
     }
-
 }

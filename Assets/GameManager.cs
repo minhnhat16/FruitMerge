@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("LoadIngameSence");
                 ingameController.isPause = false;
                 ingameController.SetUpIngame();
-                SoundManager.Instance.PlayMusic(SoundManager.Music.MainScreenMusic);
+                SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);
             });
 
         });

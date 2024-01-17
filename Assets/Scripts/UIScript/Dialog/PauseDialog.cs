@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseDialog : BaseDialog
 {
-
+    private void OnEnable()
+    {
+    }
     public void PlayButton()
     {
         IngameController.instance.isPause = false;
@@ -26,10 +29,21 @@ public class PauseDialog : BaseDialog
                 EndlessLevel.Instance.Clear();
             });
         });
-
-
+    }
+    public void MusicChange(bool isOn)
+    {
+        SoundManager.Instance.SettingMusicVolume(isOn);
 
     }
+    public void OnMusicChanged(bool isOn)
+    {
+        isOn = !isOn;
+        SoundManager.Instance.SettingMusicVolume(isOn);
+    }
+    public void OnSFXChanged(bool isOn)
+    {
+        SoundManager.Instance.SettingSFXVolume(isOn);
+    }    
     public void RestartButton()
     {
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);

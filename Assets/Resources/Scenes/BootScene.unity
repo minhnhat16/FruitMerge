@@ -384,8 +384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundFactory: {fileID: 0}
   musicObject: {fileID: 482846523}
-  musicSetting: 0
-  sfxSetting: 0
+  musicSetting: 1
+  sfxSetting: 1
 --- !u!81 &337470833
 AudioListener:
   m_ObjectHideFlags: 0
@@ -452,9 +452,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.139
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

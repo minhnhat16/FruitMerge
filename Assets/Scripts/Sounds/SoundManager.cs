@@ -29,7 +29,10 @@ public class SoundManager : MonoBehaviour
     {
         NULL,
         DropCircleSFX,
-        MergeCircleSFX,
+        PopSFX,
+        PopSFX_2,
+        PopSFX_3,
+        PopSFX_4,
         UIClickSFX,
         UIClickSFX_2,
         UIPopSFX
@@ -56,12 +59,10 @@ public class SoundManager : MonoBehaviour
         {
             sfxTimerDictionary.Add(soundFactory.sfxList[i].sfx, soundFactory.sfxList[i].timer);
         }
-
         for (int i = 0; i < soundFactory.sfxList.Count; i++)
         {
             sfxTimerDespawnDictionary.Add(soundFactory.sfxList[i].sfx, soundFactory.sfxList[i].timeToDespawn);
         }
-
         musicSetting = true;
         sfxSetting = true;
     }
@@ -98,7 +99,7 @@ public class SoundManager : MonoBehaviour
                 {
                     return true;
                 }
-            case SFX.MergeCircleSFX:
+            case SFX.PopSFX:
                 if (sfxTimerDictionary.ContainsKey(sfx))
                 {
                     float lastTimePlayed = sfxTimerDictionary[sfx];
@@ -106,6 +107,27 @@ public class SoundManager : MonoBehaviour
 
                     if (lastTimePlayed + mainBackgroundMaxTimer < Time.time)
                     {
+                        sfxTimerDictionary[sfx] = Time.time;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            case SFX.PopSFX_2:
+                if (sfxTimerDictionary.ContainsKey(sfx))
+                {
+                    float lastTimePlayed = sfxTimerDictionary[sfx];
+                    float mainBackgroundMaxTimer = 0.1f;
+
+                    if (lastTimePlayed + mainBackgroundMaxTimer < Time.time)
+                    {
+                        Debug.Log("case SFX.PopSFX_2:");
                         sfxTimerDictionary[sfx] = Time.time;
                         return true;
                     }
@@ -140,9 +162,10 @@ public class SoundManager : MonoBehaviour
             SFXGameObj soundGameObj = SoundGameObjPool.instance.pool.SpawnNonGravity();
             soundGameObj.sfx = sfx;
             AudioSource audioSource = soundGameObj.gameObject.GetComponent<AudioSource>();
+            Debug.Log(soundGameObj.name.ToString());
             SettingSFXVolume(sfxSetting);
             audioSource.PlayOneShot(GetSFXAudioClip(sfx));
-            //Debug.Log("SFX " + sfx + " played!");
+            Debug.Log("SFX " + sfx + " played!");
         }
     }
 
@@ -209,7 +232,7 @@ public class SoundManager : MonoBehaviour
                 return item.audioClip;
             }
         }
-        //Debug.LogError("Music " + music + " not found!");
+        Debug.LogError("Music " + music + " not found!");
         return null;
     }
 
@@ -222,7 +245,7 @@ public class SoundManager : MonoBehaviour
                 return item.audioClip;
             }
         }
-        //Debug.LogError("SFX " + sfx + " not found!");
+        Debug.LogError("SFX " + sfx + " not found!");
         return null;
     }
 }
