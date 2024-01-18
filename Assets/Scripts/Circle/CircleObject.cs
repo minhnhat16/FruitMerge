@@ -146,9 +146,16 @@ public class CircleObject : FSMSystem
             if (isMerged || otherCircle.isMerged) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
+            PlayLandedSFX();
             return;
         }
+        else if (collision.gameObject.CompareTag("Wall") && isDropping == false && state != "SpawnState")
+        {
+            PlayLandedSFX();
+            GotoState(Grounded);
+            return;
 
+        }
 
     }
     public void OnCollisionStay2D(Collision2D collision)
@@ -316,6 +323,10 @@ public class CircleObject : FSMSystem
             callback?.Invoke();
         });
 
+    }
+    public void PlayLandedSFX()
+    {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.LandedSFX);
     }
 
     public void RandomYaySFX(int value)

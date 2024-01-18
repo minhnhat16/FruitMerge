@@ -1,10 +1,37 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PauseDialog : BaseDialog
 {
+    [SerializeField] private bool isMusicOn;
+    [SerializeField] private bool isSFXOn;
+    [SerializeField] private bool isVibOn;
+
+    [SerializeField] private Image musicOn;
+    [SerializeField] private Image musicOff;
+    [SerializeField] private Image sfxOn;
+    [SerializeField] private Image sfxOff;
+    [SerializeField] private Image vibOn;
+    [SerializeField] private Image vibOff;
+
+
+    [HideInInspector]
+    public UnityEvent<bool> musicEvent = new UnityEvent<bool>();
+    [HideInInspector]
+    public UnityEvent<bool> sfxEvent = new UnityEvent<bool>();
+    [HideInInspector]
+    public UnityEvent<bool> vibEvent = new UnityEvent<bool>();
     private void OnEnable()
     {
+        musicEvent.AddListener(MusicChange);
+        sfxEvent.AddListener(SFXChange);
+    }
+    private void OnDisable()
+    {
+        musicEvent.RemoveListener(MusicChange);
+        sfxEvent.RemoveListener(SFXChange);
+
     }
     public void PlayButton()
     {
@@ -32,23 +59,51 @@ public class PauseDialog : BaseDialog
     }
     public void MusicChange(bool isOn)
     {
+        Debug.Log("MUSIC CHANGED" + isOn);
+        SoundManager.Instance.musicSetting = isOn;
         SoundManager.Instance.SettingMusicVolume(isOn);
+        if (isOn)
+        {
 
+            musicOn.gameObject.SetActive(true);
+            musicOff.gameObject.SetActive(false);
+        }
+        else
+        {
+            musicOn.gameObject.SetActive(false);
+            musicOff.gameObject.SetActive(true);
+        }
     }
-    public void OnMusicChanged(bool isOn)
+    public void SFXChange(bool isOn)
     {
-        isOn = !isOn;
-        SoundManager.Instance.SettingMusicVolume(isOn);
-    }
-    public void OnSFXChanged(bool isOn)
-    {
+        Debug.Log("SFX CHANGED" + isOn);
+        SoundManager.Instance.sfxSetting = isOn;
         SoundManager.Instance.SettingSFXVolume(isOn);
+        if (isOn)
+        {
+            sfxOn.gameObject.SetActive(true);
+            sfxOff.gameObject.SetActive(false);
+        }
+        else
+        {
+            sfxOn.gameObject.SetActive(false);
+            sfxOff.gameObject.SetActive(true);
+        }
+    }
+    public void OnMusicChanged()
+    {
+        isMusicOn = !isMusicOn;
+        Debug.Log("OnMusicChanged" + isMusicOn);
+        musicEvent?.Invoke(isMusicOn);
+    }
+    public void OnSFXChanged()
+    {
+        isSFXOn = !isSFXOn;
+        sfxEvent?.Invoke(isSFXOn);
     }    
     public void RestartButton()
     {
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
-        //GridSystem.instance.Reset();
-        //GridSystem.instance.Init();
         EndlessLevel.Instance.Clear();
         LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
         {

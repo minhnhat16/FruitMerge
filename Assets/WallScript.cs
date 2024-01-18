@@ -4,9 +4,13 @@ using UnityEngine;
 public class WallScript : MonoBehaviour
 {
     // Start is called before the first frame update
+    public static WallScript Instance;
     [SerializeField] private List<Collider2D> colliders;
     [SerializeField] private SpriteRenderer _box;
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         SetUpCollider();

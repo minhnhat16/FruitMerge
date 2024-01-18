@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BackGroundInGame : MonoBehaviour
 {
+    public static BackGroundInGame Instance;
+
     // Start is called before the first frame update
     void Start()
     {

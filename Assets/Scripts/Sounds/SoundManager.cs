@@ -29,6 +29,7 @@ public class SoundManager : MonoBehaviour
     {
         NULL,
         DropCircleSFX,
+        LandedSFX,
         PopSFX,
         PopSFX_2,
         PopSFX_3,
@@ -193,12 +194,12 @@ public class SoundManager : MonoBehaviour
 
         if (valid)
         {
-            //Debug.Log("UnMute music");
+            Debug.Log("UnMute music");
             audioSource.volume = 1f;
         }
         else
         {
-            //Debug.Log("mute music");
+            Debug.Log("mute music");
             audioSource.volume = 0f;
         }
     }

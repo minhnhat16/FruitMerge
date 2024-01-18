@@ -27,10 +27,14 @@ public class TopWall : MonoBehaviour
     {
         if (isGameOver)
         {
+            isGameOver = !isGameOver;
             LoseDialogParam param = new ();
             param.score = IngameController.instance.Score;
             DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog, param ,() => {
                 Player.instance.canDrop = false;
+                Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);
+                CirclePool.instance.transform.localScale = scale;
+                WallScript.Instance.transform.localScale = scale;
             }) ;
         }
     }
