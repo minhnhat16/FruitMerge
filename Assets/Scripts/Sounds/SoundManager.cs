@@ -100,6 +100,26 @@ public class SoundManager : MonoBehaviour
                 {
                     return true;
                 }
+            case SFX.LandedSFX:
+                if (sfxTimerDictionary.ContainsKey(sfx))
+                {
+                    float lastTimePlayed = sfxTimerDictionary[sfx];
+                    float mainBackgroundMaxTimer = 0.5f;
+
+                    if (lastTimePlayed + mainBackgroundMaxTimer < Time.time)
+                    {
+                        sfxTimerDictionary[sfx] = Time.time;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
             case SFX.PopSFX:
                 if (sfxTimerDictionary.ContainsKey(sfx))
                 {
@@ -163,13 +183,25 @@ public class SoundManager : MonoBehaviour
             SFXGameObj soundGameObj = SoundGameObjPool.instance.pool.SpawnNonGravity();
             soundGameObj.sfx = sfx;
             AudioSource audioSource = soundGameObj.gameObject.GetComponent<AudioSource>();
-            Debug.Log(soundGameObj.name.ToString());
+            //Debug.Log(soundGameObj.name.ToString());
             SettingSFXVolume(sfxSetting);
             audioSource.PlayOneShot(GetSFXAudioClip(sfx));
-            Debug.Log("SFX " + sfx + " played!");
+            //Debug.Log("SFX " + sfx + " played!");
         }
     }
-
+    public void PlaySFXWithVolume(SFX sfx,float value)
+    {
+        if (CanPlaySFX(sfx))
+        {
+            SFXGameObj soundGameObj = SoundGameObjPool.instance.pool.SpawnNonGravity();
+            soundGameObj.sfx = sfx;
+            AudioSource audioSource = soundGameObj.gameObject.GetComponent<AudioSource>();
+            //Debug.Log(soundGameObj.name.ToString());
+            SettingSFXVolumeWithValue(sfxSetting,value);
+            audioSource.PlayOneShot(GetSFXAudioClip(sfx));
+            //Debug.Log("SFX " + sfx + " played!");
+        }
+    }
     public void StopMusic()
     {
         AudioSource audioSource = musicObject.GetComponent<AudioSource>();
@@ -223,7 +255,25 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
-
+    public void SettingSFXVolumeWithValue(bool valid,float value)
+    {
+        foreach (SFXGameObj obj in SoundGameObjPool.instance.pool.list)
+        {
+            if (obj.sfx != SFX.NULL && obj.gameObject.activeSelf)
+            {
+                if (valid)
+                {
+                    //Debug.Log("UnMute SFX");
+                    obj.GetComponent<AudioSource>().volume = value;
+                }
+                else
+                {
+                    //Debug.Log("Mute SFX");
+                    obj.GetComponent<AudioSource>().volume = 0f;
+                }
+            }
+        }
+    }
     public AudioClip GetMusicAudioClip(Music music)
     {
         foreach (SoundFactory.Music_SFX item in soundFactory.musicList)

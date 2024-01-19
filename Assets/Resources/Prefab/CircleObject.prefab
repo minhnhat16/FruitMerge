@@ -114,6 +114,7 @@ MonoBehaviour:
   isMerged: 0
   isBeingTarget: 0
   isSFXPlayed: 0
+  isLanded: 0
   force: {x: 0, y: 0}
   mergeVfx: {fileID: 4940160233432109780}
   targetRender: {fileID: 5287262052414811461}
@@ -135,7 +136,7 @@ Rigidbody2D:
   m_AngularDrag: 3.5
   m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 6efd3265f933cb849a283a0f9fed83f7, type: 2}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0

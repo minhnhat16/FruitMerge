@@ -13,6 +13,6 @@ public class MergeState : FSMState<CircleObject>
         sys.SetRigidBodyToKinematic();
         sys.SetRigidBodyVelocity(Vector3.zero);
         sys.SetAngularVelocity(0f);
-        sys.StartCoroutine(sys.SpawnNewCircle(sys.ContactCircle.gameObject));
+        sys.StartCoroutine(sys.SpawnNewCircle(sys.ContactCircle));
     }
 }

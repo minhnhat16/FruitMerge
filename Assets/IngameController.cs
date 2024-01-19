@@ -142,6 +142,8 @@ public class IngameController : MonoBehaviour
     }
     public void GameOver()
     {
-        gameOverEvent?.Invoke(true);
+        isGameOver = !isGameOver;
+        Debug.Log("GameOver" + isGameOver);
+        gameOverEvent?.Invoke(isGameOver);
     }
 }

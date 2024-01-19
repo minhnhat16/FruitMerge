@@ -14,12 +14,18 @@ public class TopWall : MonoBehaviour
     {
         if (collision.CompareTag("MergeCircle"))
         {
-            Debug.Log("MergeCircle");
+            //Debug.Log("MergeCircle");
             var circle = collision.GetComponentInParent<CircleObject>();
             if (circle != null )
             {
-                Debug.Log("TRIGGER COLLIDER ");
-                if(circle.GetCurrentState() != "SpawnState") IngameController.instance.GameOver();
+                //Debug.Log("TRIGGER COLLIDER ");
+                if (circle.GetCurrentState() == "GroundedState"
+                    && IngameController.instance.isGameOver == false
+                       /* && circle.transform.position.y == transform.position.y + 0.5f*/)
+                {
+                    //Debug.Log("TRIGGER GAME OVER");
+                    IngameController.instance.GameOver();
+                }
             }
         }
     }
@@ -30,6 +36,7 @@ public class TopWall : MonoBehaviour
             isGameOver = !isGameOver;
             LoseDialogParam param = new ();
             param.score = IngameController.instance.Score;
+            EndlessLevel.Instance.FreezeCircle();
             DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog, param ,() => {
                 Player.instance.canDrop = false;
                 Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);

@@ -52,7 +52,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     }
     private void SetPlayerPosition()
     {
-        float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 1, CameraMain.instance.GetRight() - 1);
+        float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
         transform.position = new Vector3(x, pos.y);
         _lineRenderer.SetPosition(0, transform.position - new Vector3(0,0.15f));
         var linePos = _lineRenderer.GetPosition(1);
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)
         {
             canDrop = false;
+            _lineRenderer.gameObject.SetActive(false);
             //Debug.Log("Release mouse button");
             mainCircle.GotoState(mainCircle.Drop);
             EndlessLevel.Instance.intQueue.Remove(EndlessLevel.Instance.intQueue[0]);
@@ -98,6 +99,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
             EndlessLevel.Instance.RandomCircle();
             IngameController.instance.FirstCircle();
             yield return new WaitForSeconds(dropCoolDown);
+            _lineRenderer.gameObject.SetActive(true);
             canDrop = true;
         }
     }

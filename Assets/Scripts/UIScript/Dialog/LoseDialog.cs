@@ -15,16 +15,14 @@ public class LoseDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        IngameController.instance.isGameOver = false;
         IngameController.instance.isPause = true;
         score_lb.text = param.score.ToString(); 
         //EndlessLevel.Instance.Clear();
     }
     public void HomeBtn()
     {
-
+        IngameController.instance.isGameOver = false;
         DialogManager.Instance.HideAllDialog();
-
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
             ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, () =>
@@ -49,6 +47,7 @@ public class LoseDialog : BaseDialog
                     {
                         
                         IngameController.instance.isPause = false;
+                        IngameController.instance.isGameOver = false;
                         Player.instance.canDrop = true; 
                         IngameController.instance.ResetScore();
                     });

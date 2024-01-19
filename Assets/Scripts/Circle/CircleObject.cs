@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,10 +12,11 @@ public class CircleObject : FSMSystem
     [HideInInspector] public DropState Drop;
     [HideInInspector] public MergeState Merge;
     [HideInInspector] public GroundedState Grounded;
+    [HideInInspector] public DeadState Dead;
     [SerializeField] CircleTypeConfigRecord record;
-    [SerializeField] private Rigidbody2D ridBody;
+    [SerializeField] private Rigidbody2D rigdBody;
     [SerializeField]
-    private CircleCollider2D col;
+    private CircleCollider2D _collider;
     [SerializeField] private CircleObject contactCircle;
     [SerializeField] private int typeID;
     [SerializeField] private float instanceID;
@@ -24,6 +26,7 @@ public class CircleObject : FSMSystem
     [SerializeField] private bool isMerged;
     [SerializeField] private bool isBeingTarget;
     [SerializeField] private bool isSFXPlayed;
+    [SerializeField] private bool isLanded;
 
     public Vector2 force;
 
@@ -39,7 +42,7 @@ public class CircleObject : FSMSystem
     public bool IsDropping { get { return isDropping; } }
     public bool IsBeingTarget { get { return isBeingTarget; } }
     public bool IsSFXPlayed { get { return isSFXPlayed; } }
-    public Rigidbody2D RigBody { get { return ridBody; } }
+    public Rigidbody2D RigBody { get { return rigdBody; } }
     public CircleObject ContactCircle { get { return contactCircle; } }
     public TargetRender TargetRender { get { return targetRender; } }
     public void SetIsSFXPlayed(bool isPFXPlayed)
@@ -52,7 +55,7 @@ public class CircleObject : FSMSystem
     }
     public void SetColliderRadius(float radius)
     {
-        col.radius = radius;
+        _collider.radius = radius;
     }
     public void SetIsMerge(bool isMerge)
     {
@@ -71,16 +74,16 @@ public class CircleObject : FSMSystem
     {
         fallSpeed = 10f;
         float currentVelocity = 0f;
-        float newVelocity = Mathf.SmoothDamp(ridBody.velocity.y, fallSpeed, ref currentVelocity, smoothTime);
+        float newVelocity = Mathf.SmoothDamp(rigdBody.velocity.y, fallSpeed, ref currentVelocity, smoothTime);
 
         // Apply the new velocity to the Rigidbody
-        ridBody.velocity = new Vector2(ridBody.velocity.x, newVelocity);
+        rigdBody.velocity = new Vector2(rigdBody.velocity.x, newVelocity);
 
     }
     public void SetColliderRadius()
     {
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(TypeID);
-        col.GetComponent<CircleCollider2D>().radius = record.Radius;
+        _collider.GetComponent<CircleCollider2D>().radius = record.Radius;
     }
 
     public void EnableTarget()
@@ -98,19 +101,28 @@ public class CircleObject : FSMSystem
     }
     public void SetRigidBodyVelocity(Vector3 vl)
     {
-        ridBody.velocity = vl;
+        rigdBody.velocity = vl;
     }
     public void SetRigidBodyToDynamic()
     {
-        ridBody.bodyType = RigidbodyType2D.Dynamic;
+        rigdBody.bodyType = RigidbodyType2D.Dynamic;
+    }
+    public void SetRigidBodyToNone()
+    {
+        rigdBody.constraints = RigidbodyConstraints2D.None;
+        Debug.Log(" SetRigidBodyToNone  " +rigdBody.constraints.ToString());
+    }
+    public void SetRigidBodyToFreeze()
+    {
+        rigdBody.constraints = RigidbodyConstraints2D.FreezePosition;
     }
     public void SetAngularVelocity(float vl)
     {
-        ridBody.angularVelocity = vl;
+        rigdBody.angularVelocity = vl;
     }
     public void SetRigidBodyToKinematic()
     {
-        ridBody.bodyType = RigidbodyType2D.Kinematic;
+        rigdBody.bodyType = RigidbodyType2D.Kinematic;
     }
     private void Awake()
     {
@@ -118,8 +130,9 @@ public class CircleObject : FSMSystem
         Drop.Setup(this);
         Merge.Setup(this);
         Grounded.Setup(this);
-        ridBody = GetComponent<Rigidbody2D>();
-        col = GetComponentInChildren<CircleCollider2D>();
+        Dead.Setup(this);
+        rigdBody = GetComponent<Rigidbody2D>();
+        _collider = GetComponentInChildren<CircleCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     // Start is called before the first frame update
@@ -148,7 +161,7 @@ public class CircleObject : FSMSystem
             SwitchCircleOption(otherCircle);
             PlayLandedSFX();
             return;
-        }
+        } 
         else if (collision.gameObject.CompareTag("Wall") && isDropping == false && state != "SpawnState")
         {
             PlayLandedSFX();
@@ -237,24 +250,23 @@ public class CircleObject : FSMSystem
 
     }
     [Serialize] Tween tween;
-    public IEnumerator SpawnNewCircle(GameObject col)
+    public IEnumerator SpawnNewCircle(CircleObject col)
     {
         int t = typeID + 1;
         tween = col.transform.DOMove(transform.position, 0.2f);
         tween.OnComplete(() =>
         {
-            EndlessLevel.Instance.RemoveCircle(col.GetComponent<CircleObject>());
+            RandomYaySFX(TypeID);
+            col.RandomYaySFX(TypeID);
+            EndlessLevel.Instance.RemoveCircle(col);
             EndlessLevel.Instance.RemoveCircle(this);
-
             tween?.Kill();
         });
-        Physics2D.IgnoreCollision(GetComponentInChildren<Collider2D>(), col.GetComponentInChildren<Collider2D>());
-        yield return new WaitForSeconds(0.1f);
+        Physics2D.IgnoreCollision(_collider, col._collider);
+        yield return new WaitForSeconds(0);
         col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
-
-        RandomMergeSFX();// MERGE SFX
 
         var c = CirclePool.instance.pool.SpawnNonGravity();
         c.SetTypeID(t);
@@ -262,11 +274,12 @@ public class CircleObject : FSMSystem
         c.SpawnCircle(t);
 
         c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID);
-        c.col.GetComponent<CircleCollider2D>().radius = c.record.Radius;
+        c._collider.GetComponent<CircleCollider2D>().radius = c.record.Radius;
         PlayMergeVFX(c);//play spawn particles
+        c.RandomMergeSFX();
 
-        c.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-        c.ridBody.bodyType = RigidbodyType2D.Dynamic;
+        c.transform.SetPositionAndRotation(col.transform.position, Quaternion.identity);
+        c.rigdBody.bodyType = RigidbodyType2D.Dynamic;
         PopAroundCircle();
         int score = typeID + c.typeID;
         IngameController.instance.AddScore(score);
@@ -290,9 +303,11 @@ public class CircleObject : FSMSystem
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(i);
         DisableTarget();
         SetSpriteByID(record.ID);
+        SetRigidBodyToNone();
         spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
         EndlessLevel.Instance.AddCircle(this);
         isDropping = false;
+        isLanded = false;
         tween = transform.DOScale(record.Scale, 0.25f);
         tween.OnComplete(() => tween?.Kill());
     }
@@ -326,12 +341,18 @@ public class CircleObject : FSMSystem
     }
     public void PlayLandedSFX()
     {
-        SoundManager.Instance.PlaySFX(SoundManager.SFX.LandedSFX);
+        if (!isLanded)
+        {
+            isLanded = !isLanded;
+            SoundManager.Instance.PlaySFXWithVolume(SoundManager.SFX.LandedSFX,0.2f);
+        }
     }
 
     public void RandomYaySFX(int value)
     {
-        int positive = Random.Range(0, 50);
+        int positive = Random.Range(0,3);
+        Debug.Log("RandomYaySFX RATE" + positive);
+
         if (positive == 1 && isSFXPlayed == false)
         {
             if (value < 4)
@@ -364,6 +385,7 @@ public class CircleObject : FSMSystem
     public string GetCurrentState()
     {
         string crString = currentState.ToString();
+        //Debug.Log("GetCurrentState " + crString);
         return crString;
     }
     private void Reset()

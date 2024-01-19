@@ -256,6 +256,13 @@ public class EndlessLevel : MonoBehaviour
             }
         }
     }
+    public void FreezeCircle()
+    {
+        foreach (var c in _circles)
+        {
+            c.GotoState(c.Dead);
+        }
+    }
     public void Clear()
     {
         level = 1;
