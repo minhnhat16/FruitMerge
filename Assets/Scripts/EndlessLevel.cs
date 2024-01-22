@@ -205,9 +205,6 @@ public class EndlessLevel : MonoBehaviour
     {
         Player.instance.canDrop = true;
         isBomb = false;
-        int bomb = DataAPIController.instance.GetItemTotal("1") - 1;
-
-        DataAPIController.instance.SetItemTotal("1", bomb);
         IngameController.instance.CancelItem();
         DisableTargetCircles();
     }
@@ -215,8 +212,6 @@ public class EndlessLevel : MonoBehaviour
     {
         Player.instance.canDrop = true;
         isUpgrade = false;
-        int upgrade = DataAPIController.instance.GetItemTotal("2") - 1;
-        DataAPIController.instance.SetItemTotal("2", upgrade);
         IngameController.instance.CancelItem();
         DisableTargetCircles();
     }

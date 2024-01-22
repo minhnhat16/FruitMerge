@@ -268,7 +268,7 @@ public class CircleObject : FSMSystem
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
 
-        var c = CirclePool.instance.pool.SpawnNonGravity();
+        var c = CirclePool.instance.pool.SpawnNonGravityNext();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);

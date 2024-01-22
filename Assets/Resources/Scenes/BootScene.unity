@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2370083762468610389, guid: 59e0069971be5174a82887b39c8ac813, type: 3}
-  amount: 50
+  amount: 200
 --- !u!114 &1323097667 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2219909306317191774, guid: 2a1fd06bd21fa814dbe4a499ad5f298e, type: 3}

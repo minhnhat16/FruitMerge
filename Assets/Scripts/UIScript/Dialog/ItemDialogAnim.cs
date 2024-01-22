@@ -1,22 +1,22 @@
 using System;
 using UnityEngine;
 
-public class PauseDialogAnim : BaseDialogAnimation
+public class ItemDialogAnim : BaseDialogAnimation
 {
     public Animator animator;
     private Action callback;
     public override void HideDialogAnimation(Action callback)
     {
         this.callback = callback;
-        Debug.Log("HideDialogAnimation");
-        animator.Play("PauseDialogHide");
+        Debug.Log("ItemDialogAnimation");
+        animator.Play("ItemDialogHide");
     }
 
     public override void ShowDialogAnimation(Action callback)
     {
         this.callback = callback;
-        Debug.Log("ShowDialogAnimation");
-        animator.Play("PauseDialogShow");
+        Debug.Log("ItemDialogAnimation");
+        animator.Play("ItemDialogShow");
     }
 
     public void ShowAnim()

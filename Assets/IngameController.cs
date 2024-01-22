@@ -128,12 +128,16 @@ public class IngameController : MonoBehaviour
     public void BombItem()
     {
         int bomb = DataAPIController.instance.GetItemTotal("1");
-       bombItemEvent?.Invoke(bomb);
+        bomb -= 1;
+        DataAPIController.instance.SetItemTotal("1", bomb);
+
+        bombItemEvent?.Invoke(bomb);
     }
     public void UpgradeItem()
     {
         int upgrade = DataAPIController.instance.GetItemTotal("2");
-
+        upgrade -= 1;
+        DataAPIController.instance.SetItemTotal("1", upgrade);
         upgradeItemEvent?.Invoke(upgrade);
     }
     public void CancelItem()
