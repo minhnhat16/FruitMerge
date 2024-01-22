@@ -8,23 +8,24 @@ using Random = UnityEngine.Random;
 public class EndlessLevel : MonoBehaviour
 {
     public static EndlessLevel Instance;
+    private int spriteType = 1;
     public int level;
     public List<int> intQueue = new(5);
     public CircleObject main;
     public int randomValue;
     public int score;
-    private float spawnCooldown = 0.1f;
+    [SerializeField] private float spawnCooldown = 0.1f;
     [SerializeField]
     private bool isBomb = false;
     [SerializeField]
     private bool isUpgrade = false;
     [SerializeField]private List<CircleObject> _circles ;
-    [SerializeField] private List<CircleObject> _sortedTest;
 
     [HideInInspector]
     public  List<CircleObject> _Circles { get { return _circles; }}
     public bool IsBomb { get { return isBomb; }}
     public bool IsUpgrade { get { return isUpgrade; }}
+    public int SpriteType { get { return spriteType; } }
     public void AddCircle(CircleObject item)
     {
         _Circles.Add(item);
@@ -90,12 +91,11 @@ public class EndlessLevel : MonoBehaviour
     }
     public IEnumerator SpawnFirstCircle()
     {
+        yield return new WaitForSeconds(spawnCooldown);
         int first = FirstInQueue();
         main = SpawnCircle(first);
         main.GotoState(main.Spawn);
-        //Debug.Log("POS " + Player.instance.Pos);
-        main.transform.position = Player.instance.Pos;
-        yield return new WaitForSeconds(spawnCooldown);
+        Debug.Log("POS IN SPAWN PLAYER" + Player.instance.Pos);
     }
     public CircleObject SpawnCircle(int i)
     {
@@ -185,7 +185,6 @@ public class EndlessLevel : MonoBehaviour
                 below3.Add(circles[i]);
             }
         }
-        _sortedTest = below3;
         return below3;
     }
     public void UsingBombItem()
@@ -266,34 +265,5 @@ public class EndlessLevel : MonoBehaviour
         intQueue.Clear();
         RandomCircle();
     }
-    public string GetSpriteName(int id)
-    {
-        switch (id)
-        {
-            case 1:
-                return "blueberry_whiteStroke";
-            case 2:
-                return "cherry_whiteStroke";
-            case 3:
-                return "lemon_whiteStroke";
-            case 4:
-                return "mango_whiteStroke";
-            case 5:
-                return "orange_whiteStroke";
-            case 6:
-                return "apple_whiteStroke";
-            case 7:
-                return "peach_whiteStroke";
-            case 8:
-                return "coconut_whiteStroke";
-            case 9:
-                return "melon_whiteStroke";
-            case 10:
-                return "pineapple_whiteStroke";
-            case 11:
-                return "watermelon_whiteStroke";
-            default:
-                return null;
-        }
-    }
+  
 }

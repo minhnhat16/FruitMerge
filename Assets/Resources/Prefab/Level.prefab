@@ -47,7 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   intQueue: 
+  main: {fileID: 0}
   randomValue: 0
+  score: 0
+  spawnCooldown: 0.25
+  isBomb: 0
+  isUpgrade: 0
+  _circles: []
 --- !u!1 &1369261459057051849
 GameObject:
   m_ObjectHideFlags: 0

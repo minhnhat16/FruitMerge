@@ -67,7 +67,7 @@ public class CircleObject : FSMSystem
     }
     public void SetSpriteByID(int id)
     {
-        var spriteName = EndlessLevel.Instance.GetSpriteName(id);
+        var spriteName = SpriteLibControl.Instance.GetSpriteName(EndlessLevel.Instance.SpriteType, id);
         spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
     }
     public void SetDropVelocity()
@@ -110,7 +110,7 @@ public class CircleObject : FSMSystem
     public void SetRigidBodyToNone()
     {
         rigdBody.constraints = RigidbodyConstraints2D.None;
-        Debug.Log(" SetRigidBodyToNone  " +rigdBody.constraints.ToString());
+        //Debug.Log(" SetRigidBodyToNone  " +rigdBody.constraints.ToString());
     }
     public void SetRigidBodyToFreeze()
     {
@@ -156,11 +156,9 @@ public class CircleObject : FSMSystem
         {
             instanceID = Time.time;
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
-            if (isMerged || otherCircle.isMerged) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
             PlayLandedSFX();
-            return;
         } 
         else if (collision.gameObject.CompareTag("Wall") && isDropping == false && state != "SpawnState")
         {
@@ -206,7 +204,6 @@ public class CircleObject : FSMSystem
     public virtual void SwitchCircleOption(CircleObject otherCircle)
     {
 
-
         if (typeID == 11)
         {
             otherCircle.RemoveCircle();
@@ -222,7 +219,7 @@ public class CircleObject : FSMSystem
         else
         {
 
-            if (instanceID > contactCircle.GetComponent<CircleObject>().instanceID) return;
+            if (instanceID < contactCircle.GetComponent<CircleObject>().instanceID) return;
             else
             {
                 GotoState(Merge);
@@ -304,7 +301,7 @@ public class CircleObject : FSMSystem
         DisableTarget();
         SetSpriteByID(record.ID);
         SetRigidBodyToNone();
-        spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
+        //spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
         EndlessLevel.Instance.AddCircle(this);
         isDropping = false;
         isLanded = false;
@@ -351,7 +348,7 @@ public class CircleObject : FSMSystem
     public void RandomYaySFX(int value)
     {
         int positive = Random.Range(0,3);
-        Debug.Log("RandomYaySFX RATE" + positive);
+        //Debug.Log("RandomYaySFX RATE" + positive);
 
         if (positive == 1 && isSFXPlayed == false)
         {
@@ -361,6 +358,19 @@ public class CircleObject : FSMSystem
                 SetIsSFXPlayed(true);
                 return;
             }
+        }
+    }
+    public void SetSpritePiority(int level)
+    {
+        if(level == 0)
+        {
+            spriteRenderer.sortingLayerName = "Default";
+            Debug.Log(spriteRenderer.sortingLayerName.ToString());
+        }
+        else if(level == 2)
+        {
+            spriteRenderer.sortingLayerName = "DropRender";
+            Debug.Log(spriteRenderer.sortingLayerName.ToString());
         }
     }
     public void RandomMergeSFX()
@@ -411,7 +421,7 @@ public class CircleObject : FSMSystem
             }
             else if (EndlessLevel.Instance.IsUpgrade)
             {
-                Debug.Log("CLICKED ON UPGRADE");
+                Debug.Log("CLICKED ON UPGRADE" );
                 SpawnCircle(TypeID + 1);
                 EndlessLevel.Instance.AfterUpgradeItem();
 

@@ -264,7 +264,7 @@ MonoBehaviour:
   canDrop: 0
   spawnPoint: {x: 0, y: 0}
   mainCircle: {fileID: 0}
-  dropCoolDown: 0
+  dropCoolDown: 10
   _render: {fileID: 956752078171109762}
   _lineRenderer: {fileID: 620834657546224542}
   pos: {x: 0, y: 6.5, z: 0}

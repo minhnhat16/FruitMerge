@@ -143,7 +143,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     {
         nextBlock.transform.DOScale(0.1f, 0);
         Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
-        var name = EndlessLevel.Instance.GetSpriteName(id);
+        var name = SpriteLibControl.Instance.GetSpriteName(EndlessLevel.Instance.SpriteType, id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
         tween.OnComplete(() =>

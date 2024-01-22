@@ -47,7 +47,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.25
 --- !u!1 &7225072757105941100
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,8 +103,8 @@ MonoBehaviour:
     scale: 0
     radius: 0
     color: {r: 0, g: 0, b: 0, a: 0}
-  ridBody: {fileID: 0}
-  col: {fileID: 5831113569901310050}
+  rigdBody: {fileID: 0}
+  _collider: {fileID: 0}
   contactCircle: {fileID: 0}
   typeID: 0
   instanceID: 0
@@ -210,8 +210,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 557673327
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8656044bb6c03da459b1b27c86d71a35, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -443,8 +443,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 19948540, guid: fe394d041df1a0547990f49cf653249f, type: 3}
-      propertyPath: m_SortingOrder
+      propertyPath: m_SortingLayer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19948540, guid: fe394d041df1a0547990f49cf653249f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19948540, guid: fe394d041df1a0547990f49cf653249f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 557673327
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe394d041df1a0547990f49cf653249f, type: 3}

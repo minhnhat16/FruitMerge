@@ -31,7 +31,7 @@ public class ConfigFileManager : MonoBehaviour
 
     IEnumerator WaitInit(Action callback)
     {
-        circleConfig = Resources.Load("Config/CircleTypeConfig", typeof(ScriptableObject)) as CircleTypeConfig;
+        circleConfig = Resources.Load("Config/CircleTypeConfig_1", typeof(ScriptableObject)) as CircleTypeConfig;
         yield return new WaitUntil(() => circleConfig != null);
         soundFactory = Resources.Load("Factory/SoundFactory", typeof(ScriptableObject)) as SoundFactory;
         Debug.Log("(BOOT) // INIT CONFIG DONE");

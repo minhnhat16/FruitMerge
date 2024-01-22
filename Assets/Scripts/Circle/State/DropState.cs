@@ -7,6 +7,7 @@ public class DropState : FSMState<CircleObject>
     // Start is called before the first frame update
     public override void OnEnter()
     {
+        sys.SetSpritePiority(2);
         sys.SetIsDropping(true);
         sys.DropMergeStartCoroutine();
         sys.SetRigidBodyToDynamic();

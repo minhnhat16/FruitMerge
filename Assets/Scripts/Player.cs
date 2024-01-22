@@ -54,7 +54,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     {
         float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
         transform.position = new Vector3(x, pos.y);
-        _lineRenderer.SetPosition(0, transform.position - new Vector3(0,0.15f));
+        _lineRenderer.SetPosition(0, transform.position - new Vector3(0,0.5f));
         var linePos = _lineRenderer.GetPosition(1);
         _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
     }
@@ -78,14 +78,16 @@ public class Player : MonoBehaviour, IPointerClickHandler
         yield return new WaitUntil(() => mainCircle != null);
         if (Input.GetMouseButtonDown(0))
         {
+            mainCircle.transform.position = pos;
             mainCircle.SetIsMerge(false);
+            mainCircle.transform.position = new Vector3(transform.position.x, pos.y);
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
         {
 
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
-            mainCircle.transform.position = new Vector3(gameObject.transform.position.x, pos.y);
+            mainCircle.transform.position = new Vector3(transform.position.x, pos.y);
 
         }
         else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)

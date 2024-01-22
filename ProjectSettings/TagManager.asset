@@ -48,3 +48,6 @@ TagManager:
   - name: LineRender
     uniqueID: 3162868793
     locked: 0
+  - name: DropRender
+    uniqueID: 557673327
+    locked: 0
