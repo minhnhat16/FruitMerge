@@ -15,9 +15,11 @@ public class BootLoader : MonoBehaviour
             ConfigFileManager.Instance.Init(() =>
             {
                 gameManager.SetupGameManager();
-                ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+                MainScreenViewParam param = new MainScreenViewParam(); 
+                param.totalGold = DataAPIController.instance.GetGold();
+                ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, param, () =>
                 {
-                    GameManager.instance.LoadIngameSence();
+                    //GameManager.instance.LoadIngameSence();
                 });
             });
 

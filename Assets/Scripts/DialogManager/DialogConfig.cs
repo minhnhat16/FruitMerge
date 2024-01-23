@@ -1,17 +1,15 @@
-
-using System;
-using UnityEngine;
-using UnityEngine.UI;
-
 public enum DialogIndex
 {
     SettingDialog = 0,
     PauseDialog = 1,
     LoseDialog = 2,
-    WinDialog = 3,
-    ReviveDialog =4,
+    DailyRewardDialog = 3,
+    ReviveDialog = 4,
     BuyConfirmDialog = 5,
     ItemConfirmDialog = 6,
+    ShopDialog = 7,
+    LeaderBoardDialog = 8,
+
 }
 
 public class DialogParam { }
@@ -28,7 +26,7 @@ public class PauseDialogParam : DialogParam
     public bool sfxSetting;
 }
 
-public class ReviveDialogParam : DialogParam 
+public class ReviveDialogParam : DialogParam
 {
     public int levelNum;
 }
@@ -38,12 +36,10 @@ public class LoseDialogParam : DialogParam
     public int score;
 }
 
-public class WinDialogParam : DialogParam
+public class DailyDialogParam : DialogParam
 {
-   public int crLevel;
-   public int nextLv;
-   public int score;
-   public int star;
+    int totalDay;
+    bool isClaimed;
 }
 
 public class BuyConfirmDialogParam : DialogParam
@@ -57,10 +53,19 @@ public class LevelConfirm : DialogParam
 {
     public string levelnum;
 }
-public class ItemConfirmParam : DialogParam 
+public class ItemConfirmParam : DialogParam
 {
     public int type;
     public string name;
+}
+
+public class ShopDialogParam : DialogParam
+{
+
+}
+public class LeaderBoardDialogParam : DialogParam
+{
+
 }
 public class DialogConfig
 {
@@ -68,10 +73,11 @@ public class DialogConfig
         DialogIndex.SettingDialog,
         DialogIndex.PauseDialog,
         DialogIndex.LoseDialog,
-        DialogIndex.WinDialog,
+        DialogIndex.DailyRewardDialog,
         DialogIndex.ReviveDialog,
         DialogIndex.BuyConfirmDialog,
         DialogIndex.ItemConfirmDialog,
-
+       DialogIndex.ShopDialog,
+       DialogIndex.LeaderBoardDialog,
     };
 }

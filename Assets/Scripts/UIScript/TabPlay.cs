@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class TabPlay : MonoBehaviour
+{
+    public GameObject tabOn;
+    public GameObject tabOff;
+    public Animator animator;
+
+    public void OnClickTabOn()
+    {
+        tabOn.SetActive(true);
+        tabOff.SetActive(false);
+        animator.Play("TabOn");
+        DialogManager.Instance.HideAllDialog();
+    }
+    public void OnTabOff()
+    {
+        tabOn.SetActive(false);
+        tabOff.SetActive(true);
+    }
+}

@@ -21,6 +21,10 @@ public class LoadingViewParam : ViewParam
 public class GamePlayViewParam : ViewParam
 {
 }
+public class MainScreenViewParam : ViewParam
+{
+    public int totalGold;
+}
 public class ViewConfig
 {
     public static ViewIndex[] viewArray = {
