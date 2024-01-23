@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IPointerClickHandler
 {
@@ -38,6 +39,11 @@ public class Player : MonoBehaviour, IPointerClickHandler
         MouseDown();
         SetPlayerPosition();
     }
+    public void ResetPos()
+    {
+        spawnPoint = new Vector3(0, spawnPoint.y);
+        transform.position = new Vector3(0, transform.position.y);
+    }
     public bool MousePosition()
     {
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
@@ -52,9 +58,10 @@ public class Player : MonoBehaviour, IPointerClickHandler
     }
     private void SetPlayerPosition()
     {
+        if (CameraMain.instance.main == null) return;
         float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
         transform.position = new Vector3(x, pos.y);
-        _lineRenderer.SetPosition(0, transform.position - new Vector3(0,0.5f));
+        _lineRenderer.SetPosition(0, transform.position - new Vector3(0, 0.5f));
         var linePos = _lineRenderer.GetPosition(1);
         _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
     }
@@ -69,15 +76,23 @@ public class Player : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        // Check if the pointer is over a UI GameObject
+        if (eventData.pointerEnter != null && eventData.pointerEnter.GetComponent<Graphic>() != null)
         {
+            canDrop = false;
+            Debug.Log("On Pointer Click On GameObject");
+        }
+        else
+        {
+            canDrop = true;
+            Debug.Log("On Pointer Not Click On GameObject");
         }
     }
     IEnumerator DropCircle()
     {
-        yield return new WaitUntil(() => mainCircle != null);
         if (Input.GetMouseButtonDown(0))
         {
+            yield return new WaitUntil(() => mainCircle != null);
             mainCircle.transform.position = pos;
             mainCircle.SetIsMerge(false);
             mainCircle.transform.position = new Vector3(transform.position.x, pos.y);

@@ -204,7 +204,7 @@ public class CircleObject : FSMSystem
     public virtual void SwitchCircleOption(CircleObject otherCircle)
     {
 
-        if (typeID == 11)
+        if (typeID > 11)
         {
             otherCircle.RemoveCircle();
             RemoveCircle();
@@ -220,7 +220,7 @@ public class CircleObject : FSMSystem
         {
 
             if (instanceID < contactCircle.GetComponent<CircleObject>().instanceID) return;
-            else
+            else 
             {
                 GotoState(Merge);
                 isMerged = true;
@@ -264,7 +264,7 @@ public class CircleObject : FSMSystem
         col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
-
+        if(typeID >10) yield  return null; 
         var c = CirclePool.instance.pool.SpawnNonGravityNext();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
@@ -365,12 +365,12 @@ public class CircleObject : FSMSystem
         if(level == 0)
         {
             spriteRenderer.sortingLayerName = "Default";
-            Debug.Log(spriteRenderer.sortingLayerName.ToString());
+            //Debug.Log(spriteRenderer.sortingLayerName.ToString());
         }
         else if(level == 2)
         {
             spriteRenderer.sortingLayerName = "DropRender";
-            Debug.Log(spriteRenderer.sortingLayerName.ToString());
+            //Debug.Log(spriteRenderer.sortingLayerName.ToString());
         }
     }
     public void RandomMergeSFX()
@@ -413,7 +413,7 @@ public class CircleObject : FSMSystem
         {
             if (EndlessLevel.Instance.IsBomb)
             {
-                Debug.Log("CLICKED ON BOMB");
+                //Debug.Log("CLICKED ON BOMB");
                 DeSpawnOnBomb(() =>
                 {
                     EndlessLevel.Instance.AfterUsingBombItem();
@@ -421,7 +421,8 @@ public class CircleObject : FSMSystem
             }
             else if (EndlessLevel.Instance.IsUpgrade)
             {
-                Debug.Log("CLICKED ON UPGRADE" );
+                //Debug.Log("CLICKED ON UPGRADE" );
+                typeID ++;
                 SpawnCircle(TypeID + 1);
                 EndlessLevel.Instance.AfterUpgradeItem();
 

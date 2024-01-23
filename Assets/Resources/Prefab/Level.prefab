@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b368d062caeee043b97ddfca5ae83b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteType: 0
   level: 1
   intQueue: 
   main: {fileID: 0}

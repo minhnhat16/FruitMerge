@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class EndlessLevel : MonoBehaviour
 {
     public static EndlessLevel Instance;
-    private int spriteType = 1;
+    [SerializeField] private int spriteType = 1;
     public int level;
     public List<int> intQueue = new(5);
     public CircleObject main;
@@ -53,6 +53,7 @@ public class EndlessLevel : MonoBehaviour
     public void LoadLevel(Action callback)
     {
         level = 1;
+        Player.instance.ResetPos();
         RandomCircle();
         callback?.Invoke();
     }
@@ -95,7 +96,7 @@ public class EndlessLevel : MonoBehaviour
         int first = FirstInQueue();
         main = SpawnCircle(first);
         main.GotoState(main.Spawn);
-        Debug.Log("POS IN SPAWN PLAYER" + Player.instance.Pos);
+        //Debug.Log("POS IN SPAWN PLAYER" + Player.instance.Pos);
     }
     public CircleObject SpawnCircle(int i)
     {
@@ -263,7 +264,6 @@ public class EndlessLevel : MonoBehaviour
         score = 0;
         CirclePool.instance.pool.DeSpawnAll();
         intQueue.Clear();
-        RandomCircle();
     }
   
 }

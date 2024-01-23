@@ -25,7 +25,7 @@ public class TargetRender : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.localScale = parent.transform.localScale/2;
+        transform.localScale = Vector3.one;
         transform.DORotate(new Vector3(0, 0, -360),3f,RotateMode.FastBeyond360)
           .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart); 

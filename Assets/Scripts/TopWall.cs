@@ -21,7 +21,7 @@ public class TopWall : MonoBehaviour
                 //Debug.Log("TRIGGER COLLIDER ");
                 if (circle.GetCurrentState() == "GroundedState"
                     && IngameController.instance.isGameOver == false
-                       /* && circle.transform.position.y == transform.position.y + 0.5f*/)
+                        && circle.transform.position.y > transform.position.y + 1f)
                 {
                     //Debug.Log("TRIGGER GAME OVER");
                     IngameController.instance.GameOver();

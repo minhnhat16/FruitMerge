@@ -12,7 +12,7 @@ public class SpawnState : FSMState<CircleObject>
         base.OnEnter();
         sys.transform.position = Player.instance.Pos;
         sys.SetColliderRadius(0f);
-        sys.SetSpritePiority(0);
+        sys.SetSpritePiority(2);
         sys.SetRotation(Vector3.zero);
         sys.SetIsMerge(false);
         sys.SpawnCircle(sys.TypeID);

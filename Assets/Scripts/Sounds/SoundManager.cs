@@ -148,7 +148,7 @@ public class SoundManager : MonoBehaviour
 
                     if (lastTimePlayed + mainBackgroundMaxTimer < Time.time)
                     {
-                        Debug.Log("case SFX.PopSFX_2:");
+                        //Debug.Log("case SFX.PopSFX_2:");
                         sfxTimerDictionary[sfx] = Time.time;
                         return true;
                     }

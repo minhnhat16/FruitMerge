@@ -45,7 +45,6 @@ public class LoseDialog : BaseDialog
                 {
                     EndlessLevel.Instance.LoadLevel(() =>
                     {
-                        
                         IngameController.instance.isPause = false;
                         IngameController.instance.isGameOver = false;
                         Player.instance.canDrop = true; 

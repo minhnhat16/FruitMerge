@@ -314,7 +314,6 @@ MonoBehaviour:
   Level: {fileID: 1369261458943447551, guid: 8003ea9d5f264c44c8b841b96f535a93, type: 3}
   wall: {fileID: 2376563485386207395, guid: 7238de118e189ad4fa6187ed71269775, type: 3}
   backGround: {fileID: 867650984}
-  grid: {fileID: 0}
   firstID: 0
   score: 0
   isPause: 0
@@ -689,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2370083762468610389, guid: 59e0069971be5174a82887b39c8ac813, type: 3}
-  amount: 50
+  amount: 200
 --- !u!114 &1323097667 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2219909306317191774, guid: 2a1fd06bd21fa814dbe4a499ad5f298e, type: 3}
