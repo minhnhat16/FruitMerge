@@ -8,9 +8,7 @@ public class MainScreenView : BaseView
 {
     public int totalGold;
     public TextMeshProUGUI gold_lb;
-    public TabPlay tabPlay;
-    public TabShop tabShop;
-    public TabLeaderBoard tabLeaderBoard;
+
     public override void Setup(ViewParam viewParam)
     {
         base.Setup(viewParam);
@@ -36,22 +34,5 @@ public class MainScreenView : BaseView
     {
         base.OnStartShowView();
     }
-    public void  SelectShopTab()
-    {
-        tabShop.OnClickTabOn();
-        tabPlay.OnTabOff();
-        tabLeaderBoard.OnTabOff();
-    }
-    public void SelectPlayTab()
-    {
-        tabPlay.OnClickTabOn();
-        tabShop.OnTabOff();
-        tabLeaderBoard.OnTabOff();
-    }
-    public void SelectLeadBoardTab()
-    {
-        tabLeaderBoard.OnClickTabOn();
-        tabPlay.OnTabOff();
-        tabShop.OnTabOff();
-    }
+
 }

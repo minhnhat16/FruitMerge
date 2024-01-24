@@ -19,6 +19,7 @@ public class BootLoader : MonoBehaviour
                 param.totalGold = DataAPIController.instance.GetGold();
                 ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, param, () =>
                 {
+                    DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
                     //GameManager.instance.LoadIngameSence();
                 });
             });

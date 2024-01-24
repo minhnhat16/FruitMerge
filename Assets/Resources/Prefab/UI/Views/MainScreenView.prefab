@@ -1372,7 +1372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7418829222327769836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1583,8 +1583,8 @@ RectTransform:
   - {fileID: 7810145835532034877}
   - {fileID: 7176885163715514842}
   - {fileID: 4236063046524093122}
-  - {fileID: 7992113858459804704}
   - {fileID: 1582159244273487140}
+  - {fileID: 7992113858459804704}
   - {fileID: 7418829222327769836}
   m_Father: {fileID: 6592070958426630967}
   m_RootOrder: 0
@@ -1797,7 +1797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7992113858459804704
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1811,7 +1811,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7117862148650142418}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3104,9 +3104,6 @@ MonoBehaviour:
   baseViewAnim: {fileID: 6199989482121580637}
   totalGold: 0
   gold_lb: {fileID: 6403662875838631957}
-  tabPlay: {fileID: 6074702112512614641}
-  tabShop: {fileID: 45532996915361219}
-  tabLeaderBoard: {fileID: 8346946203759125440}
 --- !u!1 &8470050242911376364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,7 +3214,7 @@ RectTransform:
   - {fileID: 4750223120026561349}
   - {fileID: 6232565974097629787}
   m_Father: {fileID: 7117862148650142418}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}

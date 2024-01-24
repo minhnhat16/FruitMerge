@@ -7,9 +7,8 @@ public enum DialogIndex
     ReviveDialog = 4,
     BuyConfirmDialog = 5,
     ItemConfirmDialog = 6,
-    ShopDialog = 7,
+    LableChooseDialog = 7,
     LeaderBoardDialog = 8,
-
 }
 
 public class DialogParam { }
@@ -77,7 +76,7 @@ public class DialogConfig
         DialogIndex.ReviveDialog,
         DialogIndex.BuyConfirmDialog,
         DialogIndex.ItemConfirmDialog,
-       DialogIndex.ShopDialog,
+       DialogIndex.LableChooseDialog,
        DialogIndex.LeaderBoardDialog,
     };
 }
