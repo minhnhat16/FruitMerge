@@ -13,7 +13,7 @@ public class CircleTypeConfigRecord
     [SerializeField]
     private Color color;
 
-    public int ID { get { return id; } }
+    public int ID { get { return id; } }    
     public float Scale { get { return scale; } }
     public float Radius { get { return radius; } }
     public Color Color { get { return color; } }
@@ -24,5 +24,6 @@ public class CircleTypeConfig : BYDataTable<CircleTypeConfigRecord>
     {
         configCompare = new ConfigCompare<CircleTypeConfigRecord>("id");
         return configCompare;
-    }
+    
+}
 }
