@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Net.WebSockets;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemGrid : MonoBehaviour
 {
@@ -21,27 +16,43 @@ public class ItemGrid : MonoBehaviour
 
     private void InstantiateItems()
     {
-       var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
+        var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
 
         foreach (var i in priceConfig)
         {
-            var priceRecord = ConfigFileManager.Instance.PriceConfig.GetRecordByKeySearch(i);
-            if (priceRecord.IdShop == idShop)
+            Debug.Log("Have price config");
+            if (i.IdShop == idShop)
             {
-                var item = Instantiate(_itemPrefab, transform);
-                SetupItem(item, priceRecord);
+                var item = Instantiate((Resources.Load("Prefab/UI/ShopItemTemplate", typeof(GameObject))),transform)as GameObject;
+                if (item == null)
+                {
+                    Debug.LogError(" item == null");
+                }
+                else
+                {
+
+                    _items.Add(item.GetComponent<ShopItemTemplate>());
+                    SetupItem(item.GetComponent<ShopItemTemplate>(), i);
+
+                }
             };
-           
+
         }
     }
 
     private void SetupItem(ShopItemTemplate item, PriceConfigRecord price)
     {
+        if (price == null)
+        {
+            Debug.Log("Null config");
+            return;
+        }
         var itemConfig = ConfigFileManager.Instance.ItemConfig.GetRecordByKeySearch(price.IdItem);
-        item.Cost_lb.text= price.Price.ToString();
+
+        item.Cost_lb.text = price.Price.ToString();
         item.ItemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(itemConfig.SpriteName);
         item.Name_lb.text = itemConfig.Type.ToString();
-        item.Total_lb.text = price.Amount.ToString();
+        item.Total_lb.text = "x" + price.Amount.ToString();
         item.enabled = price.Available;
         _items.Add(item);
 

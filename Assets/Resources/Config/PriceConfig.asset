@@ -14,78 +14,91 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   records:
   - id: 0
+    idShop: 0
     idItem: 0
     price: -1
     amount: 250
     available: 1
     moneyPaid: 1
   - id: 1
+    idShop: 0
     idItem: 0
     price: 5000
     amount: 1000
     available: 1
     moneyPaid: 1
   - id: 2
+    idShop: 0
     idItem: 0
     price: 15000
     amount: 4000
     available: 1
     moneyPaid: 1
   - id: 3
+    idShop: 0
     idItem: 0
     price: 45000
     amount: 16000
     available: 1
     moneyPaid: 1
   - id: 4
+    idShop: 0
     idItem: 0
     price: 135000
     amount: 64000
     available: 1
     moneyPaid: 1
   - id: 5
+    idShop: 0
     idItem: 0
     price: 405000
     amount: 256000
     available: 1
     moneyPaid: 1
   - id: 6
+    idShop: 1
     idItem: 1
     price: 1000
     amount: 2
     available: 1
     moneyPaid: 0
   - id: 7
+    idShop: 1
     idItem: 2
     price: 500
     amount: 2
     available: 1
     moneyPaid: 0
   - id: 8
+    idShop: 1
     idItem: 3
     price: 200
     amount: 2
     available: 1
     moneyPaid: 0
   - id: 9
+    idShop: 2
     idItem: 4
     price: 0
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 10
+    idShop: 2
     idItem: 4
     price: 0
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 11
+    idShop: 3
     idItem: 5
     price: 0
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 12
+    idShop: 3
     idItem: 5
     price: 0
     amount: 1

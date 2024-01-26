@@ -18,7 +18,7 @@ public class PriceConfigRecord
     [SerializeField]
     private bool moneyPaid;
     public int Id { get => id; }
-    public int IdShop { get => IdShop; }
+    public int IdShop { get => idShop; }
     public int IdItem { get => idItem; }
     public int Price { get => price; }
     public int Amount { get => amount; }
