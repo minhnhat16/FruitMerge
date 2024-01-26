@@ -1,12 +1,14 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ShopPriceConfigRecord {
-
+public class PriceConfigRecord
+{
     [SerializeField]
     private int id;
     [SerializeField]
-    private int  idItem;
+    private int idShop;
+    [SerializeField]
+    private int idItem;
     [SerializeField]
     private int price;
     [SerializeField]
@@ -16,6 +18,7 @@ public class ShopPriceConfigRecord {
     [SerializeField]
     private bool moneyPaid;
     public int Id { get => id; }
+    public int IdShop { get => IdShop; }
     public int IdItem { get => idItem; }
     public int Price { get => price; }
     public int Amount { get => amount; }
@@ -23,11 +26,11 @@ public class ShopPriceConfigRecord {
     public bool MoneyPaid { get => moneyPaid; }
 }
 
-public class ShopPriceConfig : BYDataTable<ShopPriceConfigRecord>
+public class PriceConfig : BYDataTable<PriceConfigRecord>
 {
-    public override ConfigCompare<ShopPriceConfigRecord> DefineConfigCompare()
+    public override ConfigCompare<PriceConfigRecord> DefineConfigCompare()
     {
-        configCompare = new ConfigCompare<ShopPriceConfigRecord>("id");
+        configCompare = new ConfigCompare<PriceConfigRecord>("id");
         return configCompare;
     }
 }

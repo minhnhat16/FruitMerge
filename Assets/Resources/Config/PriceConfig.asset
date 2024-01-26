@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8971d69fb983944996a43c42c834f63, type: 3}
+  m_Name: PriceConfig
+  m_EditorClassIdentifier: 
+  records:
+  - id: 0
+    idItem: 0
+    price: -1
+    amount: 250
+    available: 1
+    moneyPaid: 1
+  - id: 1
+    idItem: 0
+    price: 5000
+    amount: 1000
+    available: 1
+    moneyPaid: 1
+  - id: 2
+    idItem: 0
+    price: 15000
+    amount: 4000
+    available: 1
+    moneyPaid: 1
+  - id: 3
+    idItem: 0
+    price: 45000
+    amount: 16000
+    available: 1
+    moneyPaid: 1
+  - id: 4
+    idItem: 0
+    price: 135000
+    amount: 64000
+    available: 1
+    moneyPaid: 1
+  - id: 5
+    idItem: 0
+    price: 405000
+    amount: 256000
+    available: 1
+    moneyPaid: 1
+  - id: 6
+    idItem: 1
+    price: 1000
+    amount: 2
+    available: 1
+    moneyPaid: 0
+  - id: 7
+    idItem: 2
+    price: 500
+    amount: 2
+    available: 1
+    moneyPaid: 0
+  - id: 8
+    idItem: 3
+    price: 200
+    amount: 2
+    available: 1
+    moneyPaid: 0
+  - id: 9
+    idItem: 4
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 10
+    idItem: 4
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 11
+    idItem: 5
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 12
+    idItem: 5
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
