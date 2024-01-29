@@ -27,7 +27,7 @@ public class ShopItemTemplate : MonoBehaviour
     public Text Cost_lb { get => cost_lb; set => cost_lb = value; }
     public bool Enable { get => enable; set => enable = value; }
     
-   private void Start()
+   public virtual void Start()
     {
        cost_lb.text = intCost.ToString();
        total_lb.text = "x" + totalItem.ToString();

@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkinTabButton : MonoBehaviour
 {
     public GameObject tabOn;
     public GameObject tabOff;
     public Animator animator;
-    [SerializeField]private SkinGrid skinGrid;
+    [SerializeField]private GameObject skinGrid;
 
     public void StartTabOn()
     {
@@ -20,7 +21,7 @@ public class SkinTabButton : MonoBehaviour
         tabOn.SetActive(true);
         tabOff.SetActive(false);
         animator.Play("TabOn");
-
+        skinGrid.GetComponentInChildren<Scrollbar>().value = 1;
         skinGrid.gameObject.SetActive(true);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
     }
