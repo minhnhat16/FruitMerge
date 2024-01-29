@@ -43,6 +43,12 @@ public class DataAPIController : MonoBehaviour
         //int gold = 0;
         return gold;
     }
+    public void MinusGold(int minus)
+    {
+        int gold = dataModel.ReadData<int>(DataPath.GOLD);
+        gold -= minus;
+        SaveGold(gold,null);
+    }
     public int GetHighestLevel()
     {
         //Debug.Log("DATA === highestLevel");
@@ -85,6 +91,12 @@ public class DataAPIController : MonoBehaviour
         int total = itemData.total;
         //Debug.Log($"TOTAL ITEM{itemData.id} {total}");
         return total;
+    }
+    public void AddItemTotal(string type, int inTotal)
+    {
+        Debug.Log("DATA === ADD ITEMDATA");
+        inTotal += GetItemTotal(type);
+        SetItemTotal(type, inTotal);
     }
     public void SetItemTotal(string type, int inTotal)
     {

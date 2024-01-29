@@ -1,3 +1,5 @@
+using System;
+
 public enum DialogIndex
 {
     SettingDialog = 0,
@@ -43,10 +45,11 @@ public class DailyDialogParam : DialogParam
 
 public class BuyConfirmDialogParam : DialogParam
 {
-    //public Action onConfirmAction;
-    //public Action onCancleAction;
+    public Action onConfirmAction;
+    public Action onCancleAction;
     public string amount_lb;
     public string bonus_lb;
+    public string cost_lb;
 }
 public class LevelConfirm : DialogParam
 {

@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class LableChooseDialog : BaseDialog
 {
@@ -8,6 +10,24 @@ public class LableChooseDialog : BaseDialog
     public TabSkin tabSkin;
     public TabPlay tabPlay;
     public TabLeaderBoard tabLeaderBoard;
+    public TextMeshProUGUI gold_lb;
+
+    [HideInInspector]
+    public UnityEvent<int> onGoldChanged = new UnityEvent<int>();
+    private void OnEnable()
+    {
+        onGoldChanged = IngameController.instance.onGoldChanged;
+        onGoldChanged.AddListener(GoldChange);
+    }
+    public override void OnStartShowDialog()
+    {
+        base.OnStartShowDialog();
+        gold_lb.text = DataAPIController.instance.GetGold().ToString();
+    }
+    public void GoldChange(int gold)
+    {
+        gold_lb.text = gold.ToString();
+    }
     public void SelectShopTab()
     {
         tabShop.OnClickTabOn();

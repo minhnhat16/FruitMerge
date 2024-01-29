@@ -34,6 +34,8 @@ public class IngameController : MonoBehaviour
     public UnityEvent<bool> cancleItemEvent = new UnityEvent<bool>();
     [HideInInspector]
     public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
+    [HideInInspector]
+    public UnityEvent<int> onGoldChanged = new UnityEvent<int>();
     private void OnEnable()
     {
         
@@ -129,7 +131,6 @@ public class IngameController : MonoBehaviour
         int bomb = DataAPIController.instance.GetItemTotal("1");
         bomb -= 1;
         DataAPIController.instance.SetItemTotal("1", bomb);
-
         bombItemEvent?.Invoke(bomb);
     }
     public void UpgradeItem()
@@ -138,6 +139,11 @@ public class IngameController : MonoBehaviour
         upgrade -= 1;
         DataAPIController.instance.SetItemTotal("1", upgrade);
         upgradeItemEvent?.Invoke(upgrade);
+    }
+    public void GoldChanged()
+    {
+        int totalGold = DataAPIController.instance.GetGold();
+        onGoldChanged?.Invoke(totalGold);
     }
     public void CancelItem()
     {

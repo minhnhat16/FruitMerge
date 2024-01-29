@@ -13,7 +13,6 @@ public class ItemGrid : MonoBehaviour
     {
         InstantiateItems();
     }
-
     private void InstantiateItems()
     {
         var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
@@ -30,16 +29,13 @@ public class ItemGrid : MonoBehaviour
                 }
                 else
                 {
-
                     _items.Add(item.GetComponent<ShopItemTemplate>());
                     SetupItem(item.GetComponent<ShopItemTemplate>(), i);
-
                 }
             };
 
         }
     }
-
     private void SetupItem(ShopItemTemplate item, PriceConfigRecord price)
     {
         if (price == null)
@@ -48,13 +44,12 @@ public class ItemGrid : MonoBehaviour
             return;
         }
         var itemConfig = ConfigFileManager.Instance.ItemConfig.GetRecordByKeySearch(price.IdItem);
-
-        item.Cost_lb.text = price.Price.ToString();
+        item.IntCost = price.Price;
         item.ItemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(itemConfig.SpriteName);
-        item.Name_lb.text = itemConfig.Type.ToString();
-        item.Total_lb.text = "x" + price.Amount.ToString();
-        item.enabled = price.Available;
+        item.Type = price.IdItem;
+        item.TotalItem =  price.Amount;
+        item.Enable = price.Available;
+        //Debug.Log(price.Available.ToString() + " and item: "+ item.enabled.ToString());
         _items.Add(item);
-
     }
 }

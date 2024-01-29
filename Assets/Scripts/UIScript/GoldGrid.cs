@@ -31,10 +31,8 @@ public class GoldGrid : MonoBehaviour
                 }
                 else
                 {
-
                     _items.Add(item.GetComponent<ShopItemTemplate>());
                     SetupItem(item.GetComponent<ShopItemTemplate>(), i);
-
                 }
             };
 
@@ -49,13 +47,11 @@ public class GoldGrid : MonoBehaviour
             return;
         }
         var itemConfig = ConfigFileManager.Instance.ItemConfig.GetRecordByKeySearch(price.IdItem);
-
-        item.Cost_lb.text = price.Price.ToString();
+        item.IntCost = price.Price;
         item.ItemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(itemConfig.SpriteName);
-        item.Name_lb.text = itemConfig.Type.ToString();
-        item.Total_lb.text = "x" + price.Amount.ToString();
-        item.enabled = price.Available;
+        item.Type = price.IdItem;
+        item.TotalItem = price.Amount;
+        item.Enable = price.Available;
         _items.Add(item);
-
     }
 }
