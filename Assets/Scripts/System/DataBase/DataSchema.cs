@@ -26,7 +26,21 @@ public class UserInventory
 {
     [SerializeField]
     public Dictionary<string, ItemData> itemInventory = new Dictionary<string, ItemData>();
+    public Dictionary<string, FruitSkin> fruitSkinOwned = new Dictionary<string, FruitSkin>();
+    public Dictionary<string, BoxSkin> boxSkinOwned = new Dictionary<string, BoxSkin>();
     public int gold;
+}
+[Serializable]
+public class FruitSkin
+{
+    public int id;
+    public string skinName;
+}
+[Serializable]
+public class BoxSkin
+{
+    public int id;
+    public string skinName;
 }
 [Serializable]
 public class ItemData

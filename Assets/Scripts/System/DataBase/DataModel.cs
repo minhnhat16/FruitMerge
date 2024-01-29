@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
-
+    
 public static class DataTrigger
 {
     /// <summary>
@@ -82,7 +82,6 @@ public class DataModel : MonoBehaviour
             UserInventory  userInventory = new UserInventory();
             userInventory.gold = 100;
             userInventory.itemInventory = new Dictionary<string, ItemData>();
-            
             for(int i = 0; i < 3;i ++) {
                 ItemData itemData = new ItemData();
                 itemData.total = 10;
@@ -91,6 +90,18 @@ public class DataModel : MonoBehaviour
                 Debug.Log(id);
                 userInventory.itemInventory.Add(itemData.id, itemData);
             }
+
+            userInventory.fruitSkinOwned = new Dictionary<string, FruitSkin>();
+            FruitSkin fruitSkin = new FruitSkin();
+            fruitSkin.id = 0;
+            fruitSkin.skinName = "Default";
+            userInventory.fruitSkinOwned.Add(fruitSkin.skinName, fruitSkin);
+
+            userInventory.boxSkinOwned = new Dictionary<string, BoxSkin>();
+            BoxSkin boxSkinOwned = new BoxSkin();
+            boxSkinOwned.id = 0;
+            boxSkinOwned.skinName = "Default";
+            userInventory.boxSkinOwned.Add(boxSkinOwned.skinName, boxSkinOwned);
 
             userData.inventory = userInventory;
 

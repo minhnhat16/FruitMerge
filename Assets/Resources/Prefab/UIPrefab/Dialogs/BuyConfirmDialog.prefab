@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6555378609010060554}
   - component: {fileID: 1951692457995131442}
-  - component: {fileID: 5886327035121818102}
+  - component: {fileID: 1866920840722068690}
   m_Layer: 5
   m_Name: BuyConfirmAnim
   m_TagString: Untagged
@@ -217,8 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a15816f23737a54cab09b69286160fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5886327035121818102}
---- !u!95 &5886327035121818102
+  animator: {fileID: 1866920840722068690}
+--- !u!95 &1866920840722068690
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0

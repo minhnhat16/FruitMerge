@@ -1077,7 +1077,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -6390130613863389636}
         m_TargetAssemblyTypeName: MainScreenView, Assembly-CSharp
-        m_MethodName: PlayButton
+        m_MethodName: StartBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

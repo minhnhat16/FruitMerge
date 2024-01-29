@@ -22,7 +22,7 @@ public class ItemGrid : MonoBehaviour
             Debug.Log("Have price config");
             if (i.IdShop == idShop)
             {
-                var item = Instantiate((Resources.Load("Prefab/UI/ShopItemTemplate", typeof(GameObject))),transform)as GameObject;
+                var item = Instantiate((Resources.Load("Prefab/UIPrefab/ShopItemTemplate", typeof(GameObject))),transform)as GameObject;
                 if (item == null)
                 {
                     Debug.LogError(" item == null");

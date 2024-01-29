@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 public class BootLoader : MonoBehaviour
@@ -10,44 +11,30 @@ public class BootLoader : MonoBehaviour
         DOTween.SetTweensCapacity(1000, 50);
         yield return new WaitForSeconds(0.5f);
         gameManager = GetComponentInChildren<GameManager>();
+        InitDataDone(() =>
+        {
+            InitConfig();
+        });
+    }
+    private void InitDataDone(Action callback)
+    {
         DataAPIController.instance.InitData(() =>
         {
-            ConfigFileManager.Instance.Init(() =>
-            {
-                gameManager.SetupGameManager();
-                MainScreenViewParam param = new MainScreenViewParam(); 
-                param.totalGold = DataAPIController.instance.GetGold();
-                ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, param, () =>
-                {
-                    DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
-                    //GameManager.instance.LoadIngameSence();
-                });
-            });
-
+            callback?.Invoke();
         });
     }
-    //private void LoadBuffer()
-    //{
-    //    SceneManager.LoadScene("Ingame");
-    //    IngameController.instance.gameObject.SetActive(true);
-    //    //Load data api  
-    //}
-
-    //private void InitConfigDone()
-    //{
-
-    //}
-    private void InitDataDone()
+    private void InitConfig()
     {
-        LoadSceneManager.instance.LoadSceneByName("InGame", () =>
+        ConfigFileManager.Instance.Init(() =>
         {
-            //gameManager.SetupGameManager();
-            DataAPIController.instance.InitData(() =>
+            gameManager.SetupGameManager();
+            MainScreenViewParam param = new MainScreenViewParam();
+            param.totalGold = DataAPIController.instance.GetGold();
+            ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, param, () =>
             {
-                gameManager.LoadBufferScene();
+                DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
             });
-            ViewManager.Instance.SwitchView(ViewIndex.MainScreenView);
         });
-
     }
+   
 }

@@ -12,6 +12,7 @@ public class TabPlay : MonoBehaviour
         tabOff.SetActive(false);
         animator.Play("TabOn");
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
+        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
         ViewManager.Instance.SwitchView(ViewIndex.MainScreenView);
     }
     public void OnTabOff()

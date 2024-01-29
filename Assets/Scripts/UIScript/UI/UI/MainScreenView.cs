@@ -17,12 +17,14 @@ public class MainScreenView : BaseView
             MainScreenViewParam param = viewParam as MainScreenViewParam;
             totalGold = param.totalGold;
             gold_lb.text = totalGold.ToString();
-
             DataTrigger.RegisterValueChange(DataPath.GOLD, GoldValueChange);
         }
 
     }
-
+    public void StartBtn()
+    {
+        GameManager.instance.LoadIngameSence();
+    }
     private void GoldValueChange(object data)
     {
         int gold = (int)data;

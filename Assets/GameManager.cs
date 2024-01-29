@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     public void LoadIngameSence()
     {
         CameraMain.instance.main.gameObject.SetActive(true);
-
         LoadSceneManager.instance.LoadSceneByName("InGame", () =>
         {
             ingameController.enabled = true;
@@ -46,10 +45,8 @@ public class GameManager : MonoBehaviour
                 ingameController.SetUpIngame();
                 SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);
             });
-
         });
-
-
+        DialogManager.Instance.HideAllDialog();
     }
     public void SetUpIngame()
     {

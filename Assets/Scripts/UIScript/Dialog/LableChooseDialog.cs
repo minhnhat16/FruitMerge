@@ -24,6 +24,10 @@ public class LableChooseDialog : BaseDialog
         base.OnStartShowDialog();
         gold_lb.text = DataAPIController.instance.GetGold().ToString();
     }
+    public void AddGoldButton()
+    {
+        SelectShopTab();
+    }
     public void GoldChange(int gold)
     {
         gold_lb.text = gold.ToString();

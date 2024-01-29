@@ -29,7 +29,7 @@ public class ShopItemTemplate : MonoBehaviour
     
    private void Start()
     {
-        cost_lb.text = intCost.ToString();
+       cost_lb.text = intCost.ToString();
        total_lb.text = "x" + totalItem.ToString();
     }
     BuyConfirmDialogParam param = new BuyConfirmDialogParam();
@@ -42,10 +42,13 @@ public class ShopItemTemplate : MonoBehaviour
        
         param.onConfirmAction = () =>
         {
-            type -= 1;
-            DataAPIController.instance.MinusGold(intCost);
-            DataAPIController.instance.AddItemTotal(type.ToString(),totalItem);
-            IngameController.instance.GoldChanged();
+            if(type >0 && type <= 3)
+            {
+                int newType = type - 1;
+                DataAPIController.instance.MinusGold(intCost);
+                DataAPIController.instance.AddItemTotal(newType.ToString(), totalItem);
+                IngameController.instance.GoldChanged();
+            }
         };
         if (enable == true && goldHave >= intCost)
         {
@@ -53,6 +56,5 @@ public class ShopItemTemplate : MonoBehaviour
             param.cost_lb = cost_lb.text;
             DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
         }
-
     }
 }
