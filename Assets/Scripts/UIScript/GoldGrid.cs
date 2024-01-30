@@ -49,6 +49,7 @@ public class GoldGrid : MonoBehaviour
         var itemConfig = ConfigFileManager.Instance.ItemConfig.GetRecordByKeySearch(price.IdItem);
         item.IntCost = price.Price;
         item.ItemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(itemConfig.SpriteName);
+        item.ItemImg.SetNativeSize();
         item.Type = price.IdItem;
         item.TotalItem = price.Amount;
         item.Enable = price.Available;

@@ -59,5 +59,13 @@ public class LableChooseDialog : BaseDialog
         tabShop.OnTabOff();
         tabSkin.OnTabOff();
     }
+    public void SettingDialogButton()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.SettingDialog, null);
+    }
+    public void DailyDialogButton()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.DailyRewardDialog, null);
 
+    }
 }

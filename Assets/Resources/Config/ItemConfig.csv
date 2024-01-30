@@ -1,7 +1,21 @@
-id,spritename,type,skintype
+﻿id, spritename,type,skintype
 0,gold,0,
 1,hammer,1,
 2,rotate,2,
 3,change,3,
-4,fruitskin,4,fruitskin
-5,boxskin,5,boxskin
+4,fruitskin,4,default
+5,fruitskin,4,spring
+6,fruitskin,4,summer
+7,fruitskin,4,autumm
+8,fruitskin,4,winter
+9,fruitskin,4,halloween
+10,fruitskin,4,space
+11,fruitskin,4,sky
+12,boxskin,5,default
+13,boxskin,5,spring
+14,boxskin,5,summer
+15,boxskin,5,autumm
+16,boxskin,5,winter
+17,boxskin,5,halloween
+18,boxskin,5,space
+19,boxskin,5,sky

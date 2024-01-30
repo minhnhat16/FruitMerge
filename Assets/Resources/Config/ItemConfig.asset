@@ -14,26 +14,82 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   records:
   - id: 0
-    spriteName: gold
+    spriteName: coin
     type: 0
     skinType: 
   - id: 1
-    spriteName: hammer
+    spriteName: item_Burst
     type: 1
     skinType: 
   - id: 2
-    spriteName: rotate
+    spriteName: item_shake
     type: 2
     skinType: 
   - id: 3
-    spriteName: change
+    spriteName: item_change
     type: 3
     skinType: 
   - id: 4
     spriteName: fruitskin
     type: 4
-    skinType: fruitskin
+    skinType: default
   - id: 5
+    spriteName: fruitskin
+    type: 4
+    skinType: spring
+  - id: 6
+    spriteName: fruitskin
+    type: 4
+    skinType: summer
+  - id: 7
+    spriteName: fruitskin
+    type: 4
+    skinType: autumm
+  - id: 8
+    spriteName: fruitskin
+    type: 4
+    skinType: winter
+  - id: 9
+    spriteName: fruitskin
+    type: 4
+    skinType: halloween
+  - id: 10
+    spriteName: fruitskin
+    type: 4
+    skinType: space
+  - id: 11
+    spriteName: fruitskin
+    type: 4
+    skinType: sky
+  - id: 12
     spriteName: boxskin
     type: 5
-    skinType: boxskin
+    skinType: default
+  - id: 13
+    spriteName: boxskin
+    type: 5
+    skinType: spring
+  - id: 14
+    spriteName: boxskin
+    type: 5
+    skinType: summer
+  - id: 15
+    spriteName: boxskin
+    type: 5
+    skinType: autumm
+  - id: 16
+    spriteName: boxskin
+    type: 5
+    skinType: winter
+  - id: 17
+    spriteName: boxskin
+    type: 5
+    skinType: halloween
+  - id: 18
+    spriteName: boxskin
+    type: 5
+    skinType: space
+  - id: 19
+    spriteName: boxskin
+    type: 5
+    skinType: sky

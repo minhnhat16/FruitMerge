@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,22 +25,11 @@ public class UserInventory
 {
     [SerializeField]
     public Dictionary<string, ItemData> itemInventory = new Dictionary<string, ItemData>();
-    public Dictionary<string, FruitSkin> fruitSkinOwned = new Dictionary<string, FruitSkin>();
-    public Dictionary<string, BoxSkin> boxSkinOwned = new Dictionary<string, BoxSkin>();
+    public List<int> fruitskinOwned = new();
+    public List<int> boxSkinOwned = new();
     public int gold;
 }
-[Serializable]
-public class FruitSkin
-{
-    public int id;
-    public string skinName;
-}
-[Serializable]
-public class BoxSkin
-{
-    public int id;
-    public string skinName;
-}
+
 [Serializable]
 public class ItemData
 {
@@ -49,7 +37,7 @@ public class ItemData
     public int total;
 }
 [Serializable]
-public class UserLevelData 
+public class UserLevelData
 {
     public int highestScore;
     public int currentRank;

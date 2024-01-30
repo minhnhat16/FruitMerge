@@ -12,7 +12,8 @@ public class SkinGrid : MonoBehaviour
     }
     private void InitiateSkinItem()
     {
-       for(int i = 0; i < sumAvailableSkin; i++)
+        //var ownSkin = DataAPIController.instance.GetAllFruitSkinOwned();
+       for (int i = 0; i < sumAvailableSkin; i++)
         {
             var skin = Instantiate((Resources.Load("Prefab/UIPrefab/SkinItemPrefab", typeof(GameObject))), transform) as GameObject;
             if (skin == null)

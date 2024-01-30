@@ -87,21 +87,11 @@ public class DataModel : MonoBehaviour
                 itemData.total = 10;
                 int id = i ;
                 itemData.id = id.ToString();
-                Debug.Log(id);
                 userInventory.itemInventory.Add(itemData.id, itemData);
             }
 
-            userInventory.fruitSkinOwned = new Dictionary<string, FruitSkin>();
-            FruitSkin fruitSkin = new FruitSkin();
-            fruitSkin.id = 0;
-            fruitSkin.skinName = "Default";
-            userInventory.fruitSkinOwned.Add(fruitSkin.skinName, fruitSkin);
-
-            userInventory.boxSkinOwned = new Dictionary<string, BoxSkin>();
-            BoxSkin boxSkinOwned = new BoxSkin();
-            boxSkinOwned.id = 0;
-            boxSkinOwned.skinName = "Default";
-            userInventory.boxSkinOwned.Add(boxSkinOwned.skinName, boxSkinOwned);
+            userInventory.fruitskinOwned.Add(GameInitData.defaultSkinID);
+            userInventory.boxSkinOwned.Add(GameInitData.defaultBoxSkinID);
 
             userData.inventory = userInventory;
 
@@ -275,5 +265,6 @@ public class DataModel : MonoBehaviour
 
 public class GameInitData
 {
-
+    public const int defaultSkinID = 0;
+    public const int defaultBoxSkinID = 0;
 }

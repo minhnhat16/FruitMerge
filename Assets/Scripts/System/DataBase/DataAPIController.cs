@@ -77,23 +77,28 @@ public class DataAPIController : MonoBehaviour
         dataModel.UpdateData(DataPath.CURRENTLV, level);
     }
     #region SKIN DATA
-    public FruitSkin GetFruitSkin(string type)
+    public int GetFruitSkin(int id)
     {
         Debug.Log("DATA === FRUIT SKIN");
-        FruitSkin fruitSkin = dataModel.ReadDictionary<FruitSkin>(DataPath.FRUITSKIN, type);
+        int fruitSkin = dataModel.ReadData<int>(DataPath.FRUITSKIN);
         return fruitSkin;
     }
-    public void SaveFruitSkin(int id, string skin)
+    public List<int> GetAllFruitSkinOwned()
     {
-        FruitSkin skinData = new FruitSkin();
-        skinData.id = id;
-        skinData.skinName = skin;
-        dataModel.UpdateDataDictionary(DataPath.FRUITSKIN, skin, skinData);
+        List<int> ownedSkins = dataModel.ReadData<List<int>>(DataPath.FRUITSKIN);
+        return ownedSkins;
     }
-    public void GetAllFruitSkin()
-    {
-        dataModel.ReadData<FruitSkin>(DataPath.FRUITSKIN);
-    }
+    //public void SaveFruitSkin(int id, string skin)
+    //{
+    //    FruitSkin skinData = new FruitSkin();
+    //    skinData.id = id;
+    //    skinData.skinName = skin;
+    //    dataModel.UpdateDataDictionary(DataPath.FRUITSKIN, skin, skinData);
+    //}
+    //public void GetAllFruitSkin()
+    //{
+    //    dataModel.ReadData<FruitSkin>(DataPath.FRUITSKIN);
+    //}
     #endregion
     #region Others
     public ItemData GetItemData(string type)

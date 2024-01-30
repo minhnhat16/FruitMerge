@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,22 +10,22 @@ public class ShopItemTemplate : MonoBehaviour
     [SerializeField] private Image backGround;
     [SerializeField] private Image itemImg;
     [SerializeField] private int type;
-    [SerializeField] private Text name_lb;
+    [SerializeField] private TextMeshProUGUI name_lb;
     [SerializeField] private Image ContainBox;
     [SerializeField] private int  totalItem;
     [SerializeField] private Text total_lb;
     [SerializeField] private int intCost;
-    [SerializeField] private Text cost_lb;
+    [SerializeField] private TextMeshProUGUI cost_lb;
     [SerializeField] private bool enable;
 
     public int Type { get => type; set => type = value; }
     public int IntCost { get => intCost; set => intCost = value; }
     public int TotalItem { get => totalItem; set => totalItem = value; }
     public Image ItemImg { get => itemImg; set => itemImg = value; }
-    public Text Name_lb { get => name_lb; set => name_lb = value; }
+    public TextMeshProUGUI Name_lb { get => name_lb; set => name_lb = value; }
     public Image ContainBox1 { get => ContainBox; set => ContainBox = value; }
     public Text Total_lb { get => total_lb; set => total_lb = value; }
-    public Text Cost_lb { get => cost_lb; set => cost_lb = value; }
+    public TextMeshProUGUI Cost_lb { get => cost_lb; set => cost_lb = value; }
     public bool Enable { get => enable; set => enable = value; }
     
    public virtual void Start()
