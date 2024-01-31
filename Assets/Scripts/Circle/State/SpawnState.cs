@@ -10,7 +10,7 @@ public class SpawnState : FSMState<CircleObject>
     public override void OnEnter()
     {
         base.OnEnter();
-        sys.transform.position = Player.instance.Pos;
+        sys.transform.position = new Vector3 (Player.instance.Pos.x,Player.instance.CircleSpawnPos.y);
         sys.SetColliderRadius(0f);
         sys.SetSpritePiority(2);
         sys.SetRotation(Vector3.zero);

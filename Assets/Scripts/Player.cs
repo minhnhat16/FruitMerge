@@ -13,7 +13,10 @@ public class Player : MonoBehaviour, IPointerClickHandler
     [SerializeField] private SpriteRenderer _render;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private Vector3 pos;
+    [SerializeField] private Vector3 circleSpawnPos;
     public Vector3 Pos { get { return pos; } }
+    public Vector3 CircleSpawnPos { get { return circleSpawnPos; } }
+
     public LineRenderer LineRenderer { get { return _lineRenderer; } }
     public void SetLineRenderer(LineRenderer line)
     {
@@ -24,6 +27,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         instance = this;
         _render = GetComponentInChildren<SpriteRenderer>();
         transform.position = pos;
+        circleSpawnPos += pos;
     }
     // Start is called before the first frame update
     void Start()
@@ -61,7 +65,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         if (CameraMain.instance.main == null) return;
         float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
         transform.position = new Vector3(x, pos.y);
-        _lineRenderer.SetPosition(0, transform.position - new Vector3(0, 0.5f));
+        _lineRenderer.SetPosition(0, transform.position  + new Vector3(0, 0.35f));
         var linePos = _lineRenderer.GetPosition(1);
         _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
     }
@@ -93,16 +97,16 @@ public class Player : MonoBehaviour, IPointerClickHandler
         if (Input.GetMouseButtonDown(0))
         {
             yield return new WaitUntil(() => mainCircle != null);
-            mainCircle.transform.position = pos;
+            mainCircle.transform.position = pos + circleSpawnPos;
             mainCircle.SetIsMerge(false);
-            mainCircle.transform.position = new Vector3(transform.position.x, pos.y);
+            mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         }
         else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
         {
 
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
-            mainCircle.transform.position = new Vector3(transform.position.x, pos.y);
+            mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
 
         }
         else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BootLoader : MonoBehaviour
 {
     private GameManager gameManager;
+    
     IEnumerator Start()
     {
         DontDestroyOnLoad(this);
@@ -30,10 +31,8 @@ public class BootLoader : MonoBehaviour
             gameManager.SetupGameManager();
             MainScreenViewParam param = new MainScreenViewParam();
             param.totalGold = DataAPIController.instance.GetGold();
-            ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, param, () =>
-            {
-                DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
-            });
+            DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
+
         });
     }
    
