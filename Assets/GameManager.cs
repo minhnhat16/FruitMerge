@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
             ingameController.enabled = true;
             ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
             {
-                //Debug.Log("LoadIngameSence");
+                Debug.Log("LoadIngameSence");
                 ingameController.isPause = false;
                 ingameController.SetUpIngame();
                 SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);

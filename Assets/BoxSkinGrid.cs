@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoxSkinGrid : MonoBehaviour
 {
     [SerializeField] private List<BoxItem> _boxes;
     [SerializeField] private int sumAvailableSkin;
-   private void Awake()
+    [SerializeField] private ScrollRect scrollRect;
+
+    private void Awake()
     {
-    }
-    private void Start()
-    {
+        sumAvailableSkin = 15;
         InitiateBoxSkinItem();
     }
     private void OnEnable()
     {
-        sumAvailableSkin = 15;
+        ResetScroll();
     }
     private void InitiateBoxSkinItem()
     {
@@ -31,6 +32,21 @@ public class BoxSkinGrid : MonoBehaviour
                 _boxes.Add(skin.GetComponent<BoxItem>());
                 SetupSkinItem();
             }
+        }
+    }
+    public void ResetScroll()
+    {
+        // Check if the ScrollRect is assigned
+        if (scrollRect != null)
+        {
+            // Reset the scroll position to the top
+            Debug.LogError("Reset ScrollReact");
+
+            scrollRect.normalizedPosition = new Vector2(0f, 1f);
+        }
+        else
+        {
+            Debug.LogError("ScrollRect not assigned to the script.");
         }
     }
     private void SetupSkinItem()

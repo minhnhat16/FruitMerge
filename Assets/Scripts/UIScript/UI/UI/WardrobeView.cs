@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WardrobeView : BaseView
 {
     [SerializeField] private BoxTabButton boxTab;
     [SerializeField] private SkinTabButton skinTab;
+    [SerializeField] private Image currentSkin;
     public override void OnStartShowView()
     {
         base.OnStartHideView();

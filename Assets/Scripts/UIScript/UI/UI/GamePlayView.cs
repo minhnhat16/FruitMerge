@@ -132,10 +132,10 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void PauseButton()
     {
-        DialogManager.Instance.ShowDialog(DialogIndex.PauseDialog, null, () =>
+        DialogManager.Instance.ShowDialog(DialogIndex.SettingDialog, null, () =>
         {
             var player = FindObjectOfType<Player>();
-            //player.canDrop = false;
+            player.canDrop = false;
             IngameController.instance.isPause = true;
         });
     }
