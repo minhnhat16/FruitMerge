@@ -5,10 +5,13 @@ public class SkinGrid : MonoBehaviour
 {
     [SerializeField] private  List<SkinItem> _skins;
     [SerializeField] private int sumAvailableSkin ;
-    private void OnEnable()
+    private void Awake()
     {
         sumAvailableSkin = 6;
         InitiateSkinItem();
+    }
+    private void OnEnable()
+    {
     }
     private void InitiateSkinItem()
     {

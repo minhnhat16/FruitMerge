@@ -6,12 +6,18 @@ public class BoxSkinGrid : MonoBehaviour
 {
     [SerializeField] private List<BoxItem> _boxes;
     [SerializeField] private int sumAvailableSkin;
+   private void Awake()
+    {
+    }
+    private void Start()
+    {
+        InitiateBoxSkinItem();
+    }
     private void OnEnable()
     {
         sumAvailableSkin = 15;
-        InitiateSkinItem();
     }
-    private void InitiateSkinItem()
+    private void InitiateBoxSkinItem()
     {
         for (int i = 0; i < sumAvailableSkin; i++)
         {
