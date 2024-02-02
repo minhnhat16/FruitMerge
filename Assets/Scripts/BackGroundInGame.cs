@@ -1,11 +1,14 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BackGroundInGame : MonoBehaviour
 {
     public SpriteRenderer backgroundRenderer;
 
-    public float scaleMultiplier = 0.001f;
+    public float scaleMultiplier ;
+    public Vector2 imgScale;
+    public Vector2 size ;
 
     void OnEnable()
     {
@@ -14,10 +17,9 @@ public class BackGroundInGame : MonoBehaviour
 
     void ScaleBackground()
     {
-        float screenWidth = Screen.width * scaleMultiplier;
-        float screenHeight = Screen.height * scaleMultiplier;
-
-        backgroundRenderer.size = new Vector2(screenWidth, screenHeight);
+        float scale = GameManager.instance.UIRoot.scale;
+       transform.localScale += new Vector3(scale, scale, scale);
+        //backgroundRenderer.size *= new Vector2(x , y);
 
     }
 }

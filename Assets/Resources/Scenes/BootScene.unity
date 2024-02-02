@@ -1384,8 +1384,16 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8001149653443402615, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
+      propertyPath: imgScale.x
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001149653443402615, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
+      propertyPath: imgScale.y
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001149653443402615, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: scaleMultiplier
-      value: 0.0105
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8001149653443402615, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: backgroundRenderer
@@ -1421,7 +1429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_DrawMode
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_SortingLayer
@@ -1429,7 +1437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_SortingOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_SortingLayerID
@@ -1437,11 +1445,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_SpriteTileMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8156623892944169765, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_AdaptiveModeThreshold
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8732692112151108031, guid: 92eddf6d8cea7cf4b9589bbeef4c721a, type: 3}
       propertyPath: m_Enabled
