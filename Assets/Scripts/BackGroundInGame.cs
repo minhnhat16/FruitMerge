@@ -1,30 +1,23 @@
+using System.Collections;
 using UnityEngine;
 
 public class BackGroundInGame : MonoBehaviour
 {
-    public static BackGroundInGame Instance;
+    public SpriteRenderer backgroundRenderer;
 
-    // Start is called before the first frame update
-    void Start()
+    public float scaleMultiplier = 0.001f;
+
+    void OnEnable()
     {
+        ScaleBackground();
     }
 
-    // Update is called once per frame
-    void Update()
+    void ScaleBackground()
     {
+        float screenWidth = Screen.width * scaleMultiplier;
+        float screenHeight = Screen.height * scaleMultiplier;
 
-    }
-    public void SetUpBG()
-    {
-        if (!gameObject.activeSelf)
-        {
-            Debug.Log("ACTIVE BG");
-            gameObject.SetActive(true);
-            float rateX = 1920 /  CameraMain.instance.main.pixelWidth ;
-            Debug.Log("rateX" + rateX);
-            float rateY = 1080 / CameraMain.instance.main.pixelHeight;
-            Debug.Log("rateY" + rateX);
+        backgroundRenderer.size = new Vector2(screenWidth, screenHeight);
 
-        }
     }
 }

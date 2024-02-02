@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,7 +19,7 @@ public class SettingDialog : BaseDialog
     [SerializeField] private Image sfxOff;
     [SerializeField] private Image vibOn;
     [SerializeField] private Image vibOff;
-
+    [SerializeField] private TMP_Dropdown language_dr;
 
     [HideInInspector]
     public UnityEvent<bool> musicEvent = new UnityEvent<bool>();
@@ -28,6 +31,7 @@ public class SettingDialog : BaseDialog
     {
         musicEvent.AddListener(MusicChange);
         sfxEvent.AddListener(SFXChange);
+        language_dr.onValueChanged.AddListener(OnDropdownValueChanged);
     }
     private void OnDisable()
     {
@@ -121,10 +125,17 @@ public class SettingDialog : BaseDialog
     }
     public void CloseBtn()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.SettingDialog);
+        Debug.Log("Close button on " + this.dialogIndex);
+        DialogManager.Instance.HideDialog(this.dialogIndex);
         IngameController.instance.isPause = false;
-
     }
+    private void OnDropdownValueChanged(int index)
+    {
+        // Get the selected option text
+        string selectedOption =language_dr.options[index].text;
 
-
+        // Display the selected option
+        Debug.Log("Selected Option: " + selectedOption + " with index " + language_dr.options[index]);
+    }
+    
 }

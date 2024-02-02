@@ -10,6 +10,8 @@ public class IngameController : MonoBehaviour
     [SerializeField] public GameObject Level;
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject backGround;
+    [SerializeField] private GameObject wire;
+
     [SerializeField] private int firstID;
     [SerializeField] private int score;
     public bool isPause = false;
@@ -57,7 +59,7 @@ public class IngameController : MonoBehaviour
   
     public void SetUpIngame()
     {
-        backGround.GetComponent<BackGroundInGame>().SetUpBG();
+        backGround.SetActive(true);
         SetUpPlayer();
         SetUpWall();
         SetUpLevel();
@@ -74,6 +76,10 @@ public class IngameController : MonoBehaviour
     {
         score = 0;
         setScoreEvent?.Invoke(score);
+    }
+    public void SetUpWire()
+    {
+
     }
     public void SetUpPlayer()
     {

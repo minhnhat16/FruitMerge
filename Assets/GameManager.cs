@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] private IngameController ingameController;
     public UIRootControlScale UIRoot;
+    [SerializeField] private int languageID;
+
+    public int LanguageID { get => languageID; set => languageID = value; }
     private void Awake()
     {
         if (instance == null) instance = this;
