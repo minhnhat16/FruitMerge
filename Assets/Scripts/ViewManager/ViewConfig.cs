@@ -10,7 +10,8 @@ public enum ViewIndex
     ShopView = 5,
     SpinView = 6,
     DailyView = 7,
-    WardrobeView = 8
+    WardrobeView = 8,
+    RankView = 9
 }
 
 public class ViewParam { }
@@ -36,6 +37,7 @@ public class ViewConfig
         ViewIndex.ShopView,
         ViewIndex.DailyView,
         ViewIndex.SpinView,
-        ViewIndex.WardrobeView
+        ViewIndex.WardrobeView,
+        ViewIndex.RankView
     };
 }

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class BackGroundInGame : MonoBehaviour
 {
-    public SpriteRenderer backgroundRenderer;
+    public Canvas canvas;
+    public SpriteRenderer UpBG;
+    public SpriteRenderer DownBG;
 
-    public float scaleMultiplier ;
-    public Vector2 imgScale;
-    public Vector2 size ;
 
-    void OnEnable()
+    private void Start()
     {
-        ScaleBackground();
-    }
-
-    void ScaleBackground()
-    {
-        float scale = GameManager.instance.UIRoot.scale;
-       transform.localScale += new Vector3(scale, scale, scale);
-        //backgroundRenderer.size *= new Vector2(x , y);
-
+        canvas = GetComponent<Canvas>();
+        if(canvas!= null)
+        {
+            Debug.Log("Canvas cam not null");
+            canvas.worldCamera = CameraMain.instance.main;
+        }
+        else
+        {
+            Debug.Log("Canvas cam null");
+        }
     }
 }

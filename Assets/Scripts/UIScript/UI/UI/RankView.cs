@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class SelectLevelView : BaseView
+public class RankView : BaseView
 {
     public GameObject ScrollView;
     public Text total_lb;

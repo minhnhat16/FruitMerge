@@ -22,6 +22,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
     [SerializeField] private Text upgrade_lb;
     [SerializeField] private Text hammerAll_lb;
     [SerializeField] private Animator goldAnim;
+    [SerializeField] private GameObject settingList;
+
     [SerializeField] Button tomato_Btn;
     [SerializeField] Button bomb_Btn;
     [SerializeField] Button upgrade_Btn;
@@ -132,12 +134,21 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void PauseButton()
     {
-        DialogManager.Instance.ShowDialog(DialogIndex.SettingDialog, null, () =>
+        if(settingList.activeSelf == true)
         {
-            var player = FindObjectOfType<Player>();
-            player.canDrop = false;
-            IngameController.instance.isPause = true;
-        });
+            Debug.Log("pause button list ON");
+            settingList.GetComponent<SettingList>().HideSettingList(() =>
+            {
+                settingList.SetActive(false);
+
+            });
+        }
+        else
+        {
+            settingList.SetActive(true);
+            settingList.GetComponent<SettingList>().ShowSettingList(null);
+
+        }
     }
     public void NextCircleImage(int id)
     {
@@ -253,5 +264,21 @@ public class GamePlayView : BaseView, IPointerClickHandler
             OnClickUpgrade();
         }
     }
+    public void SettingButton()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.SettingDialog);
+    }
+    public void SkinButton()
+    {
+        ViewManager.Instance.SwitchView(ViewIndex.WardrobeView);
+    }
+    public void RateButton()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.ReviveDialog);
+    }
+    public void RankButton()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.LeaderBoardDialog);
 
+    }
 }
