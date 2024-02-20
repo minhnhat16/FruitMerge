@@ -14,20 +14,20 @@ public class SkinTabButton : MonoBehaviour
     {
         tabOn.SetActive(true);
         tabOff.SetActive(false);
-        animator.Play("TabOn");
+        //animator.Play("TabSkin");
     }
     public void OnClickTabOn()
     {
         tabOn.SetActive(true);
         tabOff.SetActive(false);
-        animator.Play("TabOn");
+        //animator.Play("TabSkin");
         skinGrid.GetComponentInChildren<Scrollbar>().value = 1;
-        skinGrid.gameObject.SetActive(true);
+        skinGrid.SetActive(true);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
     }
     public void OnTabOff()
     {
-        skinGrid.gameObject.SetActive(false);
+        skinGrid.SetActive(false);
         tabOn.SetActive(false);
         tabOff.SetActive(true);
     }

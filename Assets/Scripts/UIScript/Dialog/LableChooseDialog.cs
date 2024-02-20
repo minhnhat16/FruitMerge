@@ -39,12 +39,16 @@ public class LableChooseDialog : BaseDialog
         tabPlay.OnTabOff();
         tabLeaderBoard.OnTabOff();
         tabSkin.OnTabOff();
+        PauseDialogOff();
+
     }
     public void SelectSkinTab()
     {
         tabSkin.OnClickTabOn();
         tabPlay.OnTabOff();
         tabShop.OnTabOff();
+        PauseDialogOff();
+
     }
     public void SelectPlayTab()
     {
@@ -52,6 +56,7 @@ public class LableChooseDialog : BaseDialog
         tabShop.OnTabOff();
         tabLeaderBoard.OnTabOff();
         tabSkin.OnTabOff();
+        PauseDialogOff();
     }
     public void SelectLeadBoardTab()
     {
@@ -59,6 +64,7 @@ public class LableChooseDialog : BaseDialog
         tabPlay.OnTabOff();
         tabShop.OnTabOff();
         tabSkin.OnTabOff();
+        PauseDialogOff();
     }
     public void SettingDialogButton()
     {
@@ -68,5 +74,9 @@ public class LableChooseDialog : BaseDialog
     {
         DialogManager.Instance.ShowDialog(DialogIndex.DailyRewardDialog, null);
 
+    }
+    public void PauseDialogOff()
+    {
+        DialogManager.Instance.HideDialog(DialogIndex.SettingDialog);
     }
 }

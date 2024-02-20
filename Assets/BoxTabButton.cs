@@ -16,9 +16,9 @@ public class BoxTabButton : MonoBehaviour
     {
         tabOn.SetActive(true);
         tabOff.SetActive(false);
-        animator.Play("TabOn");
+        //animator.Play("TabSkin");
         boxGrid.GetComponentInChildren<Scrollbar>().value = 1;
-        boxGrid.gameObject.SetActive(true);
+        boxGrid.SetActive(true);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
     }
     public void OnTabOff()

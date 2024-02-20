@@ -28,7 +28,7 @@ public class SkinGrid : MonoBehaviour
     {
 
         var config = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
-
+        var playerData = DataAPIController.instance.GetAllFruitSkinOwned();
         for (int i = 0; i < config.Count; i++)
         {
             if (config[i].Type == ItemType.FRUITSKIN)
@@ -41,7 +41,17 @@ public class SkinGrid : MonoBehaviour
                 else
                 {
                     _skins.Add(skin.GetComponent<SkinItem>());
-                    skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, true, false);
+                    if (playerData.Contains(config[i].ID))
+                    {
+                        Debug.Log("CONTAIN SKIN");
+                        skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, true, false);
+                    }
+                    else
+                    {
+                        Debug.Log("NOT CONTAIN SKIN");
+                        skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, false, false);
+
+                    }
                 }
             }
            

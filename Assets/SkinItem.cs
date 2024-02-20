@@ -13,6 +13,8 @@ public class SkinItem : MonoBehaviour
     public List<Image> fruitImages;
     public TextMeshProUGUI skinName_lb;
     public Image disableMask;
+    public Image disOnwed;
+
     public ConfirmButton confirmBtnType;
 
     public int SkinID { get => skinID; set => skinID = value; }
@@ -33,19 +35,20 @@ public class SkinItem : MonoBehaviour
         if (isObtain)
         {
             disableMask.gameObject.SetActive(false);
-            confirmBtnType.SwitchButtonType(ButtonType.UnEquiped);
+            confirmBtnType.SwitchButtonType(ButtonType.Equiped);
             //ADD BUY OR EQUIPCONDITION
         }
         else
         {
             disableMask.gameObject.SetActive(true);
+            disOnwed.gameObject.SetActive(true);
             confirmBtnType.SwitchButtonType(ButtonType.Buy);
         }
     }
     public void SetOwnedImg()
     {
         disableMask.gameObject.SetActive(false);
-        confirmBtnType.SwitchButtonType(ButtonType.Ads);
+        confirmBtnType.SwitchButtonType(ButtonType.UnEquiped);
     }
 }
 public class SkinViewItemAction

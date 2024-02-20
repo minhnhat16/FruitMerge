@@ -12,6 +12,31 @@ public class ConfirmButton : MonoBehaviour
     {
         
     }
+    public void OnClickButton()
+    {
+        switch (btnType)
+        {
+            case ButtonType.Ads:
+                Debug.Log("WATCH ADS TO GET NEW SKIN");
+                OnBuyAction();
+                break;  
+            case ButtonType.Equiped:
+                Debug.Log("SKIN EQUIPPED");
+                break;
+            case ButtonType.Buy:
+                Debug.Log("TRY TO BUY WITH AN AMOUNT OF GOLD");
+                var param = new BuyConfirmDialogParam();
+                OnBuyAction();
+                break;
+            default:
+                break;
+        }
+    }
+    public void OnBuyAction()
+    {
+        DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog);
+
+    }
     public void SwitchButtonType(ButtonType type)
     {
         switch (type)
@@ -21,6 +46,7 @@ public class ConfirmButton : MonoBehaviour
 
                 btnType = type;
                 Debug.Log(type.ToString() + " int " + btnType);
+                EnableButtonImage(type);
                 //EnableButtonImage(btnType);
                 break;
 
@@ -28,17 +54,23 @@ public class ConfirmButton : MonoBehaviour
                 //Buy type on 
 
                 btnType = type;
+                EnableButtonImage(type);
+
                 //EnableButtonImage(btnType);
                 break;
 
             case ButtonType.Equiped:
                 //Equiped type on 
                 btnType = type;
+                EnableButtonImage(type);
+
                 //EnableButtonImage(btnType);
                 break;
 
             case ButtonType.UnEquiped:
                 btnType = type;
+                EnableButtonImage(type);
+
                 //EnableButtonImage(btnType);
                 break;
 

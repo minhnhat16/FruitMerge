@@ -5,6 +5,9 @@ public class WardrobeView : BaseView
 {
     [SerializeField] private BoxTabButton boxTab;
     [SerializeField] private SkinTabButton skinTab;
+    [SerializeField]  private GameObject skinGrid;
+    [SerializeField] private GameObject boxSkin;
+
     [SerializeField] private Image currentSkin;
     public override void OnStartShowView()
     {
@@ -13,6 +16,7 @@ public class WardrobeView : BaseView
     }
     public void StartTabOn()
     {
+        skinGrid.SetActive(true);
         skinTab.StartTabOn();
         boxTab.OnTabOff();
     }
@@ -20,6 +24,7 @@ public class WardrobeView : BaseView
     {
         boxTab.OnClickTabOn();
         skinTab.OnTabOff();
+
     }
     public void SelectSkinTab()
     {
