@@ -52,14 +52,16 @@ public class DialogManager : MonoBehaviour
         if (dialogShowed.Contains(dialog))
         {
             dialogShowed.Remove(dialog);
-        }
 
+        }
+        else return;
         dialog.HideDialogAnimation(() =>
         {
             callback?.Invoke();
             Debug.Log(callback);
             dialog.gameObject.SetActive(false);
         });
+
     }
 
     public void HideAllDialog()
@@ -72,4 +74,5 @@ public class DialogManager : MonoBehaviour
 
         dialogShowed.Clear();
     }
+  
 }

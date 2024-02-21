@@ -83,6 +83,11 @@ public class DataAPIController : MonoBehaviour
         int fruitSkin = dataModel.ReadData<int>(DataPath.FRUITSKIN);
         return fruitSkin;
     }
+    public int GetCurrentFruitSkin()
+    {
+        int crFruitSkin = dataModel.ReadData<int>(DataPath.CURRENTFRUITSKIN);
+        return crFruitSkin;
+    }
     public List<int> GetAllFruitSkinOwned()
     {
         List<int> ownedSkins = dataModel.ReadData<List<int>>(DataPath.FRUITSKIN);

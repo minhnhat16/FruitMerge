@@ -759,6 +759,7 @@ Transform:
   - {fileID: 337470826}
   - {fileID: 625453405}
   - {fileID: 1540924228}
+  - {fileID: 1285249960}
   - {fileID: 1838248703}
   - {fileID: 1737558961}
   m_Father: {fileID: 0}
@@ -1004,6 +1005,56 @@ MonoBehaviour:
   canvas: {fileID: 0}
   UpBG: {fileID: 0}
   DownBG: {fileID: 0}
+--- !u!1 &1285249959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1285249960}
+  - component: {fileID: 1285249961}
+  m_Layer: 0
+  m_Name: SkinLibControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1285249960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285249959}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 850606808}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1285249961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285249959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0988313b08bac3f46ae4f77268ab625d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruitSkinId: 0400000005000000
+  playerSkins:
+  - default
+  - 1
+  boxSkinID: 
+  boxSkins: []
 --- !u!1 &1453763529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1560,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 850606808}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1838248702
 GameObject:
@@ -1542,5 +1593,5 @@ Transform:
   - {fileID: 1696838536}
   - {fileID: 1496885239}
   m_Father: {fileID: 850606808}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

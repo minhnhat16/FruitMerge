@@ -14,7 +14,8 @@ public class SkinItem : MonoBehaviour
     public TextMeshProUGUI skinName_lb;
     public Image disableMask;
     public Image disOnwed;
-
+    public Image equipedBG;
+    public Image unquipedBG;
     public ConfirmButton confirmBtnType;
 
     public int SkinID { get => skinID; set => skinID = value; }
@@ -32,10 +33,20 @@ public class SkinItem : MonoBehaviour
     }
     public void CheckSkinIsObtain(bool isObtain)
     {
-        if (isObtain)
+        if (isObtain && !isDisable)
         {
             disableMask.gameObject.SetActive(false);
+            equipedBG.gameObject.SetActive(true);
+            unquipedBG.gameObject.SetActive(false);
             confirmBtnType.SwitchButtonType(ButtonType.Equiped);
+            //ADD BUY OR EQUIPCONDITION
+        }
+        else if (isObtain && isDisable)
+        {
+            disableMask.gameObject.SetActive(false);
+            unquipedBG.gameObject.SetActive(true);
+            equipedBG.gameObject.SetActive(false);
+            confirmBtnType.SwitchButtonType(ButtonType.Unquiped);
             //ADD BUY OR EQUIPCONDITION
         }
         else
@@ -48,7 +59,7 @@ public class SkinItem : MonoBehaviour
     public void SetOwnedImg()
     {
         disableMask.gameObject.SetActive(false);
-        confirmBtnType.SwitchButtonType(ButtonType.UnEquiped);
+        confirmBtnType.SwitchButtonType(ButtonType.Ads);
     }
 }
 public class SkinViewItemAction

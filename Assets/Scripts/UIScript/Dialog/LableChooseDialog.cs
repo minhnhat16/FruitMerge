@@ -45,6 +45,7 @@ public class LableChooseDialog : BaseDialog
     public void SelectSkinTab()
     {
         tabSkin.OnClickTabOn();
+        tabLeaderBoard.OnTabOff();
         tabPlay.OnTabOff();
         tabShop.OnTabOff();
         PauseDialogOff();

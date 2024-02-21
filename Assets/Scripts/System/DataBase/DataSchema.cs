@@ -23,6 +23,8 @@ public class UserInfo
 [Serializable]
 public class UserInventory
 {
+    public int currentFruitSkinID;
+    public int currentBoxSkinID;
     [SerializeField]
     public Dictionary<string, ItemData> itemInventory = new Dictionary<string, ItemData>();
     public List<int> fruitskinOwned = new();

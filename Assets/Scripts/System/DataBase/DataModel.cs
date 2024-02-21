@@ -89,14 +89,12 @@ public class DataModel : MonoBehaviour
                 itemData.id = id.ToString();
                 userInventory.itemInventory.Add(itemData.id, itemData);
             }
-
             userInventory.fruitskinOwned.Add(GameInitData.defaultSkinID);
             userInventory.boxSkinOwned.Add(GameInitData.defaultBoxSkinID);
-
+            userInventory.currentFruitSkinID = GameInitData.defaultSkinID;
+            userInventory.currentBoxSkinID = GameInitData.defaultBoxSkinID;
             userData.inventory = userInventory;
-
             UserLevelData userLevelData = new UserLevelData();
-
             userLevelData.highestScore = 0;
             userLevelData.currentRank = 0;
             userLevelData.highestRank = 0;
@@ -265,6 +263,6 @@ public class DataModel : MonoBehaviour
 
 public class GameInitData
 {
-    public const int defaultSkinID = 0;
-    public const int defaultBoxSkinID = 0;
+    public const int defaultSkinID = 4;
+    public const int defaultBoxSkinID = 4;
 }

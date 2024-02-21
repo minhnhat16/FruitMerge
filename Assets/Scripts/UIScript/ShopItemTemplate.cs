@@ -39,7 +39,6 @@ public class ShopItemTemplate : MonoBehaviour
         Debug.Log("ONLICKBUYBUTTON");
         int goldHave = DataAPIController.instance.GetGold();
         int intCost = Convert.ToInt32(cost_lb.text);
-        //Debug.Log("gold" + goldHave + " && int cosst" +intCost + " cost " + cost_lb.text);
        
         param.onConfirmAction = () =>
         {

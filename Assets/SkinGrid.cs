@@ -40,11 +40,17 @@ public class SkinGrid : MonoBehaviour
                 }
                 else
                 {
+                    int currentSkin = DataAPIController.instance.GetCurrentFruitSkin();
                     _skins.Add(skin.GetComponent<SkinItem>());
-                    if (playerData.Contains(config[i].ID))
+                    if (currentSkin == config[i].ID)
                     {
-                        Debug.Log("CONTAIN SKIN");
+                        Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
                         skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, true, false);
+                    }
+                    else if (playerData.Contains(config[i].ID))
+                    {
+                        Debug.Log(" CONTAIN SKIN " + config[i].ID);
+                        skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, true, true);
                     }
                     else
                     {
@@ -104,7 +110,6 @@ public class SkinGrid : MonoBehaviour
             }
         }
     }
-
     private void CheckObtainData(int idSkin)
     {
         var skinData = DataAPIController.instance.GetAllFruitSkinOwned();
