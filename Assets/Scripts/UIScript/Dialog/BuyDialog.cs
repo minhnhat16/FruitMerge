@@ -15,7 +15,7 @@ public class BuyDialog : BaseDialog
     [SerializeField] private Text cost_lb;
     [SerializeField] private Text explain_lb;
     private Action onConfirm;
-    private Action onCancle;
+    private Action onCancel;
 
     public override void Setup(DialogParam dialogParam)
     {
@@ -24,7 +24,7 @@ public class BuyDialog : BaseDialog
         {
             BuyConfirmDialogParam param = (BuyConfirmDialogParam)dialogParam;
             onConfirm = param.onConfirmAction;
-            onCancle = param.onCancleAction;
+            onCancel = param.onCancleAction;
         }
     }
 
@@ -43,7 +43,7 @@ public class BuyDialog : BaseDialog
     public void CancleBuy()
     {
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
-        onCancle?.Invoke();
+        onCancel?.Invoke();
         HideConfirmDialog();
     }
 }

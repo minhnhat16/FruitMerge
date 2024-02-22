@@ -1,15 +1,19 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
 public class SkinGrid : MonoBehaviour
 {
+    [SerializeField] private SkinItem crSkinItem;
     [SerializeField] private  List<SkinItem> _skins;
     [SerializeField] private int sumAvailableSkin ;
     [SerializeField] private ScrollRect scrollRect;
     private List<ItemConfigRecord> configs = new List<ItemConfigRecord>();
     private SkinViewItemAction itemData = new SkinViewItemAction();
+    public UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
 
     private void Awake()
     {
@@ -23,6 +27,11 @@ public class SkinGrid : MonoBehaviour
     private void OnEnable()
     {
         ResetScroll();
+        onEquipAction.AddListener(SwitchCurrentSkin);
+    }
+    private void OnDisable()
+    {
+        onEquipAction.RemoveListener(SwitchCurrentSkin);
     }
     private void InitiateSkinItem()
     {
@@ -40,28 +49,35 @@ public class SkinGrid : MonoBehaviour
                 }
                 else
                 {
+                    skin.GetComponent<SkinItem>().onEquipAction = onEquipAction;
                     int currentSkin = DataAPIController.instance.GetCurrentFruitSkin();
                     _skins.Add(skin.GetComponent<SkinItem>());
                     if (currentSkin == config[i].ID)
                     {
                         Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
-                        skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, true, false);
+                        skin.GetComponent<SkinItem>().InitSkin(config[i].ID, true, false);
+                        crSkinItem = skin.GetComponent<SkinItem>();
                     }
                     else if (playerData.Contains(config[i].ID))
                     {
                         Debug.Log(" CONTAIN SKIN " + config[i].ID);
-                        skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, true, true);
+                        skin.GetComponent<SkinItem>().InitSkin(config[i].ID, true, true);
                     }
                     else
                     {
                         Debug.Log("NOT CONTAIN SKIN");
-                        skin.GetComponent<SkinItem>().InitSkin((int)config[i].Type, false, false);
-
+                        skin.GetComponent<SkinItem>().InitSkin(config[i].ID, false, false);
                     }
                 }
             }
            
         }
+    }
+   public void SwitchCurrentSkin(SkinItem skinEquip)
+    {
+        Debug.Log("SWICTH CURRENT SKIN " + skinEquip.SkinID);
+        crSkinItem.SetItemUnquiped();
+        crSkinItem = skinEquip;
     }
     public void TabSetUp()
     {
@@ -94,24 +110,7 @@ public class SkinGrid : MonoBehaviour
         else
         {
             Debug.LogError("ScrollRect not assigned to the script.");
+            return;
         }
-    }
-    private void UpdateTab()
-    {
-        List<int> dataSkinList = DataAPIController.instance.GetAllFruitSkinOwned();
-
-        foreach (SkinItem item in _skins)
-        {
-            item.transform.SetParent(transform.parent, false);
-
-            if (dataSkinList.Contains(item.SkinID))
-            {
-                item.SetOwnedImg();
-            }
-        }
-    }
-    private void CheckObtainData(int idSkin)
-    {
-        var skinData = DataAPIController.instance.GetAllFruitSkinOwned();
     }
 }

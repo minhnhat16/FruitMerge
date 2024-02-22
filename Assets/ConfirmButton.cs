@@ -1,6 +1,7 @@
 using NaughtyAttributes.Test;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,45 +10,27 @@ using UnityEngine.UI;
 public class ConfirmButton : MonoBehaviour
 {
     [SerializeField] private ButtonType btnType;
-    [SerializeField] private string btnText;
+    [SerializeField] private TextMeshProUGUI text;
     [SerializeField] List<Image> _typesImage;
-
-    UnityEvent<bool> onClickAction = new UnityEvent<bool>();
+    public string priceTxt;
+    public ButtonType Btntype  { get { return btnType; } }
+    public  UnityEvent<bool> onClickAction = new UnityEvent<bool>();
     private void OnEnable()
     {
-        onClickAction.AddListener(OnClickButton);
+        
     }
     private void Start()
     {
         
     }
-    public void OnClickButton( bool isClicked)
+    public void OnClickButton()
     {
-        switch (btnType)
-        {
-            case ButtonType.Ads:
-                Debug.Log("WATCH ADS TO GET NEW SKIN");
-                break;  
-            case ButtonType.Equiped:
-                Debug.Log("SKIN IS EQUIPPING");
-                break;
-            case ButtonType.Unquiped: //SWITCH CURRENT SKIN FROM ANOTHER TO THIS
-                Debug.Log("SKIN EQUIPPED");
-                break;
-            case ButtonType.Buy:
-                Debug.Log("TRY TO BUY WITH AN AMOUNT OF GOLD");
-                var param = new BuyConfirmDialogParam();
-                break;
-            default:
-                break;
-        }
+        onClickAction?.Invoke(true);
     }
-    public void OnClickAction()
-    {
-
-    }
+   
     public void SwitchButtonType(ButtonType type)
     {
+        DisableAllButton();
         switch (type)
         {
             case ButtonType.Ads:
@@ -61,7 +44,6 @@ public class ConfirmButton : MonoBehaviour
                 btnType = type;
                 EnableButtonImage(type);
                 break;
-
             case ButtonType.Equiped:
                 //Equiped type on 
                 btnType = type;
@@ -91,6 +73,10 @@ public class ConfirmButton : MonoBehaviour
     {
         var item = _typesImage[(int)type];
         item.gameObject.SetActive(true);
+    }
+    public void UpdatePriceLb(string price)
+    {
+        text.text = price;
     }
 }
 

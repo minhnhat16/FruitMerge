@@ -58,7 +58,7 @@ public class DialogManager : MonoBehaviour
         dialog.HideDialogAnimation(() =>
         {
             callback?.Invoke();
-            Debug.Log(callback);
+            //Debug.Log(callback);
             dialog.gameObject.SetActive(false);
         });
 
@@ -71,7 +71,6 @@ public class DialogManager : MonoBehaviour
             dialog.HideDialogAnimation(null);
             dialog.gameObject.SetActive(false);
         }
-
         dialogShowed.Clear();
     }
   

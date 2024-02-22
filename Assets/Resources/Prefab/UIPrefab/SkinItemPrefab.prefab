@@ -744,12 +744,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnType: 1
   btnText: 
+  text: {fileID: 736068373167245197}
   _typesImage:
   - {fileID: 2445760073505497032}
   - {fileID: 8579500437341700705}
   - {fileID: 616076953904536293}
   - {fileID: 3592716684906815175}
   - {fileID: 7223270676072448556}
+  onClickAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3747845845306777429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,6 +1097,7 @@ MonoBehaviour:
   isDisable: 0
   isOwned: 0
   skinID: 0
+  price: 0
   fruitImages: []
   skinName_lb: {fileID: 6022218609241957721}
   disableMask: {fileID: 5452094073804066508}
@@ -1100,6 +1105,12 @@ MonoBehaviour:
   equipedBG: {fileID: 2080837735398142930}
   unquipedBG: {fileID: 8932135490634143497}
   confirmBtnType: {fileID: 7950112015760295716}
+  onClickAction:
+    m_PersistentCalls:
+      m_Calls: []
+  onEquipAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4222184790873442224
 GameObject:
   m_ObjectHideFlags: 0
