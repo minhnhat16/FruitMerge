@@ -17,25 +17,22 @@ public class GoldGrid : MonoBehaviour
 
     private void InstantiateItems()
     {
-        var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
-
-        foreach (var i in priceConfig)
+        var shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(idShop);
+        foreach (var i in shopConfig.IdPrice)
         {
-            Debug.Log("Have price config");
-            if (i.IdShop == idShop)
-            {
-                var item = Instantiate((Resources.Load("Prefab/UIPrefab/ShopItemTemplate", typeof(GameObject))), transform) as GameObject;
-                if (item == null)
-                {
-                    Debug.LogError(" item == null");
-                }
-                else
-                {
-                    _items.Add(item.GetComponent<ShopItemTemplate>());
-                    SetupItem(item.GetComponent<ShopItemTemplate>(), i);
-                }
-            };
+            Debug.Log("Have price config" + idShop);
 
+            var item = Instantiate((Resources.Load("Prefab/UIPrefab/ShopItemTemplate", typeof(GameObject))), transform) as GameObject;
+            if (item == null)
+            {
+                Debug.LogError(" item == null");
+            }
+            else
+            {
+                _items.Add(item.GetComponent<ShopItemTemplate>());
+                var priceConfig = ConfigFileManager.Instance.PriceConfig.GetRecordByKeySearch(i);
+                SetupItem(item.GetComponent<ShopItemTemplate>(), priceConfig);
+            }
         }
     }
 

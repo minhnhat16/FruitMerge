@@ -14,42 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   records:
   - id: 0
-    idShop: 0
+    idShop: 1
     idItem: 0
     price: -1
     amount: 250
     available: 1
     moneyPaid: 1
   - id: 1
-    idShop: 0
+    idShop: 1
     idItem: 0
     price: 5000
     amount: 1000
     available: 1
     moneyPaid: 1
   - id: 2
-    idShop: 0
+    idShop: 1
     idItem: 0
     price: 15000
     amount: 4000
     available: 1
     moneyPaid: 1
   - id: 3
-    idShop: 0
+    idShop: 1
     idItem: 0
     price: 45000
     amount: 16000
     available: 1
     moneyPaid: 1
   - id: 4
-    idShop: 0
+    idShop: 1
     idItem: 0
     price: 135000
     amount: 64000
     available: 1
     moneyPaid: 1
   - id: 5
-    idShop: 0
+    idShop: 1
     idItem: 0
     price: 405000
     amount: 256000
@@ -79,28 +79,70 @@ MonoBehaviour:
   - id: 9
     idShop: 2
     idItem: 4
-    price: 0
+    price: 10
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 10
     idShop: 2
-    idItem: 4
-    price: 0
+    idItem: 5
+    price: 20
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 11
-    idShop: 3
-    idItem: 5
-    price: 0
+    idShop: 2
+    idItem: 6
+    price: 30
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 12
+    idShop: 2
+    idItem: 7
+    price: 40
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 13
+    idShop: 2
+    idItem: 8
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 14
+    idShop: 2
+    idItem: 9
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 14
+    idShop: 2
+    idItem: 10
+    price: 0
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 15
     idShop: 3
     idItem: 5
-    price: 0
+    price: 500
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 16
+    idShop: 3
+    idItem: 5
+    price: 1250
+    amount: 1
+    available: 1
+    moneyPaid: 0
+  - id: 17
+    idShop: 3
+    idItem: 5
+    price: 1700
     amount: 1
     available: 1
     moneyPaid: 0

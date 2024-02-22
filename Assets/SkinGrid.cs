@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class SkinGrid : MonoBehaviour
 {
     [SerializeField] private SkinItem crSkinItem;
-    [SerializeField] private  List<SkinItem> _skins;
-    [SerializeField] private int sumAvailableSkin ;
+    [SerializeField] private List<SkinItem> _skins;
+    [SerializeField] private int sumAvailableSkin;
+    [SerializeField] private static int ShopSkinId = 2;
     [SerializeField] private ScrollRect scrollRect;
     private List<ItemConfigRecord> configs = new List<ItemConfigRecord>();
     private SkinViewItemAction itemData = new SkinViewItemAction();
@@ -17,7 +16,7 @@ public class SkinGrid : MonoBehaviour
 
     private void Awake()
     {
-      
+
     }
     private void Start()
     {
@@ -36,11 +35,13 @@ public class SkinGrid : MonoBehaviour
     private void InitiateSkinItem()
     {
 
-        var config = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        var itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
+        var shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
         var playerData = DataAPIController.instance.GetAllFruitSkinOwned();
-        for (int i = 0; i < config.Count; i++)
+        for (int i = 0; i < itemConfig.Count; i++)
         {
-            if (config[i].Type == ItemType.FRUITSKIN)
+            if (itemConfig[i].Type == ItemType.FRUITSKIN)
             {
                 var skin = Instantiate((Resources.Load("Prefab/UIPrefab/SkinItemPrefab", typeof(GameObject))), transform) as GameObject;
                 if (skin == null)
@@ -52,53 +53,40 @@ public class SkinGrid : MonoBehaviour
                     skin.GetComponent<SkinItem>().onEquipAction = onEquipAction;
                     int currentSkin = DataAPIController.instance.GetCurrentFruitSkin();
                     _skins.Add(skin.GetComponent<SkinItem>());
-                    if (currentSkin == config[i].ID)
+                    if (currentSkin == itemConfig[i].ID)
                     {
                         Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
-                        skin.GetComponent<SkinItem>().InitSkin(config[i].ID, true, false);
+                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, false);
                         crSkinItem = skin.GetComponent<SkinItem>();
                     }
-                    else if (playerData.Contains(config[i].ID))
+                    else if (playerData.Contains(itemConfig[i].ID))
                     {
-                        Debug.Log(" CONTAIN SKIN " + config[i].ID);
-                        skin.GetComponent<SkinItem>().InitSkin(config[i].ID, true, true);
+                        Debug.Log(" CONTAIN SKIN " + itemConfig[i].ID);
+                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, true);
                     }
                     else
                     {
-                        Debug.Log("NOT CONTAIN SKIN");
-                        skin.GetComponent<SkinItem>().InitSkin(config[i].ID, false, false);
+                        int idSkinInShop = shopConfig.IdPrice.Find(idprice => idprice == itemConfig[i].ID);
+                        int price = priceConfig.Find(x => x.Id == idSkinInShop).Price;
+                        skin.GetComponent<SkinItem>().Price = price;
+                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, false, false);
+                        
+                      
+                        //Debug.Log("NOT CONTAIN SKIN");
+                        //Debug.Log("SKIN ID IN SHOP" + shopConfig.Id);
+                        //Debug.Log("itemConfig[i].Type = " + itemConfig[i].Type + " itemConfig[i].ID = " + itemConfig[i].ID + " shopSkinId = " + idSkinInShop);
+                        //Debug.Log("ITEM PRICE " + price);
                     }
                 }
             }
-           
+
         }
     }
-   public void SwitchCurrentSkin(SkinItem skinEquip)
+    public void SwitchCurrentSkin(SkinItem skinEquip)
     {
         Debug.Log("SWICTH CURRENT SKIN " + skinEquip.SkinID);
         crSkinItem.SetItemUnquiped();
         crSkinItem = skinEquip;
-    }
-    public void TabSetUp()
-    {
-        configs = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
-
-        if (_skins.Count == 0)
-        {
-            for (int i = 0; i < configs.Count; i++)
-            {
-                var skinItem = Instantiate((Resources.Load("Prefab/UIPrefab/SkinItemPrefab", typeof(GameObject))), transform) as GameObject;
-                ItemConfigRecord tabRecord = configs[i];
-                _skins.Add(skinItem.GetComponent<SkinItem>());
-                itemData.onItemSelect = () =>
-                {
-                    //OnItemSelect(tabRecord);
-                };
-                //skinItem.SetUp(tabRecord.ItemId, itemData);
-            }
-        }
-
-        //UpdateTab();
     }
     public void ResetScroll()
     {

@@ -93,13 +93,12 @@ public class DataAPIController : MonoBehaviour
         List<int> ownedSkins = dataModel.ReadData<List<int>>(DataPath.FRUITSKIN);
         return ownedSkins;
     }
-    //public void SaveFruitSkin(int id, string skin)
-    //{
-    //    FruitSkin skinData = new FruitSkin();
-    //    skinData.id = id;
-    //    skinData.skinName = skin;
-    //    dataModel.UpdateDataDictionary(DataPath.FRUITSKIN, skin, skinData);
-    //}
+    public void SaveFruitSkin(int id)
+    {
+        var all = GetAllFruitSkinOwned();
+        all.Add(id);
+        dataModel.UpdateData(DataPath.FRUITSKIN, all);
+    }
     //public void GetAllFruitSkin()
     //{
     //    dataModel.ReadData<FruitSkin>(DataPath.FRUITSKIN);
@@ -138,6 +137,7 @@ public class DataAPIController : MonoBehaviour
         //SaveHighestLevel(id);
         dataModel.UpdateDataDictionary(DataPath.ITEM, type.ToString(), itemData);
     }
+
     public void SaveGold(int gold, Action callback)
     {
         dataModel.UpdateData(DataPath.GOLD, gold,()=>

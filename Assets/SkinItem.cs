@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -30,12 +28,11 @@ public class SkinItem : MonoBehaviour
         onClickAction = confirmBtnType.onClickAction;
         onClickAction.AddListener(ButtonEvent);
     }
-    public void InitSkin(int skinType/*,int price*/,bool isOwned, bool isDisable)
+    public void InitSkin(int skinType, bool isOwned, bool isDisable)
     {
         this.SkinID = skinType;
         this.isOwned = isOwned;
         this.isDisable = isDisable;
-        this.price = price;
         CheckSkinIsObtain(isOwned);
     }
     public void CheckSkinIsObtain(bool isObtain)
@@ -63,7 +60,9 @@ public class SkinItem : MonoBehaviour
     }
     public void SetItemUnquiped()
     {
+        Debug.Log("SKIN UNQUIPED");
         disableMask.gameObject.SetActive(false);
+        disOnwed.gameObject.SetActive(false);
         unquipedBG.gameObject.SetActive(true);
         equipedBG.gameObject.SetActive(false);
         confirmBtnType.SwitchButtonType(ButtonType.Unquiped);
@@ -84,8 +83,7 @@ public class SkinItem : MonoBehaviour
             {
                 case ButtonType.Ads:
                     Debug.Log("WATCH ADS TO GET NEW SKIN");
-                    var param = new BuyConfirmDialogParam();
-                    DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, null);
+                    BuyInvoke();
                     return;
                 case ButtonType.Equiped:
                     Debug.Log("SKIN IS EQUIPPING");
@@ -98,11 +96,34 @@ public class SkinItem : MonoBehaviour
                     return;
                 case ButtonType.Buy:
                     Debug.Log("TRY TO BUY WITH AN AMOUNT OF GOLD");
-                    DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, null);
+                    BuyInvoke();
                     return;
                 default:
                     return;
             }
+        }
+    }
+    BuyConfirmDialogParam param = new BuyConfirmDialogParam();
+    void BuyInvoke()
+    {
+        Debug.Log("ONLICKBUYBUTTON");
+        int goldHave = DataAPIController.instance.GetGold();
+        int intCost = Convert.ToInt32(price.ToString());
+        param.onConfirmAction = () =>
+        {
+
+            DataAPIController.instance.MinusGold(intCost);
+            DataAPIController.instance.SaveFruitSkin(SkinID);
+            IngameController.instance.GoldChanged();
+            InitSkin(SkinID, isOwned, true);
+            
+            SetItemUnquiped();
+        };
+        if ((confirmBtnType.Btntype.Equals(ButtonType.Buy)
+            || confirmBtnType.Btntype.Equals(ButtonType.Ads)) && goldHave >= intCost)
+        {
+            param.cost_lb = intCost.ToString();
+            DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
         }
     }
 }
