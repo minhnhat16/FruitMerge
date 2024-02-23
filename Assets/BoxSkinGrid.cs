@@ -11,9 +11,8 @@ public class BoxSkinGrid : MonoBehaviour
     [SerializeField] private int sumAvailableSkin;
     [SerializeField] private static int ShopSkinId = 3;
     [SerializeField] private ScrollRect scrollRect;
-    private List<ItemConfigRecord> configs = new List<ItemConfigRecord>();
-    private SkinViewItemAction itemData = new SkinViewItemAction();
     public UnityEvent<BoxItem> onEquipBoxAction = new UnityEvent<BoxItem>();
+    [SerializeField] private FloatingText  floatingText;
 
     private void Awake()
     {
@@ -36,13 +35,13 @@ public class BoxSkinGrid : MonoBehaviour
     private void InitiateSkinItem()
     {
 
-        var itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        var itemConfig = ConfigFileManager.Instance.ItemConfig  .GetAllRecord();
         var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
         var shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
         var playerData = DataAPIController.instance.GetAllFruitSkinOwned();
-        for (int i = 0; i < itemConfig.Count; i++)
+        for (int i = 0; i <itemConfig.Count; i++)
         {
-            if (itemConfig[i].Type == ItemType.FRUITSKIN)
+            if (itemConfig[i].Type == ItemType.BOXSKIN)
             {
                 var skin = Instantiate((Resources.Load("Prefab/UIPrefab/BoxSkin", typeof(GameObject))), transform) as GameObject;
                 if (skin == null)
@@ -52,17 +51,17 @@ public class BoxSkinGrid : MonoBehaviour
                 else
                 {
                     skin.GetComponent<BoxItem>().onEquipActionBox = onEquipBoxAction;
-                    int currentSkin = DataAPIController.instance.GetCurrentFruitSkin();
+                    int currentBoxSkin = DataAPIController.instance.GetCurrentBoxSkin();
                     _skins.Add(skin.GetComponent<BoxItem>());
-                    if (currentSkin == itemConfig[i].ID)
+                    if (currentBoxSkin == itemConfig[i].ID)
                     {
-                        Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
+                        Debug.Log("CURRENT BOX SKIN TRUEE" + currentBoxSkin);
                         skin.GetComponent<BoxItem>().InitSkin(itemConfig[i].ID, true, false);
                         crBoxItem = skin.GetComponent<BoxItem>();
                     }
                     else if (playerData.Contains(itemConfig[i].ID))
                     {
-                        Debug.Log(" CONTAIN SKIN " + itemConfig[i].ID);
+                        Debug.Log(" CONTAIN BOX SKIN " + itemConfig[i].ID);
                         skin.GetComponent<BoxItem>().InitSkin(itemConfig[i].ID, true, true);
                     }
                     else
@@ -71,7 +70,11 @@ public class BoxSkinGrid : MonoBehaviour
                         int price = priceConfig.Find(x => x.Id == idSkinInShop).Price;
                         skin.GetComponent<BoxItem>().Price = price;
                         skin.GetComponent<BoxItem>().InitSkin(itemConfig[i].ID, false, false);
-                    }
+                        Debug.Log("NOT CONTAIN SKIN");
+                        Debug.Log("SKIN ID IN SHOP" + shopConfig.Id);
+                        Debug.Log("itemConfig[i].Type = " + itemConfig[i].Type + " itemConfig[i].ID = " + itemConfig[i].ID + " shopSkinId = " + idSkinInShop);
+                        Debug.Log("ITEM PRICE " + price);
+                    }  
                 }
             }
 
@@ -82,6 +85,8 @@ public class BoxSkinGrid : MonoBehaviour
         Debug.Log("SWICTH CURRENT SKIN " + boxEquip.SkinID);
         crBoxItem.SetItemUnquiped();
         crBoxItem = boxEquip;
+        floatingText.gameObject.SetActive(true);
+        floatingText.ShowFloatingText();
     }
     public void ResetScroll()
     {

@@ -93,3 +93,11 @@ MonoBehaviour:
     spriteName: boxskin
     type: 5
     skinType: sky
+  - id: 20
+    spriteName: boxskin
+    type: 5
+    skinType: space
+  - id: 21
+    spriteName: boxskin
+    type: 5
+    skinType: Candy

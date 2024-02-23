@@ -1,22 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
-public class WardrobeAnim : BaseViewAnimation
+public class DailyRewardAnim : BaseDialogAnimation
 {
     public Animator animator;
     private Action callback;
-    public override void HideViewAnimation(Action callback)
+    public override void HideDialogAnimation(Action callback)
     {
         this.callback = callback;
-        animator.Play("WardrobeHide");
+        Debug.Log("HideDialogAnimation");
+        animator.Play("DailyDialogHide");
     }
-    public override void ShowViewAnimation(Action callback)
+    public override void ShowDialogAnimation(Action callback)
     {
         this.callback = callback;
-        animator.Play("WardrobeShow");
+        Debug.Log("ShowDialogAnimation");
+        animator.Play("DailyDialogShow");
     }
+
     public void ShowAnim()
     {
         callback?.Invoke();

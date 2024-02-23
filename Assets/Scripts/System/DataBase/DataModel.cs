@@ -253,7 +253,7 @@ public class DataModel : MonoBehaviour
         if (PlayerPrefs.HasKey("DATA"))
         {
             string json_string = PlayerPrefs.GetString("DATA");
-            Debug.Log("(DATA) // LOAD DATA: " + json_string);
+            //Debug.Log("(DATA) // LOAD DATA: " + json_string);
             userData = JsonConvert.DeserializeObject<UserData>(json_string);
             return true;
         }

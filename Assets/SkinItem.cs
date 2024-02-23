@@ -92,7 +92,7 @@ public class SkinItem : MonoBehaviour
                 case ButtonType.Unquiped: //SWITCH CURRENT SKIN FROM ANOTHER TO THIS
                     Debug.Log("SKIN EQUIPPED");
                     SetItemEquiped();
-                    onEquipAction.Invoke(this);
+                    onEquipAction?.Invoke(this);
                     return;
                 case ButtonType.Buy:
                     Debug.Log("TRY TO BUY WITH AN AMOUNT OF GOLD");

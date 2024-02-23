@@ -10,9 +10,8 @@ public class SkinGrid : MonoBehaviour
     [SerializeField] private int sumAvailableSkin;
     [SerializeField] private static int ShopSkinId = 2;
     [SerializeField] private ScrollRect scrollRect;
-    private List<ItemConfigRecord> configs = new List<ItemConfigRecord>();
-    private SkinViewItemAction itemData = new SkinViewItemAction();
-    public UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
+    [SerializeField] private UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
+    [SerializeField] private FloatingText  floatingText;
 
     private void Awake()
     {
@@ -55,13 +54,13 @@ public class SkinGrid : MonoBehaviour
                     _skins.Add(skin.GetComponent<SkinItem>());
                     if (currentSkin == itemConfig[i].ID)
                     {
-                        Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
+                        //Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
                         skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, false);
                         crSkinItem = skin.GetComponent<SkinItem>();
                     }
                     else if (playerData.Contains(itemConfig[i].ID))
                     {
-                        Debug.Log(" CONTAIN SKIN " + itemConfig[i].ID);
+                        //Debug.Log(" CONTAIN SKIN " + itemConfig[i].ID);
                         skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, true);
                     }
                     else
@@ -82,11 +81,14 @@ public class SkinGrid : MonoBehaviour
 
         }
     }
+  
     public void SwitchCurrentSkin(SkinItem skinEquip)
     {
         Debug.Log("SWICTH CURRENT SKIN " + skinEquip.SkinID);
         crSkinItem.SetItemUnquiped();
         crSkinItem = skinEquip;
+        floatingText.gameObject.SetActive(true);
+        floatingText.ShowFloatingText();
     }
     public void ResetScroll()
     {

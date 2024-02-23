@@ -5,12 +5,12 @@ using UnityEngine;
 
 public enum ItemType
 {
-    GOLD,
-    HAMMER,
-    ROTATE,
-    CHANGE,
-    FRUITSKIN,
-    BOXSKIN,
+    GOLD = 0,
+    HAMMER = 1,
+    ROTATE = 2,
+    CHANGE = 3,
+    FRUITSKIN = 4,
+    BOXSKIN = 5,
 }
 [Serializable]
 public class ItemConfigRecord

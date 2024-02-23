@@ -1079,7 +1079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.2470093, y: 128}
+  m_AnchoredPosition: {x: 6.2470093, y: 66}
   m_SizeDelta: {x: -108.9335, y: -645.8491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &393213022183816799
@@ -2192,7 +2192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e192d41df1025ca489a19572acb90bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogIndex: 0
+  dialogIndex: 7
   isMusicOn: 0
   isSFXOn: 0
   isVibOn: 0

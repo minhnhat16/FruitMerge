@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f82b88e241314548851b575a0496585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogIndex: 7
+  dialogIndex: 0
   tabShop: {fileID: 4953400289205597}
   tabSkin: {fileID: 2673705311084073230}
   tabPlay: {fileID: 2498427932204594182}
