@@ -11,6 +11,7 @@ public class ConfigFileManager : MonoBehaviour
     [SerializeField] private PriceConfig priceConfig;
     [SerializeField] private ShopConfig shopConfig;
     [SerializeField] private ItemConfig itemConfig;
+    [SerializeField] private DailyRewardConfig dailyConfig;
 
     [Header("Factory")]
     [SerializeField] private SoundFactory soundFactory;
@@ -20,7 +21,7 @@ public class ConfigFileManager : MonoBehaviour
     public PriceConfig PriceConfig { get => priceConfig; }
     public ShopConfig ShopConfig { get => shopConfig; }
     public ItemConfig ItemConfig { get => itemConfig; }
-
+    public DailyRewardConfig DailyRewardConfig { get => dailyConfig; }
     public SoundFactory SoundFactory { get => soundFactory; }
     private void Awake()
     {
@@ -42,6 +43,8 @@ public class ConfigFileManager : MonoBehaviour
         shopConfig = Resources.Load("Config/ShopConfig", typeof(ScriptableObject)) as ShopConfig;
         yield return new WaitUntil(() => priceConfig != null);
         itemConfig = Resources.Load("Config/ItemConfig", typeof(ScriptableObject)) as ItemConfig;
+        yield return new WaitUntil(() => itemConfig != null);
+        dailyConfig = Resources.Load("Config/DailyRewardConfig", typeof(ScriptableObject)) as DailyRewardConfig;
         yield return new WaitUntil(() => itemConfig != null);
         soundFactory = Resources.Load("Factory/SoundFactory", typeof(ScriptableObject)) as SoundFactory;
         SoundManager.Instance.Init();

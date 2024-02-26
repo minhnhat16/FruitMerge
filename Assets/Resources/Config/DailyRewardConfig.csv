@@ -1,0 +1,8 @@
+id,spritename,type,itemname,totalitem
+0,item_shake,0,shake,5
+1,coin,1,gold,50
+2,item_change,1,change,5
+3,coin,1,gold,100
+4,item_burst,1,burst,5
+5,coin,1,gold,500
+6,jackpot,1,jackpot,1

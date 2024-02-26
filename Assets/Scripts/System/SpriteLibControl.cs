@@ -25,7 +25,7 @@ public class SpriteLibControl : MonoBehaviour
 
     public Sprite GetSpriteByName(string name)
     {
-        return spriteDict[name];
+        return spriteDict[name];    
     }
     public string GetSpriteName(int type ,int id)
     {
