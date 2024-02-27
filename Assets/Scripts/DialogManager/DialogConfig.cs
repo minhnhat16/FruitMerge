@@ -69,6 +69,10 @@ public class LeaderBoardDialogParam : DialogParam
 {
 
 }
+public class DailyParam : DialogParam
+{
+    int currenReward;
+}
 public class DialogConfig
 {
     public static DialogIndex[] dialogArray = {

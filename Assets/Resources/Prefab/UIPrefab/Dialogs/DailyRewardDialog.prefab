@@ -492,6 +492,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62eaa709300e25c43b0358a749b0b2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dailyButtons:
+  - {fileID: 4477907351986488717}
+  - {fileID: 4516401933407157116}
 --- !u!1 &4933246245932399143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1007,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5645074293811404848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 159952144430200411}
+        m_TargetAssemblyTypeName: DailyClaimBtn, Assembly-CSharp
+        m_MethodName: AdsBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7820364555197285083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,7 +1352,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6872876528834282451}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 159952144430200411}
+        m_TargetAssemblyTypeName: DailyClaimBtn, Assembly-CSharp
+        m_MethodName: ClaimBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8791926973708005381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,3 +1416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogIndex: 3
+  claimBtn: {fileID: 159952144430200411}
+  dailyGrid: {fileID: 4092878415998342283}
+  onClickDailyItem:
+    m_PersistentCalls:
+      m_Calls: []

@@ -19,6 +19,11 @@ public class LableChooseDialog : BaseDialog
         onGoldChanged = IngameController.instance.onGoldChanged;
         onGoldChanged.AddListener(GoldChange);
     }
+    private void OnDisable()
+    {
+        onGoldChanged.RemoveListener(GoldChange);
+
+    }
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();

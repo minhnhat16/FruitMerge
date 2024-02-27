@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
     
@@ -88,6 +89,14 @@ public class DataModel : MonoBehaviour
                 int id = i ;
                 itemData.id = id.ToString();
                 userInventory.itemInventory.Add(itemData.id, itemData);
+            }
+            userInventory.dailyData = new Dictionary<string, DailyData>();
+            for (int i = 1;i <= 7; i ++)
+            {
+                DailyData dailyData =new();
+                dailyData.day = i;
+                dailyData.type = IEDailyType.Unavailable;
+                userInventory.dailyData.Add(i.ToString(),dailyData);
             }
             userInventory.fruitskinOwned.Add(GameInitData.defaultSkinID);
             userInventory.boxSkinOwned.Add(GameInitData.defaultBoxSkinID);
@@ -263,6 +272,7 @@ public class DataModel : MonoBehaviour
 
 public class GameInitData
 {
+    public const int defaultDay = 0;
     public const int defaultSkinID = 4;
     public const int defaultBoxSkinID = 4;
 }

@@ -26,12 +26,19 @@ public class UserInventory
     public int currentFruitSkinID;
     public int currentBoxSkinID;
     [SerializeField]
+    public Dictionary<string, DailyData> dailyData = new Dictionary<string, DailyData>();
+    [SerializeField]
     public Dictionary<string, ItemData> itemInventory = new Dictionary<string, ItemData>();
     public List<int> fruitskinOwned = new();
     public List<int> boxSkinOwned = new();
     public int gold;
 }
-
+[Serializable]
+public class DailyData
+{
+    public int day;
+    public IEDailyType type;
+}
 [Serializable]
 public class ItemData
 {

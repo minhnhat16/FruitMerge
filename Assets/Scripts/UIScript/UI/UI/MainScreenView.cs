@@ -24,5 +24,9 @@ public class MainScreenView : BaseView
     {
         base.OnStartShowView();
     }
-
+    public void DailyRewardButton()
+    {
+        Debug.Log("Daily Reward Button");
+        DialogManager.Instance.ShowDialog(DialogIndex.DailyRewardDialog);
+    }
 }

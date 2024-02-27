@@ -49,6 +49,12 @@ public class DataAPIController : MonoBehaviour
         gold -= minus;
         SaveGold(gold,null);
     }
+    public void AddGold(int add)
+    {
+        int gold = dataModel.ReadData<int>(DataPath.GOLD);
+        gold += add;
+        SaveGold(gold, null);
+    }
     public int GetHighestLevel()
     {
         //Debug.Log("DATA === highestLevel");
@@ -114,7 +120,7 @@ public class DataAPIController : MonoBehaviour
     public ItemData GetItemData(string type)
     {
         Debug.Log("DATA === ITEM DATA");
-        ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, type.ToString());
+        ItemData itemData = dataModel.ReadDictionary<ItemData>(DataPath.ITEM, type);
         return itemData;
     }
     public int GetItemTotal(string type)
@@ -150,6 +156,17 @@ public class DataAPIController : MonoBehaviour
         {
             callback?.Invoke();
         }); 
+    }
+    public DailyData GetDailyData(string key)
+    {
+        DailyData dailyData = dataModel.ReadDictionary<DailyData>(DataPath.DAILYDATA, key);
+        return dailyData;
+    }
+    public void SetDailyData(string day,IEDailyType type)
+    {
+        DailyData dailyData = dataModel.ReadDictionary<DailyData>(DataPath.DAILYDATA, day);
+        dailyData.type = type;
+       dataModel.UpdateDataDictionary(DataPath.DAILYDATA,day, dailyData);
     }
     #endregion
 }

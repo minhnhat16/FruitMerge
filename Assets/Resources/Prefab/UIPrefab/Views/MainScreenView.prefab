@@ -2505,9 +2505,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LableChooseDialog, Assembly-CSharp
-        m_MethodName: DailyDialogButton
+      - m_Target: {fileID: -6390130613863389636}
+        m_TargetAssemblyTypeName: MainScreenView, Assembly-CSharp
+        m_MethodName: DailyRewardButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

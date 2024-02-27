@@ -11,6 +11,7 @@ public class DataPath
     public const string CURRENTLV = "levelData/currentLevel";
     public const string ITEM = "inventory/itemInventory";
     public const string GOLD = "inventory/gold";
+    public const string DAILYDATA = "inventory/dailyData";
     public const string CURRENTFRUITSKIN = "inventory/currentFruitSkinID";
     public const string CURRENTBOXSKIN = "inventory/currentBoxSkinID";
     public const string FRUITSKIN = "inventory/fruitskinOwned";

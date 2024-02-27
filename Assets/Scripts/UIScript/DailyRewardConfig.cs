@@ -26,7 +26,7 @@ public class DailyRewardConfigRecord
     public int ID { get { return id; } }
     public string SpriteName { get { return spriteName; } }
     public IEDailyType Type { get { return type; } }
-    public string SkinType { get { return itemName; } }
+    public string ItemName { get { return itemName; } }
     public int TotalItem { get { return totalItem; } }
 }
 public class DailyRewardConfig : BYDataTable<DailyRewardConfigRecord>

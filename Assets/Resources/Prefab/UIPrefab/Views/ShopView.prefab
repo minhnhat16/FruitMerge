@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewIndex: 5
-  baseViewAnim: {fileID: 0}
+  baseViewAnim: {fileID: 6310811930804256669}
 --- !u!1 &1783214009415640290
 GameObject:
   m_ObjectHideFlags: 0
