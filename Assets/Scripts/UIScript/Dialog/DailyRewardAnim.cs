@@ -11,13 +11,13 @@ public class DailyRewardAnim : BaseDialogAnimation
     {
         this.callback = callback;
         Debug.Log("HideDialogAnimation");
-        animator.Play("DailyDialogHide");
+        animator.Play("DailyRewardHide");
     }
     public override void ShowDialogAnimation(Action callback)
     {
         this.callback = callback;
         Debug.Log("ShowDialogAnimation");
-        animator.Play("DailyDialogShow");
+        animator.Play("DailyRewardShow");
     }
 
     public void ShowAnim()

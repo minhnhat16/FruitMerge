@@ -205,7 +205,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8bc346c75a63948a6bd9b60f5e9bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currendDaily: {fileID: 0}
+  currentDaily: {fileID: 0}
+  newDateEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  resetDailyEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &911013052295128887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,9 +833,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingDialog, Assembly-CSharp
-        m_MethodName: CloseBtn
+      - m_Target: {fileID: 3845525424881277980}
+        m_TargetAssemblyTypeName: DailyRewardDialog, Assembly-CSharp
+        m_MethodName: QuitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1419,5 +1425,11 @@ MonoBehaviour:
   claimBtn: {fileID: 159952144430200411}
   dailyGrid: {fileID: 4092878415998342283}
   onClickDailyItem:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickClaim:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickAds:
     m_PersistentCalls:
       m_Calls: []

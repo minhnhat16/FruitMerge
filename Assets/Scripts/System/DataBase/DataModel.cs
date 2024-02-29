@@ -98,6 +98,7 @@ public class DataModel : MonoBehaviour
                 dailyData.type = IEDailyType.Unavailable;
                 userInventory.dailyData.Add(i.ToString(),dailyData);
             }
+            userInventory.lastCheckedData = DateTime.Today.ToString();
             userInventory.fruitskinOwned.Add(GameInitData.defaultSkinID);
             userInventory.boxSkinOwned.Add(GameInitData.defaultBoxSkinID);
             userInventory.currentFruitSkinID = GameInitData.defaultSkinID;
@@ -272,7 +273,6 @@ public class DataModel : MonoBehaviour
 
 public class GameInitData
 {
-    public const int defaultDay = 0;
     public const int defaultSkinID = 4;
     public const int defaultBoxSkinID = 4;
 }

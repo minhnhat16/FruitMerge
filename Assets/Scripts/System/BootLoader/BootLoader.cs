@@ -11,9 +11,9 @@ public class BootLoader : MonoBehaviour
         DontDestroyOnLoad(this);
         DOTween.SetTweensCapacity(1000, 50);
         yield return new WaitForSeconds(0.5f);
-        gameManager = GetComponentInChildren<GameManager>();
         InitDataDone(() =>
         {
+            gameManager = GetComponentInChildren<GameManager>();
             InitConfig();
         });
     }

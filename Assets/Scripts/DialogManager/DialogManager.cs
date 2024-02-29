@@ -34,7 +34,7 @@ public class DialogManager : MonoBehaviour
     public void ShowDialog(DialogIndex newDialog, DialogParam dialogParam = null, Action callback = null)
     {
         BaseDialog dialog = dicDialog[newDialog];
-        Debug.Log("ShowDialog");
+        //Debug.Log("ShowDialog");
         if (!dialogShowed.Contains(dialog))
         {
             dialogShowed.Add(dialog);
@@ -48,7 +48,7 @@ public class DialogManager : MonoBehaviour
     public void HideDialog(DialogIndex newDialog, Action callback = null)
     {
         BaseDialog dialog = dicDialog[newDialog];
-        Debug.Log("Hidedialog" + callback);
+        //Debug.Log("Hidedialog" + callback);
         if (dialogShowed.Contains(dialog))
         {
             dialogShowed.Remove(dialog);

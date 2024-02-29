@@ -116,6 +116,23 @@ public class DataAPIController : MonoBehaviour
     //    dataModel.ReadData<FruitSkin>(DataPath.FRUITSKIN);
     //}
     #endregion
+    #region daytimedata
+    public string GetDayTimeData()
+    {
+        string day = dataModel.ReadData<string>(DataPath.DAYCHECKED);
+        return day;
+    }
+    public void SetDayTimeData(string day)
+    {
+       if(!string.IsNullOrEmpty(day))
+        {
+            dataModel.UpdateData(DataPath.DAYCHECKED, day,()=>
+            {
+                Debug.Log("SAVE DAYTIME DATA SUCCESSFULL");
+            });
+        }
+    }
+    #endregion
     #region Others
     public ItemData GetItemData(string type)
     {
@@ -145,7 +162,7 @@ public class DataAPIController : MonoBehaviour
             id = type,
             total = inTotal,
         };
-        Debug.Log("ITEM DATA" + itemData);
+        //Debug.Log("ITEM DATA" + itemData);
         //SaveHighestLevel(id);
         dataModel.UpdateDataDictionary(DataPath.ITEM, type.ToString(), itemData);
     }
@@ -156,6 +173,11 @@ public class DataAPIController : MonoBehaviour
         {
             callback?.Invoke();
         }); 
+    }
+    public Dictionary<string, DailyData> GetAllDailyData()
+    {
+        var dailyData = dataModel.ReadData<Dictionary<string, DailyData>>(DataPath.DAILYDATA);
+        return dailyData;
     }
     public DailyData GetDailyData(string key)
     {

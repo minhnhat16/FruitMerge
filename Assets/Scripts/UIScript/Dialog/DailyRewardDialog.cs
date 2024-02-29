@@ -22,6 +22,13 @@ public class DailyRewardDialog : BaseDialog
         onClickClaim.RemoveListener(ClickClaimReward);
         onClickAds.RemoveListener(OnClickAdsReward);
     }
+    public override void OnStartShowDialog()
+    {
+        base.OnStartShowDialog();
+    }
+    private void Update()
+    {
+    }
     public void ClickDailyItem(bool isEnable)
     {
         claimBtn.enabled = true;
@@ -45,7 +52,8 @@ public class DailyRewardDialog : BaseDialog
         {
             Debug.Log("claim reward successful");
             claimBtn.gameObject.SetActive(false);
-            dailyGrid.currendDaily.ItemClaim(isClaim);
+            dailyGrid.currentDaily.ItemClaim(isClaim);
+            //dailyGrid.UpdateDailyReward(dailyGrid.currentDaily);
         }
     }
     public void OnClickAdsReward(bool isAds)
@@ -54,5 +62,9 @@ public class DailyRewardDialog : BaseDialog
         {
             Debug.Log("Ads reward showing");
         }
+    }
+    public void QuitButton()
+    {
+        DialogManager.Instance.HideDialog(dialogIndex);
     }
 }

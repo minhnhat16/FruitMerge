@@ -32,6 +32,7 @@ public class UserInventory
     public List<int> fruitskinOwned = new();
     public List<int> boxSkinOwned = new();
     public int gold;
+    public string lastCheckedData;
 }
 [Serializable]
 public class DailyData

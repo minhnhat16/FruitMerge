@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private IngameController ingameController;
+    [SerializeField] private DayTimeController dayTimeController;
     public UIRootControlScale UIRoot;
     [SerializeField] private int languageID;
 
@@ -22,11 +23,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
     public void SetupGameManager()
     {
         ingameController = FindObjectOfType<IngameController>();
+        dayTimeController = FindObjectOfType<DayTimeController>();
+        dayTimeController.enabled = true;
+        //dayTimeController.CheckNewDay();
     }
     public void LoadBufferScene()
     {

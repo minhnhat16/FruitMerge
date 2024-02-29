@@ -55,7 +55,7 @@ public class DailyItem : MonoBehaviour
     }
     public void SetItemImg(string spriteName)
     {
-        Debug.Log(itemName);
+        //Debug.Log(itemName);
         itemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
     }
     public void SetItemNameType(string itemName)
@@ -64,13 +64,13 @@ public class DailyItem : MonoBehaviour
     }
     public void SetDayLB(int day)
     {
-        Debug.Log($"Set day lb {day}");
+        //Debug.Log($"Set day lb {day}");
         this.day = day;
         day_lb.text += $"Day {day}";
     }
     public void SetAmountLb(int amount)
     {
-        Debug.Log($"Set amount lb {amount}");
+        //Debug.Log($"Set amount lb {amount}");
         intAmount = amount;
         Amount_lb.text = amount.ToString();
     }
@@ -123,7 +123,7 @@ public class DailyItem : MonoBehaviour
         if (isClaim)
         {
             SwitchType(IEDailyType.Claimed);
-            DataAPIController.instance.SetDailyData(day.ToString(),currentType);
+            DataAPIController.instance.SetDailyData(day.ToString(), currentType);
             //int next = day++;
             //DataAPIController.instance.SetDailyData(next.ToString(), IEDailyType.Available);
             SwitchItemType(itemName);
@@ -134,9 +134,9 @@ public class DailyItem : MonoBehaviour
         Debug.Log("On Click Daily Item");
         if(currentType == IEDailyType.Available)
         {
-         var parent = DialogManager.Instance.dicDialog[DialogIndex.DailyRewardDialog].GetComponent<DailyRewardDialog>();
-            parent.dailyGrid.currendDaily = this;
-            onClickDailyItem.Invoke(true);
+         //var parent = DialogManager.Instance.dicDialog[DialogIndex.DailyRewardDialog].GetComponent<DailyRewardDialog>();
+         //   parent.dailyGrid.currentDaily = this;
+            onClickDailyItem?.Invoke(true);
         }
         else
         {
