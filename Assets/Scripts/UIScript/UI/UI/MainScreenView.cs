@@ -15,6 +15,9 @@ public class MainScreenView : BaseView
       
 
     }
+    public void Update()
+    {
+    }
     public void StartBtn()
     {
         GameManager.instance.LoadIngameSence();
@@ -29,4 +32,5 @@ public class MainScreenView : BaseView
         Debug.Log("Daily Reward Button");
         DialogManager.Instance.ShowDialog(DialogIndex.DailyRewardDialog);
     }
+
 }

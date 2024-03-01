@@ -82,6 +82,8 @@ public class DailyItem : MonoBehaviour
         {
             case IEDailyType.Available:
                 backgrounds[0].SetActive(true);
+                backgrounds[1].SetActive(false);
+                backgrounds[2].SetActive(false);
                 daily_btn.enabled = true;
                 break;
             case IEDailyType.Unavailable:
@@ -91,7 +93,6 @@ public class DailyItem : MonoBehaviour
             case IEDailyType.Claimed:
                 backgrounds[1].SetActive(false) ;
                 backgrounds[0].SetActive(false);
-
                 backgrounds[2].SetActive(true);
                 daily_btn.enabled = false;
                 Amount_lb.gameObject.SetActive(false);
@@ -129,7 +130,7 @@ public class DailyItem : MonoBehaviour
             SwitchItemType(itemName);
         }
     }
-    public void OnClickDailyItem()
+    public virtual void OnClickDailyItem()
     {
         Debug.Log("On Click Daily Item");
         if(currentType == IEDailyType.Available)

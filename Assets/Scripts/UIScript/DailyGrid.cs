@@ -8,16 +8,13 @@ using UnityEngine.UIElements;
 
 public class DailyGrid : MonoBehaviour
 {
-    public static DailyGrid instance;
     public Dictionary<int, DailyItem> DailyItems;
+    [SerializeField] private List<DailyItem> _items;
     public DailyItem currentDaily;
-
+    public bool isNewDay;
     [HideInInspector] public UnityEvent<bool> newDateEvent = new UnityEvent<bool>();
     [HideInInspector] public UnityEvent<bool> resetDailyEvent = new UnityEvent<bool>();
-    private void Awake()
-    {
-        instance=this;
-    }
+ 
     private void OnEnable()
     {
         newDateEvent.AddListener(NewDayRewardRemain);
@@ -29,6 +26,7 @@ public class DailyGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isNewDay = DayTimeController.instance.isNewDay;
         DailyItems = new Dictionary<int, DailyItem>();
         SetupGrid();
     }
@@ -36,11 +34,16 @@ public class DailyGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        isNewDay = DayTimeController.instance.isNewDay;
+        NewDayInvoker(isNewDay);
     }
     public void SetupGrid()
     {
-        Debug.Log("SET UP GRID");
+        if (DailyItems.Count != 0)
+        {
+            Debug.Log("SETUP GRID " + DailyItems.Count);
+            return;
+        } 
         for (int i = 0; i < 7; i++)
         {
             if (i < 6)
@@ -55,6 +58,7 @@ public class DailyGrid : MonoBehaviour
                     DailyItems.Add(i, dailyItem.GetComponent<DailyItem>());
                     var dailyConfig = ConfigFileManager.Instance.DailyRewardConfig.GetRecordByKeySearch(i);
                     SetupDailyRewardItem(dailyItem.GetComponent<DailyItem>(), dailyConfig);
+                    _items.Add(dailyItem.GetComponent<DailyItem>());
                 }
             }
             else
@@ -69,6 +73,7 @@ public class DailyGrid : MonoBehaviour
                     DailyItems.Add(i, dailyItem.GetComponent<DailyItem>());
                     var dailyConfig = ConfigFileManager.Instance.DailyRewardConfig.GetRecordByKeySearch(i);
                     SetupDailyRewardItem(dailyItem.GetComponent<DailyItem>(), dailyConfig);
+                    _items.Add(dailyItem.GetComponent<DailyItem>());
                 }
             }
         }
@@ -132,14 +137,20 @@ public class DailyGrid : MonoBehaviour
             return null;
         }
     }
+    public void NewDayInvoker(bool isNewDay)
+    {
+        if (isNewDay == false) return;
+        else newDateEvent?.Invoke(this);
+    }
     public void NewDayRewardRemain(bool isNewDay)
     {
         Debug.Log("NEW DAY REWARD REMAIN" + isNewDay);
         if (isNewDay)
         {
+            this.isNewDay = false;  
             Debug.Log("NEW DAY REWARD REMAIN");
             var newDayItem = NewDayItemAvailable();
-            newDayItem.currentType = IEDailyType.Available;
+            newDayItem.SwitchType(IEDailyType.Available);
             DataAPIController.instance.SetDailyData(newDayItem.day.ToString(), newDayItem.currentType);
             currentDaily = newDayItem;
         }

@@ -8,7 +8,7 @@ public class BaseView : MonoBehaviour
     [SerializeField]
     private BaseViewAnimation baseViewAnim;
 
-
+    public BaseViewAnimation BaseViewAnimation { get { return baseViewAnim; } }
     private void Awake()
     {
         baseViewAnim = gameObject.GetComponentInChildren<BaseViewAnimation>();

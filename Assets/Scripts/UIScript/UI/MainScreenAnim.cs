@@ -18,7 +18,7 @@ public class MainScreenAnim : BaseViewAnimation
         this.callback = callback;
         animator.Play("MainViewShow");
     }
-
+ 
     public void ShowAnim()
     {
         callback?.Invoke();

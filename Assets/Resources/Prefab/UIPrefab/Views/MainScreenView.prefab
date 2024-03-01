@@ -1704,6 +1704,7 @@ RectTransform:
   - {fileID: 4236063046524093122}
   - {fileID: 7992113858459804704}
   - {fileID: 7418829222327769836}
+  - {fileID: 2475972496125775694}
   m_Father: {fileID: 6592070958426630967}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2395,6 +2396,8 @@ GameObject:
   - component: {fileID: 1404949292938351021}
   - component: {fileID: 7801735745186474794}
   - component: {fileID: 4888164070605591868}
+  - component: {fileID: 6388552293956387619}
+  - component: {fileID: 2462994592440571303}
   m_Layer: 5
   m_Name: DailyButton
   m_TagString: Untagged
@@ -2415,8 +2418,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3915950098364023883}
-  m_Father: {fileID: 6592070958426630967}
-  m_RootOrder: 1
+  m_Father: {fileID: 7117862148650142418}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -2517,6 +2520,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6388552293956387619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6536697247208951239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc93681dc4137345b6d354febaf008f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 2462994592440571303}
+--- !u!95 &2462994592440571303
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6536697247208951239}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aca289e1ae2b3014aac09d24f67de73b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6651686852137009212
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,7 +3080,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7117862148650142418}
-  - {fileID: 2475972496125775694}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3065,7 +3101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewIndex: 2
-  baseViewAnim: {fileID: 6199989482121580637}
+  baseViewAnim: {fileID: 0}
 --- !u!1 &8470050242911376364
 GameObject:
   m_ObjectHideFlags: 0

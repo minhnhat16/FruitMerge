@@ -18,7 +18,6 @@ public class DayTimeController : MonoBehaviour
     }
     private void OnEnable()
     {
-        newDateEvent = DailyGrid.instance.newDateEvent;
     }
     private void OnDisable()
     {
@@ -45,7 +44,11 @@ public class DayTimeController : MonoBehaviour
             Debug.Log("NEW DAY HAS STARTED");   
             isNewDay = true;
             SetNewDay();
-            newDateEvent.Invoke(isNewDay);
+            newDateEvent?.Invoke(isNewDay);
+        }
+        else
+        {
+            //isNewDay = false;
         }
     }
     public void SetNewDay()
@@ -59,6 +62,5 @@ public class DayTimeController : MonoBehaviour
     {
         Debug.Log("new day listener"); 
         isNewDay = isNew;
-        //SetNewDay();
     }
 }
