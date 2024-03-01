@@ -53,7 +53,6 @@ public class DailyRewardDialog : BaseDialog
             Debug.Log("claim reward successful");
             claimBtn.gameObject.SetActive(false);
             dailyGrid.currentDaily.ItemClaim(isClaim);
-            //dailyGrid.UpdateDailyReward(dailyGrid.currentDaily);
         }
     }
     public void OnClickAdsReward(bool isAds)

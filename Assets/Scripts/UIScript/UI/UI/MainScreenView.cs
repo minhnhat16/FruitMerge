@@ -32,5 +32,11 @@ public class MainScreenView : BaseView
         Debug.Log("Daily Reward Button");
         DialogManager.Instance.ShowDialog(DialogIndex.DailyRewardDialog);
     }
+    public void SpinView()
+    {
+        Debug.Log("View SPin Button");
+
+        ViewManager.Instance.SwitchView(ViewIndex.SpinView);
+    }
 
 }

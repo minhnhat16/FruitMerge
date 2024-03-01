@@ -74,7 +74,7 @@ public class DailyItem : MonoBehaviour
         intAmount = amount;
         Amount_lb.text = amount.ToString();
     }
-    public void SwitchType(IEDailyType type)
+    public virtual void SwitchType(IEDailyType type)
     {
         currentType = type;
         daily_btn.enabled = true;

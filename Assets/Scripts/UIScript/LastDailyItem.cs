@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LastDayItem : DailyItem
+public class LastDailyItem : DailyItem
 {
 
     // Start is called before the first frame update
     private void OnEnable()
     {
-
+        var parent = DialogManager.Instance.dicDialog[DialogIndex.DailyRewardDialog].GetComponent<DailyRewardDialog>();
+        if (parent != null)
+        {
+            onClickDailyItem = parent.onClickDailyItem;
+            onItemClaim = parent.onClickClaim;
+        }
     }
     void Start()
     {
@@ -23,6 +28,33 @@ public class LastDayItem : DailyItem
     public void DebugButton()
     {
         Debug.Log("On Click Daily Item");
+    }
+    public override void SwitchType(IEDailyType type)
+    {
+        currentType = type;
+        daily_btn.enabled = true;
+        switch (type)
+        {
+            case IEDailyType.Available:
+                backgrounds[0].SetActive(true);
+                backgrounds[1].SetActive(false);
+                backgrounds[2].SetActive(false);
+                daily_btn.enabled = true;
+                break;
+            case IEDailyType.Unavailable:
+                backgrounds[1].SetActive(true);
+                //daily_btn.gameObject.SetActive(false);
+                break;
+            case IEDailyType.Claimed:
+                backgrounds[1].SetActive(false);
+                backgrounds[0].SetActive(false);
+                backgrounds[2].SetActive(true);
+                daily_btn.enabled = false;
+                Amount_lb.gameObject.SetActive(false);
+                break;
+            default:
+                break;
+        }
     }
     public override void OnClickDailyItem()
     {
