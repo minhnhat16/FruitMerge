@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class SpinCircle : MonoBehaviour
@@ -12,13 +10,15 @@ public class SpinCircle : MonoBehaviour
     [SerializeField] List<SpinItem> _items;
     [SerializeField] List<float> angleSteps;
     [SerializeField] float angleCheck;
+    [SerializeField] SpinConfig spinConfig;
     // Start is called before the first frame update
     private void OnEnable()
     {
+        spinConfig = ConfigFileManager.Instance.SpinConfig;
     }
     void Start()
     {
-        rect = GetComponent<RectTransform>(); 
+        rect = GetComponent<RectTransform>();
         SpawnObjectsInCircle();
 
     }
@@ -30,15 +30,17 @@ public class SpinCircle : MonoBehaviour
     public void SpinningCircle()
     {
         // FUNCT CALCULATE WHERE THE ITEM ON THEN ROTATE TO THAT ITEM POST
-        float vect = AngleCalculator() + 360*3; 
-        transform.DORotate(new Vector3(0,0, vect), 10,RotateMode.LocalAxisAdd );
+        float vect = AngleCalculator() ;
+        //vect = Mathf.Clamp(vect, 180, -180);
+        Debug.Log("VECT " + vect);
+        transform.DORotate(new Vector3(0, 0, vect ), 10, RotateMode.FastBeyond360);
     }
     // FUNTION FIND ITEM'S ANGLE
     public float AngleCalculator()
     {
         int random = Random.Range(0, 7);
         var item = _items[random];
-        float newAngle = angleCheck = angleSteps[random];
+        float newAngle = angleCheck =  280 - angleSteps[random];
         item.gameObject.SetActive(false);
         return newAngle;
     }
@@ -48,13 +50,15 @@ public class SpinCircle : MonoBehaviour
         float angleStep = 360f / numberOfObjects;
         for (int i = 0; i < numberOfObjects; i++)
         {
-            float angle = i * angleStep;
+            float angle = i * angleStep - 110;
             float x = Mathf.Cos(Mathf.Deg2Rad * (angle)) * radius;
             float y = Mathf.Sin(Mathf.Deg2Rad * (angle)) * radius;
             Vector3 spawnPosition = transform.position + new Vector3(x * 6, y * 6, 0f);
             angleSteps.Add(angle);
-            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angle -100);
-            GameObject item = Instantiate(Resources.Load("Prefab/UIPrefab/SpinItem", typeof(GameObject)), spawnPosition, spawnRotation,this.transform) as GameObject;
+            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angle - 100);
+            GameObject item = Instantiate(Resources.Load("Prefab/UIPrefab/SpinItem", typeof(GameObject)), spawnPosition, spawnRotation, this.transform) as GameObject;
+            var itemConfig = spinConfig.GetRecordByKeySearch(i);
+            item.GetComponent<SpinItem>().InitItem(itemConfig);
             _items.Add(item.GetComponent<SpinItem>());
         }
     }

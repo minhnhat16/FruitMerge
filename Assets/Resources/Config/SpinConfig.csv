@@ -1,0 +1,9 @@
+id,type,amount ,rate,itemImg
+1,0,100,0.125,coin
+2,1,3,0.125,item_Burst
+3,0,200,0.125,coin
+4,2,3,0.125,item_shake
+5,0,400,0.125,coin
+6,3,3,0.125,item_change
+7,0,1000,0.125,coin
+8,4,1,0.125,fruitskin

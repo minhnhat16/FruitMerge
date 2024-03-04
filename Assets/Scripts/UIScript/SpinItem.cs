@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +9,15 @@ public class SpinItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    public void InitItem(SpinConfigRecord record)
     {
-        
+        Debug.Log(record.Type + " " + record.Id );
+        type = record.Type;
+        amount = record.Amount;
+        itemImg.sprite =SpriteLibControl.Instance.GetSpriteByName(record.ItemImg);
     }
 }
