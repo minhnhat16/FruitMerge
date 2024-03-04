@@ -8,7 +8,7 @@ public class LastDailyItem : DailyItem
     // Start is called before the first frame update
     private void OnEnable()
     {
-        var parent = DialogManager.Instance.dicDialog[DialogIndex.DailyRewardDialog].GetComponent<DailyRewardDialog>();
+        var parent = FindObjectOfType<DailyRewardDialog>();
         if (parent != null)
         {
             onClickDailyItem = parent.onClickDailyItem;

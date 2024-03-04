@@ -23,7 +23,7 @@ public class DailyItem : MonoBehaviour
 
     private void OnEnable()
     {
-        var parent = DialogManager.Instance.dicDialog[DialogIndex.DailyRewardDialog].GetComponent<DailyRewardDialog>();
+        var parent = FindObjectOfType<DailyRewardDialog>();
         if (parent != null)
         {
             onClickDailyItem = parent.onClickDailyItem;

@@ -29,13 +29,13 @@ public class DailyGrid : MonoBehaviour
         isNewDay = DayTimeController.instance.isNewDay;
         DailyItems = new Dictionary<int, DailyItem>();
         SetupGrid();
+        NewDayInvoker(isNewDay);
     }
 
     // Update is called once per frame
     void Update()
     {
         isNewDay = DayTimeController.instance.isNewDay;
-        NewDayInvoker(isNewDay);
     }
     public void SetupGrid()
     {
@@ -140,7 +140,11 @@ public class DailyGrid : MonoBehaviour
     public void NewDayInvoker(bool isNewDay)
     {
         if (isNewDay == false) return;
-        else newDateEvent?.Invoke(this);
+        else
+        {
+            newDateEvent?.Invoke(isNewDay);
+            Debug.Log("New day invoking ");
+        }
     }
     public void NewDayRewardRemain(bool isNewDay)
     {
@@ -150,6 +154,7 @@ public class DailyGrid : MonoBehaviour
             this.isNewDay = false;  
             Debug.Log("NEW DAY REWARD REMAIN");
             var newDayItem = NewDayItemAvailable();
+            Debug.Log($"new day item id {newDayItem.day}");
             newDayItem.SwitchType(IEDailyType.Available);
             DataAPIController.instance.SetDailyData(newDayItem.day.ToString(), newDayItem.currentType);
             currentDaily = newDayItem;

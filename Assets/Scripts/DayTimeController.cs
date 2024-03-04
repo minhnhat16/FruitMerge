@@ -39,7 +39,7 @@ public class DayTimeController : MonoBehaviour
     public void NewDayEvent()
     {
         DateTime last = DateTime.Parse(DataAPIController.instance.GetDayTimeData());
-        if (DateTime.Today != last.Date)
+        if (DateTime.Today >last.Date)
         {
             Debug.Log("NEW DAY HAS STARTED");   
             isNewDay = true;

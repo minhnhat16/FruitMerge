@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpinView : BaseView
 {
-    SpinCircle spiner;
+    [SerializeField] SpinCircle spiner;
+    [SerializeField] Button button;
     public override void OnStartShowView()
     {
         base.OnStartShowView();
         spiner = GetComponent<SpinCircle>();
+        NewDayCheck();
     }
-    public void SpinButton()
+    private void Update()
     {
-        spiner.SpinningCircle();
+      
+    }
+    public void NewDayCheck()
+    {
+        if (DayTimeController.instance.isNewDay)
+        {
+            button.gameObject.SetActive(true);
+        }
+        else
+        {
+            button.gameObject.SetActive(false);
+        }
     }
 }
 
