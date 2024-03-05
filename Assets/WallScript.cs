@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ public class WallScript : MonoBehaviour
     public static WallScript Instance;
     [SerializeField] private List<Collider2D> colliders;
     [SerializeField] private SpriteRenderer _box;
+    public Vector3 shakeAmount = new Vector3(1f,1f, 0f); // Adjust the shake amount along each axis
+    public float shakeDuration = 0.5f;
+    public int vibrato = 20;
+    public float randomness = 90f;
+
     private void Awake()
     {
         Instance = this;
@@ -38,7 +44,17 @@ public class WallScript : MonoBehaviour
         }
 
     }
- 
+    public void ShakeWall()
+    {
+        // Shake the object along the X axis
+        var tween = transform.DOShakePosition(shakeDuration, shakeAmount, vibrato, randomness, false, true,ShakeRandomnessMode.Harmonic)
+            .SetLoops(10); // Loop time  = 10sec
+        tween.OnComplete(() =>
+        {
+            Player.instance.canDrop = true;
+            transform.position = Vector3.zero;
+        });
+    }
 
 
 }

@@ -31,13 +31,6 @@ public class GameManager : MonoBehaviour
         dayTimeController.enabled = true;
         //dayTimeController.CheckNewDay();
     }
-    public void LoadBufferScene()
-    {
-        if (ingameController.isActiveAndEnabled)
-        {
-            ingameController.enabled = false;
-        }
-    }
     public void LoadIngameSence()
     {
         CameraMain.instance.main.gameObject.SetActive(true);

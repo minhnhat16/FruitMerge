@@ -198,7 +198,7 @@ public class EndlessLevel : MonoBehaviour
     {
         Player.instance.canDrop = false;
         isUpgrade = true;
-        EnableTargetCircles();
+        WallScript.Instance.ShakeWall();
     }
 
     public void AfterUsingBombItem()
@@ -218,6 +218,7 @@ public class EndlessLevel : MonoBehaviour
     public void EnableTargetCircles()
     {
         //Debug.Log("EnableTargetCircles");
+        
         if (_circles == null) return;
         for (int i  = 0; i  <_circles.Count -1; i++)
         {

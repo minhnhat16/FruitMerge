@@ -31,8 +31,17 @@ public class BootLoader : MonoBehaviour
             gameManager.SetupGameManager();
             MainScreenViewParam param = new MainScreenViewParam();
             param.totalGold = DataAPIController.instance.GetGold();
-            DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
-
+            LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
+            {
+                if (DayTimeController.instance.isNewDay)
+                {
+                    ViewManager.Instance.SwitchView(ViewIndex.SpinView);
+                }
+                else
+                {
+                    DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
+                }
+            });
         });
     }
    

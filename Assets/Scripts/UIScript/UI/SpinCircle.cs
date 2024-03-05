@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.XR;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ public class SpinCircle : MonoBehaviour
     [SerializeField] ArrowSpin arrow;
     [SerializeField] SpinItem crItem;
     [SerializeField] Button button;
+    [SerializeField] bool isSpining;
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -22,6 +25,7 @@ public class SpinCircle : MonoBehaviour
     }
     void Start()
     {
+        isSpining = true;
         rect = GetComponent<RectTransform>();
         SpawnObjectsInCircle();
 
@@ -30,9 +34,17 @@ public class SpinCircle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        StartCoroutine(HideViewAfterSpin());
+    }
+    public IEnumerator HideViewAfterSpin()
+    {
+        yield return new WaitUntil(() => isSpining == false);
+        yield return new WaitForSeconds(5f);    
+        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
     }
     public void SpinningCircle()
     {
+        isSpining = true;
         button.gameObject.SetActive(false);
         // FUNCT CALCULATE WHERE THE ITEM ON THEN ROTATE TO THAT ITEM POST
         float vect = AngleCalculator();
@@ -40,7 +52,8 @@ public class SpinCircle : MonoBehaviour
         Debug.Log("VECT " + vect);
         Tween circleSpin = transform.DORotate(new Vector3(0, 0, vect + 360 * 5), 10, RotateMode.FastBeyond360);
         circleSpin.OnComplete(() => 
-        { 
+        {
+            isSpining = false;
             arrow.StopArrowAnim(null);
             crItem.OnRewardItem();
         });

@@ -19,6 +19,7 @@ public class IngameController : MonoBehaviour
 
     public int FirstID { get { return firstID; } }
     public int Score { get { return score; } }
+    public GameObject Wall { get { return wall; } }
 
     //[SerializeField] private GameObject level;
     // Start is called before the first frame update

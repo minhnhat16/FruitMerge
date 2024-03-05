@@ -17,6 +17,7 @@ public class SpinView : BaseView
     {
       
     }
+ 
     public void NewDayCheck()
     {
         if (DayTimeController.instance.isNewDay)

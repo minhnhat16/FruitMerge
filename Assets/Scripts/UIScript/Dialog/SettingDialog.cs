@@ -39,11 +39,21 @@ public class SettingDialog : BaseDialog
         sfxEvent.RemoveListener(SFXChange);
 
     }
+    public override void OnStartShowDialog()
+    {
+        base.OnStartShowDialog();
+        Player.instance.canDrop = false;
+    }
+    public override void OnEndHideDialog()
+    {
+        base.OnEndHideDialog();
+        Player.instance.canDrop = true;
+    }
     public void PlayButton()
     {
         IngameController.instance.isPause = false;
 
-        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog, () =>
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
             //EndlessLevel.Instance.RandomCircle();
         });
@@ -51,16 +61,17 @@ public class SettingDialog : BaseDialog
     }
     public void HomeButton()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
+        DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
             CameraMain.instance.main.gameObject.SetActive(false);
 
             Debug.Log("LOAD SCENE BUFFER FROM QUIT");
-            ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, () =>
+            DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog, null, () =>
             {
                 EndlessLevel.Instance.Clear();
             });
+
         });
     }
     public void MusicChange(bool isOn)
@@ -109,7 +120,7 @@ public class SettingDialog : BaseDialog
     }
     public void RestartButton()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
+        DialogManager.Instance.HideDialog(dialogIndex);
         EndlessLevel.Instance.Clear();
         LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
         {

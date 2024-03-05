@@ -7,6 +7,7 @@ public class LoseDialog : BaseDialog
 {
     [SerializeField] private Text score_lb;
     [SerializeField] private LoseDialogParam param;
+    [SerializeField] private Camera boxCamera;
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -15,6 +16,7 @@ public class LoseDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
+        boxCamera.transform.LookAt(IngameController.instance.Wall.transform);
         IngameController.instance.isPause = true;
         score_lb.text = param.score.ToString(); 
         //EndlessLevel.Instance.Clear();

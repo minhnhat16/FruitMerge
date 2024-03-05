@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -51,9 +52,10 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public bool MousePosition()
     {
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
+        bool isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
         //Debug.Log($"camera top{CameraMain.instance.GetTop() - 2f} " +
         //    $" point {point.x}");
-        if (point.y > CameraMain.instance.GetTop() - 2f || point.y < CameraMain.instance.GetBottom() + 2f)
+        if (point.y > CameraMain.instance.GetTop() - 3f || point.y < CameraMain.instance.GetBottom() + 2f && isPointerOverUI)
         {
             return false;
         }
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     void MouseDown()
     {
 
-        if (CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause)
+        if (CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause && canDrop ==true )
         {
             mainCircle = EndlessLevel.Instance.main;
             if (mainCircle != null) StartCoroutine(DropCircle());
