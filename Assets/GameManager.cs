@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetUpCamera();
-    }
+    }   
 
     // Update is called once per frame
     void Update()
