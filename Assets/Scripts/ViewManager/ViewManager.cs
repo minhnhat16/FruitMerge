@@ -10,11 +10,11 @@ public class ViewManager : MonoBehaviour
     public Transform anchorView;
     public Dictionary<ViewIndex, BaseView> dicView = new Dictionary<ViewIndex, BaseView>();
     public BaseView currentView = null;
-
+    private Canvas canvas;
     private void Awake()
     {
         Instance = this;
-       
+       canvas = GetComponent<Canvas>();
     }
 
     IEnumerator Start()
@@ -28,6 +28,7 @@ public class ViewManager : MonoBehaviour
             view.transform.SetParent(anchorView, false);
             view.GetComponent<BaseView>().Init();
             dicView.Add(viewIndex, view.GetComponent<BaseView>());
+            canvas.worldCamera = CameraMain.instance.main;
 
             //Debug.Log(viewName);
         }

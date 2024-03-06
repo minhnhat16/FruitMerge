@@ -11,10 +11,11 @@ public class DialogManager : MonoBehaviour
     public Transform anchorDialog;
     public Dictionary<DialogIndex, BaseDialog> dicDialog = new Dictionary<DialogIndex, BaseDialog>();
     private List<BaseDialog> dialogShowed = new List<BaseDialog>();
-
+    private Canvas canvas;
     private void Awake()
     {
         Instance = this;
+        canvas = GetComponent<Canvas>();
     }
 
     IEnumerator Start()
@@ -28,6 +29,7 @@ public class DialogManager : MonoBehaviour
             dialog.transform.SetParent(anchorDialog, false);
             dialog.GetComponent<BaseDialog>().Init();
             dicDialog.Add(dialogIndex, dialog.GetComponent<BaseDialog>());
+            canvas.worldCamera = CameraMain.instance.main;
         }
     }
 

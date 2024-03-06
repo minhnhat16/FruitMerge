@@ -18,7 +18,8 @@ public class LoseDialog : BaseDialog
         base.OnStartShowDialog();
         boxCamera.transform.LookAt(IngameController.instance.Wall.transform);
         IngameController.instance.isPause = true;
-        score_lb.text = param.score.ToString(); 
+        score_lb.text = param.score.ToString();
+        //EndlessLevel.Instance.main.gameObject.SetActive(false);
         //EndlessLevel.Instance.Clear();
     }
     public void HomeBtn()

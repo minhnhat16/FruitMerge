@@ -14,18 +14,19 @@ public class TopWall : MonoBehaviour
     {
         if (collision.CompareTag("MergeCircle"))
         {
-            //Debug.Log("MergeCircle");
+            Debug.Log("MergeCircle touch topwall");
             var circle = collision.GetComponentInParent<CircleObject>();
-            if (circle != null )
+            if (circle != null && circle.isActiveAndEnabled == true )
             {
                 //Debug.Log("TRIGGER COLLIDER ");
                 if (circle.GetCurrentState() == "GroundedState"
                     && IngameController.instance.isGameOver == false
-                        && circle.transform.position.y > transform.position.y + 1f)
+                        && circle.transform.position.y > transform.position.y )
                 {
                     //Debug.Log("TRIGGER GAME OVER");
                     IngameController.instance.GameOver();
                 }
+                else { return; }
             }
         }
     }

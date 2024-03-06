@@ -370,6 +370,7 @@ MonoBehaviour:
   wall: {fileID: 2376563485386207395, guid: 7238de118e189ad4fa6187ed71269775, type: 3}
   backGround: {fileID: 1255724948}
   wire: {fileID: 6239458946981725996, guid: 760628de9c2362b489866809761e8cef, type: 3}
+  loseCamera: {fileID: 2015480619}
   firstID: 0
   score: 0
   isPause: 0
@@ -1225,7 +1226,7 @@ Canvas:
   m_GameObject: {fileID: 1496885238}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1235,7 +1236,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!1 &1505858363
 GameObject:
@@ -1506,7 +1507,7 @@ Canvas:
   m_GameObject: {fileID: 1696838535}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1516,7 +1517,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &1737558958
 GameObject:
@@ -1630,7 +1631,7 @@ GameObject:
   - component: {fileID: 2015480620}
   - component: {fileID: 2015480619}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: LoseCamera
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1645,7 +1646,7 @@ Camera:
   m_GameObject: {fileID: 2015480617}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1663,8 +1664,8 @@ Camera:
   far clip plane: 50
   field of view: 179
   orthographic: 1
-  orthographic size: 10
-  m_Depth: 0
+  orthographic size: 17
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 512
@@ -1687,7 +1688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015480617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -11,7 +11,7 @@ public class IngameController : MonoBehaviour
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject backGround;
     [SerializeField] private GameObject wire;
-
+    [SerializeField] private Camera loseCamera;
     [SerializeField] private int firstID;
     [SerializeField] private int score;
     public bool isPause = false;
@@ -90,6 +90,10 @@ public class IngameController : MonoBehaviour
             p = Instantiate(player, transform).GetComponent<Player>();
             player = p.gameObject;
         }
+        else
+        {
+            player.gameObject.SetActive(true);  
+        }
     }
     public void SetUpWall()
     {
@@ -160,6 +164,8 @@ public class IngameController : MonoBehaviour
     {
         isGameOver = !isGameOver;
         Debug.Log("GameOver" + isGameOver);
+        loseCamera.gameObject.SetActive(true);
+        player.gameObject.SetActive(false);
         gameOverEvent?.Invoke(isGameOver);
     }
 }
