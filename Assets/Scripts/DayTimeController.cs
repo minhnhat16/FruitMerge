@@ -21,7 +21,7 @@ public class DayTimeController : MonoBehaviour
     }
     private void OnDisable()
     {
-
+        newDateEvent.RemoveAllListeners();
     }
     // Start is called before the first frame update
     void Start()
@@ -38,17 +38,23 @@ public class DayTimeController : MonoBehaviour
     }
     public void NewDayEvent()
     {
-        DateTime last = DateTime.Parse(DataAPIController.instance.GetDayTimeData());
-        if (DateTime.Today >last.Date)
+        // Attempt to parse the string representation of the date and time
+        if (DateTime.TryParse(DataAPIController.instance.GetDayTimeData(), out DateTime last))
         {
-            Debug.Log("NEW DAY HAS STARTED");   
-            isNewDay = true;
-            SetNewDay();
-            newDateEvent?.Invoke(isNewDay);
+            // Parsing successful
+            if (DateTime.Today > last.Date)
+            {
+                Debug.Log("NEW DAY HAS STARTED");
+                isNewDay = true;
+                SetNewDay();
+                newDateEvent?.Invoke(isNewDay);
+            }
         }
         else
         {
-            //isNewDay = false;
+            // Parsing failed, handle the case where the input string is not in the correct format
+            Debug.LogError("Failed to parse DateTime from the input string.");
+            // You might want to log an error, notify the user, or take any other appropriate action
         }
     }
     public void SetNewDay()

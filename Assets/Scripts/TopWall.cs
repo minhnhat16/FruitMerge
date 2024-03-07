@@ -25,6 +25,7 @@ public class TopWall : MonoBehaviour
                 {
                     //Debug.Log("TRIGGER GAME OVER");
                     IngameController.instance.GameOver();
+                    gameObject.SetActive(false);
                 }
                 else { return; }
             }

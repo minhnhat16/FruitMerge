@@ -175,8 +175,7 @@ public class CircleObject : FSMSystem
         {
             instanceID = Time.time;
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
-
-            if (isMerged || otherCircle.isMerged) return;
+            if (otherCircle ==null|| IngameController.instance.isGameOver || otherCircle.isMerged  || isMerged ) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
             return;
@@ -296,6 +295,7 @@ public class CircleObject : FSMSystem
     }
     public void SpawnCircle(int i)
     {
+        if (IngameController.instance.isGameOver) return;
         instanceID = 0;
         record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(i);
         DisableTarget();
@@ -394,7 +394,7 @@ public class CircleObject : FSMSystem
     }
     public string GetCurrentState()
     {
-        string crString = currentState.ToString();
+        string crString = currentState.ToString();  
         //Debug.Log("GetCurrentState " + crString);
         return crString;
     }

@@ -20,7 +20,7 @@ public class IngameController : MonoBehaviour
     public int FirstID { get { return firstID; } }
     public int Score { get { return score; } }
     public GameObject Wall { get { return wall; } }
-
+    public Camera LoseCam { get { return loseCamera; } }
     //[SerializeField] private GameObject level;
     // Start is called before the first frame update
     [HideInInspector]
@@ -160,11 +160,14 @@ public class IngameController : MonoBehaviour
     {
         cancleItemEvent?.Invoke(false); 
     }
+    public void SwitchLoseCamOnOff(bool isOn)
+    {
+        loseCamera.gameObject.SetActive(isOn);
+    }
     public void GameOver()
     {
         isGameOver = !isGameOver;
         Debug.Log("GameOver" + isGameOver);
-        loseCamera.gameObject.SetActive(true);
         player.gameObject.SetActive(false);
         gameOverEvent?.Invoke(isGameOver);
     }

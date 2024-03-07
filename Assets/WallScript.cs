@@ -13,6 +13,10 @@ public class WallScript : MonoBehaviour
     public int vibrato = 20;
     public float randomness = 90f;
 
+    public GameObject GetTopWall()
+    {
+        return colliders[2].gameObject;
+    }
     private void Awake()
     {
         Instance = this;

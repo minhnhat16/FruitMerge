@@ -16,11 +16,18 @@ public class LoseDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        boxCamera.transform.LookAt(IngameController.instance.Wall.transform);
+        IngameController.instance.SwitchLoseCamOnOff(true);
+        EndlessLevel.Instance.DespawnMainCircle();
+        //boxCamera.transform.LookAt(IngameController.instance.Wall.transform);
         IngameController.instance.isPause = true;
-        score_lb.text = param.score.ToString();
+        //score_lb.text = param.score.ToString();
         //EndlessLevel.Instance.main.gameObject.SetActive(false);
         //EndlessLevel.Instance.Clear();
+    }
+    public override void OnStartHideDialog()
+    {
+        base.OnEndHideDialog();
+        IngameController.instance.SwitchLoseCamOnOff(true);
     }
     public void HomeBtn()
     {
@@ -50,14 +57,19 @@ public class LoseDialog : BaseDialog
                     {
                         IngameController.instance.isPause = false;
                         IngameController.instance.isGameOver = false;
-                        Player.instance.canDrop = true; 
+                        IngameController.instance.LoseCam.gameObject.SetActive(false);
+                        Player.instance.gameObject.SetActive(true);
                         IngameController.instance.ResetScore();
+                        WallScript.Instance.GetTopWall().SetActive(true);
+                        Player.instance.canDrop = true;
                     });
                 });
             });
         });
-        
-      
+    }
+    public void RankBtn()
+    {
+        //show rank dialog
     }
 
 }

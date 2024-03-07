@@ -19,12 +19,12 @@ public class EndlessLevel : MonoBehaviour
     private bool isBomb = false;
     [SerializeField]
     private bool isUpgrade = false;
-    [SerializeField]private List<CircleObject> _circles ;
+    [SerializeField] private List<CircleObject> _circles;
 
     [HideInInspector]
-    public  List<CircleObject> _Circles { get { return _circles; }}
-    public bool IsBomb { get { return isBomb; }}
-    public bool IsUpgrade { get { return isUpgrade; }}
+    public List<CircleObject> _Circles { get { return _circles; } }
+    public bool IsBomb { get { return isBomb; } }
+    public bool IsUpgrade { get { return isUpgrade; } }
     public int SpriteType { get { return spriteType; } }
     public void AddCircle(CircleObject item)
     {
@@ -32,7 +32,7 @@ public class EndlessLevel : MonoBehaviour
     }
     public void RemoveCircle(CircleObject item)
     {
-      var find = _Circles.Find(c => c == item);
+        var find = _Circles.Find(c => c == item);
         _circles.Remove(find);
     }
     // Start is called before the first frame update
@@ -92,6 +92,7 @@ public class EndlessLevel : MonoBehaviour
     }
     public IEnumerator SpawnFirstCircle()
     {
+        if (IngameController.instance.isGameOver)yield return null;
         yield return new WaitForSeconds(spawnCooldown);
         int first = FirstInQueue();
         main = SpawnCircle(first);
@@ -166,22 +167,35 @@ public class EndlessLevel : MonoBehaviour
         //BubbleSortCircle(sortedCircles);
         sortedCircles.OrderBy(c => c.TypeID);
         sortedCircles = CirclesBelow3(sortedCircles);
-        foreach( var c in sortedCircles)
+        foreach (var c in sortedCircles)
         {
             if (c != main)
             {
                 RemoveCircle(c);
                 c.RemoveCircle();
             }
-          
+
         }
     }
-    public  List<CircleObject> CirclesBelow3(List<CircleObject> circles)
+    public void DespawnMainCircle()
+    {
+        Debug.Log("Despawn Main Circle");
+        _circles.Last().gameObject.SetActive(false);
+        foreach (var c in _circles)
+        {
+            if (c.GetCurrentState() == "SpawnState")
+            {
+                Debug.Log($"{c.name} Despawn Main Circle");
+                c.gameObject.SetActive(false);
+            }
+        }
+    }
+    public List<CircleObject> CirclesBelow3(List<CircleObject> circles)
     {
         List<CircleObject> below3 = new();
-        for(int i = 0; i < circles.Count; i++)
+        for (int i = 0; i < circles.Count; i++)
         {
-            if (circles[i].TypeID <3 && circles[i].TypeID > 0) 
+            if (circles[i].TypeID < 3 && circles[i].TypeID > 0)
             {
                 below3.Add(circles[i]);
             }
@@ -218,13 +232,13 @@ public class EndlessLevel : MonoBehaviour
     public void EnableTargetCircles()
     {
         //Debug.Log("EnableTargetCircles");
-        
+
         if (_circles == null) return;
-        for (int i  = 0; i  <_circles.Count -1; i++)
+        for (int i = 0; i < _circles.Count - 1; i++)
         {
             _circles[i].EnableTarget();
         }
-      
+
     }
     public void DisableTargetCircles()
     {
@@ -266,5 +280,5 @@ public class EndlessLevel : MonoBehaviour
         CirclePool.instance.pool.DeSpawnAll();
         intQueue.Clear();
     }
-  
+
 }
