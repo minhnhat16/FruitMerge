@@ -57,6 +57,8 @@ public class WallScript : MonoBehaviour
         {
             Player.instance.canDrop = true;
             transform.position = Vector3.zero;
+            IngameController.instance.CancelItem();
+            tween?.Kill();
         });
     }
 

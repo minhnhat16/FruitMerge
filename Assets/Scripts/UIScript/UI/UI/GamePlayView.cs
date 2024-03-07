@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GamePlayView : BaseView, IPointerClickHandler
+public class GamePlayView : BaseView
 {
     [HideInInspector] GamePlayAnim anim;
     [SerializeField] Text score_lb;
@@ -79,9 +79,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         tomato_lb.text = DataAPIController.instance.GetItemTotal("0").ToString();
         bomb_lb.text = DataAPIController.instance.GetItemTotal("1").ToString();
         upgrade_lb.text = DataAPIController.instance.GetItemTotal("2").ToString();
-        //tomato_Btn.onValueChanged.AddListener(OnClickTomato);
-        //bomb_Btn.onValueChanged.AddListener(OnClickBomb);
-        //upgrade_Btn.onValueChanged.AddListener(OnClickUpgrade);
+        
     }
     public override void OnStartHideView()
     {
@@ -244,25 +242,6 @@ public class GamePlayView : BaseView, IPointerClickHandler
     {
         tomato_lb.text = i.ToString();
         EndlessLevel.Instance.UsingTomato();
-    }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        // Check if the mouse is over the toggle
-        if (eventData.pointerCurrentRaycast.gameObject == tomato_Btn.gameObject)
-        {
-            // Handle toggle click
-            OnClickTomato();
-        }
-        else if (eventData.pointerCurrentRaycast.gameObject == bomb_Btn.gameObject)
-        {
-            // Handle toggle click
-            OnClickBomb();
-        }
-        else if (eventData.pointerCurrentRaycast.gameObject == upgrade_lb.gameObject)
-        {
-            // Handle toggle click
-            OnClickUpgrade();
-        }
     }
     public void SettingButton()
     {

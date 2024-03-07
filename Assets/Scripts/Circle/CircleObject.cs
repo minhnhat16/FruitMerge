@@ -194,7 +194,8 @@ public class CircleObject : FSMSystem
     public void ClaimPosition()
     {
         float x = transform.position.x;
-        if (CameraMain.instance.main != null)
+        if (CameraMain.instance.main == null) return;
+        else
         {
             x = Mathf.Clamp(x, CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
             transform.position = new Vector3(x, transform.position.y);
@@ -394,9 +395,13 @@ public class CircleObject : FSMSystem
     }
     public string GetCurrentState()
     {
-        string crString = currentState.ToString();  
-        //Debug.Log("GetCurrentState " + crString);
-        return crString;
+        if(currentState!= null)
+        {
+            string crString = currentState.ToString();
+            //Debug.Log("GetCurrentState " + crString);
+            return crString;
+        }
+        return null;
     }
     private void Reset()
     {

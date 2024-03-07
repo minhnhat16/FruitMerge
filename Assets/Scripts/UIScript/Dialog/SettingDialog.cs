@@ -42,12 +42,17 @@ public class SettingDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        Player.instance.canDrop = false;
+       
+        Player.instance.gameObject.SetActive(false);
+        EndlessLevel.Instance.main.gameObject.SetActive(false);
     }
     public override void OnEndHideDialog()
     {
         base.OnEndHideDialog();
         Player.instance.canDrop = true;
+        Player.instance.gameObject.SetActive(true);
+        EndlessLevel.Instance.main.gameObject.SetActive(true);
+
     }
     public void PlayButton()
     {
@@ -70,6 +75,7 @@ public class SettingDialog : BaseDialog
             DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog, null, () =>
             {
                 EndlessLevel.Instance.Clear();
+                CameraMain.instance.main.gameObject.SetActive(true);
             });
 
         });

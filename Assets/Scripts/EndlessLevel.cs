@@ -62,6 +62,7 @@ public class EndlessLevel : MonoBehaviour
 
         while (intQueue.Count < 6)
         {
+
             if (intQueue.Count == 5)
             {
 
@@ -92,8 +93,8 @@ public class EndlessLevel : MonoBehaviour
     }
     public IEnumerator SpawnFirstCircle()
     {
-        if (IngameController.instance.isGameOver)yield return null;
         yield return new WaitForSeconds(spawnCooldown);
+        yield return new WaitUntil(() => IngameController.instance.isGameOver == false);
         int first = FirstInQueue();
         main = SpawnCircle(first);
         main.GotoState(main.Spawn);
@@ -277,6 +278,8 @@ public class EndlessLevel : MonoBehaviour
     {
         level = 1;
         score = 0;
+        Destroy(IngameController.instance.player);
+        Destroy(IngameController.instance.Wall);
         CirclePool.instance.pool.DeSpawnAll();
         intQueue.Clear();
     }

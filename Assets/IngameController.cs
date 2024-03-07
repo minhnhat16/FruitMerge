@@ -93,6 +93,7 @@ public class IngameController : MonoBehaviour
         else
         {
             player.gameObject.SetActive(true);  
+            player.GetComponent<Player>().canDrop =true; 
         }
     }
     public void SetUpWall()
@@ -162,7 +163,9 @@ public class IngameController : MonoBehaviour
     }
     public void SwitchLoseCamOnOff(bool isOn)
     {
+        Debug.Log($"SwitchLoseCamOnOff {isOn}");
         loseCamera.gameObject.SetActive(isOn);
+        Debug.Log($"lose camera {loseCamera.isActiveAndEnabled}");
     }
     public void GameOver()
     {

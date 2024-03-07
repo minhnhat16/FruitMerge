@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,25 +11,34 @@ public class TopWall : MonoBehaviour
         gameOverEvent = IngameController.instance.gameOverEvent;
         gameOverEvent.AddListener(GameOverEvent);
     }
+    private void OnDisable()
+    {
+        gameOverEvent.RemoveAllListeners();
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("MergeCircle"))
         {
             Debug.Log("MergeCircle touch topwall");
             var circle = collision.GetComponentInParent<CircleObject>();
-            if (circle != null && circle.isActiveAndEnabled == true )
+            StartCoroutine(GameOverCheck(circle));
+        }
+    }
+    IEnumerator GameOverCheck(CircleObject circle)
+    {
+        yield return new WaitForSeconds(3f);
+        if (circle != null && circle.isActiveAndEnabled == true)
+        {
+            //Debug.Log("TRIGGER COLLIDER ");
+            if (circle.GetCurrentState() == "GroundedState"
+                && IngameController.instance.isGameOver == false
+                    && circle.transform.position.y > transform.position.y)
             {
-                //Debug.Log("TRIGGER COLLIDER ");
-                if (circle.GetCurrentState() == "GroundedState"
-                    && IngameController.instance.isGameOver == false
-                        && circle.transform.position.y > transform.position.y )
-                {
-                    //Debug.Log("TRIGGER GAME OVER");
-                    IngameController.instance.GameOver();
-                    gameObject.SetActive(false);
-                }
-                else { return; }
+                //Debug.Log("TRIGGER GAME OVER");
+                IngameController.instance.GameOver();
+                gameObject.SetActive(false);
             }
+            else { yield break; }
         }
     }
     public void GameOverEvent(bool isGameOver)

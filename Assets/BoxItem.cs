@@ -20,8 +20,8 @@ public class BoxItem : MonoBehaviour
     public int SkinID { get => skinID; set => skinID = value; }
     public bool IsOwned { get => isOwned; set => isOwned = value; }
     public int Price { get => price; set => price = value; }
-    public UnityEvent<bool> onClickAction = new UnityEvent<bool>();
-    public UnityEvent<BoxItem> onEquipActionBox = new UnityEvent<BoxItem>();
+    private UnityEvent<bool> onClickAction = new UnityEvent<bool>();
+    [HideInInspector]public UnityEvent<BoxItem> onEquipActionBox = new UnityEvent<BoxItem>();
     public void OnEnable()
     {
         onClickAction = confirmBtnType.onClickAction;

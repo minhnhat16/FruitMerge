@@ -27,17 +27,24 @@ public class LoseDialog : BaseDialog
     public override void OnStartHideDialog()
     {
         base.OnEndHideDialog();
-        IngameController.instance.SwitchLoseCamOnOff(true);
+        IngameController.instance.SwitchLoseCamOnOff(false);
+        EndlessLevel.Instance.Clear();
+        CirclePool.instance.pool.DeSpawnAll();
     }
     public void HomeBtn()
     {
+        Destroy(IngameController.instance.player);
+        Destroy(IngameController.instance.Wall);
         IngameController.instance.isGameOver = false;
-        DialogManager.Instance.HideAllDialog();
+        DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
-            ViewManager.Instance.SwitchView(ViewIndex.MainScreenView, null, () =>
+
+            DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog,null, () =>
             {
                 IngameController.instance.isPause = true;
+                CirclePool.instance.transform.localScale = Vector3.one;
+                WallScript.Instance.transform.localScale = Vector3.one;
             });
         });
     }
