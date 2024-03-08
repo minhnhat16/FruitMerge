@@ -53,7 +53,6 @@ public class EndlessLevel : MonoBehaviour
     public void LoadLevel(Action callback)
     {
         level = 1;
-        Player.instance.ResetPos();
         RandomCircle();
         callback?.Invoke();
     }

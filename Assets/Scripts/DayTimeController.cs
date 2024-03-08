@@ -38,23 +38,17 @@ public class DayTimeController : MonoBehaviour
     }
     public void NewDayEvent()
     {
-        // Attempt to parse the string representation of the date and time
-        if (DateTime.TryParse(DataAPIController.instance.GetDayTimeData(), out DateTime last))
+        string dayTimeData = DataAPIController.instance.GetDayTimeData();
+        DateTime last;
+
+        if (dayTimeData != null && DateTime.TryParse(dayTimeData, out last))
         {
-            // Parsing successful
-            if (DateTime.Today > last.Date)
-            {
-                Debug.Log("NEW DAY HAS STARTED");
-                isNewDay = true;
-                SetNewDay();
-                newDateEvent?.Invoke(isNewDay);
-            }
+            // Use the parsed DateTime value 'last' here
         }
         else
         {
-            // Parsing failed, handle the case where the input string is not in the correct format
-            Debug.LogError("Failed to parse DateTime from the input string.");
-            // You might want to log an error, notify the user, or take any other appropriate action
+            // Handle the case where dayTimeData is null or parsing failed
+            Debug.LogWarning("Failed to parse day time data or data is null.");
         }
     }
     public void SetNewDay()

@@ -991,6 +991,7 @@ MonoBehaviour:
   arrow: {fileID: 3709618182973716297}
   crItem: {fileID: 0}
   button: {fileID: 4126390919587343148}
+  isSpining: 0
 --- !u!1 &9214422580103339436
 GameObject:
   m_ObjectHideFlags: 0

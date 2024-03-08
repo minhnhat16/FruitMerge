@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.XR;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,13 +27,12 @@ public class SpinCircle : MonoBehaviour
         isSpining = true;
         rect = GetComponent<RectTransform>();
         SpawnObjectsInCircle();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(HideViewAfterSpin());
+
     }
     public IEnumerator HideViewAfterSpin()
     {
@@ -56,6 +54,8 @@ public class SpinCircle : MonoBehaviour
             isSpining = false;
             arrow.StopArrowAnim(null);
             crItem.OnRewardItem();
+            StartCoroutine(HideViewAfterSpin());
+
         });
     }
     // FUNTION FIND ITEM'S ANGLE
@@ -76,7 +76,10 @@ public class SpinCircle : MonoBehaviour
             float angle = i * angleStep - 110;
             float x = Mathf.Cos(Mathf.Deg2Rad * (angle)) * radius;
             float y = Mathf.Sin(Mathf.Deg2Rad * (angle)) * radius;
-            Vector3 spawnPosition = transform.position + new Vector3(x * 6, y * 6, 0f);
+
+            Vector3 spawnPosition = rect.transform.position + new Vector3(x, y, 0f);
+           spawnPosition=  RectTransformUtility.WorldToScreenPoint(CameraMain.instance.main, spawnPosition);
+            Debug.Log($"Spawn Position item spin {spawnPosition}");
             angleSteps.Add(angle);
             Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angle - 100);
             GameObject item = Instantiate(Resources.Load("Prefab/UIPrefab/SpinItem", typeof(GameObject)), spawnPosition, spawnRotation, this.transform) as GameObject;
@@ -84,6 +87,13 @@ public class SpinCircle : MonoBehaviour
             item.GetComponent<SpinItem>().InitItem(itemConfig);
             _items.Add(item.GetComponent<SpinItem>());
         }
+        TestItemPosition();
     }
-
+    void TestItemPosition()
+    {
+        foreach(var item in _items)
+        {
+            Debug.Log($"item.transform.position {item.transform.position}");
+        }
+    }
 }

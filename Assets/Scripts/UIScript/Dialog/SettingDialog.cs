@@ -50,14 +50,13 @@ public class SettingDialog : BaseDialog
     {
         base.OnEndHideDialog();
         Player.instance.canDrop = true;
-        Player.instance.gameObject.SetActive(true);
+        //Player.instance.gameObject.SetActive(true);
         EndlessLevel.Instance.main.gameObject.SetActive(true);
 
     }
     public void PlayButton()
     {
         IngameController.instance.isPause = false;
-
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
             //EndlessLevel.Instance.RandomCircle();
