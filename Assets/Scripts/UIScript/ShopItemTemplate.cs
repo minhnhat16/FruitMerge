@@ -41,7 +41,14 @@ public class ShopItemTemplate : MonoBehaviour
         int intCost = Convert.ToInt32(cost_lb.text);
         param.onConfirmAction = () =>
         {
-            if(type >0 && type <= 3)
+            
+            if (type == 0)
+            {
+                DataAPIController.instance.MinusGold(intCost);
+                DataAPIController.instance.AddGold(totalItem);
+                IngameController.instance.GoldChanged();
+            }
+            else if (type > 0 && type <= 3)
             {
                 int newType = type - 1;
                 DataAPIController.instance.MinusGold(intCost);
@@ -53,7 +60,7 @@ public class ShopItemTemplate : MonoBehaviour
         {
             param.amount_lb = total_lb.text;
             param.cost_lb = cost_lb.text;
-            DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
+            DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog  , param);
         }
     }
 }

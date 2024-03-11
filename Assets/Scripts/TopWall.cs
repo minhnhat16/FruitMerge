@@ -19,7 +19,7 @@ public class TopWall : MonoBehaviour
     {
         if (collision.CompareTag("MergeCircle"))
         {
-            Debug.Log("MergeCircle touch topwall");
+            //Debug.Log("MergeCircle touch topwall");
             var circle = collision.GetComponentInParent<CircleObject>();
             StartCoroutine(GameOverCheck(circle));
         }
@@ -46,15 +46,29 @@ public class TopWall : MonoBehaviour
         if (isGameOver)
         {
             isGameOver = !isGameOver;
-            LoseDialogParam param = new ();
-            param.score = IngameController.instance.Score;
-            EndlessLevel.Instance.FreezeCircle();
-            DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog, param ,() => {
-                Player.instance.canDrop = false;
-                Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);
-                CirclePool.instance.transform.localScale = scale;
-                WallScript.Instance.transform.localScale = scale;
-            }) ;
+            DialogParam param = new();
+             int score = IngameController.instance.Score;
+            if (EndlessLevel.Instance.Life > 0)
+            {
+                EndlessLevel.Instance.FreezeCircleRev();
+                DialogManager.Instance.ShowDialog(DialogIndex.ReviveDialog, param, () => {
+                    Player.instance.canDrop = false;
+                    Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);
+                    CirclePool.instance.transform.localScale = scale;
+                    WallScript.Instance.transform.localScale = scale;
+                });
+            }
+            else
+            {
+                EndlessLevel.Instance.FreezeCircleDead();
+                DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog, param, () => {
+                    Player.instance.canDrop = false;
+                    Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);
+                    CirclePool.instance.transform.localScale = scale;
+                    WallScript.Instance.transform.localScale = scale;
+                });
+            }
+            
         }
     }
 }

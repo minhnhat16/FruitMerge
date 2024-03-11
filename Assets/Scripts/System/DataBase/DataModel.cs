@@ -274,5 +274,5 @@ public class DataModel : MonoBehaviour
 public class GameInitData
 {
     public const int defaultSkinID = 4;
-    public const int defaultBoxSkinID = 4;
+    public const int defaultBoxSkinID = 12;
 }

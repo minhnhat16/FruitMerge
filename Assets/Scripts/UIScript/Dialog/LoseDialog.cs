@@ -11,7 +11,6 @@ public class LoseDialog : BaseDialog
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
-        param = (LoseDialogParam)dialogParam;
     }
     public override void OnStartShowDialog()
     {
@@ -69,9 +68,6 @@ public class LoseDialog : BaseDialog
             });
         });
     }
-    public void RankBtn()
-    {
-        //show rank dialog
-    }
+ 
 
 }

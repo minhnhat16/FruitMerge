@@ -1,8 +1,4 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -42,9 +38,15 @@ public class SettingDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        EndlessLevel.Instance.SetActiveMainCircle(false);
-        Player.instance.gameObject.SetActive(false);
-        //EndlessLevel.Instance.main.gameObject.SetActive(false);
+        if (EndlessLevel.Instance.main != null)
+        {
+
+            EndlessLevel.Instance.SetActiveMainCircle(false);
+        }
+        if (IngameController.instance.player != null)
+        {
+            Player.instance.gameObject.SetActive(false);
+        }
     }
     public override void OnEndHideDialog()
     {
@@ -148,7 +150,10 @@ public class SettingDialog : BaseDialog
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
             IngameController.instance.isPause = false;
-            IngameController.instance.player.SetActive(true);
+            if (IngameController.instance.player != null)
+            {
+                IngameController.instance.player.SetActive(true);
+            }
             EndlessLevel.Instance.SetActiveMainCircle(true);
         });
 
@@ -156,10 +161,10 @@ public class SettingDialog : BaseDialog
     private void OnDropdownValueChanged(int index)
     {
         // Get the selected option text
-        string selectedOption =language_dr.options[index].text;
+        string selectedOption = language_dr.options[index].text;
 
         // Display the selected option
         Debug.Log("Selected Option: " + selectedOption + " with index " + language_dr.options[index]);
     }
-    
+
 }

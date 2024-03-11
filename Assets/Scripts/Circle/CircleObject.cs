@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -89,7 +88,10 @@ public class CircleObject : FSMSystem
     public void EnableTarget()
     {
         isBeingTarget = true;
-        targetRender.EnableTarget();
+        if (state == "GroundedState")
+        {
+            targetRender.EnableTarget();
+        }
     }
     public void DisableTarget()
     {
@@ -159,7 +161,7 @@ public class CircleObject : FSMSystem
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
             PlayLandedSFX();
-        } 
+        }
         else if (collision.gameObject.CompareTag("Wall") && isDropping == false && state != "SpawnState")
         {
             PlayLandedSFX();
@@ -175,7 +177,7 @@ public class CircleObject : FSMSystem
         {
             instanceID = Time.time;
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
-            if (otherCircle ==null|| IngameController.instance.isGameOver || otherCircle.isMerged  || isMerged ) return;
+            if (otherCircle == null || IngameController.instance.isGameOver || otherCircle.isMerged || isMerged) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
             return;
@@ -194,7 +196,7 @@ public class CircleObject : FSMSystem
     public void ClaimPosition()
     {
         float x = transform.position.x;
-        if (CameraMain.instance.main == null) return;
+        if (CameraMain.instance.main == null && gameObject.activeSelf) return;
         else
         {
             x = Mathf.Clamp(x, CameraMain.instance.GetLeft(), CameraMain.instance.GetRight());
@@ -220,7 +222,7 @@ public class CircleObject : FSMSystem
         {
 
             if (instanceID < contactCircle.GetComponent<CircleObject>().instanceID) return;
-            else 
+            else
             {
                 GotoState(Merge);
                 isMerged = true;
@@ -264,7 +266,7 @@ public class CircleObject : FSMSystem
         col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
-        if(typeID >10) yield  return null; 
+        if (typeID > 10) yield return null;
         var c = CirclePool.instance.pool.SpawnNonGravityNext();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
@@ -284,15 +286,17 @@ public class CircleObject : FSMSystem
     }
     public void PlayMergeVFX(CircleObject circle)
     {
-        var vfx = circle.mergeVfx.GetComponent<ParticleSystem>();
+        MergeVFX vfx = MergeVFXPool.instance.pool.SpawnNonGravity();
+        vfx.SetTransform(transform.position);
         var color = circle.record.Color;
-        SetParticleColor(color, vfx);
-        vfx.Play();
+        SetParticleColor(color, vfx.MainVFX);
+        vfx.MainVFX.Play();
+
     }
     void SetParticleColor(Color color, ParticleSystem particle)
     {
         ParticleSystem.MainModule mainModule = particle.main;
-        mainModule.startColor= color;
+        mainModule.startColor = color;
     }
     public void SpawnCircle(int i)
     {
@@ -311,7 +315,6 @@ public class CircleObject : FSMSystem
     }
     public void RemoveCircle()
     {
-        mergeVfx.GetComponent<ParticleSystem>().Play();
         Reset();
         CirclePool.instance.pool.DeSpawnNonGravity(this);
     }
@@ -342,13 +345,13 @@ public class CircleObject : FSMSystem
         if (!isLanded)
         {
             isLanded = !isLanded;
-            SoundManager.Instance.PlaySFXWithVolume(SoundManager.SFX.LandedSFX,0.2f);
+            SoundManager.Instance.PlaySFXWithVolume(SoundManager.SFX.LandedSFX, 0.2f);
         }
     }
 
     public void RandomYaySFX(int value)
     {
-        int positive = Random.Range(0,3);
+        int positive = Random.Range(0, 3);
         //Debug.Log("RandomYaySFX RATE" + positive);
 
         if (positive == 1 && isSFXPlayed == false)
@@ -363,12 +366,12 @@ public class CircleObject : FSMSystem
     }
     public void SetSpritePiority(int level)
     {
-        if(level == 0)
+        if (level == 0)
         {
             spriteRenderer.sortingLayerName = "Default";
             //Debug.Log(spriteRenderer.sortingLayerName.ToString());
         }
-        else if(level == 2)
+        else if (level == 2)
         {
             spriteRenderer.sortingLayerName = "DropRender";
             //Debug.Log(spriteRenderer.sortingLayerName.ToString());
@@ -395,7 +398,7 @@ public class CircleObject : FSMSystem
     }
     public string GetCurrentState()
     {
-        if(currentState!= null)
+        if (currentState != null)
         {
             string crString = currentState.ToString();
             //Debug.Log("GetCurrentState " + crString);
@@ -427,7 +430,7 @@ public class CircleObject : FSMSystem
             else if (EndlessLevel.Instance.IsUpgrade)
             {
                 //Debug.Log("CLICKED ON UPGRADE" );
-                typeID ++;
+                typeID++;
                 SpawnCircle(TypeID + 1);
                 EndlessLevel.Instance.AfterUpgradeItem();
 

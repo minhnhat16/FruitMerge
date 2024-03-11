@@ -253,14 +253,17 @@ public class GamePlayView : BaseView
     }
     public void SkinButton()
     {
-        ViewManager.Instance.SwitchView(ViewIndex.WardrobeView);
+        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
+
     }
     public void RateButton()
     {
+        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
         DialogManager.Instance.ShowDialog(DialogIndex.ReviveDialog);
     }
     public void RankButton()
     {
+        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
         DialogManager.Instance.ShowDialog(DialogIndex.LeaderBoardDialog);
 
     }

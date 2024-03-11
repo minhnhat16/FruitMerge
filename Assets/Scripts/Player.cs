@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,12 +12,14 @@ public class Player : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float dropCoolDown;
     [SerializeField] private SpriteRenderer _render;
     [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private Vector3 dropLinePos;
     [SerializeField] private Vector3 pos;
     [SerializeField] private Vector3 circleSpawnPos;
     public Vector3 Pos { get { return pos; } }
     public Vector3 CircleSpawnPos { get { return circleSpawnPos; } }
 
     public LineRenderer LineRenderer { get { return _lineRenderer; } }
+    public Vector3 DropLinePos { get { return dropLinePos; } set { dropLinePos = value; } }
     public void SetLineRenderer(LineRenderer line)
     {
         this._lineRenderer = line;
@@ -30,11 +31,15 @@ public class Player : MonoBehaviour, IPointerClickHandler
         transform.position = pos;
         circleSpawnPos += pos;
     }
+    private void OnEnable()
+    {
+    }
     // Start is called before the first frame update
     void Start()
     {
         dropCoolDown = 0.25f;
         canDrop = true;
+        WallScript.Instance.SetUpLineRender();
     }
 
     // Update is called once per frame
@@ -64,12 +69,15 @@ public class Player : MonoBehaviour, IPointerClickHandler
     }
     private void SetPlayerPosition()
     {
-        if (CameraMain.instance.main == null) return;
-        float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
-        transform.position = new Vector3(x, pos.y);
-        _lineRenderer.SetPosition(0, transform.position  + new Vector3(0, 0.35f));
-        var linePos = _lineRenderer.GetPosition(1);
-        _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
+        if (CameraMain.instance.main != null)
+        {
+
+            float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
+            transform.position = new Vector3(x, pos.y);
+            _lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0.35f));
+            var linePos = _lineRenderer.GetPosition(1);
+            _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
+        }
     }
     void MouseDown()
     {

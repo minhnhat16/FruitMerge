@@ -45,6 +45,17 @@ public class IngameController : MonoBehaviour
     {
         
     }
+    private void OnDisable()
+    {
+        setNextCircleEvent.RemoveAllListeners();
+        setScoreEvent.RemoveAllListeners();
+        tomatoItemEvent.RemoveAllListeners();
+        bombItemEvent.RemoveAllListeners();
+        upgradeItemEvent.RemoveAllListeners();
+        cancleItemEvent.RemoveAllListeners();
+        gameOverEvent.RemoveAllListeners();
+        onGoldChanged.RemoveAllListeners();
+    }
     private void Awake()
     {
         if(instance == null)  instance = this;
@@ -63,8 +74,8 @@ public class IngameController : MonoBehaviour
     public void SetUpIngame()
     {
         backGround.SetActive(true);
-        SetUpPlayer();
         SetUpWall();
+        SetUpPlayer();
         SetUpLevel();
         ResetScore();
         SetUpWire();

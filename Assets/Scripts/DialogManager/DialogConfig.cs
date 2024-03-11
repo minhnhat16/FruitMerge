@@ -11,6 +11,7 @@ public enum DialogIndex
     ItemConfirmDialog = 6,
     SettingDialog = 7,
     LeaderBoardDialog = 8,
+    RateDialog = 9,
 }
 
 public class DialogParam { }
@@ -73,17 +74,22 @@ public class DailyParam : DialogParam
 {
     int currenReward;
 }
+public class RateParam : DialogParam
+{
+
+}
 public class DialogConfig
 {
     public static DialogIndex[] dialogArray = {
        DialogIndex.LableChooseDialog,
-        DialogIndex.PauseDialog,
-        DialogIndex.LoseDialog,
-        DialogIndex.DailyRewardDialog,
-        DialogIndex.ReviveDialog,
-        DialogIndex.BuyConfirmDialog,
-        DialogIndex.ItemConfirmDialog,
-        DialogIndex.SettingDialog,
+       DialogIndex.PauseDialog,
+       DialogIndex.LoseDialog,
+       DialogIndex.DailyRewardDialog,
+       DialogIndex.ReviveDialog,
+       DialogIndex.BuyConfirmDialog,
+       DialogIndex.ItemConfirmDialog,
+       DialogIndex.SettingDialog,
        DialogIndex.LeaderBoardDialog,
+       DialogIndex.RateDialog,
     };
 }

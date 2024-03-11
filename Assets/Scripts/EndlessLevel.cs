@@ -14,18 +14,25 @@ public class EndlessLevel : MonoBehaviour
     public CircleObject main;
     public int randomValue;
     public int score;
+    [SerializeField] int life;
     [SerializeField] private float spawnCooldown = 0.1f;
     [SerializeField]
     private bool isBomb = false;
     [SerializeField]
     private bool isUpgrade = false;
     [SerializeField] private List<CircleObject> _circles;
-
     [HideInInspector]
     public List<CircleObject> _Circles { get { return _circles; } }
+    [HideInInspector]
     public bool IsBomb { get { return isBomb; } }
+    [HideInInspector]
     public bool IsUpgrade { get { return isUpgrade; } }
+    [HideInInspector]
     public int SpriteType { get { return spriteType; } }
+    [HideInInspector]
+    public int Life { get { return life; } }
+    [HideInInspector]
+    public int SetLife { set {  life = value; } }
     public void AddCircle(CircleObject item)
     {
         _Circles.Add(item);
@@ -42,12 +49,21 @@ public class EndlessLevel : MonoBehaviour
     }
     void Start()
     {
+        life = 1;
         _circles = new List<CircleObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isBomb == false)
+        {
+            DisableTargetCircles();
+        }
+        else
+        {
+            EnableTargetCircles();
+        }
     }
 
     public void LoadLevel(Action callback)
@@ -169,7 +185,7 @@ public class EndlessLevel : MonoBehaviour
         sortedCircles = CirclesBelow3(sortedCircles);
         foreach (var c in sortedCircles)
         {
-            if (c != main)
+            if (c != main && c.state =="GroundedState")
             {
                 RemoveCircle(c);
                 c.RemoveCircle();
@@ -203,7 +219,6 @@ public class EndlessLevel : MonoBehaviour
     {
         Player.instance.canDrop = false;
         isBomb = true;
-        EnableTargetCircles();
     }
     public void UsingUpgradeItem()
     {
@@ -228,19 +243,17 @@ public class EndlessLevel : MonoBehaviour
     }
     public void EnableTargetCircles()
     {
-        //Debug.Log("EnableTargetCircles");
 
-        if (_circles == null) return;
-        for (int i = 0; i < _circles.Count - 1; i++)
+        if (_circles == null ) return;
+        foreach(var c in _circles)
         {
-            _circles[i].EnableTarget();
+            c.EnableTarget();
         }
-
     }
     public void DisableTargetCircles()
     {
         //Debug.Log("DisableTargetCircles");
-        if (_circles == null) return;
+        if (_circles == null ) return;
         for (int i = 0; i < _circles.Count - 1; i++)
         {
             _circles[i].DisableTarget();
@@ -263,11 +276,25 @@ public class EndlessLevel : MonoBehaviour
             }
         }
     }
-    public void FreezeCircle()
+    public void FreezeCircleDead()
     {
         foreach (var c in _circles)
         {
             c.GotoState(c.Dead);
+        }
+    }
+    public void FreezeCircleRev()
+    {
+        foreach (var c in _circles)
+        {
+            c.SetRigidBodyToFreeze();
+        }
+    }
+    public void UnfreezeCircles()
+    {
+        foreach(var c in _circles)
+        {
+            c.SetRigidBodyToNone();
         }
     }
     public void Clear()

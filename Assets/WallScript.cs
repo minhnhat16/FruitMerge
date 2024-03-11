@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class WallScript : MonoBehaviour
     public float shakeDuration = 0.5f;
     public int vibrato = 20;
     public float randomness = 90f;
-
+    public float timeSetTopWall = 10f;
     public GameObject GetTopWall()
     {
         return colliders[2].gameObject;
@@ -39,14 +40,27 @@ public class WallScript : MonoBehaviour
             colliders[0].transform.position = new Vector2(CameraMain.instance.GetLeft() - 0.5f, 0f);
             colliders[1].transform.position = new Vector2(CameraMain.instance.GetRight() + 0.5f, 0f);
             colliders[3].transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3);
-            colliders[2].transform.position = colliders[3].transform.position + new Vector3(0, 12f, 0);
-            var line = Player.instance.LineRenderer;
-            var box = colliders[3].bounds.max;
-            Vector3 vector3 = colliders[3].transform.position + new Vector3 (0,box.y);
-            line.SetPosition(1, vector3);
-            Player.instance.SetLineRenderer(line);
+            colliders[2].transform.position = colliders[3].transform.position + new Vector3(0, 10f, 0);
         }
 
+    }
+    public void TopWallCouroutine()
+    {
+        StartCoroutine(SetTopWallActive());
+    }
+    private IEnumerator SetTopWallActive()
+    {
+        yield return new WaitForSeconds(timeSetTopWall);
+        colliders[2].gameObject.SetActive(true);
+        Debug.Log($"SetTopWallActive {colliders[2].isActiveAndEnabled}");
+    }
+    public void SetUpLineRender()
+    {
+        var line = Player.instance.LineRenderer;
+        Vector3 vector3 = colliders[3].transform.position + new Vector3(0, 0.5f);
+        Player.instance.DropLinePos = vector3;
+        line.SetPosition(1, vector3);
+        Player.instance.SetLineRenderer(line);
     }
     public void ShakeWall()
     {
