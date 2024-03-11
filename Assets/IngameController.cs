@@ -11,6 +11,8 @@ public class IngameController : MonoBehaviour
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject backGround;
     [SerializeField] private GameObject wire;
+    [SerializeField] private Player playerprefab;
+    [SerializeField] private LineScript linePrefab;
     [SerializeField] private Camera loseCamera;
     [SerializeField] private int firstID;
     [SerializeField] private int score;
@@ -65,6 +67,7 @@ public class IngameController : MonoBehaviour
         SetUpWall();
         SetUpLevel();
         ResetScore();
+        SetUpWire();
         EndlessLevel.Instance.RandomCircle();
         return;
     }
@@ -80,14 +83,23 @@ public class IngameController : MonoBehaviour
     }
     public void SetUpWire()
     {
-
+        var p = GetComponentInChildren<LineScript>();
+        if (p == null)
+        {
+            p = Instantiate(linePrefab, player.transform).GetComponent<LineScript>();
+            wire = p.GetComponent<LineScript>().gameObject;
+        }
+        else
+        {
+            wire.gameObject.SetActive(true);
+        }
     }
     public void SetUpPlayer()
     {
-        var p = FindObjectOfType<Player>();
+        var p = GetComponentInChildren<Player>();
         if(p == null)
         {
-            p = Instantiate(player, transform).GetComponent<Player>();
+            p = Instantiate(playerprefab, transform).GetComponent<Player>();
             player = p.gameObject;
         }
         else
@@ -98,17 +110,19 @@ public class IngameController : MonoBehaviour
     }
     public void SetUpWall()
     {
-        var w = FindObjectOfType<WallScript>();
-        if(w == null)
+        var w = GetComponentInChildren<WallScript>();
+        if (w == null)
         {
-            wall = Instantiate(wall,transform);
-           
+            wall = Instantiate(wall, transform);
         }
-        wall.gameObject.SetActive(true);
+        else
+        {
+            wall.gameObject.SetActive(true);
+        }
     }
     public void SetUpLevel()
     {
-        var l = FindObjectOfType<EndlessLevel>();
+        var l = GetComponentInChildren<EndlessLevel>();
         if (l == null)
         {
             Level = Instantiate(Level, transform);

@@ -41,8 +41,8 @@ public class Player : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         pos = transform.position;
-        MouseDown();
         SetPlayerPosition();
+        MouseDown();
     }
     public void ResetPos()
     {
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         bool isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
         //Debug.Log($"camera top{CameraMain.instance.GetTop() - 2f} " +
         //    $" point {point.x}");
-        if (point.y > CameraMain.instance.GetTop() - 3f || point.y < CameraMain.instance.GetBottom() + 2f && isPointerOverUI)
+        if (point.y > CameraMain.instance.GetTop() - 3f || point.y < CameraMain.instance.GetBottom() + 4f && !isPointerOverUI)
         {
             return false;
         }

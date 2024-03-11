@@ -9,6 +9,7 @@ public class SpinCircle : MonoBehaviour
     [SerializeField] RectTransform rect;
     [SerializeField] float radius;
     [SerializeField] int numberOfObjects;
+    [SerializeField] int minusStep;
     [SerializeField] List<SpinItem> _items;
     [SerializeField] List<float> angleSteps;
     [SerializeField] float angleCheck;
@@ -73,15 +74,16 @@ public class SpinCircle : MonoBehaviour
         float angleStep = 360f / numberOfObjects;
         for (int i = 0; i < numberOfObjects; i++)
         {
-            float angle = i * angleStep - 110;
+            float angle = i * angleStep - minusStep;
             float x = Mathf.Cos(Mathf.Deg2Rad * (angle)) * radius;
             float y = Mathf.Sin(Mathf.Deg2Rad * (angle)) * radius;
 
-            Vector3 spawnPosition = rect.transform.position + new Vector3(x, y, 0f);
-           spawnPosition=  RectTransformUtility.WorldToScreenPoint(CameraMain.instance.main, spawnPosition);
-            Debug.Log($"Spawn Position item spin {spawnPosition}");
+            Vector3 localPost = new Vector3(x, y, 0f);
+            Vector3 spawnPosition =  rect.TransformPoint(localPost);
+            Debug.Log($"Spawn Position item spin {spawnPosition}"
+                        + $"angle {angle}");
             angleSteps.Add(angle);
-            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angle - 100);
+            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angle +80);
             GameObject item = Instantiate(Resources.Load("Prefab/UIPrefab/SpinItem", typeof(GameObject)), spawnPosition, spawnRotation, this.transform) as GameObject;
             var itemConfig = spinConfig.GetRecordByKeySearch(i);
             item.GetComponent<SpinItem>().InitItem(itemConfig);
@@ -93,7 +95,8 @@ public class SpinCircle : MonoBehaviour
     {
         foreach(var item in _items)
         {
-            Debug.Log($"item.transform.position {item.transform.position}");
+            Debug.Log($"item.transform.position {item.transform.position}"
+                + $"item.rotation {item.transform.rotation }");
         }
     }
 }

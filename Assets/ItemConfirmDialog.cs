@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemConfirmDialog : BaseDialog
 {
     private int type;
-    [SerializeField] Text tutorial_lb;
+    [SerializeField] TextMeshProUGUI tutorial_lb;
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -20,6 +21,7 @@ public class ItemConfirmDialog : BaseDialog
     {
         base.OnStartShowDialog();
         ItemCase(type);
+        IngameController.instance.player.GetComponent<Player>().canDrop = false;
     }
     // Start is called before the first frame update
 
@@ -49,8 +51,10 @@ public class ItemConfirmDialog : BaseDialog
     public void CancelUsingItem()
     {
         IngameController.instance.CancelItem();
-        Player.instance.canDrop = true;
-        DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog,null);
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
+        {
+            Player.instance.canDrop = true;
+        });
     }
     void ItemCase(int type)
     {

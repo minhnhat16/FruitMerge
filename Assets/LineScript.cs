@@ -5,9 +5,21 @@ using UnityEngine;
 
 public class LineScript : BackGroundInGame
 {
+    [SerializeField] private SpriteRenderer render;
+    [SerializeField] private Vector3 fixPos;
     private void OnEnable()
     {
         Debug.Log(transform.position);
-        transform.position = Player.instance.Pos;
+        transform.position = fixPos;
+        SetSpriteRenderToCameraScale();
+    }
+    private void Update()
+    {
+        
+    }
+    public void SetSpriteRenderToCameraScale()
+    {
+        float x = CameraMain.instance.width; 
+        render.size = new Vector2(x*2f,render.size.y);
     }
 }

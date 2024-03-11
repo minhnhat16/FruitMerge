@@ -982,8 +982,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rect: {fileID: 0}
-  radius: 45
+  radius: 300
   numberOfObjects: 8
+  minusStep: 115
   _items: []
   angleSteps: []
   angleCheck: 0

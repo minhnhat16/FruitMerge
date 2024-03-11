@@ -42,38 +42,38 @@ public class SettingDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-       
+        EndlessLevel.Instance.SetActiveMainCircle(false);
         Player.instance.gameObject.SetActive(false);
-        EndlessLevel.Instance.main.gameObject.SetActive(false);
+        //EndlessLevel.Instance.main.gameObject.SetActive(false);
     }
     public override void OnEndHideDialog()
     {
         base.OnEndHideDialog();
         Player.instance.canDrop = true;
-        //Player.instance.gameObject.SetActive(true);
-        EndlessLevel.Instance.main.gameObject.SetActive(true);
-
+        //EndlessLevel.Instance.main.gameObject.SetActive(true);
     }
     public void PlayButton()
     {
         IngameController.instance.isPause = false;
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
-            //EndlessLevel.Instance.RandomCircle();
+            IngameController.instance.player.SetActive(true);
+
         });
 
     }
     public void HomeButton()
     {
+        EndlessLevel.Instance.Clear();
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
+            Destroy(IngameController.instance.player);
             CameraMain.instance.main.gameObject.SetActive(false);
 
             Debug.Log("LOAD SCENE BUFFER FROM QUIT");
             DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog, null, () =>
             {
-                EndlessLevel.Instance.Clear();
                 CameraMain.instance.main.gameObject.SetActive(true);
             });
 
@@ -134,6 +134,9 @@ public class SettingDialog : BaseDialog
                 EndlessLevel.Instance.LoadLevel(() =>
                 {
                     IngameController.instance.isPause = false;
+                    IngameController.instance.player.SetActive(true);
+                    IngameController.instance.Wall.SetActive(true);
+                    Player.instance.ResetPos();
                     IngameController.instance.ResetScore();
                 });
             });
@@ -142,8 +145,13 @@ public class SettingDialog : BaseDialog
     public void CloseBtn()
     {
         Debug.Log("Close button on " + this.dialogIndex);
-        DialogManager.Instance.HideDialog(this.dialogIndex);
-        IngameController.instance.isPause = false;
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
+        {
+            IngameController.instance.isPause = false;
+            IngameController.instance.player.SetActive(true);
+            EndlessLevel.Instance.SetActiveMainCircle(true);
+        });
+
     }
     private void OnDropdownValueChanged(int index)
     {

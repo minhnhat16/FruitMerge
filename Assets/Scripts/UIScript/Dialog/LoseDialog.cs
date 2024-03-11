@@ -17,12 +17,8 @@ public class LoseDialog : BaseDialog
     {
         base.OnStartShowDialog();
         IngameController.instance.SwitchLoseCamOnOff(true);
-        EndlessLevel.Instance.DespawnMainCircle();
-        //boxCamera.transform.LookAt(IngameController.instance.Wall.transform);
+        EndlessLevel.Instance.SetActiveMainCircle(false);
         IngameController.instance.isPause = true;
-        //score_lb.text = param.score.ToString();
-        //EndlessLevel.Instance.main.gameObject.SetActive(false);
-        //EndlessLevel.Instance.Clear();
     }
     public override void OnStartHideDialog()
     {
@@ -33,8 +29,7 @@ public class LoseDialog : BaseDialog
     }
     public void HomeBtn()
     {
-        Destroy(IngameController.instance.player);
-        Destroy(IngameController.instance.Wall);
+
         IngameController.instance.isGameOver = false;
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>

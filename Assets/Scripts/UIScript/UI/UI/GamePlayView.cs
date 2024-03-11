@@ -3,6 +3,7 @@ using NaughtyAttributes.Test;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -195,6 +196,7 @@ public class GamePlayView : BaseView
     public void OnClickTomato()
     {
         onTomato = !onTomato;
+        Player.instance.canDrop = false;
         if(onTomato == false)
         {
             CancelItem(false);
@@ -207,6 +209,7 @@ public class GamePlayView : BaseView
     public void OnClickBomb()
     {
         onBomb = !onBomb;
+        Player.instance.canDrop = false;
         if (onBomb == false)
         {
             CancelItem(false);
@@ -219,6 +222,7 @@ public class GamePlayView : BaseView
     public void OnClickUpgrade()
     {
         onUpgrade = !onUpgrade;
+        Player.instance.canDrop = false;
         if (onUpgrade == false)
         {
             CancelItem(false);

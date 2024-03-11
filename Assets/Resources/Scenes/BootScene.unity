@@ -365,11 +365,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd199b0ea97f2443bba7cf8a1a27bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8288522192266869648, guid: e5182aa4fbc24b5439c2f4bab4171a78, type: 3}
+  player: {fileID: 0}
   Level: {fileID: 1369261458943447551, guid: 8003ea9d5f264c44c8b841b96f535a93, type: 3}
   wall: {fileID: 2376563485386207395, guid: 7238de118e189ad4fa6187ed71269775, type: 3}
   backGround: {fileID: 1255724948}
   wire: {fileID: 6239458946981725996, guid: 760628de9c2362b489866809761e8cef, type: 3}
+  playerprefab: {fileID: 8288522192266869654, guid: e5182aa4fbc24b5439c2f4bab4171a78, type: 3}
+  linePrefab: {fileID: 6390231406164096533, guid: 760628de9c2362b489866809761e8cef, type: 3}
   loseCamera: {fileID: 2015480619}
   firstID: 0
   score: 0
@@ -1235,7 +1237,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1132098503
   m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!1 &1505858363
@@ -1636,7 +1638,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &2015480619
 Camera:
   m_ObjectHideFlags: 0
@@ -1688,7 +1690,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015480617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -179,16 +179,13 @@ public class EndlessLevel : MonoBehaviour
     }
     public void DespawnMainCircle()
     {
-        Debug.Log("Despawn Main Circle");
-        _circles.Last().gameObject.SetActive(false);
-        foreach (var c in _circles)
-        {
-            if (c.GetCurrentState() == "SpawnState")
-            {
-                Debug.Log($"{c.name} Despawn Main Circle");
-                c.gameObject.SetActive(false);
-            }
-        }
+        main.gameObject.SetActive(false);
+    }
+    public void SetActiveMainCircle(bool activate)
+    {
+        if (main == null) return;
+        main.gameObject.SetActive(activate);
+
     }
     public List<CircleObject> CirclesBelow3(List<CircleObject> circles)
     {
@@ -277,8 +274,6 @@ public class EndlessLevel : MonoBehaviour
     {
         level = 1;
         score = 0;
-        Destroy(IngameController.instance.player);
-        Destroy(IngameController.instance.Wall);
         CirclePool.instance.pool.DeSpawnAll();
         intQueue.Clear();
     }

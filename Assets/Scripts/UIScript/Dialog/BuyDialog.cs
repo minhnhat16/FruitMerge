@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Security;
 using System.Xml.Schema;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ public class BuyDialog : BaseDialog
     [SerializeField] private  Text total_lb;
     [SerializeField] private Text amount_lb;
     [SerializeField] private Text cost_lb;
-    [SerializeField] private Text explain_lb;
+    [SerializeField] private TextMeshProUGUI explain_lb;
     private Action onConfirm;
     private Action onCancel;
 
