@@ -10,6 +10,3 @@ public class ShopView : BaseView
 
 }
 
-public class ItemView
-{
-}

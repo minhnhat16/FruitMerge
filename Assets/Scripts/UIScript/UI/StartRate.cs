@@ -1,12 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class StartRate : MonoBehaviour
 {
-    int idStart;
-    public Button starOn;
-    public Button startOff;
-    
+    [SerializeField] private int idStar;
+    [SerializeField] private bool isOn;
+    [SerializeField] private Button starOn;
+    [SerializeField] public Button startOff;
+
+    [HideInInspector]
+    public UnityEvent<int> starEvent = new UnityEvent<int>();
+
+    [HideInInspector]
+    public int IDStar { get { return idStar; } set { idStar = value; } }
+    [HideInInspector]
+    public bool IsOn { get { return isOn; } set { isOn = value; } }
+    private void OnEnable()
+    {
+        starEvent.AddListener(ButtonCLick);
+    }
+    public void StarOnClicked()
+    {
+        isOn = true;
+        Debug.Log($"StartOnClicked {idStar}");
+        starEvent?.Invoke(IDStar);
+    }
+    public void StarOffClicked()
+    {
+        isOn = false;
+        Debug.Log($"StarOffClicked {idStar}");
+        starEvent?.Invoke(IDStar);
+    }
+    public  void ButtonCLick(int id)
+    {
+        Debug.Log($"ButtonCLick {id}");
+
+    }
+    public void SetOnStar(bool isOn)
+    {
+        startOff.gameObject.SetActive(!isOn);
+        starOn.gameObject.SetActive(isOn);
+    }
 }

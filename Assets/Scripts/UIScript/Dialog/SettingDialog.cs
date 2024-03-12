@@ -38,6 +38,7 @@ public class SettingDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
+        if (EndlessLevel.Instance == null) return;
         if (EndlessLevel.Instance.main != null)
         {
 
@@ -51,7 +52,10 @@ public class SettingDialog : BaseDialog
     public override void OnEndHideDialog()
     {
         base.OnEndHideDialog();
-        Player.instance.canDrop = true;
+        if(Player.instance != null)
+        {
+            Player.instance.canDrop = true;
+        }
         //EndlessLevel.Instance.main.gameObject.SetActive(true);
     }
     public void PlayButton()
@@ -154,7 +158,11 @@ public class SettingDialog : BaseDialog
             {
                 IngameController.instance.player.SetActive(true);
             }
+            if(EndlessLevel.Instance != null)
+            {
+
             EndlessLevel.Instance.SetActiveMainCircle(true);
+            }
         });
 
     }

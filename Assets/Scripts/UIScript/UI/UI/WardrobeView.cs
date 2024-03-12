@@ -12,11 +12,7 @@ public class WardrobeView : BaseView
     [SerializeField] private Image currentSkin;
     [SerializeField] private FloatingText  floatingText;
 
-    public void OnEnable()
-    {
-     
-
-    }
+ 
     public override void OnStartShowView()
     {
         base.OnStartHideView();

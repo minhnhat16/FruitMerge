@@ -4,9 +4,6 @@ public class GoldGrid : MonoBehaviour
 {
     [SerializeField] private static int idShop = 0;
     [SerializeField] private int total;
-    [SerializeField] private GameObject _itemPrefab;
-    [SerializeField] private List<Item> _golds;
-    [SerializeField] private ConfigFileManager _config;
     [SerializeField] private List<ShopItemTemplate> _items;
 
     private void Start()

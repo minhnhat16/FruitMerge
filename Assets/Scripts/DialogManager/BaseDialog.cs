@@ -1,11 +1,10 @@
-
 using System;
 using UnityEngine;
 
 public class BaseDialog : MonoBehaviour
 {
     public DialogIndex dialogIndex;
-    private BaseDialogAnimation baseDialogAnim;
+    [SerializeField]private BaseDialogAnimation baseDialogAnim;
 
     private void Awake()
     {

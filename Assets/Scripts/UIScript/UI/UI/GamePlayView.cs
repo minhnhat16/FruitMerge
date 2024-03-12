@@ -1,12 +1,7 @@
 using DG.Tweening;
-using NaughtyAttributes.Test;
-using System;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GamePlayView : BaseView
@@ -253,18 +248,17 @@ public class GamePlayView : BaseView
     }
     public void SkinButton()
     {
-        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
+        //DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
 
     }
     public void RateButton()
     {
-        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
-        DialogManager.Instance.ShowDialog(DialogIndex.ReviveDialog);
+        DialogManager.Instance.ShowDialog(DialogIndex.RateDialog);
     }
     public void RankButton()
     {
-        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
-        DialogManager.Instance.ShowDialog(DialogIndex.LeaderBoardDialog);
+        //DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
+        //DialogManager.Instance.ShowDialog(DialogIndex.LeaderBoardDialog);
 
     }
 }

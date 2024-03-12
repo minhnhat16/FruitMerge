@@ -9,9 +9,7 @@ public class BoxTabButton : MonoBehaviour
     public GameObject tabOff;
     public Animator animator;
     public GameObject boxGrid;
-    public void OnEnable()
-    {
-    }
+ 
     public void OnClickTabOn()
     {
         tabOn.SetActive(true);
