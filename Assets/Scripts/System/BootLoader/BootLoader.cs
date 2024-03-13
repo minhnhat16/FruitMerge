@@ -9,10 +9,10 @@ public class BootLoader : MonoBehaviour
     IEnumerator Start()
     {
         DontDestroyOnLoad(this);
-        DOTween.SetTweensCapacity(1000, 50);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         InitDataDone(() =>
         {
+            DOTween.SetTweensCapacity(1000, 50);
             gameManager = GetComponentInChildren<GameManager>();
             InitConfig();
         });

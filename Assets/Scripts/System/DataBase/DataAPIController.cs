@@ -94,6 +94,10 @@ public class DataAPIController : MonoBehaviour
         int crFruitSkin = dataModel.ReadData<int>(DataPath.CURRENTFRUITSKIN);
         return crFruitSkin;
     }
+    public void SetCurrenFruitSkin(int id,Action callback)
+    {
+        dataModel.UpdateData(DataPath.CURRENTFRUITSKIN,id,callback);
+    }
     public int GetCurrentBoxSkin()
     {
         int crBoxSkin = dataModel.ReadData<int>(DataPath.CURRENTBOXSKIN);

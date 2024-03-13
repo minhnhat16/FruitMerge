@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,7 +29,7 @@ public class EndlessLevel : MonoBehaviour
     [HideInInspector]
     public bool IsUpgrade { get { return isUpgrade; } }
     [HideInInspector]
-    public int SpriteType { get { return spriteType; } }
+    public int SpriteType { get { return spriteType; } set { spriteType = value; } }
     [HideInInspector]
     public int Life { get { return life; } }
     [HideInInspector]

@@ -31,7 +31,7 @@ public class LoadingView : BaseView
 
     private void UpdateLoadingProgress()
     {
-        loadingProgress.fillAmount = LoadSceneManager.instance.progress;
+        loadingProgress.fillAmount = 1 -LoadSceneManager.instance.progress;
 
         t1 += Time.deltaTime;
         if (t1 >= 0.2f && t1 < 0.4f)

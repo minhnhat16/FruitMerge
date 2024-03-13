@@ -23,10 +23,12 @@ public class SkinItem : MonoBehaviour
     public int Price { get => price; set => price = value; }
     public UnityEvent<bool> onClickAction = new UnityEvent<bool>();
     public UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
+
     public void OnEnable()
     {
         onClickAction = confirmBtnType.onClickAction;
         onClickAction.AddListener(ButtonEvent);
+        onEquipAction.AddListener(EquipSkinAction);
     }
     public void InitSkin(int skinType, bool isOwned, bool isDisable)
     {
@@ -102,6 +104,11 @@ public class SkinItem : MonoBehaviour
                     return;
             }
         }
+    }
+    void EquipSkinAction(SkinItem skin)
+    {
+        EndlessLevel.Instance.SpriteType = skin.SkinID;
+        DataAPIController.instance.SetCurrenFruitSkin(skin.SkinID, null);
     }
     BuyConfirmDialogParam param = new BuyConfirmDialogParam();
     void BuyInvoke()

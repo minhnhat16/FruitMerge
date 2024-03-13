@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.6240234, y: 25.340088}
-  m_SizeDelta: {x: 994.25, y: 1539.7}
+  m_AnchoredPosition: {x: 4.6240234, y: -6.3004}
+  m_SizeDelta: {x: 994.25, y: 1476.4192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1279902225066443944
 CanvasRenderer:
@@ -205,7 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8bc346c75a63948a6bd9b60f5e9bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _items: []
   currentDaily: {fileID: 0}
+  isNewDay: 0
   newDateEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1422,6 +1424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogIndex: 3
+  baseDialogAnim: {fileID: 0}
   claimBtn: {fileID: 159952144430200411}
   dailyGrid: {fileID: 4092878415998342283}
   onClickDailyItem:
