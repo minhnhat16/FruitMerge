@@ -14,16 +14,12 @@ public class LableChooseDialog : BaseDialog
     public UnityEvent<int> onGoldChanged = new UnityEvent<int>();
     private void OnEnable()
     {
-        if (IngameController.instance.onGoldChanged != null)
-        {
-            onGoldChanged = IngameController.instance.onGoldChanged;
-        }
+        onGoldChanged = IngameController.instance.onGoldChanged;
         onGoldChanged.AddListener(GoldChange);
     }
     private void OnDisable()
     {
         onGoldChanged.RemoveListener(GoldChange);
-
     }
     public override void OnStartShowDialog()
     {

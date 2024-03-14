@@ -303,10 +303,11 @@ MonoBehaviour:
   - {fileID: 2376563483496333058}
   - {fileID: 2376563484875678643}
   _box: {fileID: 4827163728405409329}
-  shakeAmount: {x: 0.45, y: 0.2, z: 0}
-  shakeDuration: 0.65
-  vibrato: 20
-  randomness: 90
+  shakeAmount: {x: 0, y: 0.55, z: 0}
+  shakeDuration: 0.5
+  vibrato: 100
+  randomness: -1
+  timeSetTopWall: 10
 --- !u!1 &8703283832889967291
 GameObject:
   m_ObjectHideFlags: 0

@@ -202,7 +202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -3336551113069758065}
         m_TargetAssemblyTypeName: GamePlayView, Assembly-CSharp
-        m_MethodName: OnClickBomb
+        m_MethodName: OnClickHammer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1094,7 +1094,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -3336551113069758065}
         m_TargetAssemblyTypeName: GamePlayView, Assembly-CSharp
-        m_MethodName: OnClickTomato
+        m_MethodName: OnClickChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1638,7 +1638,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -3336551113069758065}
         m_TargetAssemblyTypeName: GamePlayView, Assembly-CSharp
-        m_MethodName: OnClickUpgrade
+        m_MethodName: OnClickShake
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

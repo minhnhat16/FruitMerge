@@ -115,9 +115,9 @@ GameObject:
   - component: {fileID: 1189132359462350414}
   - component: {fileID: 1189132359462350413}
   - component: {fileID: 1189132359462350416}
+  - component: {fileID: 1189132359462350418}
   - component: {fileID: 1189132359462350415}
   - component: {fileID: 1189132359462350417}
-  - component: {fileID: 1189132359462350418}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -271,6 +271,24 @@ MonoBehaviour:
   musicObject: {fileID: 1189132359592979483}
   musicSetting: 1
   sfxSetting: 1
+--- !u!114 &1189132359462350418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189132359462350408}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a73a7da4f840064798c565ee943ff79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNewDay: 0
+  lastString: 
+  dataString: 
+  newDateEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1189132359462350415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,24 +309,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189132359462350408}
   m_Enabled: 1
---- !u!114 &1189132359462350418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189132359462350408}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a73a7da4f840064798c565ee943ff79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNewDay: 0
-  lastString: 
-  dataString: 
-  newDateEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1189132359592342838
 GameObject:
   m_ObjectHideFlags: 0

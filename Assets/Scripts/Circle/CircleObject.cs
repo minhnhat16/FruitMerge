@@ -1,4 +1,5 @@
 using DG.Tweening;
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -66,7 +67,8 @@ public class CircleObject : FSMSystem
     }
     public void SetSpriteByID(int id)
     {
-        var spriteName = SpriteLibControl.Instance.GetSpriteName(EndlessLevel.Instance.SpriteType, id);
+        int fruitSkinID = EndlessLevel.Instance.SpriteType;
+        var spriteName = SpriteLibControl.Instance.GetSpriteName(fruitSkinID, id);
         spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
     }
     public void SetDropVelocity()

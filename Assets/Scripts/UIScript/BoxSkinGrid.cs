@@ -72,7 +72,7 @@ public class BoxSkinGrid : MonoBehaviour
                         skin.GetComponent<BoxItem>().InitSkin(itemConfig[i].ID, false, false);
                         Debug.Log("NOT CONTAIN SKIN");
                         Debug.Log("SKIN ID IN SHOP" + shopConfig.Id);
-                        Debug.Log("itemConfig[i].Type = " + itemConfig[i].Type + " itemConfig[i].ID = " + itemConfig[i].ID + " shopSkinId = " + idSkinInShop);
+                        //Debug.Log("itemConfig[i].Type = " + itemConfig[i].Type + " itemConfig[i].ID = " + itemConfig[i].ID + " shopSkinId = " + idSkinInShop);
                         Debug.Log("ITEM PRICE " + price);
                     }  
                 }

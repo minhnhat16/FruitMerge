@@ -25,16 +25,16 @@ public class SpriteLibControl : MonoBehaviour
 
     public Sprite GetSpriteByName(string name)
     {
-        return spriteDict[name];    
+        return spriteDict[name];
     }
     public string GetSpriteName(int type ,int id)
     {
-        if (type == 0) //SLICE SPRITE
+        if (type == 4) //SLICE SPRITE
         {
             string name = GetSliceSprite(id);
             return name;    
         }
-        else if(type == 1) //FRUIT SPRITE
+        else if(type == 5) //FRUIT SPRITE
         {
             string name = GetFruitSprite(id);
             return name;

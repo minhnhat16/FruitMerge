@@ -48,11 +48,11 @@ public class GamePlayView : BaseView
         setScoreEvent = IngameController.instance.setScoreEvent;
         setScoreEvent.AddListener(ScoreChange);
         tomatoItemEvent = IngameController.instance.tomatoItemEvent;
-        tomatoItemEvent.AddListener(TomatoItem);
+        tomatoItemEvent.AddListener(ChangeItem);
         bombItemEvent = IngameController.instance.bombItemEvent;
-        bombItemEvent.AddListener(BombItem);
+        bombItemEvent.AddListener(HammerItem);
         upgradeItemEvent = IngameController.instance.upgradeItemEvent;
-        upgradeItemEvent.AddListener(UpgradeItem);
+        upgradeItemEvent.AddListener(ShakeItem);
         cancleItemEvent = IngameController.instance.cancleItemEvent;
         cancleItemEvent.AddListener(CancelItem);
 
@@ -61,9 +61,9 @@ public class GamePlayView : BaseView
     {
         setScoreEvent.RemoveListener(ScoreChange);
         setNextCircleEvent.RemoveListener(NextCircleImage);
-        tomatoItemEvent.AddListener(TomatoItem);
-        bombItemEvent.AddListener(BombItem);
-        upgradeItemEvent.AddListener(UpgradeItem);
+        tomatoItemEvent.AddListener(ChangeItem);
+        bombItemEvent.AddListener(HammerItem);
+        upgradeItemEvent.AddListener(ShakeItem);
     }
     public override void OnStartShowView()
     {
@@ -148,6 +148,7 @@ public class GamePlayView : BaseView
     {
         nextBlock.transform.DOScale(0.1f, 0);
         Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
+        
         var name = SpriteLibControl.Instance.GetSpriteName(EndlessLevel.Instance.SpriteType, id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
@@ -188,7 +189,7 @@ public class GamePlayView : BaseView
         Player.instance.canDrop = true;
         EndlessLevel.Instance.DisableTargetCircles();
     }
-    public void OnClickTomato()
+    public void O()
     {
         onTomato = !onTomato;
         Player.instance.canDrop = false;
@@ -201,7 +202,7 @@ public class GamePlayView : BaseView
             ItemUsing(0);
         }
     }
-    public void OnClickBomb()
+    public void OnClickHammer()
     {
         onBomb = !onBomb;
         Player.instance.canDrop = false;
@@ -214,7 +215,7 @@ public class GamePlayView : BaseView
         ItemUsing(1);
         }
     }
-    public void OnClickUpgrade()
+    public void OnClickShake()
     {
         onUpgrade = !onUpgrade;
         Player.instance.canDrop = false;
@@ -227,20 +228,20 @@ public class GamePlayView : BaseView
             ItemUsing(2);
         }
     }
-    public void BombItem(int i)
+    public void HammerItem(int i)
     {
         bomb_lb.text = i.ToString();
-        EndlessLevel.Instance.UsingBombItem();
+        EndlessLevel.Instance.UsingHammer();
     }
-    public void UpgradeItem(int i)
+    public void ShakeItem(int i)
     {
         upgrade_lb.text = i.ToString();
-        EndlessLevel.Instance.UsingUpgradeItem();
+        EndlessLevel.Instance.UsingShake();
     }
-    public void TomatoItem(int i)
+    public void ChangeItem(int i)
     {
         tomato_lb.text = i.ToString();
-        EndlessLevel.Instance.UsingTomato();
+        EndlessLevel.Instance.UsingChange();
     }
     public void SettingButton()
     {

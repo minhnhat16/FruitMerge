@@ -49,7 +49,7 @@ public class SpinCircle : MonoBehaviour
         float vect = AngleCalculator();
         //vect = Mathf.Clamp(vect, 180, -180);
         Debug.Log("VECT " + vect);
-        Tween circleSpin = transform.DORotate(new Vector3(0, 0, vect + 360 * 5), 10, RotateMode.FastBeyond360);
+        Tween circleSpin = transform.DORotate(new Vector3(0, 0, vect + 360 * 10), 10, RotateMode.FastBeyond360);
         circleSpin.OnComplete(() => 
         {
             isSpining = false;
@@ -64,7 +64,7 @@ public class SpinCircle : MonoBehaviour
     {
         int random = Random.Range(0, 7);
         crItem  = _items[random];
-        float newAngle = angleCheck =  280 - angleSteps[random];
+        float newAngle = angleCheck =  265 - angleSteps[random];
         //item.gameObject.SetActive(false);
         return newAngle;
     }
@@ -88,15 +88,6 @@ public class SpinCircle : MonoBehaviour
             var itemConfig = spinConfig.GetRecordByKeySearch(i);
             item.GetComponent<SpinItem>().InitItem(itemConfig);
             _items.Add(item.GetComponent<SpinItem>());
-        }
-        TestItemPosition();
-    }
-    void TestItemPosition()
-    {
-        foreach(var item in _items)
-        {
-            Debug.Log($"item.transform.position {item.transform.position}"
-                + $"item.rotation {item.transform.rotation }");
         }
     }
 }

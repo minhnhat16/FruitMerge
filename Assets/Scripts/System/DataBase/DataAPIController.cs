@@ -124,6 +124,7 @@ public class DataAPIController : MonoBehaviour
     public string GetDayTimeData()
     {
         string day = dataModel.ReadData<string>(DataPath.DAYCHECKED);
+        //Debug.Log($"day {day}");
         return day;
     }
     public void SetDayTimeData(string day)
@@ -182,6 +183,16 @@ public class DataAPIController : MonoBehaviour
     {
         var dailyData = dataModel.ReadData<Dictionary<string, DailyData>>(DataPath.DAILYDATA);
         return dailyData;
+    }
+    public void SetNewDailyCircle()
+    {
+        for (int i = 1; i <= 7; i++)
+        {
+            DailyData dailyData = new();
+            dailyData.day = i;
+            dailyData.type = IEDailyType.Unavailable;
+            dataModel.UpdateDataDictionary(DataPath.DAILYDATA, i.ToString(), dailyData);
+        }
     }
     public DailyData GetDailyData(string key)
     {

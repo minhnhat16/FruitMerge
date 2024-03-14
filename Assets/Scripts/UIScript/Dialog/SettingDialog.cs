@@ -1,6 +1,8 @@
+using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingDialog : BaseDialog
@@ -132,21 +134,23 @@ public class SettingDialog : BaseDialog
     public void RestartButton()
     {
         DialogManager.Instance.HideDialog(dialogIndex);
-        EndlessLevel.Instance.Clear();
-        LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
+        if(SceneManager.GetActiveScene().name == "Ingame")
         {
-            ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+            LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
             {
-                EndlessLevel.Instance.LoadLevel(() =>
+                ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
                 {
-                    IngameController.instance.isPause = false;
-                    IngameController.instance.player.SetActive(true);
-                    IngameController.instance.Wall.SetActive(true);
-                    Player.instance.ResetPos();
-                    IngameController.instance.ResetScore();
+                    EndlessLevel.Instance.LoadLevel(() =>
+                    {
+                        IngameController.instance.isPause = false;
+                        IngameController.instance.player.SetActive(true);
+                        IngameController.instance.Wall.SetActive(true);
+                        Player.instance.ResetPos();
+                        IngameController.instance.ResetScore();
+                    });
                 });
             });
-        });
+        }
     }
     public void CloseBtn()
     {

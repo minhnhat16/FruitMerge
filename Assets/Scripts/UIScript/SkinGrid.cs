@@ -55,26 +55,21 @@ public class SkinGrid : MonoBehaviour
                     if (currentSkin == itemConfig[i].ID)
                     {
                         //Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
-                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, false);
+                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, false, itemConfig[i].SpriteName);
                         crSkinItem = skin.GetComponent<SkinItem>();
                     }
                     else if (playerData.Contains(itemConfig[i].ID))
                     {
                         //Debug.Log(" CONTAIN SKIN " + itemConfig[i].ID);
-                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, true);
+                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, true, itemConfig[i].SpriteName);
                     }
                     else
                     {
                         int idSkinInShop = shopConfig.IdPrice.Find(idprice => idprice == itemConfig[i].ID);
                         int price = priceConfig.Find(x => x.Id == idSkinInShop).Price;
                         skin.GetComponent<SkinItem>().Price = price;
-                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, false, false);
-                        
-                      
-                        //Debug.Log("NOT CONTAIN SKIN");
-                        //Debug.Log("SKIN ID IN SHOP" + shopConfig.Id);
-                        //Debug.Log("itemConfig[i].Type = " + itemConfig[i].Type + " itemConfig[i].ID = " + itemConfig[i].ID + " shopSkinId = " + idSkinInShop);
-                        //Debug.Log("ITEM PRICE " + price);
+                        skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, false, false, itemConfig[i].SpriteName);
+
                     }
                 }
             }
@@ -87,6 +82,7 @@ public class SkinGrid : MonoBehaviour
         Debug.Log("SWICTH CURRENT SKIN " + skinEquip.SkinID);
         crSkinItem.SetItemUnquiped();
         crSkinItem = skinEquip;
+        DataAPIController.instance.SetCurrenFruitSkin(skinEquip.SkinID, null);
         floatingText.gameObject.SetActive(true);
         floatingText.ShowFloatingText();
     }

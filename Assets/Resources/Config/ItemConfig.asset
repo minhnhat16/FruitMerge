@@ -30,47 +30,47 @@ MonoBehaviour:
     type: 3
     skinType: 
   - id: 4
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
-    skinType: default
+    skinType: Default
   - id: 5
-    spriteName: fruitskin
+    spriteName: Slice
     type: 4
-    skinType: spring
+    skinType: Slice
   - id: 6
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
-    skinType: summer
+    skinType: Default
   - id: 7
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
-    skinType: autumm
+    skinType: Default
   - id: 8
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
-    skinType: winter
+    skinType: Default
   - id: 9
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
-    skinType: halloween
+    skinType: Default
   - id: 10
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
     skinType: space
   - id: 11
-    spriteName: fruitskin
+    spriteName: Default
     type: 4
     skinType: sky
   - id: 12
-    spriteName: boxskin
+    spriteName: Default
     type: 5
     skinType: default
   - id: 13
-    spriteName: boxskin
+    spriteName: Default
     type: 5
     skinType: spring
   - id: 14
-    spriteName: boxskin
+    spriteName: Default
     type: 5
     skinType: summer
   - id: 15

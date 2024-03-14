@@ -55,7 +55,7 @@ public class ReviveDialog : BaseDialog
             IngameController.instance.isGameOver = false;   
             IngameController.instance.isPause = false;
             EndlessLevel.Instance.UnfreezeCircles();
-            EndlessLevel.Instance.UsingTomato();
+            EndlessLevel.Instance.UsingChange();
             CirclePool.instance.transform.localScale = Vector3.one;
             WallScript.Instance.transform.localScale = Vector3.one;
             IngameController.instance.player.SetActive(true);

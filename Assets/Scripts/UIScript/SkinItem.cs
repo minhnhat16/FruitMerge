@@ -11,10 +11,12 @@ public class SkinItem : MonoBehaviour
     [SerializeField] private bool isOwned;
     [SerializeField] private int skinID;
     [SerializeField] private int price;
+    [SerializeField] private string skinName;
     public List<Image> fruitImages;
     public TextMeshProUGUI skinName_lb;
     public Image disableMask;
-    public Image disOnwed;
+    public Image unOwn;
+    public Image Onwed;
     public Image equipedBG;
     public Image unquipedBG;
     public ConfirmButton confirmBtnType;
@@ -28,13 +30,13 @@ public class SkinItem : MonoBehaviour
     {
         onClickAction = confirmBtnType.onClickAction;
         onClickAction.AddListener(ButtonEvent);
-        onEquipAction.AddListener(EquipSkinAction);
     }
-    public void InitSkin(int skinType, bool isOwned, bool isDisable)
+    public void InitSkin(int skinType, bool isOwned, bool isDisable,string skinname)
     {
         this.SkinID = skinType;
         this.isOwned = isOwned;
         this.isDisable = isDisable;
+        this.skinName = skinname;
         CheckSkinIsObtain(isOwned);
     }
     public void CheckSkinIsObtain(bool isObtain)
@@ -55,16 +57,19 @@ public class SkinItem : MonoBehaviour
     }
     public void SetItemEquiped()
     {
+        Debug.Log("Skin name" + skinName);
+        Onwed.sprite = SpriteLibControl.Instance.GetSpriteByName(skinName);
+        Onwed.gameObject.SetActive(true);
         disableMask.gameObject.SetActive(false);
         equipedBG.gameObject.SetActive(true);
         confirmBtnType.SwitchButtonType(ButtonType.Equiped);
-
     }
     public void SetItemUnquiped()
     {
         Debug.Log("SKIN UNQUIPED");
         disableMask.gameObject.SetActive(false);
-        disOnwed.gameObject.SetActive(false);
+        Onwed.gameObject.SetActive(true) ;
+        unOwn.gameObject.SetActive(false);
         unquipedBG.gameObject.SetActive(true);
         equipedBG.gameObject.SetActive(false);
         confirmBtnType.SwitchButtonType(ButtonType.Unquiped);
@@ -72,8 +77,10 @@ public class SkinItem : MonoBehaviour
     }
     public void SetItemBuy()
     {
+        unOwn.sprite = SpriteLibControl.Instance.GetSpriteByName(skinName + "Gray");
         disableMask.gameObject.SetActive(true);
-        disOnwed.gameObject.SetActive(true);
+        Onwed.gameObject.SetActive(false) ;
+        unOwn.gameObject.SetActive(true);
         confirmBtnType.SwitchButtonType(ButtonType.Buy);
         confirmBtnType.UpdatePriceLb(price.ToString());
     }
@@ -105,11 +112,6 @@ public class SkinItem : MonoBehaviour
             }
         }
     }
-    void EquipSkinAction(SkinItem skin)
-    {
-        EndlessLevel.Instance.SpriteType = skin.SkinID;
-        DataAPIController.instance.SetCurrenFruitSkin(skin.SkinID, null);
-    }
     BuyConfirmDialogParam param = new BuyConfirmDialogParam();
     void BuyInvoke()
     {
@@ -122,7 +124,8 @@ public class SkinItem : MonoBehaviour
             DataAPIController.instance.MinusGold(intCost);
             DataAPIController.instance.SaveFruitSkin(SkinID);
             IngameController.instance.GoldChanged();
-            InitSkin(SkinID, isOwned, true);
+            string skinname = ConfigFileManager.Instance.ItemConfig.GetRecordByKeySearch(SkinID).SpriteName;
+            InitSkin(SkinID, isOwned, true, skinname);
             
             SetItemUnquiped();
         };

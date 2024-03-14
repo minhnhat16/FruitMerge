@@ -29,16 +29,20 @@ public class BootLoader : MonoBehaviour
         ConfigFileManager.Instance.Init(() =>
         {
             gameManager.SetupGameManager();
+            SkinLibControl.Instance.InitFruitSkin();
             MainScreenViewParam param = new MainScreenViewParam();
             param.totalGold = DataAPIController.instance.GetGold();
             LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
             {
+                DayTimeController.instance.CheckNewDay();
                 if (DayTimeController.instance.isNewDay)
                 {
+                    Debug.Log("isnewday now go to claim spin reward");
                     ViewManager.Instance.SwitchView(ViewIndex.SpinView);
                 }
                 else
                 {
+                    Debug.Log("still in last day can't claim spin reward");
                     DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
                 }
             });

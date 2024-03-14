@@ -34,10 +34,13 @@ public class SpinItem : MonoBehaviour
         }
         else if( type  ==ItemType.CHANGE  && type == ItemType.HAMMER && type == ItemType.ROTATE)
         {
+            Debug.Log($"Added to data {amount} item {type} ");
+
             DataAPIController.instance.AddItemTotal(type.ToString(), amount);   
         }
         else if(type == ItemType.FRUITSKIN)
         {
+            Debug.Log($"Added to data {amount} item {type} ");
             DataAPIController.instance.SaveFruitSkin(amount);
         }
     }

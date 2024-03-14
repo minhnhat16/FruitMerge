@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rect: {fileID: 0}
-  radius: 300
+  radius: 250
   numberOfObjects: 8
   minusStep: 115
   _items: []

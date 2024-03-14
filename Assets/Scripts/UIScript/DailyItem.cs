@@ -32,18 +32,8 @@ public class DailyItem : MonoBehaviour
     }
     private void OnDisable()
     {
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        onClickDailyItem.RemoveAllListeners();
+        onItemClaim.RemoveAllListeners();
     }
     public void Init( IEDailyType type, int amount, int day,string spriteName,string itemName)
     {
@@ -125,8 +115,6 @@ public class DailyItem : MonoBehaviour
         {
             SwitchType(IEDailyType.Claimed);
             DataAPIController.instance.SetDailyData(day.ToString(), currentType);
-            //int next = day++;
-            //DataAPIController.instance.SetDailyData(next.ToString(), IEDailyType.Available);
             SwitchItemType(itemName);
         }
     }

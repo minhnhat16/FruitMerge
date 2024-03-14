@@ -9,9 +9,9 @@ public class WallScript : MonoBehaviour
     public static WallScript Instance;
     [SerializeField] private List<Collider2D> colliders;
     [SerializeField] private SpriteRenderer _box;
-    public Vector3 shakeAmount = new Vector3(1f,1f, 0f); // Adjust the shake amount along each axis
+    public Vector3 shakeAmount = new Vector3(5f,5f, 0f); // Adjust the shake amount along each axis
     public float shakeDuration = 0.5f;
-    public int vibrato = 20;
+    public int vibrato =30;
     public float randomness = 90f;
     public float timeSetTopWall = 10f;
     public GameObject GetTopWall()
@@ -65,8 +65,9 @@ public class WallScript : MonoBehaviour
     public void ShakeWall()
     {
         // Shake the object along the X axis
-        var tween = transform.DOShakePosition(shakeDuration, shakeAmount, vibrato, randomness, false, true,ShakeRandomnessMode.Harmonic)
-            .SetLoops(10); // Loop time  = 10sec
+        var tween = transform.DOShakePosition(shakeDuration, shakeAmount, vibrato, randomness, false, true, ShakeRandomnessMode.Full)
+        .SetLoops(10)
+            .SetRelative(true); // Loop time  = 10sec
         tween.OnComplete(() =>
         {
             Player.instance.canDrop = true;

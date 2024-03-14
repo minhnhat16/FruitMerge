@@ -475,7 +475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &187106941779300761
 RectTransform:
   m_ObjectHideFlags: 0
@@ -561,8 +561,8 @@ RectTransform:
   m_GameObject: {fileID: 6864374440909133693}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1844659760825598775}
   - {fileID: 4604797896223629936}
@@ -594,6 +594,8 @@ MonoBehaviour:
   - {fileID: 4764127150978607304}
   itemImg: {fileID: 4491795725588668237}
   intAmount: 0
+  day: 0
+  itemName: 
   day_lb: {fileID: 5363019344994781648}
   Amount_lb: {fileID: 1167854143083732698}
   currentType: 0

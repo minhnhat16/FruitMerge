@@ -417,10 +417,12 @@ MonoBehaviour:
   isOwned: 0
   skinID: 0
   price: 0
+  skinName: 
   fruitImages: []
   skinName_lb: {fileID: 6022218609241957721}
   disableMask: {fileID: 5452094073804066508}
-  disOnwed: {fileID: 8015250011007815379}
+  unOwn: {fileID: 8015250011007815379}
+  Onwed: {fileID: 6328297347980528079}
   equipedBG: {fileID: 2080837735398142930}
   unquipedBG: {fileID: 8932135490634143497}
   confirmBtnType: {fileID: 7950112015760295716}
@@ -496,7 +498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 371178d7a7c216b4d92ac78d1644181f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09b111e4ae173b74b849b02e34208678, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

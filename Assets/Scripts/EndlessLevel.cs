@@ -52,6 +52,7 @@ public class EndlessLevel : MonoBehaviour
     {
         life = 1;
         _circles = new List<CircleObject>();
+        spriteType = DataAPIController.instance.GetCurrentFruitSkin();
     }
 
     // Update is called once per frame
@@ -178,7 +179,7 @@ public class EndlessLevel : MonoBehaviour
 
         return result;
     }
-    public void UsingTomato()
+    public void UsingChange()
     {
         var sortedCircles = _circles;
         //BubbleSortCircle(sortedCircles);
@@ -216,12 +217,12 @@ public class EndlessLevel : MonoBehaviour
         }
         return below3;
     }
-    public void UsingBombItem()
+    public void UsingHammer()
     {
         Player.instance.canDrop = false;
         isBomb = true;
     }
-    public void UsingUpgradeItem()
+    public void UsingShake()
     {
         Player.instance.canDrop = false;
         isUpgrade = true;

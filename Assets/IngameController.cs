@@ -20,7 +20,7 @@ public class IngameController : MonoBehaviour
     public bool isGameOver = false;
 
     public int FirstID { get { return firstID; } }
-    public int Score { get { return score; } }
+    public int Score { get { return score; } }  
     public GameObject Wall { get { return wall; } }
     public Camera LoseCam { get { return loseCamera; } }
     //[SerializeField] private GameObject level;
@@ -54,7 +54,6 @@ public class IngameController : MonoBehaviour
         upgradeItemEvent.RemoveAllListeners();
         cancleItemEvent.RemoveAllListeners();
         gameOverEvent.RemoveAllListeners();
-        onGoldChanged.RemoveAllListeners();
     }
     private void Awake()
     {
@@ -80,6 +79,7 @@ public class IngameController : MonoBehaviour
         ResetScore();
         SetUpWire();
         EndlessLevel.Instance.RandomCircle();
+        loseCamera.orthographicSize*=GameManager.instance.UIRoot.rate;
         return;
     }
    public void AddScore (int score)
@@ -153,6 +153,11 @@ public class IngameController : MonoBehaviour
        if(EndlessLevel.Instance.intQueue.Count != 0)
         {
             firstID = EndlessLevel.Instance.intQueue[1];
+            setNextCircleEvent?.Invoke(firstID);
+        }
+       else if(EndlessLevel.Instance.intQueue.Count== 0)
+        {
+            firstID =0;
             setNextCircleEvent?.Invoke(firstID);
         }
     }

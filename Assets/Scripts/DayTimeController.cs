@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,11 +7,7 @@ public class DayTimeController : MonoBehaviour
 {
     public static DayTimeController instance;
     public bool isNewDay;
-    public DateTime lastCheckedDay;
-    public string lastString;
-    public string dataString;
     public UnityEvent<bool> newDateEvent = new UnityEvent<bool>();
-    //public UnityEvent<bool>  = new UnityEvent<bool>();
 
     private void Awake()
     {
@@ -26,41 +23,39 @@ public class DayTimeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NewDayEvent();
-        lastString = lastCheckedDay.ToString();
-        dataString = DataAPIController.instance.GetDayTimeData();
     }
 
-    // Update is called once per frame
+    // Update is called once per frsame
     private void LateUpdate()
     {
-        NewDayEvent();
     }
-    public void NewDayEvent()
+    public void CheckNewDay()
     {
-        string dayTimeData = DataAPIController.instance.GetDayTimeData();
+        string lastDay = DataAPIController.instance.GetDayTimeData();
         DateTime last;
-
-        if (dayTimeData != null && DateTime.TryParse(dayTimeData, out last))
+        if (DateTime.TryParse(lastDay, out last))
         {
-            // Use the parsed DateTime value 'last' here
+            int compareResult = DateTime.Today.CompareTo(last);
+            if (compareResult > 0)
+            {
+                Debug.Log("Last day is earlier than today.");
+                isNewDay = true;
+                DataAPIController.instance.SetDayTimeData(DateTime.Today.ToString());
+            }
+            else if (compareResult <= 0)
+            {
+                isNewDay = false;
+                Debug.Log("Last day is the same as today.");
+            }
         }
-        else
-        {
-            // Handle the case where dayTimeData is null or parsing failed
-            Debug.LogWarning("Failed to parse day time data or data is null.");
-        }
-    }
-    public void SetNewDay()
-    {
-        //Debug.Log("DAY TIME DATA CHECK  NULL");
-        lastCheckedDay = DateTime.Today;
-        lastString = lastCheckedDay.ToString();
-        DataAPIController.instance.SetDayTimeData(lastCheckedDay.ToString());
+        else return;
     }
     public void NewDay(bool isNew)
     {
-        Debug.Log("new day listener"); 
         isNewDay = isNew;
+        if(isNew)
+        {
+            newDateEvent?.Invoke(true);
+        }
     }
 }
