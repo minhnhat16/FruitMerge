@@ -162,13 +162,11 @@ public class DataAPIController : MonoBehaviour
     public void SetItemTotal(string type, int inTotal)
     {
         Debug.Log("DATA === SAVE ITEMDATA");
-        ItemData itemData = new ItemData
+        ItemData itemData = new()
         {
             id = type,
             total = inTotal,
         };
-        //Debug.Log("ITEM DATA" + itemData);
-        //SaveHighestLevel(id);
         dataModel.UpdateDataDictionary(DataPath.ITEM, type.ToString(), itemData);
     }
 

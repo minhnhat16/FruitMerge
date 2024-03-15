@@ -11,10 +11,9 @@ public class EndlessLevel : MonoBehaviour
     public static EndlessLevel Instance;
     [SerializeField] private int spriteType = 1;
     public int level;
-    public List<int> intQueue = new(5);
-    public CircleObject main;
     public int randomValue;
     public int score;
+    public List<int> intQueue = new(5);
     [SerializeField] int life;
     [SerializeField] private float spawnCooldown = 0.1f;
     [SerializeField]
@@ -22,6 +21,7 @@ public class EndlessLevel : MonoBehaviour
     [SerializeField]
     private bool isUpgrade = false;
     [SerializeField] private List<CircleObject> _circles;
+    public CircleObject main;
     [HideInInspector]
     public List<CircleObject> _Circles { get { return _circles; } }
     [HideInInspector]
@@ -70,13 +70,12 @@ public class EndlessLevel : MonoBehaviour
 
     public void LoadLevel(Action callback)
     {
-        level = 1;
-        RandomCircle();
+        level = 0;
+        RandomCircle(); 
         callback?.Invoke();
     }
     public void RandomCircle()
     {
-
         while (intQueue.Count < 6)
         {
 
@@ -181,19 +180,9 @@ public class EndlessLevel : MonoBehaviour
     }
     public void UsingChange()
     {
-        var sortedCircles = _circles;
-        //BubbleSortCircle(sortedCircles);
-        sortedCircles.OrderBy(c => c.TypeID);
-        sortedCircles = CirclesBelow3(sortedCircles);
-        foreach (var c in sortedCircles)
-        {
-            if (c != main && c.state =="GroundedState")
-            {
-                RemoveCircle(c);
-                c.RemoveCircle();
-            }
-
-        }
+        main.gameObject.SetActive(false);
+        RandomCircle();
+      
     }
     public void DespawnMainCircle()
     {

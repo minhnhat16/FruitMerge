@@ -103,19 +103,23 @@ public class PauseDialog : BaseDialog
     }    
     public void RestartButton()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
-        EndlessLevel.Instance.Clear();
-        LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
+        if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
+        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog, () =>
         {
-            ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+            EndlessLevel.Instance.Clear();
+            LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
             {
-                EndlessLevel.Instance.LoadLevel(() =>
+                ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
                 {
-                    IngameController.instance.isPause = false;
-                    IngameController.instance.ResetScore();
+                    EndlessLevel.Instance.LoadLevel(() =>
+                    {
+                        IngameController.instance.isPause = false;
+                        IngameController.instance.ResetScore();
+                    });
                 });
             });
         });
+        
     }
     public void CloseBtn()
     {

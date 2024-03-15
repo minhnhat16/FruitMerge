@@ -25,7 +25,7 @@ public class SpriteLibControl : MonoBehaviour
 
     public Sprite GetSpriteByName(string name)
     {
-        return spriteDict[name];
+        return spriteDict[name];    
     }
     public string GetSpriteName(int type ,int id)
     {
@@ -48,25 +48,25 @@ public class SpriteLibControl : MonoBehaviour
     {
         switch (id)
         {
-            case 1:
+            case 0:
                 return "01_Orange__Section";
-            case 2:
+            case 1:
                 return "02_Strawberry_Section";
-            case 3:
+            case 2:
                 return "03_WATERMELON_Section";
-            case 4:
+            case 3:
                 return "04_Mangosteen_Section";
-            case 5:
+            case 4:
                 return "05_Lemon_Section";
-            case 6:
+            case 5:
                 return "06_Hami Melon_Section";
-            case 7:
+            case 6:
                 return "07_Apple_Section";
-            case 8:
+            case 7:
                 return "08_Peach_Section";
-            case 9:
+            case 8:
                 return "09_Tomato_Section";
-            case 10:
+            case 9:
                 return "10_Pomegranate_Section";
             case 11:
                 return "11_grape_section new";

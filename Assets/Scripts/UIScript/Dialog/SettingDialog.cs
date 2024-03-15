@@ -1,8 +1,6 @@
-using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingDialog : BaseDialog
@@ -54,7 +52,7 @@ public class SettingDialog : BaseDialog
     public override void OnEndHideDialog()
     {
         base.OnEndHideDialog();
-        if(Player.instance != null)
+        if (Player.instance != null)
         {
             Player.instance.canDrop = true;
         }
@@ -66,7 +64,7 @@ public class SettingDialog : BaseDialog
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
             IngameController.instance.player.SetActive(true);
-
+            EndlessLevel.Instance.main.gameObject.SetActive(true);
         });
 
     }
@@ -133,24 +131,23 @@ public class SettingDialog : BaseDialog
     }
     public void RestartButton()
     {
+        if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
         DialogManager.Instance.HideDialog(dialogIndex);
-        if(SceneManager.GetActiveScene().name == "Ingame")
+        LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
         {
-            LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
+            ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
             {
-                ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
-                {
-                    EndlessLevel.Instance.LoadLevel(() =>
-                    {
-                        IngameController.instance.isPause = false;
-                        IngameController.instance.player.SetActive(true);
-                        IngameController.instance.Wall.SetActive(true);
-                        Player.instance.ResetPos();
-                        IngameController.instance.ResetScore();
-                    });
-                });
+                IngameController.instance.isPause = false;
+                IngameController.instance.player.SetActive(true);
+                IngameController.instance.Wall.SetActive(true);
+                Player.instance.ResetPos();
+                IngameController.instance.ResetScore();
+                EndlessLevel.Instance.Clear();
+                EndlessLevel.Instance.RandomCircle();
+                EndlessLevel.Instance.SpawnFirstCircle();
             });
-        }
+        });
+
     }
     public void CloseBtn()
     {
@@ -162,10 +159,10 @@ public class SettingDialog : BaseDialog
             {
                 IngameController.instance.player.SetActive(true);
             }
-            if(EndlessLevel.Instance != null)
+            if (EndlessLevel.Instance != null)
             {
 
-            EndlessLevel.Instance.SetActiveMainCircle(true);
+                EndlessLevel.Instance.SetActiveMainCircle(true);
             }
         });
 

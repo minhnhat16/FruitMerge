@@ -34,6 +34,7 @@ public class BootLoader : MonoBehaviour
             param.totalGold = DataAPIController.instance.GetGold();
             LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
             {
+                SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);
                 DayTimeController.instance.CheckNewDay();
                 if (DayTimeController.instance.isNewDay)
                 {

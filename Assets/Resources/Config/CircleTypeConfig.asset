@@ -13,47 +13,95 @@ MonoBehaviour:
   m_Name: CircleTypeConfig
   m_EditorClassIdentifier: 
   records:
-  - id: 1
-    scale: 0.3
-    radius: 1.1
-    color: {r: 0.31425774, g: 0.31425774, b: 0.6226415, a: 1}
-  - id: 2
-    scale: 0.4
-    radius: 1.1
-    color: {r: 1, g: 0.14260754, b: 0.08962262, a: 0.8862745}
-  - id: 3
-    scale: 0.5
-    radius: 1.1
-    color: {r: 0.4898398, g: 1, b: 0.36470592, a: 0.83137256}
   - id: 4
-    scale: 0.6
-    radius: 1.1
-    color: {r: 0.9716981, g: 0.80929905, b: 0.33459416, a: 0.7372549}
+    _circleTypes:
+    - id: 1
+      scale: 0.45
+      radius: 1
+      color: {r: 1, g: 0.73333335, b: 0, a: 1}
+    - id: 2
+      scale: 0.65
+      radius: 1
+      color: {r: 0.9921569, g: 0.68235296, b: 0.74509805, a: 1}
+    - id: 3
+      scale: 0.9
+      radius: 1
+      color: {r: 0.1254902, g: 0.74509805, b: 0.043137256, a: 1}
+    - id: 4
+      scale: 1
+      radius: 1
+      color: {r: 0.9490197, g: 0.85098046, b: 0.9568628, a: 1}
+    - id: 5
+      scale: 1.25
+      radius: 1
+      color: {r: 0.9333334, g: 0.79215693, b: 0.18039216, a: 1}
+    - id: 6
+      scale: 1.45
+      radius: 1
+      color: {r: 0.8000001, g: 0.93725497, b: 0.4901961, a: 1}
+    - id: 7
+      scale: 1.5
+      radius: 1
+      color: {r: 0.23529413, g: 0.854902, b: 0.34117648, a: 1}
+    - id: 8
+      scale: 2.1
+      radius: 1
+      color: {r: 1, g: 0.7607844, b: 0.7568628, a: 1}
+    - id: 9
+      scale: 2.5
+      radius: 1
+      color: {r: 0.9333334, g: 0.2627451, b: 0.17254902, a: 1}
+    - id: 10
+      scale: 3.25
+      radius: 1
+      color: {r: 0.82745105, g: 0.16470589, b: 0.3529412, a: 1}
+    - id: 11
+      scale: 3.35
+      radius: 1
+      color: {r: 0.454902, g: 0.38823533, b: 0.9294118, a: 1}
   - id: 5
-    scale: 0.8
-    radius: 1.1
-    color: {r: 1, g: 0.32126835, b: 0, a: 0.8509804}
-  - id: 6
-    scale: 1.1
-    radius: 1.1
-    color: {r: 0.9056604, g: 0.28258374, b: 0.14097545, a: 0.78431374}
-  - id: 7
-    scale: 1.4
-    radius: 1.1
-    color: {r: 1, g: 0.4575472, b: 0.4894562, a: 0.78431374}
-  - id: 8
-    scale: 1.7
-    radius: 1.1
-    color: {r: 0.5660378, g: 0.27173603, b: 0.15752938, a: 0.78431374}
-  - id: 9
-    scale: 2.1
-    radius: 1.1
-    color: {r: 0.67603165, g: 1, b: 0.4764151, a: 1}
-  - id: 10
-    scale: 2.5
-    radius: 1.1
-    color: {r: 1, g: 0.63105816, b: 0.25943398, a: 0.78431374}
-  - id: 11
-    scale: 2.7
-    radius: 1.1
-    color: {r: 0.59595966, g: 1, b: 0, a: 0.78431374}
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 0.08627451, g: 0.5058824, b: 0.003921569, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 0.40000004, g: 0.3254902, b: 0.9294118, a: 1}
+    - id: 3
+      scale: 0.625
+      radius: 1
+      color: {r: 0.5568628, g: 0.76470596, b: 0.21176472, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 0.82745105, g: 0.47450984, b: 0.011764707, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 0.48235297, g: 0.007843138, b: 0.56078434, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 0.8470589, g: 0.3647059, b: 0.011764707, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 0.8313726, g: 0.3019608, b: 0.29411766, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 0.7411765, g: 0.09411766, b: 0.2784314, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 0.98823535, g: 0.40784317, b: 0.52156866, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 0.94117653, g: 0.2627451, b: 0.17254902, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 0.09019608, g: 0.5921569, b: 0.027450982, a: 1}

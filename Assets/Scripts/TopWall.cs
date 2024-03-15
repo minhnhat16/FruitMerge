@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class TopWall : MonoBehaviour
 {
+    [SerializeField] private CircleObject crCircle;
     [HideInInspector]
     public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
     private void OnEnable()
@@ -15,18 +16,29 @@ public class TopWall : MonoBehaviour
     {
         gameOverEvent.RemoveAllListeners();
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("MergeCircle"))
+        if (collision.CompareTag("MergeCircle") && crCircle == null)
         {
-            //Debug.Log("MergeCircle touch topwall");
-            var circle = collision.GetComponentInParent<CircleObject>();
-            StartCoroutine(GameOverCheck(circle));
+            crCircle = collision.GetComponentInParent<CircleObject>();
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MergeCircle") && crCircle!=null)
+        {
+            //Debug.Log("MergeCircle touch topwall");
+            StartCoroutine(GameOverCheck(crCircle));
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (crCircle != null) crCircle = null;
+    }
+   
     IEnumerator GameOverCheck(CircleObject circle)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         if (circle != null && circle.isActiveAndEnabled == true)
         {
             //Debug.Log("TRIGGER COLLIDER ");
@@ -38,7 +50,7 @@ public class TopWall : MonoBehaviour
                 IngameController.instance.GameOver();
                 gameObject.SetActive(false);
             }
-            else { yield break; }
+            //else { yield break; }
         }
     }
     public void GameOverEvent(bool isGameOver)
@@ -72,3 +84,4 @@ public class TopWall : MonoBehaviour
         }
     }
 }
+    

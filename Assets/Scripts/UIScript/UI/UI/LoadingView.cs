@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class LoadingView : BaseView
 {
     public Image loadingProgress;
-    public Text loaddingText;
+    public TextMeshProUGUI loaddingText;
     private float t1 = 0;
 
     public override void Setup(ViewParam viewParam)

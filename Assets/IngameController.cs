@@ -79,7 +79,8 @@ public class IngameController : MonoBehaviour
         ResetScore();
         SetUpWire();
         EndlessLevel.Instance.RandomCircle();
-        loseCamera.orthographicSize*=GameManager.instance.UIRoot.rate;
+        FirstCircle();
+        loseCamera.orthographicSize += GameManager.instance.UIRoot.rate;
         return;
     }
    public void AddScore (int score)
@@ -138,6 +139,10 @@ public class IngameController : MonoBehaviour
         {
             Level = Instantiate(Level, transform);
         }
+        else
+        {
+            l.Clear();
+        }
     }
     public void PauseGame()
     {
@@ -153,33 +158,34 @@ public class IngameController : MonoBehaviour
        if(EndlessLevel.Instance.intQueue.Count != 0)
         {
             firstID = EndlessLevel.Instance.intQueue[1];
-            setNextCircleEvent?.Invoke(firstID);
+            setNextCircleEvent?.Invoke(firstID--);
         }
-       else if(EndlessLevel.Instance.intQueue.Count== 0)
+       else if(EndlessLevel.Instance.intQueue.Count == 0)
         {
             firstID =0;
+            Debug.LogWarning($"setNextCircleEvent?.Invoke({firstID})");
             setNextCircleEvent?.Invoke(firstID);
         }
     }
-    public void TomatoItem()
+    public void ChangeItem()
     {
         int tomato = DataAPIController.instance.GetItemTotal("0");
         tomato -= 1;
         DataAPIController.instance.SetItemTotal("0", tomato);
         tomatoItemEvent?.Invoke(tomato);
     }
-    public void BombItem()
+    public void BursItem()
     {
         int bomb = DataAPIController.instance.GetItemTotal("1");
         bomb -= 1;
         DataAPIController.instance.SetItemTotal("1", bomb);
         bombItemEvent?.Invoke(bomb);
     }
-    public void UpgradeItem()
+    public void ShakeItem()
     {
         int upgrade = DataAPIController.instance.GetItemTotal("2");
         upgrade -= 1;
-        DataAPIController.instance.SetItemTotal("1", upgrade);
+        DataAPIController.instance.SetItemTotal("2", upgrade);
         upgradeItemEvent?.Invoke(upgrade);
     }
     public void GoldChanged()

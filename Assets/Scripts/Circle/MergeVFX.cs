@@ -26,7 +26,7 @@ public class MergeVFX : MonoBehaviour
     public void SetParticleOffWhenDone() {
         if(!MainVFX.IsAlive())
         {
-            Debug.Log("Particle system has finished playing");
+            //Debug.Log("Particle system has finished playing");
 
             // Do something when the particle system has finished playing
             // For example, disable the particle system or trigger another event

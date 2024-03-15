@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,6 +24,8 @@ public class GamePlayView : BaseView
     [SerializeField] Button tomato_Btn;
     [SerializeField] Button bomb_Btn;
     [SerializeField] Button upgrade_Btn;
+    [SerializeField] Button clear_btn;
+
     [SerializeField] bool onTomato;
     [SerializeField] bool onBomb;
     [SerializeField] bool onUpgrade;
@@ -71,11 +74,9 @@ public class GamePlayView : BaseView
         onTomato = false;
         onBomb = false;
         onUpgrade = false;
-
         tomato_lb.text = DataAPIController.instance.GetItemTotal("0").ToString();
         bomb_lb.text = DataAPIController.instance.GetItemTotal("1").ToString();
         upgrade_lb.text = DataAPIController.instance.GetItemTotal("2").ToString();
-        
     }
     public override void OnStartHideView()
     {
@@ -134,12 +135,13 @@ public class GamePlayView : BaseView
             settingList.GetComponent<SettingList>().HideSettingList(() =>
             {
                 settingList.SetActive(false);
-
+                clear_btn.gameObject.SetActive(true);  
             });
         }
         else
         {
             settingList.SetActive(true);
+            clear_btn.gameObject.SetActive(true);
             settingList.GetComponent<SettingList>().ShowSettingList(null);
 
         }
@@ -148,8 +150,8 @@ public class GamePlayView : BaseView
     {
         nextBlock.transform.DOScale(0.1f, 0);
         Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
-        
-        var name = SpriteLibControl.Instance.GetSpriteName(EndlessLevel.Instance.SpriteType, id);
+        int skinID = DataAPIController.instance.GetCurrentFruitSkin();
+        var name = SpriteLibControl.Instance.GetSpriteName(skinID, id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
         tween.OnComplete(() =>
@@ -189,7 +191,7 @@ public class GamePlayView : BaseView
         Player.instance.canDrop = true;
         EndlessLevel.Instance.DisableTargetCircles();
     }
-    public void O()
+    public void OnClickChange()
     {
         onTomato = !onTomato;
         Player.instance.canDrop = false;
@@ -226,6 +228,18 @@ public class GamePlayView : BaseView
         else
         {
             ItemUsing(2);
+        }
+    }
+    public void ClearButton()
+    {
+        Debug.Log("ClearButtonClicked");
+        if (settingList.activeSelf)
+        {
+            Debug.Log("Hide setting list");
+            settingList.GetComponent<SettingList>().HideSettingList(() =>
+            {
+                settingList.SetActive(false);
+            });
         }
     }
     public void HammerItem(int i)

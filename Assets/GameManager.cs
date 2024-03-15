@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
                 ingameController.isPause = false;
                 ingameController.SetUpIngame();
                 SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);
+
             });
         });
         DialogManager.Instance.HideAllDialog();

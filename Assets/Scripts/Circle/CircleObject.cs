@@ -14,11 +14,13 @@ public class CircleObject : FSMSystem
     [HideInInspector] public GroundedState Grounded;
     [HideInInspector] public DeadState Dead;
     [SerializeField] CircleTypeConfigRecord record;
+    [SerializeField] CircleType circleType;
     [SerializeField] private Rigidbody2D rigdBody;
     [SerializeField]
     private CircleCollider2D _collider;
     [SerializeField] private CircleObject contactCircle;
     [SerializeField] private int typeID;
+    [SerializeField] private int skinType;
     [SerializeField] private float instanceID;
     [SerializeField] private float fallSpeed;
     [SerializeField] float smoothTime;
@@ -67,8 +69,10 @@ public class CircleObject : FSMSystem
     }
     public void SetSpriteByID(int id)
     {
-        int fruitSkinID = EndlessLevel.Instance.SpriteType;
-        var spriteName = SpriteLibControl.Instance.GetSpriteName(fruitSkinID, id);
+        Debug.Log("SpriteByID " + id);
+        id++;
+        skinType = DataAPIController.instance.GetCurrentFruitSkin();
+        var spriteName = SpriteLibControl.Instance.GetSpriteName(skinType, id);
         spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
     }
     public void SetDropVelocity()
@@ -81,10 +85,14 @@ public class CircleObject : FSMSystem
         rigdBody.velocity = new Vector2(rigdBody.velocity.x, newVelocity);
 
     }
+    public void GetConfigRecord()
+    {
+        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(skinType);
+    }
     public void SetColliderRadius()
     {
-        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(TypeID);
-        _collider.GetComponent<CircleCollider2D>().radius = record.Radius;
+        _collider.GetComponent<CircleCollider2D>().radius = circleType.Radius;
+        Debug.Log($" _collider.GetComponent<CircleCollider2D>().radius {circleType.Radius}");
     }
 
     public void EnableTarget()
@@ -274,8 +282,10 @@ public class CircleObject : FSMSystem
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
 
-        c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID);
-        c._collider.GetComponent<CircleCollider2D>().radius = c.record.Radius;
+        //c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID);
+        c._collider.GetComponent<CircleCollider2D>().radius = c.circleType.Radius;
+        //Debug.Log($" _collider.GetComponent<CircleCollider2D>().radius {c.circleType.Radius}");
+
         PlayMergeVFX(c);//play spawn particles
         c.RandomMergeSFX();
 
@@ -289,8 +299,9 @@ public class CircleObject : FSMSystem
     public void PlayMergeVFX(CircleObject circle)
     {
         MergeVFX vfx = MergeVFXPool.instance.pool.SpawnNonGravity();
-        vfx.SetTransform(transform.position);
-        var color = circle.record.Color;
+        vfx.SetTransform(transform.position);   
+        var color = circle.circleType.Color;
+        //Debug.Log($"PlayMergeVFX color {color}");
         SetParticleColor(color, vfx.MainVFX);
         vfx.MainVFX.Play();
 
@@ -302,17 +313,19 @@ public class CircleObject : FSMSystem
     }
     public void SpawnCircle(int i)
     {
+        i--;
         if (IngameController.instance.isGameOver) return;
         instanceID = 0;
-        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(i);
         DisableTarget();
-        SetSpriteByID(record.ID);
+        SetSpriteByID(i);
         SetRigidBodyToNone();
-        //spriteRenderer.gameObject.transform.DOScale(record.Scale, 0);
         EndlessLevel.Instance.AddCircle(this);
         isDropping = false;
         isLanded = false;
-        tween = transform.DOScale(record.Scale, 0.25f);
+        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(skinType);
+        circleType = record.GetTypeByID(i);
+        //Debug.Log($"radius {circleType.Radius} + circleType.ID {circleType.ID}");
+        tween = transform.DOScale(circleType.Scale, 0.25f);
         tween.OnComplete(() => tween?.Kill());
     }
     public void RemoveCircle()

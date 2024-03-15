@@ -31,19 +31,19 @@ public class ItemConfirmDialog : BaseDialog
         {
             case 0:
                 Debug.Log("DESTROY ALL FRUIT BELOW 2");
-                IngameController.instance.TomatoItem();
+                IngameController.instance.ChangeItem();
                 IngameController.instance.CancelItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog,null);
 
                 break;
             case 1:
                 Debug.Log("CHOSE ONE FRUIT TO DESTROY IT");
-                IngameController.instance.BombItem();
+                IngameController.instance.BursItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null) ;
                 break;
             case 2:
                 Debug.Log("CHOSE ONE FRUIT TO UPGRADE ");
-                IngameController.instance.UpgradeItem();
+                IngameController.instance.ShakeItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null   );
                 break;
         }
