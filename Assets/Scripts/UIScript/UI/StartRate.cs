@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,7 +9,8 @@ public class StartRate : MonoBehaviour
     [SerializeField] private bool isOn;
     [SerializeField] private Button starOn;
     [SerializeField] public Button startOff;
-
+    [SerializeField] private Animator anim;
+    Action callback;
     [HideInInspector]
     public UnityEvent<int> starEvent = new UnityEvent<int>();
 
@@ -41,5 +43,14 @@ public class StartRate : MonoBehaviour
     {
         startOff.gameObject.SetActive(!isOn);
         starOn.gameObject.SetActive(isOn);
+    }
+    public void ConfirmStarRate(Action callback)
+    {
+        this.callback = callback;
+        anim.Play("RateStar");
+    }
+    public void CallBackInvoke()
+    {
+        callback?.Invoke();
     }
 }

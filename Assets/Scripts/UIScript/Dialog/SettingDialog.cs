@@ -78,7 +78,7 @@ public class SettingDialog : BaseDialog
             CameraMain.instance.main.gameObject.SetActive(false);
 
             Debug.Log("LOAD SCENE BUFFER FROM QUIT");
-            DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog, null, () =>
+            DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog, null, () =>
             {
                 CameraMain.instance.main.gameObject.SetActive(true);
             });

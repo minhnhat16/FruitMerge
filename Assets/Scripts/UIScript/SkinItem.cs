@@ -77,6 +77,7 @@ public class SkinItem : MonoBehaviour
     }
     public void SetItemBuy()
     {
+        Debug.Log($"Skin name {skinName}");
         unOwn.sprite = SpriteLibControl.Instance.GetSpriteByName(skinName + "Gray");
         disableMask.gameObject.SetActive(true);
         Onwed.gameObject.SetActive(false) ;

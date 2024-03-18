@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.WebSockets;
@@ -42,6 +43,19 @@ public class StarList : MonoBehaviour
             }
         }
         rateEvent?.Invoke(true);
+    }
+    public void StarListConfirm( )
+    {
+        StartNextStar(0);
+    }
+    public void StartNextStar(int idex )
+    {
+        if (idex < _stars.Count ) {
+            _stars[idex].ConfirmStarRate(()=>StartNextStar(idex++));
+        }
+        else
+        {
+        }
     }
     public void Init()
     {

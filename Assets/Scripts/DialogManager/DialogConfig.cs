@@ -2,7 +2,7 @@ using System;
 
 public enum DialogIndex
 {
-    LableChooseDialog = 0,
+    LabelChooseDialog = 0,
     PauseDialog = 1,
     LoseDialog = 2,
     DailyRewardDialog = 3,
@@ -81,7 +81,7 @@ public class RateParam : DialogParam
 public class DialogConfig
 {
     public static DialogIndex[] dialogArray = {
-       DialogIndex.LableChooseDialog,
+       DialogIndex.LabelChooseDialog,
        DialogIndex.PauseDialog,
        DialogIndex.LoseDialog,
        DialogIndex.DailyRewardDialog,

@@ -26,6 +26,26 @@ public class RateDialog : BaseDialog
     {
         base.OnStartShowDialog();
         OnRateEvents(false);
+
+        if (EndlessLevel.Instance == null) return;
+        if (EndlessLevel.Instance.main != null)
+        {
+
+            EndlessLevel.Instance.SetActiveMainCircle(false);
+        }
+        if (IngameController.instance.player != null)
+        {
+            Player.instance.gameObject.SetActive(false);
+        }
+    }
+    public override void OnEndHideDialog()
+    {
+        base.OnEndHideDialog();
+        if (Player.instance != null)
+        {
+            Player.instance.canDrop = true;
+        }
+        EndlessLevel.Instance.main.gameObject.SetActive(true);
     }
     public void CloseButton()
     {
@@ -60,6 +80,7 @@ public class RateDialog : BaseDialog
     {
         Debug.Log("RateButton");
         var rateAnim = GetComponentInChildren<RateAnim>();
+        stars.StarListConfirm();
         rateAnim.PlaySuccesfullRating(() =>
         {
             DialogManager.Instance.HideDialog(DialogIndex.RateDialog, () =>

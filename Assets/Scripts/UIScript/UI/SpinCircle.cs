@@ -39,7 +39,7 @@ public class SpinCircle : MonoBehaviour
     {
         yield return new WaitUntil(() => isSpining == false);
         yield return new WaitForSeconds(5f);    
-        DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
+        DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog);
     }
     public void SpinningCircle()
     {

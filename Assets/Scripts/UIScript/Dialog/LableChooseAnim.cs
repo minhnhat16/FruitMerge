@@ -9,14 +9,14 @@ public class LableChooseAnim : BaseDialogAnimation
     {
         this.callback = callback;
         Debug.Log("HideDialogAnimation");
-        animator.Play("ShopDialogHide");
+        animator.Play("LabelHide");
     }
 
     public override void ShowDialogAnimation(Action callback)
     {
         this.callback = callback;
         Debug.Log("ShowDialogAnimation");
-        animator.Play("ShopeDialogShow");
+        animator.Play("LabelShow");
     }
 
     public void ShowAnim()

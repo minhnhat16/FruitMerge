@@ -34,7 +34,7 @@ public class LoseDialog : BaseDialog
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
 
-            DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog,null, () =>
+            DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog,null, () =>
             {
                 IngameController.instance.isPause = true;
                 CirclePool.instance.transform.localScale = Vector3.one;
