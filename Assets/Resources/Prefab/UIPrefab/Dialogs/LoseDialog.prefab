@@ -971,7 +971,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogIndex: 2
-  score_lb: {fileID: 0}
+  baseDialogAnim: {fileID: 0}
+  score_lb: {fileID: 4931503502977674953}
   boxCamera: {fileID: 0}
 --- !u!1 &8534721836845252058
 GameObject:

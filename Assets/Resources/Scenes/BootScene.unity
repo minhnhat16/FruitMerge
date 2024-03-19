@@ -193,6 +193,14 @@ PrefabInstance:
       propertyPath: dayTimeController
       value: 
       objectReference: {fileID: 4572970}
+    - target: {fileID: 1189132359462350413, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: wall
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189132359462350413, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: wire
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1189132359462350418, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_Enabled
       value: 0

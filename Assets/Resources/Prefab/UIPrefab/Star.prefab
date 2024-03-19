@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idStar: 0
-  isOn: 1
+  isOn: 0
   starOn: {fileID: 2689200331150094941}
   startOff: {fileID: 7323440728268792771}
   anim: {fileID: 22746210589956852}

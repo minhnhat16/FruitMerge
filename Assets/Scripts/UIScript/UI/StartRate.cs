@@ -41,16 +41,19 @@ public class StartRate : MonoBehaviour
     }
     public void SetOnStar(bool isOn)
     {
+        this.isOn = isOn;
         startOff.gameObject.SetActive(!isOn);
         starOn.gameObject.SetActive(isOn);
     }
     public void ConfirmStarRate(Action callback)
     {
+        Debug.Log("ConfirmStarRate");
         this.callback = callback;
         anim.Play("RateStar");
     }
     public void CallBackInvoke()
     {
+        Debug.LogWarning("callbackinvoke");
         callback?.Invoke();
     }
 }

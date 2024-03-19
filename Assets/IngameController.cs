@@ -1,7 +1,5 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class IngameController : MonoBehaviour
 {
@@ -11,8 +9,6 @@ public class IngameController : MonoBehaviour
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject backGround;
     [SerializeField] private GameObject wire;
-    [SerializeField] private Player playerprefab;
-    [SerializeField] private LineScript linePrefab;
     [SerializeField] private Camera loseCamera;
     [SerializeField] private int firstID;
     [SerializeField] private int score;
@@ -20,7 +16,7 @@ public class IngameController : MonoBehaviour
     public bool isGameOver = false;
 
     public int FirstID { get { return firstID; } }
-    public int Score { get { return score; } }  
+    public int Score { get { return score; } }
     public GameObject Wall { get { return wall; } }
     public Camera LoseCam { get { return loseCamera; } }
     //[SerializeField] private GameObject level;
@@ -43,7 +39,7 @@ public class IngameController : MonoBehaviour
     public UnityEvent<int> onGoldChanged = new UnityEvent<int>();
     private void OnEnable()
     {
-        
+
     }
     private void OnDisable()
     {
@@ -57,7 +53,7 @@ public class IngameController : MonoBehaviour
     }
     private void Awake()
     {
-        if(instance == null)  instance = this;
+        if (instance == null) instance = this;
     }
     void Start()
     {
@@ -69,7 +65,7 @@ public class IngameController : MonoBehaviour
     {
     }
 
-  
+
     public void SetUpIngame()
     {
         backGround.SetActive(true);
@@ -83,7 +79,7 @@ public class IngameController : MonoBehaviour
         loseCamera.orthographicSize += GameManager.instance.UIRoot.rate;
         return;
     }
-   public void AddScore (int score)
+    public void AddScore(int score)
     {
         this.score += score;
         setScoreEvent?.Invoke(this.score);
@@ -95,11 +91,9 @@ public class IngameController : MonoBehaviour
     }
     public void SetUpWire()
     {
-        var p = GetComponentInChildren<LineScript>();
-        if (p == null)
+        if (wire == null)
         {
-            p = Instantiate(linePrefab, player.transform).GetComponent<LineScript>();
-            wire = p.GetComponent<LineScript>().gameObject;
+            wire = Instantiate(Resources.Load("Prefab/Line", typeof(GameObject)), transform) as GameObject;
         }
         else
         {
@@ -108,29 +102,35 @@ public class IngameController : MonoBehaviour
     }
     public void SetUpPlayer()
     {
-        var p = GetComponentInChildren<Player>();
-        if(p == null)
+        Debug.Log($"Setup player {player}");
+
+        if (player == null)
         {
-            p = Instantiate(playerprefab, transform).GetComponent<Player>();
-            player = p.gameObject;
+           var p = Instantiate(Resources.Load("Prefab/Player", typeof(GameObject)), transform) as GameObject;
+            Debug.Log($"Instantiate(Resources.Load(\"Prefab/Player\", typeof(GameObject)), transform) as GameObject {p}");
+            player = p;
         }
         else
         {
-            player.gameObject.SetActive(true);  
-            player.GetComponent<Player>().canDrop =true; 
+            player.SetActive(true); 
+            player.GetComponent<Player>().Reset();
         }
     }
     public void SetUpWall()
     {
-        var w = GetComponentInChildren<WallScript>();
-        if (w == null)
+        Debug.Log($"Setup wall {wall}"); 
+        if (wall == null)
         {
-            wall = Instantiate(wall, transform);
+            var w = Instantiate(Resources.Load("Prefab/Wall", typeof(GameObject)), transform) as GameObject;
+            Debug.Log($"Instantiate(Resources.Load(\"Prefab/Wall\", typeof(GameObject)), transform) as GameObject {w}");
+            wall = w;
         }
         else
         {
             wall.gameObject.SetActive(true);
+            wall.GetComponent<WallScript>().TopWallCouroutine();
         }
+  
     }
     public void SetUpLevel()
     {
@@ -144,6 +144,42 @@ public class IngameController : MonoBehaviour
             l.Clear();
         }
     }
+    public void DestroyWall()
+    {
+        if (wall != null)
+        {
+            Destroy(wall);
+            wall = null; 
+        }
+    }
+    public void DestroyPlayer()
+    {
+        if (player != null)
+        {
+            Destroy(player);
+            player = null;
+        }
+    }
+    public void DestroyLine()
+    {
+        if (wire != null)
+        {
+            wire = null;
+            Destroy(wire);
+        }
+    }
+    public void DestroyIngameObject()
+    {
+        DestroyLine();
+        DestroyPlayer();
+        DestroyWall();
+    }
+    public void SetIngameObjectActive(bool isActive)
+    {
+        wall.SetActive(isActive);
+        player.SetActive(isActive);
+        wire.SetActive (isActive);
+    }
     public void PauseGame()
     {
         Time.timeScale = 0;
@@ -155,14 +191,14 @@ public class IngameController : MonoBehaviour
 
     public void FirstCircle()
     {
-       if(EndlessLevel.Instance.intQueue.Count != 0)
+        if (EndlessLevel.Instance.intQueue.Count != 0)
         {
             firstID = EndlessLevel.Instance.intQueue[1];
             setNextCircleEvent?.Invoke(firstID--);
         }
-       else if(EndlessLevel.Instance.intQueue.Count == 0)
+        else if (EndlessLevel.Instance.intQueue.Count == 0)
         {
-            firstID =0;
+            firstID = 0;
             Debug.LogWarning($"setNextCircleEvent?.Invoke({firstID})");
             setNextCircleEvent?.Invoke(firstID);
         }
@@ -195,7 +231,7 @@ public class IngameController : MonoBehaviour
     }
     public void CancelItem()
     {
-        cancleItemEvent?.Invoke(false); 
+        cancleItemEvent?.Invoke(false);
     }
     public void SwitchLoseCamOnOff(bool isOn)
     {

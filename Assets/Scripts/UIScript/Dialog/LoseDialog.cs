@@ -1,13 +1,18 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class LoseDialog : BaseDialog
 {
-    [SerializeField] private Text score_lb;
+    [SerializeField] private TextMeshProUGUI score_lb;
     [SerializeField] private LoseDialogParam param;
     [SerializeField] private Camera boxCamera;
+    private void Start()
+    {
+        score_lb = GetComponentInChildren<TextMeshProUGUI>();
+    }
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -15,9 +20,14 @@ public class LoseDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        IngameController.instance.SwitchLoseCamOnOff(true);
         EndlessLevel.Instance.SetActiveMainCircle(false);
+        score_lb.text = "Score: " + IngameController.instance.Score.ToString();
         IngameController.instance.isPause = true;
+    }
+    public override void OnEndShowDialog()
+    {
+        base.OnEndShowDialog();
+
     }
     public override void OnStartHideDialog()
     {
@@ -47,23 +57,17 @@ public class LoseDialog : BaseDialog
 
         DialogManager.Instance.HideDialog(DialogIndex.LoseDialog, () =>
         {
-            CirclePool.instance.transform.localScale = Vector3.one;
-            WallScript.Instance.transform.localScale = Vector3.one;
             EndlessLevel.Instance.Clear();
             LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
             {
                 ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
                 {
-                    EndlessLevel.Instance.LoadLevel(() =>
-                    {
-                        IngameController.instance.isPause = false;
-                        IngameController.instance.isGameOver = false;
-                        IngameController.instance.LoseCam.gameObject.SetActive(false);
-                        Player.instance.gameObject.SetActive(true);
-                        IngameController.instance.ResetScore();
-                        WallScript.Instance.GetTopWall().SetActive(true);
-                        Player.instance.canDrop = true;
-                    });
+                    EndlessLevel.Instance.SetLife = 1;
+                    IngameController.instance.LoseCam.gameObject.SetActive(false);
+                    IngameController.instance.ResetScore();
+                    IngameController.instance.SetUpIngame();
+                    IngameController.instance.isPause = false;
+                    IngameController.instance.isGameOver = false;
                 });
             });
         });

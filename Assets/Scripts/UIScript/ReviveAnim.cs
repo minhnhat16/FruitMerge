@@ -1,22 +1,24 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class LableChooseAnim : BaseDialogAnimation
+public class ReviveAnim : BaseDialogAnimation
 {
     public Animator animator;
     private Action callback;
     public override void HideDialogAnimation(Action callback)
     {
         this.callback = callback;
-        Debug.Log("HideDialogAnimation");
-        animator.Play("LableHide");
+        Debug.Log("ReviveHide");
+        animator.Play("ReviveHide");
     }
 
     public override void ShowDialogAnimation(Action callback)
     {
         this.callback = callback;
-        Debug.Log("ShowDialogAnimation");
-        animator.Play("LabelShow");
+        Debug.Log("ReviveShow");
+        animator.Play("ReviveShow");
     }
 
     public void ShowAnim()
@@ -30,6 +32,7 @@ public class LableChooseAnim : BaseDialogAnimation
     }
     public void Clear()
     {
-        callback?.Invoke();
+        Debug.Log("Clear");
+        IngameController.instance.SwitchLoseCamOnOff(true);
     }
 }

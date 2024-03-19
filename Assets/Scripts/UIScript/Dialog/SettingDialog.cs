@@ -71,10 +71,11 @@ public class SettingDialog : BaseDialog
     public void HomeButton()
     {
         EndlessLevel.Instance.Clear();
+        IngameController.instance.SetIngameObjectActive(false);
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
-            Destroy(IngameController.instance.player);
+            
             CameraMain.instance.main.gameObject.SetActive(false);
 
             Debug.Log("LOAD SCENE BUFFER FROM QUIT");
@@ -133,6 +134,7 @@ public class SettingDialog : BaseDialog
     {
         if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
         DialogManager.Instance.HideDialog(dialogIndex);
+        IngameController.instance.SetIngameObjectActive(false);
         LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
         {
             ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>

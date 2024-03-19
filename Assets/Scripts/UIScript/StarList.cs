@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.WebSockets;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Events;
 
 public class StarList : MonoBehaviour
 {
     [SerializeField] private List<StartRate> _stars = new List<StartRate>();
-
+    [SerializeField] private List<StartRate> _starsRated = new List<StartRate>();
+    [SerializeField] private Action callback;
     [HideInInspector]
     public UnityEvent<int> starEvent = new UnityEvent<int>();
     [HideInInspector]
@@ -44,18 +47,29 @@ public class StarList : MonoBehaviour
         }
         rateEvent?.Invoke(true);
     }
-    public void StarListConfirm( )
+    public void StarListConfirm( Action callback)
     {
+        this.callback = callback;
         StartNextStar(0);
     }
-    public void StartNextStar(int idex )
+    public void StartNextStar(int index )
     {
-        if (idex < _stars.Count ) {
-            _stars[idex].ConfirmStarRate(()=>StartNextStar(idex++));
+        if (index < _stars.Count ) {
+            Debug.Log($"StartNextStar{index}");
+            if (_stars[index].IsOn)
+                _stars[index].ConfirmStarRate(() =>
+                {
+                    index++;
+                    Debug.Log(index);
+                    StartNextStar(index);
+                });
+            else
+            {
+                Debug.Log("Start next start invoker");
+                callback?.Invoke();
+            }
         }
-        else
-        {
-        }
+    
     }
     public void Init()
     {

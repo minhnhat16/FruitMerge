@@ -5,6 +5,8 @@ using UnityEngine.Events;
 public class TopWall : MonoBehaviour
 {
     [SerializeField] private CircleObject crCircle;
+    [SerializeField] private float timingToDie;
+    [SerializeField] private int totalFruitTrigger;
     [HideInInspector]
     public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
     private void OnEnable()
@@ -20,6 +22,7 @@ public class TopWall : MonoBehaviour
     {
         if (collision.CompareTag("MergeCircle") && crCircle == null)
         {
+            totalFruitTrigger++;
             crCircle = collision.GetComponentInParent<CircleObject>();
         }
     }
@@ -33,18 +36,19 @@ public class TopWall : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        totalFruitTrigger--;
         if (crCircle != null) crCircle = null;
     }
    
     IEnumerator GameOverCheck(CircleObject circle)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f); 
         if (circle != null && circle.isActiveAndEnabled == true)
         {
             //Debug.Log("TRIGGER COLLIDER ");
             if (circle.GetCurrentState() == "GroundedState"
                 && IngameController.instance.isGameOver == false
-                    && circle.transform.position.y > transform.position.y)
+                    && circle.transform.position.y > transform.position.y -1f)
             {
                 //Debug.Log("TRIGGER GAME OVER");
                 IngameController.instance.GameOver();
@@ -64,10 +68,9 @@ public class TopWall : MonoBehaviour
             {
                 EndlessLevel.Instance.FreezeCircleRev();
                 DialogManager.Instance.ShowDialog(DialogIndex.ReviveDialog, param, () => {
+
                     Player.instance.canDrop = false;
-                    Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);
-                    CirclePool.instance.transform.localScale = scale;
-                    WallScript.Instance.transform.localScale = scale;
+
                 });
             }
             else
@@ -75,9 +78,7 @@ public class TopWall : MonoBehaviour
                 EndlessLevel.Instance.FreezeCircleDead();
                 DialogManager.Instance.ShowDialog(DialogIndex.LoseDialog, param, () => {
                     Player.instance.canDrop = false;
-                    Vector3 scale = new Vector3(0.75f, 0.75f, 0.75f);
-                    CirclePool.instance.transform.localScale = scale;
-                    WallScript.Instance.transform.localScale = scale;
+
                 });
             }
             

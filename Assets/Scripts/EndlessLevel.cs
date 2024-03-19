@@ -180,9 +180,6 @@ public class EndlessLevel : MonoBehaviour
     }
     public void UsingChange()
     {
-        main.gameObject.SetActive(false);
-        RandomCircle();
-      
     }
     public void DespawnMainCircle()
     {
@@ -191,6 +188,7 @@ public class EndlessLevel : MonoBehaviour
     public void SetActiveMainCircle(bool activate)
     {
         if (main == null) return;
+        Debug.Log($"SetActiveMainCircle {activate}");
         main.gameObject.SetActive(activate);
 
     }
@@ -293,7 +291,7 @@ public class EndlessLevel : MonoBehaviour
         level = 1;
         score = 0;
         CirclePool.instance.pool.DeSpawnAll();
-        intQueue.Clear();
+        _circles.Clear();
+        intQueue.Clear();   
     }
-
 }

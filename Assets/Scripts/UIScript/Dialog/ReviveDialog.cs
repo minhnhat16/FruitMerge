@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,9 @@ public class ReviveDialog : BaseDialog
     [SerializeField] private TextMeshProUGUI score_lb;
     [SerializeField] private ReviveDialogParam param;
     [SerializeField] private Camera boxCamera;
+    private void Start()
+    {
+    }   
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -16,9 +20,14 @@ public class ReviveDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        IngameController.instance.SwitchLoseCamOnOff(true);
+        score_lb.text = "Score: " + IngameController.instance.Score.ToString();
         EndlessLevel.Instance.SetActiveMainCircle(false);
         IngameController.instance.isPause = true;
+        Player.instance.canDrop = false;
+    }
+    public override void OnEndShowDialog()
+    {
+        base.OnEndShowDialog();
     }
     public override void OnStartHideDialog()
     {
@@ -29,7 +38,6 @@ public class ReviveDialog : BaseDialog
     {
         base.OnEndHideDialog();
         EndlessLevel.Instance.SetLife = 0;
-        EndlessLevel.Instance.SetActiveMainCircle(false);
     }
     public void RefuseBtn()
     {
@@ -37,14 +45,14 @@ public class ReviveDialog : BaseDialog
         IngameController.instance.isGameOver = false;
         EndlessLevel.Instance.Clear();
         DialogManager.Instance.HideDialog(dialogIndex);
+        IngameController.instance.SetIngameObjectActive(false); 
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
-
             DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog, null, () =>
             {
                 IngameController.instance.isPause = false;
                 CirclePool.instance.transform.localScale = Vector3.one;
-                WallScript.Instance.transform.localScale = Vector3.one;
+                //WallScript.Instance.transform.localScale = Vector3.one;
             });
         });
     }
@@ -52,6 +60,7 @@ public class ReviveDialog : BaseDialog
     {
         DialogManager.Instance.HideDialog(DialogIndex.ReviveDialog, () =>
         {
+            Player.instance.canDrop = true;
             IngameController.instance.isGameOver = false;   
             IngameController.instance.isPause = false;
             EndlessLevel.Instance.UnfreezeCircles();
@@ -59,9 +68,9 @@ public class ReviveDialog : BaseDialog
             CirclePool.instance.transform.localScale = Vector3.one;
             WallScript.Instance.transform.localScale = Vector3.one;
             IngameController.instance.player.SetActive(true);
-            EndlessLevel.Instance.SetActiveMainCircle(true);
-            Player.instance.canDrop = true;
             WallScript.Instance.TopWallCouroutine();
+            EndlessLevel.Instance.SetActiveMainCircle(true);
+
         });
     }
 }

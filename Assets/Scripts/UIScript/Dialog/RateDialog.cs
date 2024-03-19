@@ -44,24 +44,21 @@ public class RateDialog : BaseDialog
         if (Player.instance != null)
         {
             Player.instance.canDrop = true;
+            Player.instance.gameObject.SetActive(true);
         }
         EndlessLevel.Instance.main.gameObject.SetActive(true);
     }
     public void CloseButton()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.RateDialog, () =>
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
             Debug.Log("CloseButton");
-
-            if (Player.instance != null)
-            {
-                Player.instance.canDrop = true;
-            }
+            Player.instance.canDrop = true;
         });
     }
     public void ReMindLaterBtn()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.RateDialog, () =>
+        DialogManager.Instance.HideDialog(this.dialogIndex, () =>
         {
             Debug.Log("ReMindLaterBtn");
             if (Player.instance != null)
@@ -79,13 +76,18 @@ public class RateDialog : BaseDialog
     public void RateButton()
     {
         Debug.Log("RateButton");
+      
         var rateAnim = GetComponentInChildren<RateAnim>();
-        stars.StarListConfirm();
-        rateAnim.PlaySuccesfullRating(() =>
+        stars.StarListConfirm(() =>
         {
-            DialogManager.Instance.HideDialog(DialogIndex.RateDialog, () =>
+            rateAnim.PlaySuccesfullRating(() =>
             {
+                DialogManager.Instance.HideDialog(dialogIndex, () =>
+                {
+                    Debug.Log("HIDE DIALOG " + dialogIndex);
+                });
             });
         });
+       
     }
 }

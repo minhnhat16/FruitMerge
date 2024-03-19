@@ -8,7 +8,6 @@ public class BoxSkinGrid : MonoBehaviour
 {
     [SerializeField] private BoxItem crBoxItem;
     [SerializeField] private List<BoxItem> _skins;
-    [SerializeField] private int sumAvailableSkin;
     [SerializeField] private static int ShopSkinId = 3;
     [SerializeField] private ScrollRect scrollRect;
     public UnityEvent<BoxItem> onEquipBoxAction = new UnityEvent<BoxItem>();
@@ -20,7 +19,6 @@ public class BoxSkinGrid : MonoBehaviour
     }
     private void Start()
     {
-        sumAvailableSkin = 6;
         InitiateSkinItem();
     }
     private void OnEnable()

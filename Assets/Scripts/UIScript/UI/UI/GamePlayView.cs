@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GamePlayView : BaseView
+public class GamePlayView : BaseView, IPointerClickHandler
 {
     [HideInInspector] GamePlayAnim anim;
     [SerializeField] Text score_lb;
@@ -26,6 +27,7 @@ public class GamePlayView : BaseView
     [SerializeField] Button upgrade_Btn;
     [SerializeField] Button clear_btn;
 
+    [SerializeField] bool settingActive;
     [SerializeField] bool onTomato;
     [SerializeField] bool onBomb;
     [SerializeField] bool onUpgrade;
@@ -129,20 +131,25 @@ public class GamePlayView : BaseView
     }
     public void PauseButton()
     {
-        if(settingList.activeSelf == true)
+        if (settingActive == true)
         {
             Debug.Log("pause button list ON");
             settingList.GetComponent<SettingList>().HideSettingList(() =>
             {
+                settingActive = false;
                 settingList.SetActive(false);
-                clear_btn.gameObject.SetActive(true);  
+                clear_btn.gameObject.SetActive(true);
+                Player.instance.canDrop = true;
             });
         }
         else
         {
+            settingActive = true;
             settingList.SetActive(true);
             clear_btn.gameObject.SetActive(true);
             settingList.GetComponent<SettingList>().ShowSettingList(null);
+            Player.instance.canDrop = false;
+
 
         }
     }
@@ -232,9 +239,11 @@ public class GamePlayView : BaseView
     }
     public void ClearButton()
     {
-        Debug.Log("ClearButtonClicked");
-        if (settingList.activeSelf)
+        //Debug.Log("ClearButtonClicked");
+        if (settingActive == true)
         {
+            settingActive = false;
+            Player.instance.canDrop = true;
             Debug.Log("Hide setting list");
             settingList.GetComponent<SettingList>().HideSettingList(() =>
             {
@@ -259,21 +268,30 @@ public class GamePlayView : BaseView
     }
     public void SettingButton()
     {
+        PauseButton();
         DialogManager.Instance.ShowDialog(DialogIndex.SettingDialog);
     }
     public void SkinButton()
     {
+        PauseButton();
         //DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
 
     }
     public void RateButton()
     {
+        PauseButton();
         DialogManager.Instance.ShowDialog(DialogIndex.RateDialog);
     }
     public void RankButton()
     {
+        PauseButton();
         //DialogManager.Instance.ShowDialog(DialogIndex.LableChooseDialog);
         //DialogManager.Instance.ShowDialog(DialogIndex.LeaderBoardDialog);
 
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        // Handle the click event here
+        Debug.Log("UI Object Clicked!");
     }
 }

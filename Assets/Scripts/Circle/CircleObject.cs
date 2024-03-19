@@ -69,7 +69,7 @@ public class CircleObject : FSMSystem
     }
     public void SetSpriteByID(int id)
     {
-        Debug.Log("SpriteByID " + id);
+        //Debug.Log("SpriteByID " + id);
         id++;
         skinType = DataAPIController.instance.GetCurrentFruitSkin();
         var spriteName = SpriteLibControl.Instance.GetSpriteName(skinType, id);
@@ -92,7 +92,7 @@ public class CircleObject : FSMSystem
     public void SetColliderRadius()
     {
         _collider.GetComponent<CircleCollider2D>().radius = circleType.Radius;
-        Debug.Log($" _collider.GetComponent<CircleCollider2D>().radius {circleType.Radius}");
+        //Debug.Log($" _collider.GetComponent<CircleCollider2D>().radius {circleType.Radius}");
     }
 
     public void EnableTarget()

@@ -71,6 +71,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34445132c572ff4da081cd10da6cd10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crCircle: {fileID: 0}
+  timingToDie: 2.5
+  totalFruitTrigger: 0
   gameOverEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -307,7 +310,7 @@ MonoBehaviour:
   shakeDuration: 0.5
   vibrato: 100
   randomness: -1
-  timeSetTopWall: 10
+  timeSetTopWall: 5
 --- !u!1 &8703283832889967291
 GameObject:
   m_ObjectHideFlags: 0

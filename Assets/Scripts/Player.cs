@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -54,17 +55,16 @@ public class Player : MonoBehaviour, IPointerClickHandler
         spawnPoint = new Vector3(0, spawnPoint.y);
         transform.position = new Vector3(0, transform.position.y);
     }
+
+
     public bool MousePosition()
     {
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
-        bool isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
-        //Debug.Log($"camera top{CameraMain.instance.GetTop() - 2f} " +
-        //    $" point {point.x}");
-        if (point.y > CameraMain.instance.GetTop() - 3f || point.y < CameraMain.instance.GetBottom() + 4f && !isPointerOverUI)
+        //bool isPointerOverUI = GameManager.instance.UIRoot.IsPointerOverUIElement();
+        if (point.y > CameraMain.instance.GetTop() -3.5f || point.y < CameraMain.instance.GetBottom() + 4.5f)
         {
             return false;
         }
-
         else return true;
     }
     private void SetPlayerPosition()
@@ -81,8 +81,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     }
     void MouseDown()
     {
-
-        if (CameraMain.instance != null && MousePosition() && !IngameController.instance.isPause && canDrop ==true )
+        if (CameraMain.instance != null && !IngameController.instance.isPause && canDrop ==true && MousePosition()==true)
         {
             mainCircle = EndlessLevel.Instance.main;
             if (mainCircle != null) StartCoroutine(DropCircle());
@@ -133,5 +132,11 @@ public class Player : MonoBehaviour, IPointerClickHandler
             _lineRenderer.gameObject.SetActive(true);
             canDrop = true;
         }
+    }
+    public void Reset()
+    {
+        ResetPos();
+        canDrop = true;
+        mainCircle = null;
     }
 }

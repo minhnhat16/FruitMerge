@@ -7,7 +7,6 @@ public class SkinGrid : MonoBehaviour
 {
     [SerializeField] private SkinItem crSkinItem;
     [SerializeField] private List<SkinItem> _skins;
-    [SerializeField] private int sumAvailableSkin;
     [SerializeField] private static int ShopSkinId = 2;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
@@ -19,7 +18,6 @@ public class SkinGrid : MonoBehaviour
     }
     private void Start()
     {
-        sumAvailableSkin = 6;
         InitiateSkinItem();
     }
     private void OnEnable()
