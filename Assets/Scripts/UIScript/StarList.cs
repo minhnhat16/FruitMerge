@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.WebSockets;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,7 +11,6 @@ using UnityEngine.Events;
 public class StarList : MonoBehaviour
 {
     [SerializeField] private List<StartRate> _stars = new List<StartRate>();
-    [SerializeField] private List<StartRate> _starsRated = new List<StartRate>();
     [SerializeField] private Action callback;
     [HideInInspector]
     public UnityEvent<int> starEvent = new UnityEvent<int>();
@@ -59,17 +59,24 @@ public class StarList : MonoBehaviour
             if (_stars[index].IsOn)
                 _stars[index].ConfirmStarRate(() =>
                 {
+                    
                     index++;
+                    if (index == 5)
+                    {
+                        Debug.Log("Start last star invoker");
+                        callback?.Invoke();
+                        return;
+                    }
                     Debug.Log(index);
                     StartNextStar(index);
                 });
             else
             {
-                Debug.Log("Start next start invoker");
+                Debug.Log("Start next star invoker");
                 callback?.Invoke();
             }
         }
-    
+        
     }
     public void Init()
     {

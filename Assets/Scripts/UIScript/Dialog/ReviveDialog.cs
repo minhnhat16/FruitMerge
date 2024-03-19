@@ -32,7 +32,6 @@ public class ReviveDialog : BaseDialog
     public override void OnStartHideDialog()
     {
         base.OnEndHideDialog();
-        IngameController.instance.SwitchLoseCamOnOff(false);
     }
     public override void OnEndHideDialog()
     {

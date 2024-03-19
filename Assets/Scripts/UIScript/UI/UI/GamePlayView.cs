@@ -155,6 +155,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void NextCircleImage(int id)
     {
+        id--;
         nextBlock.transform.DOScale(0.1f, 0);
         Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
         int skinID = DataAPIController.instance.GetCurrentFruitSkin();

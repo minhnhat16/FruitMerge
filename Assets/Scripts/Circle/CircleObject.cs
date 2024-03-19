@@ -70,7 +70,7 @@ public class CircleObject : FSMSystem
     public void SetSpriteByID(int id)
     {
         //Debug.Log("SpriteByID " + id);
-        id++;
+        //id++;
         skinType = DataAPIController.instance.GetCurrentFruitSkin();
         var spriteName = SpriteLibControl.Instance.GetSpriteName(skinType, id);
         spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
@@ -313,6 +313,7 @@ public class CircleObject : FSMSystem
     }
     public void SpawnCircle(int i)
     {
+        Debug.Log($"type id {i}");
         i--;
         if (IngameController.instance.isGameOver) return;
         instanceID = 0;

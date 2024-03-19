@@ -30,9 +30,13 @@ public class ReviveAnim : BaseDialogAnimation
     {
         callback?.Invoke();
     }
-    public void Clear()
+    public void SetLoseCamOn()
     {
         Debug.Log("Clear");
         IngameController.instance.SwitchLoseCamOnOff(true);
+    }
+    public void SetLoseCamOff()
+    {
+        IngameController.instance.SwitchLoseCamOnOff(false);
     }
 }

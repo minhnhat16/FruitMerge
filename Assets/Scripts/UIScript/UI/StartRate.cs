@@ -51,6 +51,9 @@ public class StartRate : MonoBehaviour
         this.callback = callback;
         anim.Play("RateStar");
     }
+    /// <summary>
+    //CALL BACK INVOKE WHEN STAR ON 
+    /// </summary>
     public void CallBackInvoke()
     {
         Debug.LogWarning("callbackinvoke");

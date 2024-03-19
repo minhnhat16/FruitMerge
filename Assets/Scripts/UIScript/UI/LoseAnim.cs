@@ -28,8 +28,13 @@ public class LoseAnim : BaseDialogAnimation
     {
         callback?.Invoke();
     }
-    public void Clear()
+    public void SetLoseCamOn()
     {
-        callback?.Invoke();
+        Debug.Log("Clear");
+        IngameController.instance.SwitchLoseCamOnOff(true);
+    }
+    public void SetLoseCamOff()
+    {
+        IngameController.instance.SwitchLoseCamOnOff(false);
     }
 }
