@@ -45,6 +45,10 @@ public class StartRate : MonoBehaviour
         startOff.gameObject.SetActive(!isOn);
         starOn.gameObject.SetActive(isOn);
     }
+    public void HideStarAnim()
+    {
+        anim.Play("StarHidee");
+    }
     public void ConfirmStarRate(Action callback)
     {
         Debug.Log("ConfirmStarRate");
@@ -56,6 +60,8 @@ public class StartRate : MonoBehaviour
     /// </summary>
     public void CallBackInvoke()
     {
+        if (!isOn) return;
+        isOn = false;
         Debug.LogWarning("callbackinvoke");
         callback?.Invoke();
     }

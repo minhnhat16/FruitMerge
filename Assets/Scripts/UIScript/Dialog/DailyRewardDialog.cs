@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -64,6 +65,10 @@ public class DailyRewardDialog : BaseDialog
     }
     public void QuitButton()
     {
-        DialogManager.Instance.HideDialog(dialogIndex);
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
+        {
+
+            Debug.Log("quit button callback");
+        });
     }
 }

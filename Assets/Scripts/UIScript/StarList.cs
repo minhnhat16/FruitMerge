@@ -29,6 +29,13 @@ public class StarList : MonoBehaviour
     {
         Init();
     }
+   public void StarsListOff()
+    {
+        foreach (var star in _stars)
+        {
+            star.SetOnStar(false);
+        }
+    }
     private void StarClickEvent(int idStar)
     {
         Debug.Log($"StarClickEvent {idStar}");
@@ -50,6 +57,7 @@ public class StarList : MonoBehaviour
     public void StarListConfirm( Action callback)
     {
         this.callback = callback;
+        Debug.Log($"StarListConfirm {callback}");
         StartNextStar(0);
     }
     public void StartNextStar(int index )
@@ -77,6 +85,13 @@ public class StarList : MonoBehaviour
             }
         }
         
+    }
+    public void StarsHide()
+    {
+        foreach(var star in _stars)
+        {
+            star.HideStarAnim();
+        }
     }
     public void Init()
     {

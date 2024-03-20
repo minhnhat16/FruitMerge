@@ -27,7 +27,6 @@ public class DailyGrid : MonoBehaviour
     {
         //DayTimeController.instance.CheckNewDay();
         isNewDay = DayTimeController.instance.isNewDay;
-       
         DailyItems = new Dictionary<int, DailyItem>();
         SetupGrid();
         CheckFullDailyClaim();

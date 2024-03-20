@@ -214,6 +214,9 @@ MonoBehaviour:
   resetDailyEvent:
     m_PersistentCalls:
       m_Calls: []
+  lastItemClaimEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &911013052295128887
 MonoBehaviour:
   m_ObjectHideFlags: 0

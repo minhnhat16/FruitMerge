@@ -25,8 +25,8 @@ public class RateDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
+        stars.StarsListOff();
         OnRateEvents(false);
-
         if (EndlessLevel.Instance == null) return;
         if (EndlessLevel.Instance.main != null)
         {
@@ -76,7 +76,7 @@ public class RateDialog : BaseDialog
     public void RateButton()
     {
         Debug.Log("RateButton");
-      
+        
         var rateAnim = GetComponentInChildren<RateAnim>();
         stars.StarListConfirm(() =>
         {
@@ -85,6 +85,7 @@ public class RateDialog : BaseDialog
                 DialogManager.Instance.HideDialog(dialogIndex, () =>
                 {
                     Debug.Log("HIDE DIALOG " + dialogIndex);
+                    rateBtn.gameObject.SetActive(false);
                 });
             });
         });
