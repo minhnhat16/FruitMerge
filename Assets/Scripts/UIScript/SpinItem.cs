@@ -9,6 +9,10 @@ public class SpinItem : MonoBehaviour
     [SerializeField] int amount;
     [SerializeField] Image itemImg;
     // Start is called before the first frame update
+
+    public int ID {  get { return id; } }
+    public ItemType Type { get { return type; } }
+    public int Amount {  get { return amount; } }   
     void Start()
     {
 
@@ -27,10 +31,7 @@ public class SpinItem : MonoBehaviour
     {
         if (type == ItemType.GOLD)
         {
-            DataAPIController.instance.SaveGold(amount, () =>
-            {
-                Debug.Log($"Added to data {amount} gold ");
-            });
+            DataAPIController.instance.AddGold(amount);
         }
         else if( type  ==ItemType.CHANGE  && type == ItemType.HAMMER && type == ItemType.ROTATE)
         {

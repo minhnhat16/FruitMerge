@@ -1,8 +1,9 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
+using Button = UnityEngine.UI.Button;
 
 public class SpinCircle : MonoBehaviour
 {
@@ -17,11 +18,20 @@ public class SpinCircle : MonoBehaviour
     [SerializeField] ArrowSpin arrow;
     [SerializeField] SpinItem crItem;
     [SerializeField] Button button;
+    [SerializeField] TextMeshProUGUI claim_lb;
     [SerializeField] bool isSpining;
+   public UnityEvent<bool> spinnedEvent = new UnityEvent<bool>();
+
+
+    public bool IsSpining { get { return isSpining; } set { IsSpining = value; } }
     // Start is called before the first frame update
     private void OnEnable()
     {
         spinConfig = ConfigFileManager.Instance.SpinConfig;
+    }
+    private void OnDisable()
+    {
+        
     }
     void Start()
     {
@@ -35,12 +45,7 @@ public class SpinCircle : MonoBehaviour
     {
 
     }
-    public IEnumerator HideViewAfterSpin()
-    {
-        yield return new WaitUntil(() => isSpining == false);
-        yield return new WaitForSeconds(5f);    
-        DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog);
-    }
+ 
     public void SpinningCircle()
     {
         isSpining = true;
@@ -55,8 +60,8 @@ public class SpinCircle : MonoBehaviour
             isSpining = false;
             arrow.StopArrowAnim(null);
             crItem.OnRewardItem();
-            StartCoroutine(HideViewAfterSpin());
-
+            claim_lb.text = $"Congratuation you get {crItem.Amount} of {crItem.Type}";
+            spinnedEvent?.Invoke(true);
         });
     }
     // FUNTION FIND ITEM'S ANGLE
@@ -64,30 +69,37 @@ public class SpinCircle : MonoBehaviour
     {
         int random = Random.Range(0, 7);
         crItem  = _items[random];
-        float newAngle = angleCheck =  265 - angleSteps[random];
-        //item.gameObject.SetActive(false);
+        float newAngle = angleCheck = 265 - angleSteps[random];
         return newAngle;
     }
-    void SpawnObjectsInCircle()
+ 
+    public void SpawnObjectsInCircle()
     {
         Debug.Log("SpawnObjectsInCircle");
         float angleStep = 360f / numberOfObjects;
         for (int i = 0; i < numberOfObjects; i++)
         {
-            float angle = i * angleStep - minusStep;
-            float x = Mathf.Cos(Mathf.Deg2Rad * (angle)) * radius;
-            float y = Mathf.Sin(Mathf.Deg2Rad * (angle)) * radius;
-
-            Vector3 localPost = new Vector3(x, y, 0f);
+            Vector3 localPost = LocalItemPosition(i,angleStep,radius);
             Vector3 spawnPosition =  rect.TransformPoint(localPost);
-            Debug.Log($"Spawn Position item spin {spawnPosition}"
-                        + $"angle {angle}");
-            angleSteps.Add(angle);
-            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angle +80);
-            GameObject item = Instantiate(Resources.Load("Prefab/UIPrefab/SpinItem", typeof(GameObject)), spawnPosition, spawnRotation, this.transform) as GameObject;
-            var itemConfig = spinConfig.GetRecordByKeySearch(i);
-            item.GetComponent<SpinItem>().InitItem(itemConfig);
-            _items.Add(item.GetComponent<SpinItem>());
+            Debug.Log($"Spawn Position item spin {spawnPosition}");
+            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, angleSteps[i] +80);
+
+            InitiateNewSpinItem(i,spawnRotation,spawnPosition);
         }
+    }
+    private void InitiateNewSpinItem(int i,Quaternion rotation,Vector3 pos)
+    {
+        GameObject item = Instantiate(Resources.Load("Prefab/UIPrefab/SpinItem", typeof(GameObject)), pos, rotation, this.transform) as GameObject;
+        var itemConfig = spinConfig.GetRecordByKeySearch(i);
+        item.GetComponent<SpinItem>().InitItem(itemConfig);
+        _items.Add(item.GetComponent<SpinItem>());
+    }
+    private Vector3 LocalItemPosition(int i,float angleStep, float radius)
+    {
+        float angle = i * angleStep - minusStep;
+        float x = Mathf.Cos(Mathf.Deg2Rad * (angle)) * radius;
+        float y = Mathf.Sin(Mathf.Deg2Rad * (angle)) * radius;
+        angleSteps.Add(angle);
+        return new Vector3(x, y, 0f);
     }
 }

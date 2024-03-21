@@ -18,7 +18,7 @@ public class MainScreenAnim : BaseViewAnimation
         this.callback = callback;
         animator.Play("MainViewShow");
     }
- 
+
     public void ShowAnim()
     {
         callback?.Invoke();
@@ -28,7 +28,7 @@ public class MainScreenAnim : BaseViewAnimation
     {
         callback?.Invoke();
     }
-    public void Clear()
+    public void SpinDone()
     {
         callback?.Invoke();
     }

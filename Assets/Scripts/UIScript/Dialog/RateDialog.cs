@@ -76,7 +76,6 @@ public class RateDialog : BaseDialog
     public void RateButton()
     {
         Debug.Log("RateButton");
-        
         var rateAnim = GetComponentInChildren<RateAnim>();
         stars.StarListConfirm(() =>
         {
