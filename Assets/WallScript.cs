@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WallScript : MonoBehaviour
 {
@@ -9,11 +10,10 @@ public class WallScript : MonoBehaviour
     public static WallScript Instance;
     [SerializeField] private List<Collider2D> colliders;
     [SerializeField] private SpriteRenderer _box;
-    public Vector3 shakeAmount = new Vector3(5f,5f, 0f); // Adjust the shake amount along each axis
-    public float shakeDuration = 0.5f;
-    public int vibrato =30;
-    public float randomness = 90f;
     public float timeSetTopWall = 10f;
+    [SerializeField] float duration = 20;
+    [SerializeField] int strength = 5;
+    [SerializeField] float speed = 5f;
     public GameObject GetTopWall()
     {
         return colliders[2].gameObject;
@@ -30,7 +30,6 @@ public class WallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
     void SetUpCollider()
     {
@@ -42,6 +41,12 @@ public class WallScript : MonoBehaviour
             colliders[3].transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3);
             colliders[2].transform.position = colliders[3].transform.position + new Vector3(0, 11f, 0);
         }
+
+    }
+    void SetBoxPos()
+    {
+        float max = colliders[3].bounds.max.y;
+        _box.transform.position = Vector3.Lerp(_box.transform.position, new Vector3(max, max, max), 0); 
 
     }
     public void TopWallCouroutine()
@@ -64,18 +69,21 @@ public class WallScript : MonoBehaviour
     }
     public void ShakeWall()
     {
-        // Shake the object along the X axis
-        var tween = transform.DOShakePosition(shakeDuration, shakeAmount, vibrato, randomness, false, true, ShakeRandomnessMode.Full)
-        .SetLoops(10)
-            .SetRelative(true); // Loop time  = 10sec
-        tween.OnComplete(() =>
-        {
-            Player.instance.canDrop = true;
-            transform.position = Vector3.zero;
-            IngameController.instance.CancelItem();
-            tween?.Kill();
-        });
+        Trembling();
     }
+    void Trembling()
+    {
+     
+        Vector3 crPos = transform.position;
+        foreach(var collider in colliders)
+        {
+            Tween shake = collider.transform.DOShakePosition(duration, strength);
+            shake.OnComplete(() =>
+            {
+                shake.Kill();
+            });
 
-
+        }
+       
+    }
 }

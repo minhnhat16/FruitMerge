@@ -85,7 +85,7 @@ public class DataModel : MonoBehaviour
             userInventory.itemInventory = new Dictionary<string, ItemData>();
             for(int i = 0; i < 3;i ++) {
                 ItemData itemData = new ItemData();
-                itemData.total = 10;
+                itemData.total = 1000;
                 int id = i ;
                 itemData.id = id.ToString();
                 userInventory.itemInventory.Add(itemData.id, itemData);

@@ -213,7 +213,8 @@ public class EndlessLevel : MonoBehaviour
     {
         Player.instance.canDrop = false;
         isUpgrade = true;
-        WallScript.Instance.ShakeWall();
+        AddForceForCircle();
+        //WallScript.Instance.ShakeWall();
     }
 
     public void AfterUsingBombItem()
@@ -243,28 +244,19 @@ public class EndlessLevel : MonoBehaviour
     {
         //Debug.Log("DisableTargetCircles");
         if (_circles == null ) return;
-        for (int i = 0; i < _circles.Count - 1; i++)
+        for (int i = 0; i < _circles.Count; i++)
         {
             _circles[i].DisableTarget();
         }
     }
-    public static void BubbleSortCircle(List<CircleObject> circles)
+    public void AddForceForCircle()
     {
-        int n = circles.Count;
-        for (int i = 0; i < n - 1; i++)
+        foreach(var c in _circles)
         {
-            for (int j = 0; j < n - i - 1; j++)
-            {
-                if (circles[j].TypeID > circles[j + 1].TypeID)
-                {
-                    // Swap circles[j] and circles[j+1]
-                    var temp = circles[j];
-                    circles[j] = circles[j + 1];
-                    circles[j + 1] = temp;
-                }
-            }
+            c.AddForceUp();
         }
     }
+   
     public void FreezeCircleDead()
     {
         foreach (var c in _circles)

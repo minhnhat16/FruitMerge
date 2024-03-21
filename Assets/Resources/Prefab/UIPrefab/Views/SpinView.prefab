@@ -1146,7 +1146,7 @@ MonoBehaviour:
   rect: {fileID: 0}
   radius: 250
   numberOfObjects: 8
-  minusStep: 115
+  minusStep: 25
   _items: []
   angleSteps: []
   angleCheck: 0

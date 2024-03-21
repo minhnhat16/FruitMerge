@@ -422,6 +422,49 @@ public class CircleObject : FSMSystem
         }
         return null;
     }
+    private IEnumerator StartAddingForce()
+    {
+        float elapsedTime = 0f;
+        float duration = 10f;
+        // Loop until the elapsed time exceeds the specified duration
+        while (elapsedTime < duration)
+        {
+            Debug.Log($"StartAddingForce {elapsedTime}");
+
+            // Calculate the normalized force to be applied
+            float normalizedTime = elapsedTime / duration;
+            Vector3 force = Vector3.up * 10 * normalizedTime;
+
+            // Add the force to the Rigidbody
+            rigdBody.AddForce(force, ForceMode2D.Force);
+
+            // Increment the elapsed time
+            elapsedTime += Time.deltaTime;
+
+            // Wait for the next frame
+            yield return null;
+        }
+    }
+
+    public void ApplyForceOverTime()
+    {
+        // Start the coroutine to gradually add force over time
+        StartCoroutine(StartAddingForce());
+    }
+    public void AddForceUp()
+    {
+        rigdBody.AddForce(5*Vector2.up, ForceMode2D.Impulse);
+    }
+    public void AddForceLeft()
+    {
+        rigdBody.AddForce(Vector2.left, ForceMode2D.Impulse);
+
+    }
+    public void AddForceRight()
+    {
+        rigdBody.AddForce(Vector2.right, ForceMode2D.Impulse);
+
+    }
     private void Reset()
     {
         instanceID = 0;

@@ -12,6 +12,7 @@ public class DailyRewardDialog : BaseDialog
     [HideInInspector] public UnityEvent<bool> onClickAds = new();
     private void OnEnable()
     {
+
         onClickDailyItem.AddListener(ClickDailyItem);
         onClickClaim.AddListener(ClickClaimReward);
         onClickAds.AddListener(OnClickAdsReward);
@@ -32,12 +33,13 @@ public class DailyRewardDialog : BaseDialog
     }
     public void ClickDailyItem(bool isEnable)
     {
+        Debug.Log("ClickDailyItem");
         claimBtn.enabled = true;
         if (isEnable)
         {
-            Debug.Log($"Check Button type {isEnable}");
+            Debug.Log($"Check Button type {isEnable} + claimbtn {claimBtn.gameObject.activeSelf}");
             claimBtn.CheckButtonType();
-            claimBtn.gameObject.SetActive(true);
+            claimBtn.gameObject.SetActive(isEnable);
         }
         else
         {

@@ -69,7 +69,7 @@ public class SpinCircle : MonoBehaviour
     {
         int random = Random.Range(0, 7);
         crItem  = _items[random];
-        float newAngle = angleCheck = 265 - angleSteps[random];
+        float newAngle = angleCheck = 85 - angleSteps[random];
         return newAngle;
     }
  

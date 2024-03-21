@@ -18,10 +18,19 @@ public class DailyItem : MonoBehaviour
     public TextMeshProUGUI Amount_lb;
     public IEDailyType currentType;
     public Button daily_btn;
-    [HideInInspector] public UnityEvent<bool> onClickDailyItem = new();
-    [HideInInspector] public UnityEvent<bool> onItemClaim = new();
+    [SerializeField] public UnityEvent<bool> onClickDailyItem = new();
+    [SerializeField ] public UnityEvent<bool> onItemClaim = new();
 
     private void OnEnable()
+    {
+       
+    }
+    private void OnDisable()
+    {
+        onClickDailyItem.RemoveAllListeners();
+        onItemClaim.RemoveAllListeners();
+    }
+    private void Start()
     {
         var parent = FindObjectOfType<DailyRewardDialog>();
         if (parent != null)
@@ -29,11 +38,6 @@ public class DailyItem : MonoBehaviour
             onClickDailyItem = parent.onClickDailyItem;
             onItemClaim = parent.onClickClaim;
         }
-    }
-    private void OnDisable()
-    {
-        onClickDailyItem.RemoveAllListeners();
-        onItemClaim.RemoveAllListeners();
     }
     public void Init( IEDailyType type, int amount, int day,string spriteName,string itemName)
     {
@@ -123,8 +127,7 @@ public class DailyItem : MonoBehaviour
         Debug.Log("On Click Daily Item");
         if(currentType == IEDailyType.Available)
         {
-         //var parent = DialogManager.Instance.dicDialog[DialogIndex.DailyRewardDialog].GetComponent<DailyRewardDialog>();
-         //   parent.dailyGrid.currentDaily = this;
+            Debug.Log("On Click Daily Item" + IEDailyType.Available);
             onClickDailyItem?.Invoke(true);
         }
         else

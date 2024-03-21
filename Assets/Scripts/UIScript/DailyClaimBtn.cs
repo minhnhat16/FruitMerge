@@ -24,6 +24,7 @@ public class DailyClaimBtn : MonoBehaviour
     }
     public void CheckButtonType()
     {
+        Debug.Log("Check Button Type");
         if(isClaimed) return;
         else
         {
