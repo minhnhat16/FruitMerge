@@ -42,7 +42,7 @@ public class TopWall : MonoBehaviour
    
     IEnumerator GameOverCheck(CircleObject circle)
     {
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(1f); 
         if (circle != null && circle.isActiveAndEnabled == true)
         {
             //Debug.Log("TRIGGER COLLIDER ");

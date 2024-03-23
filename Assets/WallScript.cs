@@ -43,20 +43,20 @@ public class WallScript : MonoBehaviour
         }
 
     }
-    void SetBoxPos()
-    {
-        float max = colliders[3].bounds.max.y;
-        _box.transform.position = Vector3.Lerp(_box.transform.position, new Vector3(max, max, max), 0); 
 
-    }
     public void TopWallCouroutine()
     {
         StartCoroutine(SetTopWallActive());
     }
+    public void SetTopWallActive(bool active)
+    {
+        colliders[2].gameObject.SetActive(active);
+
+    }
     private IEnumerator SetTopWallActive()
     {
         yield return new WaitForSeconds(timeSetTopWall);
-        colliders[2].gameObject.SetActive(true);
+        SetTopWallActive(true);
         Debug.Log($"SetTopWallActive {colliders[2].isActiveAndEnabled}");
     }
     public void SetUpLineRender()

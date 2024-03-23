@@ -1,5 +1,5 @@
 using DG.Tweening;
-using JetBrains.Annotations;
+using NaughtyAttributes.Test;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -21,6 +21,7 @@ public class CircleObject : FSMSystem
     [SerializeField] private CircleObject contactCircle;
     [SerializeField] private int typeID;
     [SerializeField] private int skinType;
+    [SerializeField] private int shakeDuration;
     [SerializeField] private float instanceID;
     [SerializeField] private float fallSpeed;
     [SerializeField] float smoothTime;
@@ -299,7 +300,7 @@ public class CircleObject : FSMSystem
     public void PlayMergeVFX(CircleObject circle)
     {
         MergeVFX vfx = MergeVFXPool.instance.pool.SpawnNonGravity();
-        vfx.SetTransform(transform.position);   
+        vfx.SetTransform(transform.position);
         var color = circle.circleType.Color;
         //Debug.Log($"PlayMergeVFX color {color}");
         SetParticleColor(color, vfx.MainVFX);
@@ -445,15 +446,30 @@ public class CircleObject : FSMSystem
             yield return null;
         }
     }
+    public IEnumerator ForceCouroutine()
+    {
+        if (!gameObject.activeSelf) yield break;
+        int elapseTime;
+        int duration = shakeDuration;
+        for (elapseTime = 0; elapseTime < duration; elapseTime++)
+        {
+            float randomValue = Random.Range(100f, 250f);
+            Vector3 force = 7f * randomValue * Vector3.up;
 
+            rigdBody.AddForce(force, ForceMode2D.Force);
+
+            yield return new WaitForSeconds(1f);
+        }
+    }
     public void ApplyForceOverTime()
     {
+        if (gameObject.activeSelf == false) return;
         // Start the coroutine to gradually add force over time
-        StartCoroutine(StartAddingForce());
+        StartCoroutine(ForceCouroutine());
     }
     public void AddForceUp()
     {
-        rigdBody.AddForce(5*Vector2.up, ForceMode2D.Impulse);
+        rigdBody.AddForce(2 * Vector2.up, ForceMode2D.Impulse);
     }
     public void AddForceLeft()
     {

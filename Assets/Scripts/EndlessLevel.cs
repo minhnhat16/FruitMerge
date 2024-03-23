@@ -214,9 +214,20 @@ public class EndlessLevel : MonoBehaviour
         Player.instance.canDrop = false;
         isUpgrade = true;
         AddForceForCircle();
-        //WallScript.Instance.ShakeWall();
+        WallScript.Instance.SetTopWallActive(false);
+        ShakeCouroutine();
     }
-
+    public void ShakeCouroutine()
+    {
+        StartCoroutine(AfterUsingShake());
+    }
+    public IEnumerator AfterUsingShake()
+    {
+        yield return new WaitForSeconds(7f);
+        Player.instance.canDrop = true;
+        IngameController.instance.CancelItem();
+        WallScript.Instance.SetTopWallActive(true);
+    }
     public void AfterUsingBombItem()
     {
         Player.instance.canDrop = true;
@@ -253,10 +264,12 @@ public class EndlessLevel : MonoBehaviour
     {
         foreach(var c in _circles)
         {
-            c.AddForceUp();
+            if (c.gameObject.activeSelf)
+            {
+                c.ApplyForceOverTime();
+            }
         }
     }
-   
     public void FreezeCircleDead()
     {
         foreach (var c in _circles)
