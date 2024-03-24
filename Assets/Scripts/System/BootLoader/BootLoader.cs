@@ -4,8 +4,8 @@ using System.Collections;
 using UnityEngine;
 public class BootLoader : MonoBehaviour
 {
-    private GameManager gameManager;
-    
+    [SerializeField ]private GameManager gameManager;
+    [SerializeField] private UIRootControlScale uiRoot;
     IEnumerator Start()
     {
         DontDestroyOnLoad(this);

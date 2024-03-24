@@ -134,6 +134,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a73a7da4f840064798c565ee943ff79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1269701109 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8994215631183607025, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+  m_PrefabInstance: {fileID: 1189132359663979296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f02f6c6955a7ec147a412a59342a6e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1189132359663979296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,6 +172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BootLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 1189132358880768503, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: uiRoot
+      value: 
+      objectReference: {fileID: 1269701109}
     - target: {fileID: 1189132358880768504, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_RootOrder
       value: 0
