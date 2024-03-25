@@ -21,7 +21,7 @@ public class BoxTabButton : MonoBehaviour
     }
     public void OnTabOff()
     {
-        boxGrid.gameObject.SetActive(false);
+        boxGrid.SetActive(false);
         tabOn.SetActive(false);
         tabOff.SetActive(true);
     }

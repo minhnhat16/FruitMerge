@@ -887,8 +887,8 @@ RectTransform:
   m_Father: {fileID: 1018318051933313606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -3.2863, y: -6.1617}
   m_SizeDelta: {x: 178.6183, y: 243.7844}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1087,9 +1087,6 @@ MonoBehaviour:
   equipedBG: {fileID: 2365082949562718676}
   unquipedBG: {fileID: 8420098047631058225}
   confirmBtnType: {fileID: 812028830154550660}
-  onClickAction:
-    m_PersistentCalls:
-      m_Calls: []
   onEquipActionBox:
     m_PersistentCalls:
       m_Calls: []

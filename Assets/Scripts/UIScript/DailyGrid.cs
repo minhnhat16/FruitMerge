@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class DailyGrid : MonoBehaviour
 {
     public Dictionary<int, DailyItem> DailyItems;
     [SerializeField] private List<DailyItem> _items;
+    [SerializeField] private GridLayoutGroup _content;
     public DailyItem currentDaily;
     public bool isNewDay;
     [HideInInspector] public UnityEvent<bool> newDateEvent = new UnityEvent<bool>();
     [HideInInspector] public UnityEvent<bool> resetDailyEvent = new UnityEvent<bool>();
     [HideInInspector] public UnityEvent<bool> lastItemClaimEvent = new UnityEvent<bool>();
-
     private void OnEnable()
     {
         newDateEvent.AddListener(NewDayRewardRemain);
@@ -51,7 +52,7 @@ public class DailyGrid : MonoBehaviour
         {
             if (i < 6)
             {
-                var dailyItem = Instantiate(Resources.Load("Prefab/UIPrefab/DailyItem", typeof(GameObject)), transform) as GameObject;
+                var dailyItem = Instantiate(Resources.Load("Prefab/UIPrefab/DailyItem", typeof(GameObject)), transform.Find($"Content")) as GameObject;
                 if (dailyItem == null)
                 {
                     Debug.LogError(" item == null");

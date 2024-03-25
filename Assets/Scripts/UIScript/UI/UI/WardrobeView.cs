@@ -28,7 +28,6 @@ public class WardrobeView : BaseView
     {
         boxTab.OnClickTabOn();
         skinTab.OnTabOff();
-
     }
     public void SelectSkinTab()
     {
