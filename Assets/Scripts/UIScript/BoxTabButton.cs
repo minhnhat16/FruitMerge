@@ -15,7 +15,7 @@ public class BoxTabButton : MonoBehaviour
         tabOn.SetActive(true);
         tabOff.SetActive(false);
         //animator.Play("TabSkin");
-        boxGrid.GetComponentInChildren<Scrollbar>().value = 1;
+        boxGrid.GetComponentInChildren<ScrollRect>().verticalScrollbar.value = 1;
         boxGrid.SetActive(true);
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
     }

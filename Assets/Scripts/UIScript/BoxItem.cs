@@ -13,9 +13,9 @@ public class BoxItem : MonoBehaviour
     [SerializeField] private int skinID;
     [SerializeField] private int price;
     public TextMeshProUGUI skinName_lb;
-    public Image disableMask;
-    public Image equipedBG;
-    public Image unquipedBG;
+    public GameObject disableMask;
+    public GameObject equipedBG;
+    public GameObject unquipedBG;
     public ConfirmButton confirmBtnType;
     public int SkinID { get => skinID; set => skinID = value; }
     public bool IsOwned { get => isOwned; set => isOwned = value; }
