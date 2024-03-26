@@ -215,6 +215,7 @@ public class EndlessLevel : MonoBehaviour
         isUpgrade = true;
         AddForceForCircle();
         WallScript.Instance.SetTopWallActive(false);
+        CinemachineShake.instance.ShakeCamera(10f, 10f);
         ShakeCouroutine();
     }
     public void ShakeCouroutine()
@@ -223,7 +224,9 @@ public class EndlessLevel : MonoBehaviour
     }
     public IEnumerator AfterUsingShake()
     {
-        yield return new WaitForSeconds(7f);
+        var c = _circles.First();
+        yield return new WaitForSeconds(c.ShakeDuration *0.75f);
+        //yield return new WaitUntil(() => _circles.All(circle => circle.GetCurrentState() == "GroundedState"));
         Player.instance.canDrop = true;
         IngameController.instance.CancelItem();
         WallScript.Instance.SetTopWallActive(true);

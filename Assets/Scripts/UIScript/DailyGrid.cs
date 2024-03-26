@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -47,12 +46,14 @@ public class DailyGrid : MonoBehaviour
         {
             Debug.Log("SETUP GRID " + DailyItems.Count);
             return;
-        } 
+        }
         for (int i = 0; i < 7; i++)
         {
             if (i < 6)
             {
-                var dailyItem = Instantiate(Resources.Load("Prefab/UIPrefab/DailyItem", typeof(GameObject)), transform.Find($"Content")) as GameObject;
+                var gridChildren = GetComponentInChildren<GridLayoutGroup>().gameObject;
+                if (gridChildren == null) Debug.LogError("GRID CHILDREN NULL");
+                var dailyItem = Instantiate(Resources.Load("Prefab/UIPrefab/DailyItem", typeof(GameObject)), gridChildren.transform) as GameObject;
                 if (dailyItem == null)
                 {
                     Debug.LogError(" item == null");
@@ -67,7 +68,8 @@ public class DailyGrid : MonoBehaviour
             }
             else
             {
-                var dailyItem = Instantiate(Resources.Load("Prefab/UIPrefab/LastDailyItem", typeof(GameObject)), transform) as GameObject;
+                var gridChildren = GetComponentInChildren<GridLayoutGroup>().gameObject;
+                var dailyItem = Instantiate(Resources.Load("Prefab/UIPrefab/LastDailyItem", typeof(GameObject)), gridChildren.transform) as GameObject;
                 if (dailyItem == null)
                 {
                     Debug.LogError(" item == null");
@@ -82,9 +84,18 @@ public class DailyGrid : MonoBehaviour
             }
         }
     }
+    public void InvokeWhenHaveCurrentDaily()
+    {
+        if (currentDaily != null && currentDaily.currentType == IEDailyType.Available) currentDaily.CheckItemAvailable();
+        else
+        {
+            var item = _items.First((DailyItem daily) => daily.currentType == IEDailyType.Unavailable);
+            item.CheckItemAvailable();
+        }
+    }
     public void UpdateDailyReward(DailyItem item)
     {
-        if(item == null)
+        if (item == null)
         {
             Debug.Log(" Daily item == null");
         }
@@ -95,7 +106,7 @@ public class DailyGrid : MonoBehaviour
     {
         //check daily in day seven is claimed;
         var lastDailyData = DataAPIController.instance.GetDailyData("7");
-       if(lastDailyData.type == IEDailyType.Claimed)
+        if (lastDailyData.type == IEDailyType.Claimed)
         {
             DataAPIController.instance.SetNewDailyCircle();
         }
@@ -144,13 +155,17 @@ public class DailyGrid : MonoBehaviour
         Debug.Log("NEW DAY REWARD REMAIN" + isNewDay);
         if (isNewDay)
         {
-            this.isNewDay = false;  
+            this.isNewDay = false;
             Debug.Log("NEW DAY REWARD REMAIN");
             var newDayItem = NewDayItemAvailable();
             Debug.Log($"new day item id {newDayItem.day}");
             newDayItem.SwitchType(IEDailyType.Available);
             DataAPIController.instance.SetDailyData(newDayItem.day.ToString(), newDayItem.currentType);
             currentDaily = newDayItem;
+            currentDaily.CheckItemAvailable();
+        }
+        else
+        {
         }
     }
 }

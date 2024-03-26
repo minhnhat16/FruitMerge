@@ -11,6 +11,7 @@ public class CircleObject : FSMSystem
     [HideInInspector] public SpawnState Spawn;
     [HideInInspector] public DropState Drop;
     [HideInInspector] public MergeState Merge;
+    [HideInInspector] public ShakeState Shake;
     [HideInInspector] public GroundedState Grounded;
     [HideInInspector] public DeadState Dead;
     [SerializeField] CircleTypeConfigRecord record;
@@ -41,6 +42,8 @@ public class CircleObject : FSMSystem
     private SpriteRenderer spriteRenderer;
 
     public int TypeID { get { return typeID; } }
+    public int ShakeDuration { get { return shakeDuration; } }
+
     public bool IsMerged { get { return IsMerged; } }
     public bool IsDropping { get { return isDropping; } }
     public bool IsBeingTarget { get { return isBeingTarget; } }
@@ -142,6 +145,7 @@ public class CircleObject : FSMSystem
         Spawn.Setup(this);
         Drop.Setup(this);
         Merge.Setup(this);
+        Shake.Setup(this);
         Grounded.Setup(this);
         Dead.Setup(this);
         rigdBody = GetComponent<Rigidbody2D>();
@@ -253,7 +257,7 @@ public class CircleObject : FSMSystem
                 if (rb != null)
                 {
                     Vector2 direction = (col.transform.position - transform.position);
-                    rb.AddForce(direction * 1f, ForceMode2D.Impulse);
+                    rb.AddForce(direction * 10f, ForceMode2D.Impulse);
                 }
             }
         }
@@ -453,13 +457,14 @@ public class CircleObject : FSMSystem
         int duration = shakeDuration;
         for (elapseTime = 0; elapseTime < duration; elapseTime++)
         {
-            float randomValue = Random.Range(100f, 250f);
-            Vector3 force = 7f * randomValue * Vector3.up;
-
+            GotoState(Shake);
+            float randomValue = Random.Range(150f, 250f);
+            Debug.Log("randomValue " + randomValue);
+            Vector3 force = 5f * randomValue * Vector3.up;
             rigdBody.AddForce(force, ForceMode2D.Force);
 
-            yield return new WaitForSeconds(1f);
-        }
+            yield return new WaitForSeconds(0.75f);
+        }   
     }
     public void ApplyForceOverTime()
     {

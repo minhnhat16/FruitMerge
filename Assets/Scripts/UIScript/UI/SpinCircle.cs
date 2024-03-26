@@ -54,7 +54,7 @@ public class SpinCircle : MonoBehaviour
         float vect = AngleCalculator();
         //vect = Mathf.Clamp(vect, 180, -180);
         Debug.Log("VECT " + vect);
-        Tween circleSpin = transform.DORotate(new Vector3(0, 0, vect + 360 * 10), 10, RotateMode.FastBeyond360);
+        Tween circleSpin = transform.DORotate(new Vector3(0, 0, vect + 360 * 10), 5, RotateMode.FastBeyond360);
         circleSpin.OnComplete(() => 
         {
             isSpining = false;

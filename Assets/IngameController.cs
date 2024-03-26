@@ -176,9 +176,15 @@ public class IngameController : MonoBehaviour
     }
     public void SetIngameObjectActive(bool isActive)
     {
-        wall.SetActive(isActive);
-        player.SetActive(isActive);
-        wire.SetActive (isActive);
+        if (!isActive)
+        {
+            Destroy(wall, 0.5f);
+            Destroy(wire, 0.5f);
+            Destroy(player, 0.5f);
+        }
+        //wall.SetActive(isActive);
+        //player.SetActive(isActive);
+        //wire.SetActive (isActive);
     }
     public void PauseGame()
     {

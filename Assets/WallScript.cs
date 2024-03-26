@@ -67,23 +67,4 @@ public class WallScript : MonoBehaviour
         line.SetPosition(1, vector3);
         Player.instance.SetLineRenderer(line);
     }
-    public void ShakeWall()
-    {
-        Trembling();
-    }
-    void Trembling()
-    {
-     
-        Vector3 crPos = transform.position;
-        foreach(var collider in colliders)
-        {
-            Tween shake = collider.transform.DOShakePosition(duration, strength);
-            shake.OnComplete(() =>
-            {
-                shake.Kill();
-            });
-
-        }
-       
-    }
 }

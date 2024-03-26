@@ -122,17 +122,23 @@ public class DailyItem : MonoBehaviour
             SwitchItemType(itemName);
         }
     }
-    public virtual void OnClickDailyItem()
+    public void CheckItemAvailable()
     {
         Debug.Log("On Click Daily Item");
-        if(currentType == IEDailyType.Available)
+        if (currentType == IEDailyType.Available)
         {
             Debug.Log("On Click Daily Item" + IEDailyType.Available);
             onClickDailyItem?.Invoke(true);
         }
         else
         {
+            Debug.Log("On Click Daily Item" + IEDailyType.Unavailable);
+
             onClickDailyItem?.Invoke(false);
         }
+    }
+    public virtual void OnClickDailyItem()
+    {
+        CheckItemAvailable();
     }
 }
