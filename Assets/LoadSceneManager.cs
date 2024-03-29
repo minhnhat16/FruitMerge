@@ -51,7 +51,8 @@ public class LoadSceneManager : MonoBehaviour
             isDone = async.isDone && timeCount >= timeWait;
         }
         yield return null;
-
+        ZenSDK.instance.ShowFullScreen();
         callback?.Invoke();
+
     }
 }

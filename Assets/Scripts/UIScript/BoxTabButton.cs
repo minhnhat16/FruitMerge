@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class BoxTabButton : MonoBehaviour
 {
     public GameObject tabOn;
-    public GameObject tabOff;
+    public GameObject tabOffSkin;
     public Animator animator;
     public GameObject boxGrid;
  
     public void OnClickTabOn()
     {
         tabOn.SetActive(true);
-        tabOff.SetActive(false);
+        tabOffSkin.SetActive(true);
         //animator.Play("TabSkin");
         boxGrid.GetComponentInChildren<ScrollRect>().verticalScrollbar.value = 1;
         boxGrid.SetActive(true);
@@ -23,6 +23,6 @@ public class BoxTabButton : MonoBehaviour
     {
         boxGrid.SetActive(false);
         tabOn.SetActive(false);
-        tabOff.SetActive(true);
+        tabOffSkin.SetActive(false);
     }
 }

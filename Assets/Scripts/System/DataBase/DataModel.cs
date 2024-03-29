@@ -81,15 +81,13 @@ public class DataModel : MonoBehaviour
             inf.name = "Player 1";
             userData.userInfo = inf;
             UserInventory  userInventory = new UserInventory();
-            userInventory.gold = 100;
+            userInventory.gold = ZenSDK.instance.GetConfigInt(ItemType.GOLD.ToString(), 10000);
             userInventory.itemInventory = new Dictionary<string, ItemData>();
-            for(int i = 0; i < 3;i ++) {
-                ItemData itemData = new ItemData();
-                itemData.total = 1000;
-                int id = i ;
-                itemData.id = id.ToString();
-                userInventory.itemInventory.Add(itemData.id, itemData);
-            }
+
+            NewItemData(ItemType.HAMMER, userInventory);
+            NewItemData(ItemType.CHANGE, userInventory);
+            NewItemData(ItemType.ROTATE, userInventory);
+      
             userInventory.dailyData = new Dictionary<string, DailyData>();
             for (int i = 1;i <= 7; i ++)
             {
@@ -269,6 +267,15 @@ public class DataModel : MonoBehaviour
         }
         return false;
     }
+    public void NewItemData(ItemType type, UserInventory inventory)
+    {
+        ItemData itemData = new ItemData();
+        itemData.total = ZenSDK.instance.GetConfigInt(type.ToString(), 10);
+        int id = (int)type;
+        itemData.id = type.ToString();
+        inventory.itemInventory.Add(itemData.id, itemData);
+    }
+
 }
 
 public class GameInitData

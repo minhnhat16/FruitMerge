@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class SkinTabButton : MonoBehaviour
 {
     public GameObject tabOn;
-    public GameObject tabOff;
+    public GameObject tabOffBox;
     public Animator animator;
     [SerializeField]private GameObject skinGrid;
 
     public void StartTabOn()
     {
         tabOn.SetActive(true);
-        tabOff.SetActive(false);
+        tabOffBox.SetActive(true);
         //animator.Play("TabSkin");
     }
     public void OnClickTabOn()
     {
         tabOn.SetActive(true);
-        tabOff.SetActive(false);
+        tabOffBox.SetActive(true);
         //animator.Play("TabSkin");
         skinGrid.GetComponentInChildren<Scrollbar>().value = 1;
         skinGrid.SetActive(true);
@@ -29,7 +29,7 @@ public class SkinTabButton : MonoBehaviour
     {
         skinGrid.SetActive(false);
         tabOn.SetActive(false);
-        tabOff.SetActive(true);
+        tabOffBox.SetActive(false);
     }
 
 }

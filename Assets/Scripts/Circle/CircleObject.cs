@@ -460,7 +460,8 @@ public class CircleObject : FSMSystem
             GotoState(Shake);
             float randomValue = Random.Range(150f, 250f);
             Debug.Log("randomValue " + randomValue);
-            Vector3 force = 5f * randomValue * Vector3.up;
+            float x = Random.Range(-1, 1);
+            Vector3 force = 5f * randomValue * new Vector3(x,1);
             rigdBody.AddForce(force, ForceMode2D.Force);
 
             yield return new WaitForSeconds(0.75f);

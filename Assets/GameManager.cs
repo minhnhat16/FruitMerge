@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DayTimeController dayTimeController;
     public UIRootControlScale UIRoot;
     [SerializeField] private int languageID;
+    [SerializeField] private int trackLevelStart;
 
     public int LanguageID { get => languageID; set => languageID = value; }
+    public int TrackLevelStart { get=> trackLevelStart; set => trackLevelStart = value; }
     private void Awake()
     {
         if (instance == null) instance = this;

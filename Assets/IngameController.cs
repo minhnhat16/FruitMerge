@@ -109,6 +109,7 @@ public class IngameController : MonoBehaviour
            var p = Instantiate(Resources.Load("Prefab/Player", typeof(GameObject)), transform) as GameObject;
             Debug.Log($"Instantiate(Resources.Load(\"Prefab/Player\", typeof(GameObject)), transform) as GameObject {p}");
             player = p;
+            player.GetComponent<Player>().canDrop= false;
         }
         else
         {

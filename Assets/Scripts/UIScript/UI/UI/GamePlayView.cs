@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 public class GamePlayView : BaseView, IPointerClickHandler
 {
     [HideInInspector] GamePlayAnim anim;
-    [SerializeField] Text score_lb;
+    [SerializeField] TextMeshProUGUI score_rb;
     [SerializeField] private int _changeGold;
     [SerializeField] private int _curGold;
     [SerializeField] private Image nextBlock;
@@ -79,6 +80,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
         tomato_lb.text = DataAPIController.instance.GetItemTotal("0").ToString();
         bomb_lb.text = DataAPIController.instance.GetItemTotal("1").ToString();
         upgrade_lb.text = DataAPIController.instance.GetItemTotal("2").ToString();
+        int tracker = GameManager.instance.TrackLevelStart++;
+        ZenSDK.instance.TrackLevelStart(tracker);
     }
     public override void OnStartHideView()
     {
@@ -127,7 +130,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void ScoreChange(int score)
     {
-        score_lb.text = score.ToString();
+        score_rb.text = score.ToString();
     }
     public void PauseButton()
     {

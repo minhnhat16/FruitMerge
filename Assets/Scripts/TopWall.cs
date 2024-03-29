@@ -6,7 +6,6 @@ public class TopWall : MonoBehaviour
 {
     [SerializeField] private CircleObject crCircle;
     [SerializeField] private float timingToDie;
-    [SerializeField] private int totalFruitTrigger;
     [HideInInspector]
     public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
     private void OnEnable()
@@ -22,7 +21,6 @@ public class TopWall : MonoBehaviour
     {
         if (collision.CompareTag("MergeCircle") && crCircle == null)
         {
-            totalFruitTrigger++;
             crCircle = collision.GetComponentInParent<CircleObject>();
         }
     }
@@ -36,7 +34,7 @@ public class TopWall : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        totalFruitTrigger--;
+
         if (crCircle != null) crCircle = null;
     }
    
@@ -64,7 +62,7 @@ public class TopWall : MonoBehaviour
             isGameOver = !isGameOver;
             DialogParam param = new();
              int score = IngameController.instance.Score;
-            if (EndlessLevel.Instance.Life > 0)
+            if (ZenSDK.instance.IsVideoRewardReady())
             {
                 EndlessLevel.Instance.FreezeCircleRev();
                 DialogManager.Instance.ShowDialog(DialogIndex.ReviveDialog, param, () => {

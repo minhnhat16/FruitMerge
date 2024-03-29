@@ -39,7 +39,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         dropCoolDown = 0.25f;
-        canDrop = true;
+        StartCanDrop();
         WallScript.Instance.SetUpLineRender();
     }
 
@@ -56,7 +56,15 @@ public class Player : MonoBehaviour, IPointerClickHandler
         transform.position = new Vector3(0, transform.position.y);
     }
 
-
+    public void StartCanDrop()
+    {
+        StartCoroutine(CanDropPlayer());
+    }
+    IEnumerator CanDropPlayer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canDrop = true;
+    }
     public bool MousePosition()
     {
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);

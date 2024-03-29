@@ -16,6 +16,8 @@ public class EndlessLevel : MonoBehaviour
     public List<int> intQueue = new(5);
     [SerializeField] int life;
     [SerializeField] private float spawnCooldown = 0.1f;
+    [SerializeField] private float shakeItensity= 5f;
+    [SerializeField] private float shakeTimer = 5f;
     [SerializeField]
     private bool isBomb = false;
     [SerializeField]
@@ -215,7 +217,7 @@ public class EndlessLevel : MonoBehaviour
         isUpgrade = true;
         AddForceForCircle();
         WallScript.Instance.SetTopWallActive(false);
-        CinemachineShake.instance.ShakeCamera(10f, 10f);
+        CinemachineShake.instance.ShakeCamera(shakeItensity, shakeTimer);
         ShakeCouroutine();
     }
     public void ShakeCouroutine()

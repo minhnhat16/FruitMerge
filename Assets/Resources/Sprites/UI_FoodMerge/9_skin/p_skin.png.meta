@@ -42,13 +42,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 102}
+  spriteBorder: {x: 33, y: 32, z: 32, w: 135}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -120,13 +120,13 @@ TextureImporter:
       name: p_skin_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 484
-        width: 254
-        height: 157
+        x: 72
+        y: 537
+        width: 253
+        height: 104
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 34, y: 4, z: 31, w: 34}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -146,8 +146,8 @@ TextureImporter:
         width: 654
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 32, y: 34, z: 33, w: 35}
       outline: []
       physicsShape: []
       tessellationDetail: 0

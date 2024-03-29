@@ -34,7 +34,7 @@ public class CameraMain : MonoBehaviour
     public void GetCameraAspect()
     {
         float targetAspect = main.aspect;
-        main.orthographicSize = GameManager.instance.UIRoot.rate / targetAspect * main.orthographicSize;
+        main.orthographicSize = baseAspect / targetAspect * main.orthographicSize;
         height = main.orthographicSize * 2;
         width = height * main.aspect;
     }
@@ -53,10 +53,5 @@ public class CameraMain : MonoBehaviour
     public float GetBottom()
     {
         return main.transform.position.y - height * 0.5f;
-    }
-    public void ShakeCamera()
-    {
-        Vector3 strenght = Vector3.up;
-        Tween shake = main.transform.DOShakePosition(5*0.75f, strenght,10,90,false,true,ShakeRandomnessMode.Harmonic);
     }
 }

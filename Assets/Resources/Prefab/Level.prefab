@@ -47,14 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteType: 0
   level: 1
-  intQueue: 
-  main: {fileID: 0}
   randomValue: 0
   score: 0
+  intQueue: 
+  life: 0
   spawnCooldown: 0.25
+  shakeItensity: 5
+  shakeTimer: 3.75
   isBomb: 0
   isUpgrade: 0
   _circles: []
+  main: {fileID: 0}
 --- !u!1 &1369261459057051849
 GameObject:
   m_ObjectHideFlags: 0
