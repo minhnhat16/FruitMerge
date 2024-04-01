@@ -58,7 +58,8 @@ public class LevelConfirm : DialogParam
 }
 public class ItemConfirmParam : DialogParam
 {
-    public int type;
+    public bool isAds;
+    public ItemType type;
     public string name;
 }
 

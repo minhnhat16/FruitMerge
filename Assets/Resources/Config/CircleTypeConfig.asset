@@ -105,3 +105,279 @@ MonoBehaviour:
       scale: 2.625
       radius: 1
       color: {r: 0.09019608, g: 0.5921569, b: 0.027450982, a: 1}
+  - id: 6
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 0.9607844, g: 0.8352942, b: 0.59607846, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 1, g: 0.1641509, b: 0.32613724, a: 1}
+    - id: 3
+      scale: 0.7
+      radius: 1
+      color: {r: 0.6415094, g: 0.3379126, b: 0.044784598, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 0.22075468, g: 0.5902243, b: 1, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 1, g: 0.849162, b: 0, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 0.1960783, g: 1, b: 0, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 0.9882353, g: 0.4911703, b: 0.086274475, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 0.63075364, g: 0.032075405, b: 1, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 1, g: 0.8131725, b: 0.50377357, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 0.020274075, g: 0.6320754, b: 0.45507622, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 1, g: 0.11475411, b: 0, a: 1}
+  - id: 7
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 0.8113208, g: 0.33076924, b: 0, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 1, g: 0.43396223, b: 0, a: 1}
+    - id: 3
+      scale: 0.7
+      radius: 1
+      color: {r: 0, g: 1, b: 0.7106917, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 1, g: 0.7274266, b: 0.37169808, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 0.88027006, g: 0.1830188, b: 1, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 1, g: 0.48358756, b: 0.0039215684, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 0.091882, g: 0.5754717, b: 0, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 0.7830189, g: 0.08948788, b: 0, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 0.20959415, g: 0.4444013, b: 0.7075472, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 0.6132076, g: 0.22314376, b: 0.17586327, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 1, g: 0, b: 0.2391305, a: 1}
+  - id: 8
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 0.032680616, g: 0.3408531, b: 0.6415094, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 0.735849, g: 0.26144788, b: 0.030544644, a: 1}
+    - id: 3
+      scale: 0.7
+      radius: 1
+      color: {r: 0.49462697, g: 0.8207547, b: 0, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 0.5271002, g: 0, b: 0.6415094, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 0.11512991, g: 0.41006666, b: 0.7924528, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 0.98039216, g: 0.42742327, b: 0.07843135, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 0.050943315, g: 1, b: 0.65589756, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 0.9433962, g: 0, b: 0.19106774, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 1, g: 0.6531253, b: 0, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 0.2584905, g: 1, b: 0.38812503, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 0.8588236, g: 0.18039216, b: 0.13333334, a: 1}
+  - id: 9
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 0.9339623, g: 0.09800839, b: 0, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 1, g: 0.72572756, b: 0, a: 1}
+    - id: 3
+      scale: 0.7
+      radius: 1
+      color: {r: 0.5606061, g: 1, b: 0, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 0, g: 0.74650884, b: 0.8867924, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 1, g: 0.107142866, b: 0, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 1, g: 0.1830188, b: 0.34258544, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 0.9803922, g: 0.97647065, b: 0.9607844, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 0.6813418, g: 0, b: 0.8490566, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 0.9268288, g: 1, b: 0.02264148, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 1, g: 0.5326087, b: 0, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 0.37310934, g: 0.29622638, b: 1, a: 1}
+  - id: 10
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 0, g: 0.03937936, b: 1, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 0, g: 0.7075472, b: 0.32745978, a: 1}
+    - id: 3
+      scale: 0.7
+      radius: 1
+      color: {r: 1, g: 0.6896101, b: 0, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 0, g: 0.89333344, b: 1, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 1, g: 0.49342105, b: 0, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 1, g: 0.2113207, b: 0.37105334, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 1, g: 0.37169808, b: 0.37169808, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 0.9245283, g: 0.2771273, b: 0.21281594, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 0.98823535, g: 0.40784317, b: 0.52156866, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 1, g: 1, b: 1, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 0.94117653, g: 0.2627451, b: 0.17254902, a: 1}
+  - id: 11
+    _circleTypes:
+    - id: 1
+      scale: 0.35
+      radius: 1
+      color: {r: 1, g: 0.33077917, b: 0.3150943, a: 1}
+    - id: 2
+      scale: 0.5
+      radius: 1
+      color: {r: 1, g: 0.90086305, b: 0.27735847, a: 1}
+    - id: 3
+      scale: 0.7
+      radius: 1
+      color: {r: 0, g: 0.88135576, b: 1, a: 1}
+    - id: 4
+      scale: 0.9
+      radius: 1
+      color: {r: 0, g: 1, b: 0.58045983, a: 1}
+    - id: 5
+      scale: 1.125
+      radius: 1
+      color: {r: 1, g: 0.5453615, b: 0, a: 1}
+    - id: 6
+      scale: 1.5
+      radius: 1
+      color: {r: 0.8573712, g: 0.069811285, b: 1, a: 1}
+    - id: 7
+      scale: 1.625
+      radius: 1
+      color: {r: 0, g: 0.503546, b: 1, a: 1}
+    - id: 8
+      scale: 1.8
+      radius: 1
+      color: {r: 1, g: 0.069811285, b: 0.25180456, a: 1}
+    - id: 9
+      scale: 2
+      radius: 1
+      color: {r: 0.67603076, g: 1, b: 0.07924521, a: 1}
+    - id: 10
+      scale: 2.5
+      radius: 1
+      color: {r: 0.9564852, g: 1, b: 0.11698109, a: 1}
+    - id: 11
+      scale: 2.625
+      radius: 1
+      color: {r: 1, g: 0.7332783, b: 0.50377357, a: 1}

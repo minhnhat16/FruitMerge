@@ -33,6 +33,10 @@ public class PauseDialog : BaseDialog
         sfxEvent.RemoveListener(SFXChange);
 
     }
+    public override void OnStartShowDialog()
+    {
+        ZenSDK.instance.ShowFullScreen();
+    }
     public void PlayButton()
     {
         IngameController.instance.isPause = false;

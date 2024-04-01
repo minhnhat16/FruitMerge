@@ -55,17 +55,7 @@ public class IngameController : MonoBehaviour
     {
         if (instance == null) instance = this;
     }
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
-    void Update()
-    {
-    }
-
-
     public void SetUpIngame()
     {
         backGround.SetActive(true);
@@ -212,23 +202,23 @@ public class IngameController : MonoBehaviour
     }
     public void ChangeItem()
     {
-        int tomato = DataAPIController.instance.GetItemTotal("0");
+        int tomato = DataAPIController.instance.GetItemTotal(ItemType.CHANGE.ToString());
         tomato -= 1;
-        DataAPIController.instance.SetItemTotal("0", tomato);
+        DataAPIController.instance.SetItemTotal(ItemType.CHANGE.ToString(), tomato);
         tomatoItemEvent?.Invoke(tomato);
     }
     public void BursItem()
     {
-        int bomb = DataAPIController.instance.GetItemTotal("1");
+        int bomb = DataAPIController.instance.GetItemTotal(ItemType.HAMMER.ToString());
         bomb -= 1;
-        DataAPIController.instance.SetItemTotal("1", bomb);
+        DataAPIController.instance.SetItemTotal(ItemType.HAMMER.ToString(), bomb);
         bombItemEvent?.Invoke(bomb);
     }
     public void ShakeItem()
     {
-        int upgrade = DataAPIController.instance.GetItemTotal("2");
+        int upgrade = DataAPIController.instance.GetItemTotal(ItemType.ROTATE.ToString());
         upgrade -= 1;
-        DataAPIController.instance.SetItemTotal("2", upgrade);
+        DataAPIController.instance.SetItemTotal(ItemType.ROTATE.ToString(), upgrade);
         upgradeItemEvent?.Invoke(upgrade);
     }
     public void GoldChanged()

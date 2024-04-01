@@ -11,6 +11,7 @@ public class LoseDialog : BaseDialog
     [SerializeField] private Camera boxCamera;
     private void Start()
     {
+        param = new LoseDialogParam();
         score_lb = GetComponentInChildren<TextMeshProUGUI>();
     }
     public override void Setup(DialogParam dialogParam)
@@ -22,8 +23,9 @@ public class LoseDialog : BaseDialog
         base.OnStartShowDialog();
         EndlessLevel.Instance.SetActiveMainCircle(false);
         score_lb.text = "Score: " + IngameController.instance.Score.ToString();
+        param.score = IngameController.instance.Score;
         IngameController.instance.isPause = true;
-    }
+    }   
     public override void OnEndShowDialog()
     {
         base.OnEndShowDialog();
@@ -36,6 +38,11 @@ public class LoseDialog : BaseDialog
         EndlessLevel.Instance.Clear();
         CirclePool.instance.pool.DeSpawnAll();
     }
+    public override void OnEndHideDialog()
+    {
+        base.OnEndHideDialog();
+        ZenSDK.instance.ShowFullScreen();
+    }
     public void HomeBtn()
     {
 
@@ -43,7 +50,7 @@ public class LoseDialog : BaseDialog
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
-
+            ZenSDK.instance.OnGameOver(param.score.ToString());
             DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog,null, () =>
             {
                 IngameController.instance.isPause = true;

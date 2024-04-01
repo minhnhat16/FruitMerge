@@ -38,10 +38,10 @@ public class BootLoader : MonoBehaviour
             LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
             {
                 Debug.Log("LoadSenceCallback");
-                SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);
                 DayTimeController.instance.CheckNewDay();
                 ZenSDK.instance.ShowAppOpen((isDone) =>
                 {
+                    SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);
                     Debug.LogWarning("SHOW APP OPEN ON END LOADING");
                     if (DayTimeController.instance.isNewDay)
                     {
@@ -69,7 +69,7 @@ public class BootLoader : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        ZenSDK.instance.TrackLevelStart(1);
+        //ZenSDK.instance.TrackLevelStart(1);
     }
 }
 

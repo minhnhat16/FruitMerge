@@ -48,6 +48,7 @@ public class SettingDialog : BaseDialog
         {
             Player.instance.gameObject.SetActive(false);
         }
+        ZenSDK.instance.ShowFullScreen();
     }
     public override void OnEndHideDialog()
     {

@@ -270,7 +270,8 @@ public class DataModel : MonoBehaviour
     public void NewItemData(ItemType type, UserInventory inventory)
     {
         ItemData itemData = new ItemData();
-        itemData.total = ZenSDK.instance.GetConfigInt(type.ToString(), 10);
+        int total = ZenSDK.instance.GetConfigInt(type.ToString(), 10);
+        itemData.total = 1000; // Defaul total item, switch to total when have SDK config
         int id = (int)type;
         itemData.id = type.ToString();
         inventory.itemInventory.Add(itemData.id, itemData);

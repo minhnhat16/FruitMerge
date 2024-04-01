@@ -44,7 +44,8 @@ public class ReviveDialog : BaseDialog
         IngameController.instance.isGameOver = false;
         EndlessLevel.Instance.Clear();
         DialogManager.Instance.HideDialog(dialogIndex);
-        IngameController.instance.SetIngameObjectActive(false); 
+        IngameController.instance.SetIngameObjectActive(false);
+        ZenSDK.instance.ShowFullScreen();
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
             DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog, null, () =>
@@ -57,19 +58,22 @@ public class ReviveDialog : BaseDialog
     }
     public void ReviveButton()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.ReviveDialog, () =>
+        ZenSDK.instance.ShowVideoReward((isVideoDone) =>
         {
-            Player.instance.canDrop = true;
-            IngameController.instance.isGameOver = false;   
-            IngameController.instance.isPause = false;
-            EndlessLevel.Instance.UnfreezeCircles();
-            EndlessLevel.Instance.UsingChange();
-            CirclePool.instance.transform.localScale = Vector3.one;
-            WallScript.Instance.transform.localScale = Vector3.one;
-            IngameController.instance.player.SetActive(true);
-            WallScript.Instance.TopWallCouroutine();
-            EndlessLevel.Instance.SetActiveMainCircle(true);
-
+            DialogManager.Instance.HideDialog(DialogIndex.ReviveDialog, () =>
+            {
+                Player.instance.canDrop = true;
+                IngameController.instance.isGameOver = false;
+                IngameController.instance.isPause = false;
+                EndlessLevel.Instance.UnfreezeCircles();
+                EndlessLevel.Instance.UsingChange();
+                CirclePool.instance.transform.localScale = Vector3.one;
+                WallScript.Instance.transform.localScale = Vector3.one;
+                IngameController.instance.player.SetActive(true);
+                WallScript.Instance.TopWallCouroutine();
+                EndlessLevel.Instance.SetActiveMainCircle(true);
+            });
         });
+       
     }
 }

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,7 +14,6 @@ public class GamePlayView : BaseView, IPointerClickHandler
     [SerializeField] private int _curGold;
     [SerializeField] private Image nextBlock;
     [SerializeField] private Text nextValue;
-    [SerializeField] public Text gold_lb;
     [SerializeField] private Text tomato_lb;
     [SerializeField] private Text bomb_lb;
     [SerializeField] private Text upgrade_lb;
@@ -28,23 +26,25 @@ public class GamePlayView : BaseView, IPointerClickHandler
     [SerializeField] Button upgrade_Btn;
     [SerializeField] Button clear_btn;
 
+    public Text gold_lb;
+
     [SerializeField] bool settingActive;
     [SerializeField] bool onTomato;
     [SerializeField] bool onBomb;
     [SerializeField] bool onUpgrade;
     [SerializeField] List<Image> exit_img;
     [HideInInspector]
-    public UnityEvent<int> setNextCircleEvent = new UnityEvent<int>();
+    public UnityEvent<int> setNextCircleEvent = new();
     [HideInInspector]
-    public UnityEvent<int> setScoreEvent = new UnityEvent<int>();
+    public UnityEvent<int> setScoreEvent = new();
     [HideInInspector]
-    public UnityEvent<int> tomatoItemEvent = new UnityEvent<int>();
+    public UnityEvent<int> tomatoItemEvent = new();
     [HideInInspector]
-    public UnityEvent<int> bombItemEvent = new UnityEvent<int>();
+    public UnityEvent<int> bombItemEvent = new();
     [HideInInspector]
-    public UnityEvent<int> upgradeItemEvent = new UnityEvent<int>();
+    public UnityEvent<int> upgradeItemEvent = new();
     [HideInInspector]
-    public UnityEvent<bool> cancleItemEvent = new UnityEvent<bool>();
+    public UnityEvent<bool> cancleItemEvent = new();
     private void OnEnable()
     {
         //setGoldTextEvent = GridSystem.instance.setGoldTextEvent;
@@ -77,9 +77,9 @@ public class GamePlayView : BaseView, IPointerClickHandler
         onTomato = false;
         onBomb = false;
         onUpgrade = false;
-        tomato_lb.text = DataAPIController.instance.GetItemTotal("0").ToString();
-        bomb_lb.text = DataAPIController.instance.GetItemTotal("1").ToString();
-        upgrade_lb.text = DataAPIController.instance.GetItemTotal("2").ToString();
+        tomato_lb.text = DataAPIController.instance.GetItemTotal(ItemType.CHANGE.ToString()).ToString();
+        bomb_lb.text = DataAPIController.instance.GetItemTotal(ItemType.HAMMER.ToString()).ToString();
+        upgrade_lb.text = DataAPIController.instance.GetItemTotal(ItemType.ROTATE.ToString()).ToString();
         int tracker = GameManager.instance.TrackLevelStart++;
         ZenSDK.instance.TrackLevelStart(tracker);
     }
@@ -101,14 +101,15 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void CheckExitImage()
     {
-        if (onBomb && onTomato&& onUpgrade)
+        if (onBomb && onTomato && onUpgrade)
         {
             foreach (var e in exit_img)
             {
                 e.gameObject.SetActive(true);
             }
         }
-        else {
+        else
+        {
             foreach (var e in exit_img)
             {
                 e.gameObject.SetActive(false);
@@ -162,7 +163,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         nextBlock.transform.DOScale(0.1f, 0);
         Tween tween = nextBlock.transform.DOScale(0.65f, 0.25f).SetEase(Ease.OutBounce);
         int skinID = DataAPIController.instance.GetCurrentFruitSkin();
-        var name = SpriteLibControl.Instance.GetSpriteName(skinID, id);
+        var name = SpriteLibControl.Instance.GetCircleSpriteName(skinID, id);
         var sprite = SpriteLibControl.Instance.GetSpriteByName(name);
         nextBlock.sprite = sprite;
         tween.OnComplete(() =>
@@ -170,21 +171,21 @@ public class GamePlayView : BaseView, IPointerClickHandler
             tween?.Kill();
         });
     }
-    public void ItemUsing(int type )
+    public void ItemUsing(ItemType type)
     {
         int total = DataAPIController.instance.GetItemTotal(type.ToString());
         if (!onTomato && !onUpgrade && !onBomb)
         {
-            CancelItem(false) ;
+            CancelItem(false);
         }
-        else if(onTomato && onUpgrade && onBomb) {  }
+        else if (onTomato && onUpgrade && onBomb) { }
         {
             ItemConfirmParam param = new();
-            param.type = type;
-            param.name = "AAA";
+            param.type =type;
 
             if (total > 0 && EndlessLevel.Instance._Circles.Count != 0)
             {
+                param.isAds = true;
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
                 {
                     onTomato = true;
@@ -192,6 +193,16 @@ public class GamePlayView : BaseView, IPointerClickHandler
                     onBomb = true;
                 });
             }
+            else if (total <= 0)
+            {
+                param.isAds = false;
+                DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
+                {
+                    onTomato = true;
+                    onUpgrade = true;
+                    onBomb = true;
+                });
+             };
         }
     }
     public void CancelItem(bool onUse)
@@ -206,13 +217,13 @@ public class GamePlayView : BaseView, IPointerClickHandler
     {
         onTomato = !onTomato;
         Player.instance.canDrop = false;
-        if(onTomato == false)
+        if (onTomato == false)
         {
             CancelItem(false);
         }
         else
         {
-            ItemUsing(0);
+            ItemUsing(ItemType.CHANGE);
         }
     }
     public void OnClickHammer()
@@ -225,7 +236,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         }
         else
         {
-        ItemUsing(1);
+            ItemUsing(ItemType.HAMMER);
         }
     }
     public void OnClickShake()
@@ -238,7 +249,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         }
         else
         {
-            ItemUsing(2);
+            ItemUsing(ItemType.ROTATE);
         }
     }
     public void ClearButton()
@@ -284,7 +295,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
     public void RateButton()
     {
         PauseButton();
-        DialogManager.Instance.ShowDialog(DialogIndex.RateDialog);
+        ZenSDK.instance.Rate();
+        //DialogManager.Instance.ShowDialog(DialogIndex.RateDialog);
     }
     public void RankButton()
     {

@@ -4,8 +4,21 @@ using UnityEngine.UI;
 
 public class ItemConfirmDialog : BaseDialog
 {
-    private int type;
+    private ItemType type;
+    private bool isAds;
     [SerializeField] TextMeshProUGUI tutorial_lb;
+
+    [SerializeField] Button ads;
+    [SerializeField] Button confirm;
+
+    public Button Ads { get { return ads; } set { this.ads = value; } }
+    public Button Confirm { get { return confirm; } set { this.confirm = value; } }
+
+    private void OnEnable()
+    {
+        ads.onClick.AddListener(() => { PlayAds(); });
+        confirm.onClick.AddListener(() => { ConfirmUsingItem(); });
+    }
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -13,7 +26,19 @@ public class ItemConfirmDialog : BaseDialog
         {
             ItemConfirmParam param = (ItemConfirmParam)dialogParam;
             type = param.type;
-            name = param.name;
+            isAds = param.isAds;
+            //name = param.name;
+            //check item have enoughf to show ads btn
+            if (isAds)
+            {
+                ads.gameObject.SetActive(true);
+                confirm.gameObject.SetActive(false);
+            }
+            else //else show confirm to use
+            {
+                ads.gameObject.SetActive(true);
+                confirm.gameObject.SetActive(false);
+            }
         }
 
     }
@@ -24,24 +49,34 @@ public class ItemConfirmDialog : BaseDialog
         IngameController.instance.player.GetComponent<Player>().canDrop = false;
     }
     // Start is called before the first frame update
-
+    public void PlayAds()
+    {
+        ZenSDK.instance.ShowVideoReward((isWatched) =>
+        {
+            if (isWatched)
+            {
+                ConfirmUsingItem();
+            }
+            else return;
+        });
+    }
     public void ConfirmUsingItem()
     {
         switch (type)
         {
-            case 0:
+            case ItemType.CHANGE:
                 Debug.Log("DESTROY ALL FRUIT BELOW 2");
                 IngameController.instance.ChangeItem();
                 IngameController.instance.CancelItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog,null);
 
                 break;
-            case 1:
+            case ItemType.HAMMER:
                 Debug.Log("CHOSE ONE FRUIT TO DESTROY IT");
                 IngameController.instance.BursItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null) ;
                 break;
-            case 2:
+            case ItemType.ROTATE:
                 Debug.Log("CHOSE ONE FRUIT TO UPGRADE ");
                 IngameController.instance.ShakeItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null   );
@@ -56,17 +91,17 @@ public class ItemConfirmDialog : BaseDialog
             Player.instance.canDrop = true;
         });
     }
-    void ItemCase(int type)
+    void ItemCase(ItemType type)
     {
         switch (type)
         {
-            case 0:
+            case ItemType.CHANGE:
                 tutorial_lb.text = "DESTROY ALL FRUIT BELOW 2";
                 break;
-            case 1:
+            case ItemType.HAMMER:
                 tutorial_lb.text = "CHOSE ONE FRUIT TO DESTROY IT";
                 break;
-            case 2:
+            case ItemType.ROTATE:
                 tutorial_lb.text = "CHOSE ONE FRUIT TO UPGRADE ";
                 break;
         }

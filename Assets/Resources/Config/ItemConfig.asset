@@ -30,21 +30,21 @@ MonoBehaviour:
     type: 3
     skinType: 
   - id: 4
-    spriteName: Default
-    type: 4
-    skinType: Default
-  - id: 5
     spriteName: Slice
     type: 4
     skinType: Slice
+  - id: 5
+    spriteName: Default
+    type: 4
+    skinType: Default
   - id: 6
-    spriteName: Default
+    spriteName: Donut
     type: 4
-    skinType: Default
+    skinType: Donut
   - id: 7
-    spriteName: Default
+    spriteName: Donut
     type: 4
-    skinType: Default
+    skinType: Donut
   - id: 8
     spriteName: Default
     type: 4

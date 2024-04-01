@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class SpriteLibControl : MonoBehaviour
 
     [SerializeField] 
     private List<Sprite> _sprite;
-    private Dictionary<string, Sprite> spriteDict = new Dictionary<string, Sprite>();
+    readonly private Dictionary<string, Sprite> spriteDict = new();
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class SpriteLibControl : MonoBehaviour
         foreach(var sprite in _sprite)
         {
             //Debug.Log(sprite.name.ToString ());
+            Debug.Log(sprite.name);
             spriteDict.Add(sprite.name, sprite);
         }
     }
@@ -27,81 +29,126 @@ public class SpriteLibControl : MonoBehaviour
     {
         return spriteDict[name];    
     }
-    public string GetSpriteName(int type ,int id)
+    public string GetCircleSpriteName(int type ,int id)
     {
-        if (type == 4) //SLICE SPRITE
+        string name;
+        int idType =  type -3;
+        switch (idType)
         {
-            string name = GetSliceSprite(id);
-            return name;    
-        }
-        else if(type == 5) //FRUIT SPRITE
-        {
-            string name = GetFruitSprite(id);
-            return name;
-        }
-        else
-        {
-            return null;
+            case 1: //SLICE SPRITE
+                 name = GetSliceSprite(id);
+                return name;
+            case 2: //FRUIT SPRITE
+                 name = GetFruitSprite(id);
+                return name;
+            case 3: //DONUTS
+                name = GetDonutSprite(id);
+                Debug.Log(name);
+                return name;
+            case 4: //COOKIES
+                 name = GetCookies(id);
+                return name;
+            case 5: //CANDY
+                name = GetCandySkins(id);
+                return name;
+            case 6: //FASTFOOD
+                name = GetFastFoodSkins(id);
+                return name;
+            case 7: //JAPANESE FOOD
+                name = GetJapanFoodSkins(id);
+                return name; 
+            case 8: //CHINESE FOOD
+                name = GetChineseFoodSkins(id);
+                return name;
+            default: return null;
         }
     }
+    private string GetChineseFoodSkins(int id)
+    {
+        id++;
+        string name = $"{id}_Chinese food";
+        if (id > 0 && id <= 11)
+        {
+            return name;
+        }
+        else return null;
+    }
+    private string GetJapanFoodSkins(int id)
+    {
+        id++;
+        string name = $"{id}_Japanfood";
+        if (id > 0 && id <= 11)
+        {
+            return name;
+        }
+        else return null;
+    }
+    private string GetCandySkins(int id)
+    {
+        id++;
+        string name = $"{id}_Candy";
+        if (id > 0 && id <= 11)
+        {
+            return name;
+        }
+        else return null;
+    }
+    private string GetFastFoodSkins(int id)
+    {
+        id++;
+        string name = $"{id}_Fastfood";
+        if (id > 0 && id <= 11)
+        {
+            return name;
+        }
+        else return null;
+    }
+    private string GetCookies(int id)
+    {
+        id++;
+        string name =  $"{id}_Cookie";
+        if (id > 0 && id <= 11)
+        {
+            return name;
+        }
+        else return null;
+    }
+    private string GetDonutSprite(int id)
+    {
+        id++;
+        string name = $"{id}_Donut";
+        if (id >0 && id <=11)
+        {
+
+            Debug.Log("Name" + name);
+            return name;
+        }
+        else return null;
+       
+    }
+
     public string GetSliceSprite(int id)
     {
-        switch (id)
+        id++;
+        string name = $"{id}_Slice";
+        if (id > 0 && id <= 11)
         {
-            case 0:
-                return "01_Orange__Section";
-            case 1:
-                return "02_Strawberry_Section";
-            case 2:
-                return "03_WATERMELON_Section";
-            case 3:
-                return "04_Mangosteen_Section";
-            case 4:
-                return "05_Lemon_Section";
-            case 5:
-                return "06_Hami Melon_Section";
-            case 6:
-                return "07_Apple_Section";
-            case 7:
-                return "08_Peach_Section";
-            case 8:
-                return "09_Tomato_Section";
-            case 9:
-                return "10_Pomegranate_Section";
-            case 11:
-                return "11_grape_section new";
-            default:
-                return null;
+
+            Debug.Log("Name" + name);
+            return name;
         }
+        else return null;
     }
     public string GetFruitSprite(int id)
     {
-        switch (id)
+        id++;
+        string name = $"{id}_Fruit";
+        if (id > 0 && id <= 11)
         {
-            case 1:
-                return "Apple";
-            case 2:
-                return "Graphe";
-            case 3:
-                return "Hami melon";
-            case 4:
-                return "Lemon";
-            case 5:
-                return "Mangosteen";
-            case 6:
-                return "Orgrane";
-            case 7:
-                return "Peach";
-            case 8:
-                return "Pomegranate";
-            case 9:
-                return "Strawberry";
-            case 10:
-                return "Tomoto";
-            case 11:
-                return "WATERMELON";
-            default:
-                return null;
+
+            Debug.Log("Name" + name);
+            return name;
         }
+        else return null;
     }
 }

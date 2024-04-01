@@ -19,6 +19,10 @@ public class MergeVFX : MonoBehaviour
     {
         transform.position = pos;
     }
+    public void SetScale(Vector3 scale)
+    {
+        transform.localScale = scale;
+    }
     public void PlayParticle()
     {
         MainVFX.Play();

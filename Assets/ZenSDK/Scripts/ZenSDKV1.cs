@@ -41,11 +41,10 @@ public class ZenSDKV1 : MonoBehaviour, ZenSDK.IZenSDK
 	}
 	public void TrackLevelStart(int level)
 	{
-    
+		Debug.Log($"ZenSDK1:TRACKLEVELSTART{level}");
 	}
 	public void TrackLevelFailed(int level)
 	{
- 
 	}
     public void TrackLevelCompleted(int level,int scores)
     {
@@ -75,7 +74,7 @@ public class ZenSDKV1 : MonoBehaviour, ZenSDK.IZenSDK
 	//ads
 	public void ShowFullScreen()
 	{
-
+		Debug.Log("ShowFullScreen");
 	}
 	public void ShowBanner(bool visible)
 	{

@@ -76,7 +76,8 @@ public class CircleObject : FSMSystem
         //Debug.Log("SpriteByID " + id);
         //id++;
         skinType = DataAPIController.instance.GetCurrentFruitSkin();
-        var spriteName = SpriteLibControl.Instance.GetSpriteName(skinType, id);
+        var spriteName = SpriteLibControl.Instance.GetCircleSpriteName(skinType, id);
+        Debug.Log($"skinType {skinType}, id {id}, sprite name {spriteName}");
         spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
     }
     public void SetDropVelocity()
@@ -151,10 +152,6 @@ public class CircleObject : FSMSystem
         rigdBody = GetComponent<Rigidbody2D>();
         _collider = GetComponentInChildren<CircleCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-    // Start is called before the first frame update
-    public void Start()
-    {
     }
 
     // Update is called once per frame
@@ -305,6 +302,7 @@ public class CircleObject : FSMSystem
     {
         MergeVFX vfx = MergeVFXPool.instance.pool.SpawnNonGravity();
         vfx.SetTransform(transform.position);
+        vfx.SetScale(transform.localScale + Vector3.one* 0.5f);
         var color = circle.circleType.Color;
         //Debug.Log($"PlayMergeVFX color {color}");
         SetParticleColor(color, vfx.MainVFX);
@@ -426,29 +424,6 @@ public class CircleObject : FSMSystem
             return crString;
         }
         return null;
-    }
-    private IEnumerator StartAddingForce()
-    {
-        float elapsedTime = 0f;
-        float duration = 10f;
-        // Loop until the elapsed time exceeds the specified duration
-        while (elapsedTime < duration)
-        {
-            Debug.Log($"StartAddingForce {elapsedTime}");
-
-            // Calculate the normalized force to be applied
-            float normalizedTime = elapsedTime / duration;
-            Vector3 force = Vector3.up * 10 * normalizedTime;
-
-            // Add the force to the Rigidbody
-            rigdBody.AddForce(force, ForceMode2D.Force);
-
-            // Increment the elapsed time
-            elapsedTime += Time.deltaTime;
-
-            // Wait for the next frame
-            yield return null;
-        }
     }
     public IEnumerator ForceCouroutine()
     {
