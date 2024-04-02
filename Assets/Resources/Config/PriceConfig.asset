@@ -64,74 +64,74 @@ MonoBehaviour:
     moneyPaid: 0
   - id: 7
     idShop: 1
-    idItem: 2
+    idItem: 0
     price: 500
     amount: 2
     available: 1
     moneyPaid: 0
   - id: 8
     idShop: 1
-    idItem: 3
-    price: 200
+    idItem: 5
+    price: 500
     amount: 2
     available: 1
     moneyPaid: 0
   - id: 9
     idShop: 2
     idItem: 4
-    price: 10
+    price: 1
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 10
     idShop: 2
     idItem: 5
-    price: 20
+    price: 0
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 11
     idShop: 2
     idItem: 6
-    price: 30
+    price: 1000
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
   - id: 12
     idShop: 2
     idItem: 7
-    price: 40
+    price: 2500
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
   - id: 13
     idShop: 2
     idItem: 8
-    price: 0
+    price: 4600
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
   - id: 14
     idShop: 2
     idItem: 9
-    price: 0
+    price: 7800
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
   - id: 14
     idShop: 2
     idItem: 10
-    price: 0
+    price: 9600
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
   - id: 15
     idShop: 3
     idItem: 11
-    price: 500
+    price: 11500
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
   - id: 16
     idShop: 3
     idItem: 12

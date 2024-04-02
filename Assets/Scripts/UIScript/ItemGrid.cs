@@ -46,6 +46,8 @@ public class ItemGrid : MonoBehaviour
         item.Type = price.IdItem;
         item.TotalItem =  price.Amount;
         item.Enable = price.Available;
+        item.Name_lb.text = itemConfig.Type.ToString();
+        item.CheckPrice(price.Price);
         //Debug.Log(price.Available.ToString() + " and item: "+ item.enabled.ToString());
         _items.Add(item);
     }

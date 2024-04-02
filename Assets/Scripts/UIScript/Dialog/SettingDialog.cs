@@ -134,6 +134,7 @@ public class SettingDialog : BaseDialog
     public void RestartButton()
     {
         if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
+        //ZenSDK.instance.ShowFullScreen();
         DialogManager.Instance.HideDialog(dialogIndex);
         IngameController.instance.SetIngameObjectActive(false);
         LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
@@ -141,8 +142,8 @@ public class SettingDialog : BaseDialog
             ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
             {
                 IngameController.instance.isPause = false;
-                IngameController.instance.player.SetActive(true);
-                IngameController.instance.Wall.SetActive(true);
+                IngameController.instance.SetUpWall();
+                IngameController.instance.SetUpPlayer();
                 Player.instance.ResetPos();
                 IngameController.instance.ResetScore();
                 EndlessLevel.Instance.Clear();

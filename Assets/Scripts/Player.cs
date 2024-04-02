@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,13 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public Vector2 spawnPoint;
     public CircleObject mainCircle;
     [SerializeField] private float dropCoolDown;
-    [SerializeField] private SpriteRenderer _render;
+    [SerializeField] private List<SpriteRenderer> _renders;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private Vector3 dropLinePos;
     [SerializeField] private Vector3 pos;
     [SerializeField] private Vector3 circleSpawnPos;
+    [SerializeField] private float rotation;
+
     public Vector3 Pos { get { return pos; } }
     public Vector3 CircleSpawnPos { get { return circleSpawnPos; } }
 
@@ -28,7 +31,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         instance = this;
-        _render = GetComponentInChildren<SpriteRenderer>();
         transform.position = pos;
         circleSpawnPos += pos;
     }
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     {
         var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
         //bool isPointerOverUI = GameManager.instance.UIRoot.IsPointerOverUIElement();
-        if (point.y > CameraMain.instance.GetTop() -3.5f || point.y < CameraMain.instance.GetBottom() + 4.5f)
+        if (point.y > CameraMain.instance.GetTop() - 3.5f || point.y < CameraMain.instance.GetBottom() + 4.5f)
         {
             return false;
         }
@@ -89,7 +91,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     }
     void MouseDown()
     {
-        if (CameraMain.instance != null && !IngameController.instance.isPause && canDrop ==true && MousePosition()==true)
+        if (CameraMain.instance != null && !IngameController.instance.isPause && canDrop == true && MousePosition() == true)
         {
             mainCircle = EndlessLevel.Instance.main;
             if (mainCircle != null) StartCoroutine(DropCircle());
@@ -121,7 +123,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
         }
         else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
         {
-
             spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
             mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
 
@@ -129,6 +130,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)
         {
             canDrop = false;
+            DoGrapplingHook();
             _lineRenderer.gameObject.SetActive(false);
             //Debug.Log("Release mouse button");
             mainCircle.GotoState(mainCircle.Drop);
@@ -140,6 +142,25 @@ public class Player : MonoBehaviour, IPointerClickHandler
             _lineRenderer.gameObject.SetActive(true);
             canDrop = true;
         }
+    }
+    Tween left;
+    Tween right;
+    public void DoGrapplingHook()
+    {
+        Vector3 rotateAngle = new Vector3(0, 0, rotation);
+         left = _renders[0].transform.DORotate(-rotateAngle, 0.2f, RotateMode.Fast);
+         right = _renders[1].transform.DORotate(rotateAngle, 0.2f, RotateMode.Fast);
+        left.OnComplete(() =>
+        {
+            left = _renders[0].transform.DORotate(Vector3.zero, 0.25f, RotateMode.Fast);
+            left.OnComplete(()=>left.Kill(true));
+        });
+        right.OnComplete(() =>
+        {
+            right = _renders[1].transform.DORotate(Vector3.zero, 0.25f, RotateMode.Fast);
+            right.OnComplete(() => right.Kill(true));
+        });
+
     }
     public void Reset()
     {

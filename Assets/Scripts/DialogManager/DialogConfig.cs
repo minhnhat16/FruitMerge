@@ -51,6 +51,8 @@ public class BuyConfirmDialogParam : DialogParam
     public string amount_lb;
     public string bonus_lb;
     public string cost_lb;
+    public int cost;
+    public string plaintext;
 }
 public class LevelConfirm : DialogParam
 {

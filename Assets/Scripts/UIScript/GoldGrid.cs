@@ -44,8 +44,10 @@ public class GoldGrid : MonoBehaviour
         item.ItemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(itemConfig.SpriteName);
         //item.ItemImg.SetNativeSize();
         item.Type = price.IdItem;
+        item.Name_lb.text = itemConfig.Type.ToString();
         item.TotalItem = price.Amount;
         item.Enable = price.Available;
+        item.CheckPrice(price.Price);
         _items.Add(item);
     }
 }

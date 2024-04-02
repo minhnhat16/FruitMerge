@@ -111,9 +111,11 @@ public class CircleObject : FSMSystem
     public void DisableTarget()
     {
         isBeingTarget = false;
-        targetRender.transform.DOScale(0f, 0.15f).OnComplete(() =>
+        Tween targetTween = targetRender.transform.DOScale(0f, 0.15f);
+        targetTween.OnComplete(() =>
         {
             targetRender.DisableTarget();
+            targetTween.Kill();
         });
     }
     public void SetRigidBodyVelocity(Vector3 vl)

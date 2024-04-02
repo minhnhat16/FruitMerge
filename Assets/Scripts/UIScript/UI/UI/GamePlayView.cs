@@ -77,11 +77,19 @@ public class GamePlayView : BaseView, IPointerClickHandler
         onTomato = false;
         onBomb = false;
         onUpgrade = false;
-        tomato_lb.text = DataAPIController.instance.GetItemTotal(ItemType.CHANGE.ToString()).ToString();
-        bomb_lb.text = DataAPIController.instance.GetItemTotal(ItemType.HAMMER.ToString()).ToString();
-        upgrade_lb.text = DataAPIController.instance.GetItemTotal(ItemType.ROTATE.ToString()).ToString();
+        int total = DataAPIController.instance.GetItemTotal(ItemType.CHANGE.ToString());
+        tomato_lb.text = CheckTotalItem(total);
+        total = DataAPIController.instance.GetItemTotal(ItemType.HAMMER.ToString());
+        bomb_lb.text = CheckTotalItem(total);
+        total = DataAPIController.instance.GetItemTotal(ItemType.ROTATE.ToString());
+        upgrade_lb.text = CheckTotalItem(total);
         int tracker = GameManager.instance.TrackLevelStart++;
         ZenSDK.instance.TrackLevelStart(tracker);
+    }
+    public string CheckTotalItem(int total)
+    {
+        if (total > 0) return total.ToString();
+        else return "0";
     }
     public override void OnStartHideView()
     {
@@ -181,7 +189,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         else if (onTomato && onUpgrade && onBomb) { }
         {
             ItemConfirmParam param = new();
-            param.type =type;
+            param.type = type;
 
             if (total > 0 && EndlessLevel.Instance._Circles.Count != 0)
             {
@@ -202,7 +210,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
                     onUpgrade = true;
                     onBomb = true;
                 });
-             };
+            };
         }
     }
     public void CancelItem(bool onUse)
@@ -268,17 +276,17 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void HammerItem(int i)
     {
-        bomb_lb.text = i.ToString();
+        bomb_lb.text = CheckTotalItem(i);
         EndlessLevel.Instance.UsingHammer();
     }
     public void ShakeItem(int i)
     {
-        upgrade_lb.text = i.ToString();
+        upgrade_lb.text = CheckTotalItem(i);
         EndlessLevel.Instance.UsingShake();
     }
     public void ChangeItem(int i)
     {
-        tomato_lb.text = i.ToString();
+        tomato_lb.text = CheckTotalItem(i);
         EndlessLevel.Instance.UsingChange();
     }
     public void SettingButton()

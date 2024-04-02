@@ -127,14 +127,15 @@ public class DailyItem : MonoBehaviour
         Debug.Log("On Click Daily Item");
         if (currentType == IEDailyType.Available)
         {
+
             Debug.Log("On Click Daily Item" + IEDailyType.Available);
             onClickDailyItem?.Invoke(true);
         }
         else
         {
             Debug.Log("On Click Daily Item" + IEDailyType.Unavailable);
-
-            onClickDailyItem?.Invoke(false);
+            bool checkVidReward = ZenSDK.instance.IsVideoRewardReady();
+            onClickDailyItem?.Invoke(checkVidReward);
         }
     }
     public virtual void OnClickDailyItem()

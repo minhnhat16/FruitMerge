@@ -11,6 +11,7 @@ public class SkinGrid : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
     [SerializeField] private FloatingText  floatingText;
+    [SerializeField] private Image crSkinHead;
 
     private void Awake()
     {
@@ -55,6 +56,8 @@ public class SkinGrid : MonoBehaviour
                         //Debug.Log("CURRENT SKIN TRUEE" + currentSkin);
                         skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, true, false, itemConfig[i].SpriteName);
                         crSkinItem = skin.GetComponent<SkinItem>();
+                        crSkinHead.sprite = crSkinItem.OwnedImg.sprite;
+
                     }
                     else if (playerData.Contains(itemConfig[i].ID))
                     {
@@ -64,7 +67,9 @@ public class SkinGrid : MonoBehaviour
                     else
                     {
                         int idSkinInShop = shopConfig.IdPrice.Find(idprice => idprice == itemConfig[i].ID);
-                        int price = priceConfig.Find(x => x.Id == idSkinInShop).Price;
+                        int price = priceConfig.Find(x => x.IdItem == idSkinInShop).Price;
+                        Debug.Log($"itemconfig[{itemConfig[i].ID}]" +
+                          $"idSkinINshop {idSkinInShop}" + $" price {price} id {priceConfig.Find(x => x.IdItem == idSkinInShop).Id}");
                         skin.GetComponent<SkinItem>().Price = price;
                         skin.GetComponent<SkinItem>().InitSkin(itemConfig[i].ID, false, false, itemConfig[i].SpriteName);
 
@@ -80,6 +85,7 @@ public class SkinGrid : MonoBehaviour
         Debug.Log("SWICTH CURRENT SKIN " + skinEquip.SkinID);
         crSkinItem.SetItemUnquiped();
         crSkinItem = skinEquip;
+        crSkinHead.sprite = skinEquip.OwnedImg.sprite;
         DataAPIController.instance.SetCurrenFruitSkin(skinEquip.SkinID, null);
         floatingText.gameObject.SetActive(true);
         floatingText.ShowFloatingText();

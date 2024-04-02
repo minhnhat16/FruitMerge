@@ -42,25 +42,25 @@ MonoBehaviour:
     type: 4
     skinType: Donut
   - id: 7
-    spriteName: Donut
+    spriteName: Cookie
     type: 4
-    skinType: Donut
+    skinType: Cookie
   - id: 8
-    spriteName: Default
+    spriteName: Candy
     type: 4
-    skinType: Default
+    skinType: Candy
   - id: 9
-    spriteName: Default
+    spriteName: Fastfood
     type: 4
-    skinType: Default
+    skinType: Fastfood
   - id: 10
-    spriteName: Default
+    spriteName: Japanfood
     type: 4
-    skinType: space
+    skinType: Japanfood
   - id: 11
-    spriteName: Default
+    spriteName: Chinesefood
     type: 4
-    skinType: sky
+    skinType: Chinesefood
   - id: 12
     spriteName: Default
     type: 5

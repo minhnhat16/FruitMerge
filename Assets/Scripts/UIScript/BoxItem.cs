@@ -116,11 +116,16 @@ public class BoxItem : MonoBehaviour
 
             SetItemUnquiped();
         };
-        if ((confirmBtnType.Btntype.Equals(ButtonType.Buy)
-            || confirmBtnType.Btntype.Equals(ButtonType.Ads)) && goldHave >= intCost)
+        if ((confirmBtnType.Btntype.Equals(ButtonType.Buy)) && goldHave >= intCost)
         {
             param.cost_lb = intCost.ToString();
+            param.plaintext = "DO YOU WANT TO BUY THIS PACK";
             DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
         }
+        else if (confirmBtnType.Btntype.Equals(ButtonType.Ads))
+        {
+            param.plaintext = "WATCH A VIDEO TO CLAIM THIS";
+            DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
+        };
     }
 }

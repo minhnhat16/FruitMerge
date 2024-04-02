@@ -23,6 +23,7 @@ public class SkinItem : MonoBehaviour
     public int SkinID { get => skinID; set => skinID = value; }
     public bool IsOwned { get => isOwned; set => isOwned = value; }
     public int Price { get => price; set => price = value; }
+    public  Image OwnedImg { get => Onwed; set => Onwed = value; }
     public UnityEvent<bool> onClickAction = new UnityEvent<bool>();
     public UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
 
@@ -37,6 +38,7 @@ public class SkinItem : MonoBehaviour
         this.isOwned = isOwned;
         this.isDisable = isDisable;
         this.skinName = skinname;
+        skinName_lb.text= skinName;
         CheckSkinIsObtain(isOwned);
     }
     public void CheckSkinIsObtain(bool isObtain)
@@ -78,12 +80,20 @@ public class SkinItem : MonoBehaviour
     public void SetItemBuy()
     {
         Debug.Log($"Skin name {skinName}");
+
         unOwn.sprite = SpriteLibControl.Instance.GetSpriteByName(skinName + "Gray");
         disableMask.gameObject.SetActive(true);
         Onwed.gameObject.SetActive(false) ;
         unOwn.gameObject.SetActive(true);
-        confirmBtnType.SwitchButtonType(ButtonType.Buy);
-        confirmBtnType.UpdatePriceLb(price.ToString());
+        if(price > 0)
+        {
+            confirmBtnType.SwitchButtonType(ButtonType.Buy);
+            confirmBtnType.UpdatePriceLb(price.ToString());
+        }
+        else
+        {
+            confirmBtnType.SwitchButtonType(ButtonType.Ads);
+        }
     }
     public void ButtonEvent(bool isClicked)
     {
@@ -118,7 +128,7 @@ public class SkinItem : MonoBehaviour
     {
         Debug.Log("ONLICKBUYBUTTON");
         int goldHave = DataAPIController.instance.GetGold();
-        int intCost = Convert.ToInt32(price.ToString());
+        int intCost = param.cost = Convert.ToInt32(price.ToString());
         param.onConfirmAction = () =>
         {
 
@@ -130,12 +140,18 @@ public class SkinItem : MonoBehaviour
             
             SetItemUnquiped();
         };
-        if ((confirmBtnType.Btntype.Equals(ButtonType.Buy)
-            || confirmBtnType.Btntype.Equals(ButtonType.Ads)) && goldHave >= intCost)
+        if ((confirmBtnType.Btntype.Equals(ButtonType.Buy)) && goldHave >= intCost)
         {
+            param.plaintext = "DO YOU WANT TO BUY THIS PACK";
             param.cost_lb = intCost.ToString();
             DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
         }
+        else if (confirmBtnType.Btntype.Equals(ButtonType.Ads))
+        {
+            param.plaintext = "WATCH A VIDEO TO CLAIM THIS";
+            DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
+
+        };
     }
 }
 public class SkinViewItemAction

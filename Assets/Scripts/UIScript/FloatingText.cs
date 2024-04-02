@@ -1,13 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FloatingText : MonoBehaviour
+public class FloatingText :MonoBehaviour
 {
     [SerializeField] private Animator floatingAnim;
     Action callback;
-
+    private void OnEnable()
+    {
+        
+    }
     public void ShowFloatingText()
     {
         floatingAnim.Play("FloatingAnim");
@@ -16,5 +17,13 @@ public class FloatingText : MonoBehaviour
     public void ShowAnim()
     {
         callback?.Invoke();
+    }
+    public void DespawnGameObject(){
+        gameObject.SetActive(false);
+    }
+    public void ActiveGameObject()
+    {
+        gameObject.SetActive(true);
+
     }
 }

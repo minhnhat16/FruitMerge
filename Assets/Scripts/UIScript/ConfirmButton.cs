@@ -25,7 +25,7 @@ public class ConfirmButton : MonoBehaviour
     }
     public void OnClickButton()
     {
-     
+        Debug.Log("OnclickButton");
         onClickAction?.Invoke(true);
     }
    

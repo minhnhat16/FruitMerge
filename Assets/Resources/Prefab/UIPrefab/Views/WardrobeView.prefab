@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.00064086914, y: 0}
   m_SizeDelta: {x: 0, y: 1000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &218437097994036186
@@ -56,7 +56,7 @@ MonoBehaviour:
     m_Top: 50
     m_Bottom: 500
   m_ChildAlignment: 1
-  m_StartCorner: 0
+  m_StartCorner: 1
   m_StartAxis: 0
   m_CellSize: {x: 500, y: 100}
   m_Spacing: {x: 1000, y: 100}
@@ -81,6 +81,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   floatingText: {fileID: 3940155319362241063}
+  crSkinHead: {fileID: 1838546360014400642}
 --- !u!1 &93682446006703215
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1491,7 +1492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2709259156200274640
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2711,7 +2712,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3164,7 +3165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -12.729004}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: -128.10641, y: -56.679993}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6837123784155684120
@@ -3573,7 +3574,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8110027086207531420}
   m_HandleRect: {fileID: 6275940708140227420}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -55,9 +55,15 @@ public class ItemConfirmDialog : BaseDialog
         {
             if (isWatched)
             {
+                DataAPIController.instance.SetItemTotal(type.ToString(),1);
                 ConfirmUsingItem();
             }
-            else return;
+            else 
+            {
+                Debug.LogWarning("Watch reward unsuccesfull");
+            
+            }
+            ;
         });
     }
     public void ConfirmUsingItem()

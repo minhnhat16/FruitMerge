@@ -17,6 +17,7 @@ public class ShopItemTemplate : MonoBehaviour
     [SerializeField] private int intCost;
     [SerializeField] private TextMeshProUGUI cost_lb;
     [SerializeField] private bool enable;
+    [SerializeField] List<GameObject> buttonType = new();
 
     public int Type { get => type; set => type = value; }
     public int IntCost { get => intCost; set => intCost = value; }
@@ -34,6 +35,19 @@ public class ShopItemTemplate : MonoBehaviour
        total_lb.text = "x" + totalItem.ToString();
     }
     BuyConfirmDialogParam param = new BuyConfirmDialogParam();
+    public void CheckPrice (int price)
+    {
+        if(price < 0)
+        {
+            buttonType[0].SetActive(true);
+            buttonType[1].SetActive(false);
+        }
+        else
+        {
+            buttonType[1].SetActive(true);
+            buttonType[0].SetActive(false);
+        }
+    }
     public void OnClickBuyButton()
     {
         Debug.Log("ONLICKBUYBUTTON");
@@ -56,10 +70,17 @@ public class ShopItemTemplate : MonoBehaviour
                 IngameController.instance.GoldChanged();
             }
         };
-        if (enable == true && goldHave >= intCost)
+        if (intCost <0) {
+            param.plaintext = "WATCH A VIDEO TO CLAIM THIS";
+            param.cost = intCost;
+            DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
+
+        }
+        else if (enable == true && goldHave >= intCost)
         {
             param.amount_lb = total_lb.text;
             param.cost_lb = cost_lb.text;
+            param.plaintext = "DO YOU WANT TO BUY THIS PACK";
             DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog  , param);
         }
     }
