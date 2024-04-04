@@ -61,6 +61,7 @@ public class SettingDialog : BaseDialog
     }
     public void PlayButton()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         IngameController.instance.isPause = false;
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
@@ -71,6 +72,7 @@ public class SettingDialog : BaseDialog
     }
     public void HomeButton()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         EndlessLevel.Instance.Clear();
         IngameController.instance.SetIngameObjectActive(false);
         DialogManager.Instance.HideDialog(dialogIndex);
@@ -89,6 +91,7 @@ public class SettingDialog : BaseDialog
     }
     public void MusicChange(bool isOn)
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         Debug.Log("MUSIC CHANGED" + isOn);
         SoundManager.Instance.musicSetting = isOn;
         SoundManager.Instance.SettingMusicVolume(isOn);
@@ -106,6 +109,7 @@ public class SettingDialog : BaseDialog
     }
     public void SFXChange(bool isOn)
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         Debug.Log("SFX CHANGED" + isOn);
         SoundManager.Instance.sfxSetting = isOn;
         SoundManager.Instance.SettingSFXVolume(isOn);
@@ -134,6 +138,7 @@ public class SettingDialog : BaseDialog
     public void RestartButton()
     {
         if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         //ZenSDK.instance.ShowFullScreen();
         DialogManager.Instance.HideDialog(dialogIndex);
         IngameController.instance.SetIngameObjectActive(false);
@@ -155,6 +160,7 @@ public class SettingDialog : BaseDialog
     }
     public void CloseBtn()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         Debug.Log("Close button on " + this.dialogIndex);
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {

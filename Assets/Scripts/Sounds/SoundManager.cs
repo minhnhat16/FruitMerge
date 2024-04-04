@@ -182,6 +182,7 @@ public class SoundManager : MonoBehaviour
         if (CanPlaySFX(sfx))
         {
             SFXGameObj soundGameObj = SoundGameObjPool.instance.pool.SpawnNonGravity();
+            soundGameObj.AutoDespawnSFX(sfx);
             soundGameObj.sfx = sfx;
             AudioSource audioSource = soundGameObj.gameObject.GetComponent<AudioSource>();
             //Debug.Log(soundGameObj.name.ToString());

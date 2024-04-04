@@ -159,8 +159,7 @@ public class CircleObject : FSMSystem
     // Update is called once per frame
     public void Update()
     {
-        ClaimPosition();
-        StartCoroutine(ResetMerge());
+
     }
     public void SetRotation(Vector3 rotate)
     {
@@ -168,6 +167,7 @@ public class CircleObject : FSMSystem
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false && state != "SpawnState")
         {
             instanceID = Time.time;
@@ -185,25 +185,26 @@ public class CircleObject : FSMSystem
         }
 
     }
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
-        {
-            instanceID = Time.time;
-            CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
-            if (otherCircle == null || IngameController.instance.isGameOver || otherCircle.isMerged || isMerged) return;
-            contactCircle = otherCircle;
-            SwitchCircleOption(otherCircle);
-            return;
-        }
-        else if (collision.gameObject.CompareTag("Topwall") && transform.position.y > 8)
-        {
-            IngameController.instance.isGameOver = true;
-        }
+    //public void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
+    //    {
+    //        instanceID = Time.time;
+    //        CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
+    //        if (otherCircle == null || IngameController.instance.isGameOver || otherCircle.isMerged || isMerged) return;
+    //        contactCircle = otherCircle;
+    //        SwitchCircleOption(otherCircle);
+    //        return;
+    //    }
+    //    else if (collision.gameObject.CompareTag("Topwall") && transform.position.y > 8)
+    //    {
+    //        IngameController.instance.isGameOver = true;
+    //    }
 
-    }
-    IEnumerator ResetMerge()
+    //}
+    public IEnumerator ResetMerge()
     {
+        if(gameObject.activeInHierarchy)
         yield return new WaitForSeconds(1f);
         isMerged = false;
     }
@@ -245,23 +246,7 @@ public class CircleObject : FSMSystem
         }
 
     }
-    public void PopAroundCircle()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, GetComponentInChildren<CircleCollider2D>().radius);
-        foreach (Collider2D col in hits)
-        {
-            if (col.gameObject != gameObject)
-            {
-                Rigidbody2D rb = col.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    Vector2 direction = (col.transform.position - transform.position);
-                    rb.AddForce(direction * 10f, ForceMode2D.Impulse);
-                }
-            }
-        }
 
-    }
     [Serialize] Tween tween;
     public IEnumerator SpawnNewCircle(CircleObject col)
     {
@@ -280,24 +265,24 @@ public class CircleObject : FSMSystem
         col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
+
         if (typeID > 10) yield return null;
+
         var c = CirclePool.instance.pool.SpawnNonGravityNext();
         c.SetTypeID(t);
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
 
-        //c.record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(c.typeID);
         c._collider.GetComponent<CircleCollider2D>().radius = c.circleType.Radius;
-        //Debug.Log($" _collider.GetComponent<CircleCollider2D>().radius {c.circleType.Radius}");
 
         PlayMergeVFX(c);//play spawn particles
         c.RandomMergeSFX();
 
         c.transform.SetPositionAndRotation(col.transform.position, Quaternion.identity);
         c.rigdBody.bodyType = RigidbodyType2D.Dynamic;
-        PopAroundCircle();
-        int score = typeID + c.typeID;
-        IngameController.instance.AddScore(score);
+        c.ClaimPosition();
+        //PopAroundCircle();
+        IngameController.instance.AddScore(typeID + c.typeID);
         EndlessLevel.Instance.FindLargestType(typeID + 1);
     }
     public void PlayMergeVFX(CircleObject circle)

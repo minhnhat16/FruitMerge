@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class BoxItem : MonoBehaviour
 {
-    [SerializeField] public bool isDisable;
+    [HideInInspector] public bool isDisableWall;
     [SerializeField] private bool isOwned;
     [SerializeField] private int skinID;
     [SerializeField] private int price;
@@ -21,27 +18,27 @@ public class BoxItem : MonoBehaviour
     public bool IsOwned { get => isOwned; set => isOwned = value; }
     public int Price { get => price; set => price = value; }
     private UnityEvent<bool> onClickAction = new UnityEvent<bool>();
-    [HideInInspector]public UnityEvent<BoxItem> onEquipActionBox = new UnityEvent<BoxItem>();
+    [HideInInspector] public UnityEvent<BoxItem> onEquipActionBox = new();
     public void OnEnable()
     {
         onClickAction = confirmBtnType.onClickAction;
         onClickAction.AddListener(ButtonEvent);
     }
-    public void InitSkin(int skinType, bool isOwned, bool isDisable)
+    public void InitSkin(int skinType, bool isOwned, bool isDisableWall)
     {
         this.SkinID = skinType;
         this.isOwned = isOwned;
-        this.isDisable = isDisable;
+        this.isDisableWall = isDisableWall;
         CheckSkinIsObtain(isOwned);
     }
     public void CheckSkinIsObtain(bool isObtain)
     {
-        if (isObtain && !isDisable)
+        if (isObtain && !isDisableWall)
         {
             SetItemEquiped();
             //ADD BUY OR EQUIPCONDITION
         }
-        else if (isObtain && isDisable)
+        else if (isObtain && isDisableWall)
         {
             SetItemUnquiped();
         }
@@ -52,25 +49,32 @@ public class BoxItem : MonoBehaviour
     }
     public void SetItemEquiped()
     {
-        disableMask.gameObject.SetActive(false);
-        equipedBG.gameObject.SetActive(true);
+        disableMask.SetActive(false);
+        equipedBG.SetActive(true);
         confirmBtnType.SwitchButtonType(ButtonType.Equiped);
 
     }
     public void SetItemUnquiped()
     {
         Debug.Log("SKIN UNQUIPED");
-        disableMask.gameObject.SetActive(false);
-        unquipedBG.gameObject.SetActive(true);
-        equipedBG.gameObject.SetActive(false);
+        disableMask.SetActive(false);
+        unquipedBG.SetActive(true);
+        equipedBG.SetActive(false);
         confirmBtnType.SwitchButtonType(ButtonType.Unquiped);
 
     }
     public void SetItemBuy()
     {
         disableMask.gameObject.SetActive(true);
-        confirmBtnType.SwitchButtonType(ButtonType.Buy);
-        confirmBtnType.UpdatePriceLb(price.ToString());
+        if (price > 0)
+        {
+            confirmBtnType.SwitchButtonType(ButtonType.Buy);
+            confirmBtnType.UpdatePriceLb(price.ToString());
+        }
+        else
+        {
+            confirmBtnType.SwitchButtonType(ButtonType.Ads);
+        }
     }
     public void ButtonEvent(bool isClicked)
     {
@@ -100,7 +104,7 @@ public class BoxItem : MonoBehaviour
             }
         }
     }
-    BuyConfirmDialogParam param = new BuyConfirmDialogParam();
+    readonly BuyConfirmDialogParam param = new();
     void BuyInvoke()
     {
         Debug.Log("ONLICKBUYBUTTON");
@@ -118,6 +122,7 @@ public class BoxItem : MonoBehaviour
         };
         if ((confirmBtnType.Btntype.Equals(ButtonType.Buy)) && goldHave >= intCost)
         {
+            param.cost = intCost;
             param.cost_lb = intCost.ToString();
             param.plaintext = "DO YOU WANT TO BUY THIS PACK";
             DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);

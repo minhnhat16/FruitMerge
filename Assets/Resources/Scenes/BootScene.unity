@@ -363,6 +363,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1189132360064450569, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 1189132360064450569, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1189132360064450571, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_ClearFlags
       value: 1
@@ -394,6 +402,10 @@ PrefabInstance:
     - target: {fileID: 1189132360064450571, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189132360064450572, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1189132360282683559, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_IsActive

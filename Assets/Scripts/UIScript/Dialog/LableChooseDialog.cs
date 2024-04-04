@@ -71,10 +71,12 @@ public class LableChooseDialog : BaseDialog
     }
     public void SettingDialogButton()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         DialogManager.Instance.ShowDialog(DialogIndex.SettingDialog, null);
     }
     public void DailyDialogButton()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         DialogManager.Instance.ShowDialog(DialogIndex.DailyRewardDialog, null);
 
     }

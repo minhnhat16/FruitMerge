@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class UIRootControlScale : MonoBehaviour
 {
@@ -49,9 +47,9 @@ public class UIRootControlScale : MonoBehaviour
     //Gets all event system raycast results of current mouse or touch position.
     static List<RaycastResult> GetEventSystemRaycastResults()
     {
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        PointerEventData eventData = new(EventSystem.current);
         eventData.position = Input.mousePosition;
-        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        List<RaycastResult> raysastResults = new();
         EventSystem.current.RaycastAll(eventData, raysastResults);
         return raysastResults;
     }

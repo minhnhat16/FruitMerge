@@ -34,7 +34,7 @@ public class BuyDialog : BaseDialog
             BuyConfirmDialogParam param = (BuyConfirmDialogParam)dialogParam;
             onConfirm = param.onConfirmAction;
             onCancel = param.onCancleAction;
-           
+            cost = param.cost;
             explain_lb.text = param.plaintext;
         }
     }
@@ -45,7 +45,6 @@ public class BuyDialog : BaseDialog
         {
             buyButton.gameObject.SetActive(true);
             AdsButton.gameObject.SetActive(false);
-
         }
         else
         {

@@ -50,6 +50,6 @@ MonoBehaviour:
     itemImg: coin
   - id: 7
     type: 4
-    amount: 11
+    amount: 1
     rate: 0.125
     itemImg: Chinesefood

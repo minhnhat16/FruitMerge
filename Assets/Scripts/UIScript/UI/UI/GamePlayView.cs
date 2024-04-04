@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class GamePlayView : BaseView, IPointerClickHandler
 {
-    [HideInInspector] GamePlayAnim anim;
+    //[HideInInspector] GamePlayAnim anim;
     [SerializeField] TextMeshProUGUI score_rb;
     [SerializeField] private int _changeGold;
     [SerializeField] private int _curGold;
@@ -83,7 +83,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
         bomb_lb.text = CheckTotalItem(total);
         total = DataAPIController.instance.GetItemTotal(ItemType.ROTATE.ToString());
         upgrade_lb.text = CheckTotalItem(total);
-        int tracker = GameManager.instance.TrackLevelStart++;
+        int tracker = GameManager.instance.TrackLevelStart +1;
         ZenSDK.instance.TrackLevelStart(tracker);
     }
     public string CheckTotalItem(int total)
@@ -94,7 +94,6 @@ public class GamePlayView : BaseView, IPointerClickHandler
     public override void OnStartHideView()
     {
         base.OnStartHideView();
-        anim = GetComponent<GamePlayAnim>();
     }
     public override void Setup(ViewParam viewParam)
     {
@@ -143,6 +142,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void PauseButton()
     {
+
         if (settingActive == true)
         {
             Debug.Log("pause button list ON");
@@ -156,6 +156,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
         }
         else
         {
+            SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
+
             settingActive = true;
             settingList.SetActive(true);
             clear_btn.gameObject.SetActive(true);
@@ -194,6 +196,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
             if (total > 0 && EndlessLevel.Instance._Circles.Count != 0)
             {
                 param.isAds = true;
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
+
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
                 {
                     onTomato = true;
@@ -215,6 +219,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
     }
     public void CancelItem(bool onUse)
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
+
         onTomato = onUse;
         onUpgrade = onUse;
         onBomb = onUse;

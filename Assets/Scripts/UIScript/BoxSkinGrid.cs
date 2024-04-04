@@ -65,12 +65,11 @@ public class BoxSkinGrid : MonoBehaviour
                     else
                     {
                         int idSkinInShop = shopConfig.IdPrice.Find(idprice => idprice == itemConfig[i].ID);
-                        int price = priceConfig.Find(x => x.Id == idSkinInShop).Price;
+                        int price = priceConfig.Find(x => x.IdItem == idSkinInShop).Price;
                         skin.GetComponent<BoxItem>().Price = price;
                         skin.GetComponent<BoxItem>().InitSkin(itemConfig[i].ID, false, false);
-                        Debug.Log("NOT CONTAIN SKIN");
-                        Debug.Log("SKIN ID IN SHOP" + shopConfig.Id);
-                        //Debug.Log("itemConfig[i].Type = " + itemConfig[i].Type + " itemConfig[i].ID = " + itemConfig[i].ID + " shopSkinId = " + idSkinInShop);
+                        Debug.Log($"itemconfig[{itemConfig[i].ID}]" +
+                          $"idSkinINshop {idSkinInShop}" + $" price {price} id {priceConfig.Find(x => x.IdItem == idSkinInShop).Id}");
                         Debug.Log("ITEM PRICE " + price);
                     }  
                 }

@@ -23,7 +23,6 @@ public class LoseDialog : BaseDialog
         base.OnStartShowDialog();
         EndlessLevel.Instance.SetActiveMainCircle(false);
         score_lb.text = "Score: " + IngameController.instance.Score.ToString();
-        param.score = IngameController.instance.Score;
         IngameController.instance.isPause = true;
     }   
     public override void OnEndShowDialog()
@@ -45,6 +44,7 @@ public class LoseDialog : BaseDialog
     }
     public void HomeBtn()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
 
         IngameController.instance.isGameOver = false;
         DialogManager.Instance.HideDialog(dialogIndex);
@@ -61,6 +61,7 @@ public class LoseDialog : BaseDialog
     }
     public void RePlayBtn()
     {
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
 
         DialogManager.Instance.HideDialog(DialogIndex.LoseDialog, () =>
         {

@@ -1077,10 +1077,10 @@ RectTransform:
   m_Father: {fileID: 8973713727361016946}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.2470093, y: 66}
-  m_SizeDelta: {x: -108.9335, y: -645.8491}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 6.2470093, y: 58.5}
+  m_SizeDelta: {x: 971.0665, y: 1345.1509}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &393213022183816799
 CanvasRenderer:
@@ -2217,6 +2217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogIndex: 7
+  baseDialogAnim: {fileID: 0}
   isMusicOn: 1
   isSFXOn: 1
   isVibOn: 1

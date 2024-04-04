@@ -11,5 +11,11 @@ public class GroundedState : FSMState<CircleObject>
     {
         base.OnEnter();
         sys.SetIsSFXPlayed(true);
+        sys.StartCoroutine(sys.ResetMerge());
+    }
+    public override void OnFixedUpdate()
+    {
+        base.OnFixedUpdate();
+        //sys.ClaimPosition();
     }
 }

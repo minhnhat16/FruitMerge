@@ -102,13 +102,13 @@ public class DailyItem : MonoBehaviour
                 DataAPIController.instance.AddGold(intAmount);
                 break;
             case "shake":
-                DataAPIController.instance.AddItemTotal("0",intAmount);
+                DataAPIController.instance.AddItemTotal(ItemType.ROTATE.ToString(),intAmount);
                 break;
             case "change":
-                DataAPIController.instance.AddItemTotal("1", intAmount);
+                DataAPIController.instance.AddItemTotal(ItemType.CHANGE.ToString(), intAmount);
                 break;
             case "burst":
-                DataAPIController.instance.AddItemTotal("2", intAmount);
+                DataAPIController.instance.AddItemTotal(ItemType.HAMMER.ToString(), intAmount);
                 break;
             default: break;
         }

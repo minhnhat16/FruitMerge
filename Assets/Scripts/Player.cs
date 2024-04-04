@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour, IPointerClickHandler
+public class Player : MonoBehaviour
 {
     public static Player instance;
     public bool canDrop = false;
@@ -89,6 +89,56 @@ public class Player : MonoBehaviour, IPointerClickHandler
             _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
         }
     }
+    void TouchHandle()
+    {
+        if (Input.touchCount > 0)
+        {
+            // Iterate through each touch
+            foreach (Touch touch in Input.touches)
+            {
+                // Check the phase of the touch
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        // Handle touch began
+                        HandleTouchBegan(touch);
+                        break;
+                    case TouchPhase.Moved:
+                        // Handle touch moved
+                        HandleTouchMoved(touch);
+                        break;
+                    case TouchPhase.Stationary:
+                        // Handle touch stationary
+                        HandleTouchStationary(touch);
+                        break;
+                    case TouchPhase.Ended:
+                    case TouchPhase.Canceled:
+                        // Handle touch ended or canceled
+                        HandleTouchEndedOrCanceled(touch);
+                        break;
+                }
+            }
+        }
+    }
+    private void HandleTouchBegan(Touch touch)
+    {
+        Debug.Log("Touch began at position: " + touch.position);
+    }
+
+    private void HandleTouchMoved(Touch touch)
+    {
+        Debug.Log("Touch moved at position: " + touch.position);
+    }
+
+    private void HandleTouchStationary(Touch touch)
+    {
+        Debug.Log("Touch stationary at position: " + touch.position);
+    }
+
+    private void HandleTouchEndedOrCanceled(Touch touch)
+    {
+        Debug.Log("Touch ended or canceled at position: " + touch.position);
+    }
     void MouseDown()
     {
         if (CameraMain.instance != null && !IngameController.instance.isPause && canDrop == true && MousePosition() == true)
@@ -97,25 +147,11 @@ public class Player : MonoBehaviour, IPointerClickHandler
             if (mainCircle != null) StartCoroutine(DropCircle());
         }
     }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        // Check if the pointer is over a UI GameObject
-        if (eventData.pointerEnter != null && eventData.pointerEnter.GetComponent<Graphic>() != null)
-        {
-            canDrop = false;
-            Debug.Log("On Pointer Click On GameObject");
-        }
-        else
-        {
-            canDrop = true;
-            Debug.Log("On Pointer Not Click On GameObject");
-        }
-    }
     IEnumerator DropCircle()
     {
+        yield return new WaitUntil(() => mainCircle != null);
         if (Input.GetMouseButtonDown(0))
         {
-            yield return new WaitUntil(() => mainCircle != null);
             mainCircle.transform.position = pos + circleSpawnPos;
             mainCircle.SetIsMerge(false);
             mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);

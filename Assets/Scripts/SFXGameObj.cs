@@ -5,13 +5,11 @@ using UnityEngine;
 public class SFXGameObj : MonoBehaviour
 {
     public SoundManager.SFX sfx;
-
     private void Update()
     {
-        AutoDespawnSFX(sfx);
     }
 
-    private void AutoDespawnSFX(SoundManager.SFX sfx)
+    public void AutoDespawnSFX(SoundManager.SFX sfx)
     {
         float time = SoundManager.Instance.sfxTimerDespawnDictionary[sfx];
         StartCoroutine(DespawnSFX(time));

@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rect: {fileID: 0}
-  radius: 250
+  radius: 270
   numberOfObjects: 8
   minusStep: 25
   _items: []

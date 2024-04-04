@@ -15,7 +15,7 @@ public class BootLoader : MonoBehaviour
         {
             DOTween.SetTweensCapacity(1000, 50);
             gameManager = GetComponentInChildren<GameManager>();
-            gameManager.TrackLevelStart = 1;
+            gameManager.TrackLevelStart = 0;
             ZenSDK.instance.TrackLevelStart(gameManager.TrackLevelStart);
             InitConfig();
         });
@@ -33,7 +33,7 @@ public class BootLoader : MonoBehaviour
         {
             gameManager.SetupGameManager();
             SkinLibControl.Instance.InitFruitSkin();
-            MainScreenViewParam param = new MainScreenViewParam();
+            MainScreenViewParam param = new();
             param.totalGold = DataAPIController.instance.GetGold();
             LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
             {
@@ -61,15 +61,16 @@ public class BootLoader : MonoBehaviour
     }
     private void OnApplicationPause(bool pause)
     {
-        Time.timeScale = 0;
+        if (pause)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        Time.timeScale =1;
     }
     private void OnApplicationFocus(bool focus)
     {
         Time.timeScale = 1;
-    }
-    private void OnApplicationQuit()
-    {
-        //ZenSDK.instance.TrackLevelStart(1);
     }
 }
 

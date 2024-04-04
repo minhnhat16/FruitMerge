@@ -2,10 +2,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-    
+
 public static class DataTrigger
 {
     /// <summary>
@@ -80,27 +79,30 @@ public class DataModel : MonoBehaviour
             UserInfo inf = new UserInfo();
             inf.name = "Player 1";
             userData.userInfo = inf;
-            UserInventory  userInventory = new UserInventory();
+            UserInventory userInventory = new UserInventory();
             userInventory.gold = ZenSDK.instance.GetConfigInt(ItemType.GOLD.ToString(), 10000);
             userInventory.itemInventory = new Dictionary<string, ItemData>();
 
             NewItemData(ItemType.HAMMER, userInventory);
             NewItemData(ItemType.CHANGE, userInventory);
             NewItemData(ItemType.ROTATE, userInventory);
-      
+
             userInventory.dailyData = new Dictionary<string, DailyData>();
-            for (int i = 1;i <= 7; i ++)
+            for (int i = 1; i <= 7; i++)
             {
-                DailyData dailyData =new();
+                DailyData dailyData = new();
                 dailyData.day = i;
                 dailyData.type = IEDailyType.Unavailable;
-                userInventory.dailyData.Add(i.ToString(),dailyData);
+                userInventory.dailyData.Add(i.ToString(), dailyData);
             }
             userInventory.lastCheckedData = DateTime.Today.AddDays(-1000).ToString();
-            userInventory.fruitskinOwned.Add(GameInitData.defaultSkinID);
-            userInventory.boxSkinOwned.Add(GameInitData.defaultBoxSkinID);
-            userInventory.currentFruitSkinID = GameInitData.defaultSkinID;
-            userInventory.currentBoxSkinID = GameInitData.defaultBoxSkinID;
+            int defaultSkinID = ZenSDK.instance.GetConfigInt(ItemType.FRUITSKIN.ToString(), 4);
+            int defaultBoxSkinID = ZenSDK.instance.GetConfigInt(ItemType.BOXSKIN.ToString(), 12);
+
+            userInventory.fruitskinOwned.Add(defaultSkinID);
+            userInventory.boxSkinOwned.Add(defaultBoxSkinID);
+            userInventory.currentFruitSkinID = defaultSkinID;
+            userInventory.currentBoxSkinID = defaultBoxSkinID;
             userData.inventory = userInventory;
             UserLevelData userLevelData = new UserLevelData();
             userLevelData.highestScore = 0;
@@ -271,7 +273,7 @@ public class DataModel : MonoBehaviour
     {
         ItemData itemData = new ItemData();
         int total = ZenSDK.instance.GetConfigInt(type.ToString(), 10);
-        itemData.total = 1000; // Defaul total item, switch to total when have SDK config
+        itemData.total = total; // Defaul total item, switch to total when have SDK config
         int id = (int)type;
         itemData.id = type.ToString();
         inventory.itemInventory.Add(itemData.id, itemData);
@@ -281,6 +283,6 @@ public class DataModel : MonoBehaviour
 
 public class GameInitData
 {
-    public const int defaultSkinID = 4;
-    public const int defaultBoxSkinID = 12;
+    public int defaultSkinID = ZenSDK.instance.GetConfigInt("fruitSkin", 4);
+    public int defaultBoxSkinID = ZenSDK.instance.GetConfigInt("boxSkin", 12);
 }

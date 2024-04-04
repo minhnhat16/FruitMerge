@@ -43,7 +43,7 @@ public class EndlessLevel : MonoBehaviour
     public void RemoveCircle(CircleObject item)
     {
         var find = _Circles.Find(c => c == item);
-        _circles.Remove(find);
+            _circles.Remove(find);
     }
     // Start is called before the first frame update
     private void Awake()
@@ -66,10 +66,9 @@ public class EndlessLevel : MonoBehaviour
         }
         else
         {
-            EnableTargetCircles();
         }
     }
-
+   
     public void LoadLevel(Action callback)
     {
         level = 0;
@@ -111,7 +110,8 @@ public class EndlessLevel : MonoBehaviour
     }
     public IEnumerator SpawnFirstCircle()
     {
-        yield return new WaitForSeconds(spawnCooldown);
+        //yield return new WaitForSeconds(spawnCooldown);
+        yield return new WaitUntil(() => main == null);
         yield return new WaitUntil(() => IngameController.instance.isGameOver == false);
         int first = FirstInQueue();
         main = SpawnCircle(first);
@@ -210,6 +210,8 @@ public class EndlessLevel : MonoBehaviour
     {
         Player.instance.canDrop = false;
         isBomb = true;
+        EnableTargetCircles();
+
     }
     public void UsingShake()
     {
@@ -236,6 +238,7 @@ public class EndlessLevel : MonoBehaviour
     public void AfterUsingBombItem()
     {
         Player.instance.canDrop = true;
+        EnableTargetCircles();
         isBomb = false;
         IngameController.instance.CancelItem();
         DisableTargetCircles();
@@ -267,12 +270,15 @@ public class EndlessLevel : MonoBehaviour
     }
     public void AddForceForCircle()
     {
-        foreach(var c in _circles)
+
+        for (int i = 0; i  < _circles.Count; i ++)
         {
-            if (c.gameObject.activeSelf)
+           
+            if (_circles[i].gameObject.activeSelf)
             {
-                c.ApplyForceOverTime();
+                _circles[i].ApplyForceOverTime();
             }
+            else return;
         }
     }
     public void FreezeCircleDead()

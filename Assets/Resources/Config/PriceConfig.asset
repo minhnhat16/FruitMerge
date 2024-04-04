@@ -126,7 +126,7 @@ MonoBehaviour:
     available: 1
     moneyPaid: 1
   - id: 15
-    idShop: 3
+    idShop: 2
     idItem: 11
     price: 11500
     amount: 1
@@ -135,63 +135,70 @@ MonoBehaviour:
   - id: 16
     idShop: 3
     idItem: 12
-    price: 1250
+    price: 0
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 17
     idShop: 3
     idItem: 13
-    price: 1700
+    price: 0
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 18
     idShop: 3
     idItem: 14
-    price: 1700
+    price: 5000
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 19
     idShop: 3
     idItem: 15
-    price: 1700
+    price: 10000
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 20
     idShop: 3
     idItem: 16
-    price: 1700
+    price: 20000
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 21
     idShop: 3
     idItem: 17
-    price: 1700
+    price: 25000
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 22
     idShop: 3
     idItem: 18
-    price: 1700
+    price: 35000
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 23
     idShop: 3
     idItem: 19
-    price: 1700
+    price: 45000
     amount: 1
     available: 1
     moneyPaid: 0
   - id: 24
     idShop: 3
     idItem: 20
-    price: 1700
+    price: 5000
     amount: 1
     available: 1
-    moneyPaid: 0
+    moneyPaid: 1
+  - id: 24
+    idShop: 3
+    idItem: 20
+    price: 5000
+    amount: 1
+    available: 1
+    moneyPaid: 1
