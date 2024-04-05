@@ -13,10 +13,6 @@ public class SkinGrid : MonoBehaviour
     [SerializeField] private FloatingText  floatingText;
     [SerializeField] private Image crSkinHead;
 
-    private void Awake()
-    {
-
-    }
     private void Start()
     {
         InitiateSkinItem();
