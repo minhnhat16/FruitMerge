@@ -64,14 +64,14 @@ MonoBehaviour:
     moneyPaid: 0
   - id: 7
     idShop: 1
-    idItem: 0
+    idItem: 2
     price: 500
     amount: 2
     available: 1
     moneyPaid: 0
   - id: 8
     idShop: 1
-    idItem: 5
+    idItem: 3
     price: 500
     amount: 2
     available: 1

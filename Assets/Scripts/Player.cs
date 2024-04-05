@@ -2,8 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +18,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 circleSpawnPos;
     [SerializeField] private float rotation;
 
+    [HideInInspector]
+    public UnityEvent<bool> onTouchStart = new();
+    [HideInInspector]
+    public UnityEvent<bool> onTouchHold = new();
+    [HideInInspector]
+    public UnityEvent<bool> onTouchRelease = new();
     public Vector3 Pos { get { return pos; } }
     public Vector3 CircleSpawnPos { get { return circleSpawnPos; } }
 
@@ -65,6 +70,7 @@ public class Player : MonoBehaviour
     IEnumerator CanDropPlayer()
     {
         yield return new WaitForSeconds(0.5f);
+        EndlessLevel.Instance.SpawnFirstCircle();
         canDrop = true;
     }
     public bool MousePosition()
@@ -123,11 +129,17 @@ public class Player : MonoBehaviour
     private void HandleTouchBegan(Touch touch)
     {
         Debug.Log("Touch began at position: " + touch.position);
+        mainCircle.transform.position = pos + circleSpawnPos;
+        mainCircle.SetIsMerge(false);
+        mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
+        spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
     }
 
     private void HandleTouchMoved(Touch touch)
     {
         Debug.Log("Touch moved at position: " + touch.position);
+        spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
+        mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
     }
 
     private void HandleTouchStationary(Touch touch)
@@ -138,19 +150,34 @@ public class Player : MonoBehaviour
     private void HandleTouchEndedOrCanceled(Touch touch)
     {
         Debug.Log("Touch ended or canceled at position: " + touch.position);
+        canDrop = false;
+        DoGrapplingHook();
+        _lineRenderer.gameObject.SetActive(false);
+        mainCircle.GotoState(mainCircle.Drop);
+        int firstInQueue = EndlessLevel.Instance.intQueue[0];
+        EndlessLevel.Instance.intQueue.Remove(firstInQueue);
+        EndlessLevel.Instance.main = null;
+        EndlessLevel.Instance.RandomCircle();
+        IngameController.instance.FirstCircle();
+        _lineRenderer.gameObject.SetActive(true);
+        canDrop = true;
     }
     void MouseDown()
     {
+        mainCircle = EndlessLevel.Instance.main;
         if (CameraMain.instance != null && !IngameController.instance.isPause && canDrop == true && MousePosition() == true)
         {
-            mainCircle = EndlessLevel.Instance.main;
-            if (mainCircle != null) StartCoroutine(DropCircle());
+
+            if (mainCircle != null)
+            {
+                DropCircle();
+            }
         }
     }
-    IEnumerator DropCircle()
+    void DropCircle()
     {
-        yield return new WaitUntil(() => mainCircle != null);
-        if (Input.GetMouseButtonDown(0))
+        //yield return new WaitUntil(() => mainCircle != null);
+        if (Input.GetMouseButtonDown(0) && !Input.GetMouseButton(0))
         {
             mainCircle.transform.position = pos + circleSpawnPos;
             mainCircle.SetIsMerge(false);
@@ -165,31 +192,35 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0) && canDrop && mainCircle != null)
         {
-            canDrop = false;
-            DoGrapplingHook();
-            _lineRenderer.gameObject.SetActive(false);
-            //Debug.Log("Release mouse button");
-            mainCircle.GotoState(mainCircle.Drop);
-            EndlessLevel.Instance.intQueue.Remove(EndlessLevel.Instance.intQueue[0]);
-            EndlessLevel.Instance.main = null;
-            EndlessLevel.Instance.RandomCircle();
-            IngameController.instance.FirstCircle();
-            yield return new WaitForSeconds(dropCoolDown);
-            _lineRenderer.gameObject.SetActive(true);
-            canDrop = true;
+              DoGrapplingHook();
+            StartCoroutine(ReleaseToDrop());
         }
+    }
+    IEnumerator ReleaseToDrop()
+    {
+        canDrop = false;
+        _lineRenderer.gameObject.SetActive(false);
+        mainCircle.GotoState(mainCircle.Drop);
+        int firstInQueue = EndlessLevel.Instance.intQueue[0];
+        EndlessLevel.Instance.intQueue.Remove(firstInQueue);
+        EndlessLevel.Instance.main = null;
+        EndlessLevel.Instance.RandomCircle();
+        IngameController.instance.FirstCircle();
+        yield return new WaitForSeconds(0.5f);
+        canDrop = true;
+        _lineRenderer.gameObject.SetActive(true);
     }
     Tween left;
     Tween right;
     public void DoGrapplingHook()
     {
         Vector3 rotateAngle = new Vector3(0, 0, rotation);
-         left = _renders[0].transform.DORotate(-rotateAngle, 0.2f, RotateMode.Fast);
-         right = _renders[1].transform.DORotate(rotateAngle, 0.2f, RotateMode.Fast);
+        left = _renders[0].transform.DORotate(-rotateAngle, 0.2f, RotateMode.Fast);
+        right = _renders[1].transform.DORotate(rotateAngle, 0.2f, RotateMode.Fast);
         left.OnComplete(() =>
         {
             left = _renders[0].transform.DORotate(Vector3.zero, 0.25f, RotateMode.Fast);
-            left.OnComplete(()=>left.Kill(true));
+            left.OnComplete(() => left.Kill(true));
         });
         right.OnComplete(() =>
         {

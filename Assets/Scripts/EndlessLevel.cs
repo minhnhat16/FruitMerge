@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.Events;
+
 
 public class EndlessLevel : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class EndlessLevel : MonoBehaviour
     public int score;
     public List<int> intQueue = new(5);
     [SerializeField] int life;
-    [SerializeField] private float spawnCooldown = 0.1f;
     [SerializeField] private float shakeItensity= 5f;
     [SerializeField] private float shakeTimer = 5f;
     [SerializeField]
@@ -36,6 +36,17 @@ public class EndlessLevel : MonoBehaviour
     public int Life { get { return life; } }
     [HideInInspector]
     public int SetLife { set {  life = value; } }
+
+    [HideInInspector]
+    public UnityEvent<bool> onTarget = new UnityEvent<bool>();
+    private void OnEnable()
+    {
+        onTarget.AddListener(TargetCircle);
+    }
+    private void OnDisable()
+    {
+        onTarget.RemoveAllListeners();
+    }
     public void AddCircle(CircleObject item)
     {
         _Circles.Add(item);
@@ -60,15 +71,20 @@ public class EndlessLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+   
+    void TargetCircle(bool isOnTarget)
+    {
         if (isBomb == false)
         {
             DisableTargetCircles();
         }
         else
         {
+            EnableTargetCircles();
         }
     }
-   
     public void LoadLevel(Action callback)
     {
         level = 0;
@@ -194,24 +210,11 @@ public class EndlessLevel : MonoBehaviour
         main.gameObject.SetActive(activate);
 
     }
-    public List<CircleObject> CirclesBelow3(List<CircleObject> circles)
-    {
-        List<CircleObject> below3 = new();
-        for (int i = 0; i < circles.Count; i++)
-        {
-            if (circles[i].TypeID < 3 && circles[i].TypeID > 0)
-            {
-                below3.Add(circles[i]);
-            }
-        }
-        return below3;
-    }
     public void UsingHammer()
     {
         Player.instance.canDrop = false;
         isBomb = true;
-        EnableTargetCircles();
-
+        onTarget?.Invoke(IsBomb);
     }
     public void UsingShake()
     {
@@ -241,7 +244,7 @@ public class EndlessLevel : MonoBehaviour
         EnableTargetCircles();
         isBomb = false;
         IngameController.instance.CancelItem();
-        DisableTargetCircles();
+        onTarget?.Invoke(isBomb);
     }
     public void AfterUpgradeItem()
     {

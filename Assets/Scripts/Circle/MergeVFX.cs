@@ -13,7 +13,7 @@ public class MergeVFX : MonoBehaviour
     }
     private void Update()
     {
-        SetParticleOffWhenDone();
+        //SetParticleOffWhenDone();
     }
     public void SetTransform(Vector3 pos)
     {

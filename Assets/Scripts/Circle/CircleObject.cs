@@ -275,7 +275,7 @@ public class CircleObject : FSMSystem
 
         c._collider.GetComponent<CircleCollider2D>().radius = c.circleType.Radius;
 
-        PlayMergeVFX(c);//play spawn particles
+       // PlayMergeVFX(c);//play spawn particles
         c.RandomMergeSFX();
 
         c.transform.SetPositionAndRotation(col.transform.position, Quaternion.identity);

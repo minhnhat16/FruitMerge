@@ -17,7 +17,7 @@ public class ViewManager : MonoBehaviour
        canvas = GetComponent<Canvas>();
     }
 
-    IEnumerator Start()
+    IEnumerator Start() 
     {
         yield return new WaitForSeconds(0.2f);
 
