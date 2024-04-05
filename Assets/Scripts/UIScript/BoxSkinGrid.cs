@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,14 +10,22 @@ public class BoxSkinGrid : MonoBehaviour
     [SerializeField] private static int ShopSkinId = 3;
     [SerializeField] private ScrollRect scrollRect;
     public UnityEvent<BoxItem> onEquipBoxAction = new UnityEvent<BoxItem>();
-    [SerializeField] private FloatingText  floatingText;
+    [SerializeField] private FloatingText floatingText;
 
+    List<ItemConfigRecord> itemConfig = new();
+    List<PriceConfigRecord> priceConfig = new();
+    ShopConfigRecord shopConfig = new();
+    List<int> playerData = new();
     private void Awake()
     {
 
     }
     private void Start()
     {
+        itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
+        shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
+        playerData = DataAPIController.instance.GetAllFruitSkinOwned();
         InitiateSkinItem();
     }
     private void OnEnable()
@@ -32,12 +39,8 @@ public class BoxSkinGrid : MonoBehaviour
     }
     private void InitiateSkinItem()
     {
-
-        var itemConfig = ConfigFileManager.Instance.ItemConfig  .GetAllRecord();
-        var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
-        var shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
-        var playerData = DataAPIController.instance.GetAllFruitSkinOwned();
-        for (int i = 0; i <itemConfig.Count; i++)
+        int currentBoxSkin = DataAPIController.instance.GetCurrentBoxSkin();
+        for (int i = 0; i < itemConfig.Count; i++)
         {
             if (itemConfig[i].Type == ItemType.BOXSKIN)
             {
@@ -49,7 +52,6 @@ public class BoxSkinGrid : MonoBehaviour
                 else
                 {
                     skin.GetComponent<BoxItem>().onEquipActionBox = onEquipBoxAction;
-                    int currentBoxSkin = DataAPIController.instance.GetCurrentBoxSkin();
                     _skins.Add(skin.GetComponent<BoxItem>());
                     if (currentBoxSkin == itemConfig[i].ID)
                     {
@@ -68,10 +70,7 @@ public class BoxSkinGrid : MonoBehaviour
                         int price = priceConfig.Find(x => x.IdItem == idSkinInShop).Price;
                         skin.GetComponent<BoxItem>().Price = price;
                         skin.GetComponent<BoxItem>().InitSkin(itemConfig[i].ID, false, false);
-                        Debug.Log($"itemconfig[{itemConfig[i].ID}]" +
-                          $"idSkinINshop {idSkinInShop}" + $" price {price} id {priceConfig.Find(x => x.IdItem == idSkinInShop).Id}");
-                        Debug.Log("ITEM PRICE " + price);
-                    }  
+                    }
                 }
             }
 

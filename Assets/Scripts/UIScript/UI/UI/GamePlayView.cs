@@ -163,8 +163,6 @@ public class GamePlayView : BaseView, IPointerClickHandler
             clear_btn.gameObject.SetActive(true);
             settingList.GetComponent<SettingList>().ShowSettingList(null);
             Player.instance.canDrop = false;
-
-
         }
     }
     public void NextCircleImage(int id)

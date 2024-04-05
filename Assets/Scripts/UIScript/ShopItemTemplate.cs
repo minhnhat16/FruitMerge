@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ShopItemTemplate : MonoBehaviour
 {
     [SerializeField] private Image backGround;
     [SerializeField] private Image itemImg;
-    [SerializeField] private int type;
+    [SerializeField] private ItemType type;
     [SerializeField] private TextMeshProUGUI name_lb;
     [SerializeField] private Image ContainBox;
     [SerializeField] private int  totalItem;
@@ -19,7 +20,7 @@ public class ShopItemTemplate : MonoBehaviour
     [SerializeField] private bool enable;
     [SerializeField] List<GameObject> buttonType = new();
 
-    public int Type { get => type; set => type = value; }
+    public ItemType Type { get => type; set => type = value; }
     public int IntCost { get => intCost; set => intCost = value; }
     public int TotalItem { get => totalItem; set => totalItem = value; }
     public Image ItemImg { get => itemImg; set => itemImg = value; }
@@ -48,6 +49,18 @@ public class ShopItemTemplate : MonoBehaviour
             buttonType[0].SetActive(false);
         }
     }
+    public void SetupItem(int id, int intCost,string spriteName,ItemType type, int total, bool enable)
+    {
+    
+        this.intCost = intCost;
+        //item.ItemImg.SetNativeSize();
+        this.type = type;
+        this.Name_lb.text = type.ToString();
+        this.totalItem =total;
+        this.enable= enable;
+        itemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
+        CheckPrice(intCost);
+    }
     public void OnClickBuyButton()
     {
         Debug.Log("ONLICKBUYBUTTON");
@@ -57,17 +70,16 @@ public class ShopItemTemplate : MonoBehaviour
         param.onConfirmAction = () =>
         {
             
-            if (type == 0)
+            if (type == ItemType.GOLD)
             {
                 DataAPIController.instance.MinusGold(intCost);
                 DataAPIController.instance.AddGold(totalItem);
                 IngameController.instance.GoldChanged();
             }
-            else if (type > 0 && type <= 3)
+            else if (type == ItemType.HAMMER || type == ItemType.ROTATE || type == ItemType.CHANGE)
             {
-                int newType = type - 1;
                 DataAPIController.instance.MinusGold(intCost);
-                DataAPIController.instance.AddItemTotal(newType.ToString(), totalItem);
+                DataAPIController.instance.AddItemTotal(type.ToString(), totalItem);
                 IngameController.instance.GoldChanged();
             }
         };

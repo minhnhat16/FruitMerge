@@ -52,7 +52,6 @@ public class BoxItem : MonoBehaviour
         disableMask.SetActive(false);
         equipedBG.SetActive(true);
         confirmBtnType.SwitchButtonType(ButtonType.Equiped);
-
     }
     public void SetItemUnquiped()
     {

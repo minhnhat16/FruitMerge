@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 
 public class EndlessLevel : MonoBehaviour
@@ -16,7 +16,7 @@ public class EndlessLevel : MonoBehaviour
     public int score;
     public List<int> intQueue = new(5);
     [SerializeField] int life;
-    [SerializeField] private float shakeItensity= 5f;
+    [SerializeField] private float shakeItensity = 5f;
     [SerializeField] private float shakeTimer = 5f;
     [SerializeField]
     private bool isBomb = false;
@@ -35,13 +35,19 @@ public class EndlessLevel : MonoBehaviour
     [HideInInspector]
     public int Life { get { return life; } }
     [HideInInspector]
-    public int SetLife { set {  life = value; } }
+    public int SetLife { set { life = value; } }
 
     [HideInInspector]
     public UnityEvent<bool> onTarget = new UnityEvent<bool>();
+
+    [HideInInspector]
+    public UnityEvent<bool> onCircleDropped = new UnityEvent<bool>();
     private void OnEnable()
     {
+        onCircleDropped = Player.instance.onCircleDropped;
+
         onTarget.AddListener(TargetCircle);
+        onCircleDropped.AddListener(SpawnNewAfterDrop);
     }
     private void OnDisable()
     {
@@ -54,7 +60,7 @@ public class EndlessLevel : MonoBehaviour
     public void RemoveCircle(CircleObject item)
     {
         var find = _Circles.Find(c => c == item);
-            _circles.Remove(find);
+        _circles.Remove(find);
     }
     // Start is called before the first frame update
     private void Awake()
@@ -71,9 +77,19 @@ public class EndlessLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-   
+
+    void SpawnNewAfterDrop(bool isDropped)
+    {
+        if (!isDropped) return;
+        int firstInQueue = intQueue.First();
+        intQueue.Remove(firstInQueue);
+        main = null;
+        RandomCircle();
+        main.transform.position = Player.instance.transform.position;
+        IngameController.instance.FirstCircle();
+    }
     void TargetCircle(bool isOnTarget)
     {
         if (isBomb == false)
@@ -88,7 +104,7 @@ public class EndlessLevel : MonoBehaviour
     public void LoadLevel(Action callback)
     {
         level = 0;
-        RandomCircle(); 
+        RandomCircle();
         callback?.Invoke();
     }
     public void RandomCircle()
@@ -232,7 +248,7 @@ public class EndlessLevel : MonoBehaviour
     public IEnumerator AfterUsingShake()
     {
         var c = _circles.First();
-        yield return new WaitForSeconds(c.ShakeDuration *0.75f);
+        yield return new WaitForSeconds(c.ShakeDuration * 0.75f);
         //yield return new WaitUntil(() => _circles.All(circle => circle.GetCurrentState() == "GroundedState"));
         Player.instance.canDrop = true;
         IngameController.instance.CancelItem();
@@ -256,8 +272,8 @@ public class EndlessLevel : MonoBehaviour
     public void EnableTargetCircles()
     {
 
-        if (_circles == null ) return;
-        foreach(var c in _circles)
+        if (_circles == null) return;
+        foreach (var c in _circles)
         {
             c.EnableTarget();
         }
@@ -265,7 +281,7 @@ public class EndlessLevel : MonoBehaviour
     public void DisableTargetCircles()
     {
         //Debug.Log("DisableTargetCircles");
-        if (_circles == null ) return;
+        if (_circles == null) return;
         for (int i = 0; i < _circles.Count; i++)
         {
             _circles[i].DisableTarget();
@@ -274,9 +290,9 @@ public class EndlessLevel : MonoBehaviour
     public void AddForceForCircle()
     {
 
-        for (int i = 0; i  < _circles.Count; i ++)
+        for (int i = 0; i < _circles.Count; i++)
         {
-           
+
             if (_circles[i].gameObject.activeSelf)
             {
                 _circles[i].ApplyForceOverTime();
@@ -300,7 +316,7 @@ public class EndlessLevel : MonoBehaviour
     }
     public void UnfreezeCircles()
     {
-        foreach(var c in _circles)
+        foreach (var c in _circles)
         {
             c.SetRigidBodyToNone();
         }
@@ -311,6 +327,6 @@ public class EndlessLevel : MonoBehaviour
         score = 0;
         CirclePool.instance.pool.DeSpawnAll();
         _circles.Clear();
-        intQueue.Clear();   
+        intQueue.Clear();
     }
 }

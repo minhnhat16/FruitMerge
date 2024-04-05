@@ -1,5 +1,9 @@
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using Debug = UnityEngine.Debug;
 
 public class ItemGrid : MonoBehaviour
 {
@@ -7,15 +11,27 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] private int total;
     [SerializeField] private ShopItemTemplate _itemPrefab;
     [SerializeField] private List<ShopItemTemplate> _items;
-
+    [SerializeField] ShopConfigRecord shopConfig = new ShopConfigRecord();
+    [SerializeField] List<ItemConfigRecord> itemConfig = new();
+    [SerializeField] List<PriceConfigRecord> priceConfigRecords = new();
 
     private void Start()
     {
         InstantiateItems();
+        shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(idShop);
+        itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        priceConfigRecords = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
+        InstantiateItems();
+
     }
     private void InstantiateItems()
     {
-        var shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(idShop);
+        bool isEnable;
+        int id;
+        int price;
+        string spriteName;
+        ItemType type;
+        int total;
         foreach (var i in shopConfig.IdPrice)
         {
             Debug.Log("Have price config" + idShop);
@@ -28,27 +44,18 @@ public class ItemGrid : MonoBehaviour
             else
             {
                 _items.Add(item.GetComponent<ShopItemTemplate>());
-                var priceConfig = ConfigFileManager.Instance.PriceConfig.GetRecordByKeySearch(i);
-                SetupItem(item.GetComponent<ShopItemTemplate>(), priceConfig);
+                var priceItem = priceConfigRecords[i];
+                ShopItemTemplate newItem = new ShopItemTemplate();
+                id = priceItem.IdItem;
+                price = priceItem.Price;
+                spriteName = itemConfig[id].SpriteName;
+                type = itemConfig[id].Type;
+                total = priceItem.Amount;
+                isEnable = priceItem.Available;
+                newItem.SetupItem(id, price, spriteName, type, total, isEnable);
+                _items.Add(newItem);
             }
         }
     }
-    private void SetupItem(ShopItemTemplate item, PriceConfigRecord price)
-    {
-        if (price == null)
-        {
-            Debug.Log("Null config");
-            return;
-        }
-        var itemConfig = ConfigFileManager.Instance.ItemConfig.GetRecordByKeySearch(price.IdItem);
-        item.IntCost = price.Price;
-        item.ItemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(itemConfig.SpriteName);
-        item.Type = price.IdItem;
-        item.TotalItem =  price.Amount;
-        item.Enable = price.Available;
-        item.Name_lb.text = itemConfig.Type.ToString();
-        item.CheckPrice(price.Price);
-        //Debug.Log(price.Available.ToString() + " and item: "+ item.enabled.ToString());
-        _items.Add(item);
-    }
+  
 }

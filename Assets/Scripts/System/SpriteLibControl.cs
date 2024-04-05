@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class SpriteLibControl : MonoBehaviour
@@ -27,7 +28,13 @@ public class SpriteLibControl : MonoBehaviour
 
     public Sprite GetSpriteByName(string name)
     {
-        return spriteDict[name];    
+        Debug.Log($"GetSpriteByName{name}");
+        if (spriteDict.ContainsKey(name)) return spriteDict[name];
+        else
+        {
+            Debug.Log($"GetSpriteByName:{name} == null");
+           return null;
+        }
     }
     public string GetCircleSpriteName(int type ,int id)
     {
