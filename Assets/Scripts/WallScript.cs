@@ -80,6 +80,10 @@ public class WallScript : MonoBehaviour
         Player.instance.DropLinePos = vector3;
         line.SetPosition(1, vector3);
         Player.instance.SetLineRenderer(line);
-        Debug.Log("SetupLineRenderer" + vector3);
+        //Debug.Log("SetupLineRenderer" + vector3);
+    }
+    public Vector3 GetBoxPosition()
+    {
+        return _box.transform.position;
     }
 }

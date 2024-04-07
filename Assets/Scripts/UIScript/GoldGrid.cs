@@ -10,13 +10,13 @@ public class GoldGrid : MonoBehaviour
     [SerializeField] private int total;
     [SerializeField] private List<ShopItemTemplate> _items;
     [SerializeField] ShopConfigRecord shopConfig = new ShopConfigRecord();
-    [SerializeField] List <ItemConfigRecord> itemConfig = new();
+    [SerializeField] List <ItemConfigRecord> itemConfigs = new();
     [SerializeField] List<PriceConfigRecord> priceConfigRecords = new();
 
     private void Start()
     {
         shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(idShop);
-        itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        itemConfigs = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
         priceConfigRecords = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
         InstantiateItems();
 
@@ -41,17 +41,15 @@ public class GoldGrid : MonoBehaviour
             }
             else
             {
-                _items.Add(item.GetComponent<ShopItemTemplate>());
                 var priceItem = priceConfigRecords[i];
-                ShopItemTemplate newItem = new ShopItemTemplate();
-                 id = priceItem.IdItem;
+                id = priceItem.IdItem;
                 price = priceItem.Price;
-                spriteName = itemConfig[id].SpriteName;
-                type = itemConfig[id].Type;
+                spriteName = itemConfigs[id].SpriteName;
+                type = itemConfigs[id].Type;
                 total = priceItem.Amount;
                 isEnable = priceItem.Available;
-                newItem.SetupItem(id, price, spriteName, type, total,isEnable);
-                _items.Add(newItem);
+                item.GetComponent<ShopItemTemplate>().SetupItem(id, price, spriteName, type, total,isEnable);
+                _items.Add(item.GetComponent<ShopItemTemplate>());
             }
         }
     }

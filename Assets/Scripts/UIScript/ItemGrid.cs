@@ -12,17 +12,15 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] private ShopItemTemplate _itemPrefab;
     [SerializeField] private List<ShopItemTemplate> _items;
     [SerializeField] ShopConfigRecord shopConfig = new ShopConfigRecord();
-    [SerializeField] List<ItemConfigRecord> itemConfig = new();
+    [SerializeField] List<ItemConfigRecord> itemConfigs = new();
     [SerializeField] List<PriceConfigRecord> priceConfigRecords = new();
 
     private void Start()
     {
-        InstantiateItems();
         shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(idShop);
-        itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        itemConfigs = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
         priceConfigRecords = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
         InstantiateItems();
-
     }
     private void InstantiateItems()
     {
@@ -32,28 +30,26 @@ public class ItemGrid : MonoBehaviour
         string spriteName;
         ItemType type;
         int total;
+        Debug.Log("Have price config" + idShop);
+
         foreach (var i in shopConfig.IdPrice)
         {
-            Debug.Log("Have price config" + idShop);
-
-            var item = Instantiate((Resources.Load("Prefab/UIPrefab/ShopItemTemplate", typeof(GameObject))), transform) as GameObject;
+            GameObject item = Instantiate((Resources.Load("Prefab/UIPrefab/ShopItemTemplate", typeof(GameObject))), transform) as GameObject;
             if (item == null)
             {
                 Debug.LogError(" item == null");
             }
             else
             {
-                _items.Add(item.GetComponent<ShopItemTemplate>());
                 var priceItem = priceConfigRecords[i];
-                ShopItemTemplate newItem = new ShopItemTemplate();
                 id = priceItem.IdItem;
                 price = priceItem.Price;
-                spriteName = itemConfig[id].SpriteName;
-                type = itemConfig[id].Type;
+                spriteName = itemConfigs[id].SpriteName;
+                type = itemConfigs[id].Type;
                 total = priceItem.Amount;
                 isEnable = priceItem.Available;
-                newItem.SetupItem(id, price, spriteName, type, total, isEnable);
-                _items.Add(newItem);
+                item.GetComponent<ShopItemTemplate>().SetupItem(id, price, spriteName, type, total, isEnable);
+                _items.Add(item.GetComponent<ShopItemTemplate>());
             }
         }
     }

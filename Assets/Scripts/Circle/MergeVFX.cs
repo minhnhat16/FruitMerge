@@ -13,7 +13,6 @@ public class MergeVFX : MonoBehaviour
     }
     private void Update()
     {
-        //SetParticleOffWhenDone();
     }
     public void SetTransform(Vector3 pos)
     {
@@ -26,15 +25,15 @@ public class MergeVFX : MonoBehaviour
     public void PlayParticle()
     {
         MainVFX.Play();
+        StartCoroutine(SetParticleOffWhenDone());
     }
-    public void SetParticleOffWhenDone() {
+    public IEnumerator SetParticleOffWhenDone() {
         if(!MainVFX.IsAlive())
         {
-            //Debug.Log("Particle system has finished playing");
-
-            // Do something when the particle system has finished playing
-            // For example, disable the particle system or trigger another event
+            
             gameObject.SetActive(false);
         }
+        yield return new WaitUntil(() => !mainVFX.IsAlive());
+        gameObject.SetActive(false);
     }
 }

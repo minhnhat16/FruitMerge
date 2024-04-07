@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 dropLinePos;
     [SerializeField] private Vector3 pos;
     [SerializeField] private Vector3 circleSpawnPos;
+    [SerializeField] private float leftCamPos;
+    [SerializeField] private float rightCamPos;
     [SerializeField] private float rotation;
 
     [HideInInspector]
@@ -52,14 +54,17 @@ public class Player : MonoBehaviour
         dropCoolDown = 0.25f;
         StartCanDrop();
         WallScript.Instance.SetUpLineRender();
+        if (CameraMain.instance != null)
+        {
+            leftCamPos = CameraMain.instance.GetLeft();
+            rightCamPos = CameraMain.instance.GetRight();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         pos = transform.position;
-        SetPlayerPosition();
-        //MouseDown();
         TouchHandle();
     }
     public void ResetPos()
@@ -75,7 +80,6 @@ public class Player : MonoBehaviour
     IEnumerator CanDropPlayer()
     {
         yield return new WaitForSeconds(0.5f);
-        EndlessLevel.Instance.SpawnFirstCircle();
         canDrop = true;
     }
     public bool MousePosition()
@@ -92,7 +96,7 @@ public class Player : MonoBehaviour
     {
         if (CameraMain.instance.main != null)
         {
-            float x = Mathf.Clamp(spawnPoint.x, CameraMain.instance.GetLeft() + 0.5f, CameraMain.instance.GetRight() - 0.5f);
+            float x = Mathf.Clamp(spawnPoint.x, leftCamPos + 0.5f, rightCamPos - 0.5f);
             transform.position = new Vector3(x, pos.y);
             _lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0.35f));
             var linePos = _lineRenderer.GetPosition(1);
@@ -103,9 +107,9 @@ public class Player : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            mainCircle = EndlessLevel.Instance.main;
-
             // Iterate through each touch
+            SetPlayerPosition();
+
             foreach (Touch touch in Input.touches)
             {
                 // Check the phase of the touch
@@ -117,9 +121,11 @@ public class Player : MonoBehaviour
                         break;
                     case TouchPhase.Moved:
                         // Handle touch moved
+                        if (mainCircle == null) break;
                         HandleTouchMoved(touch);
                         break;
                     case TouchPhase.Stationary:
+                        if (mainCircle == null) break;
                         // Handle touch stationary
                         HandleTouchStationary(touch);
                         break;
@@ -129,13 +135,19 @@ public class Player : MonoBehaviour
                         // Handle touch ended or canceled
                         HandleTouchEndedOrCanceled(touch);
                         break;
+                    default : break;
                 }
             }
         }
     }
     private void HandleTouchBegan(Touch touch)
     {
-        Debug.Log("Touch began at position: " + touch.position);
+        mainCircle = EndlessLevel.Instance.main;
+        if (mainCircle == null) return;
+        pos.x = touch.position.x;
+        transform.position = pos;
+        //Debug.Log("Touch began at position: " + touch.position);
+        //Debug.Log($" mainC {mainCircle.transform.position} = pos{pos}+ circleSpawnPos{circleSpawnPos};");
         mainCircle.transform.position = pos + circleSpawnPos;
         mainCircle.SetIsMerge(false);
         mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
@@ -144,30 +156,33 @@ public class Player : MonoBehaviour
 
     private void HandleTouchMoved(Touch touch)
     {
-        Debug.Log("Touch moved at position: " + touch.position);
+        //Debug.Log("Touch moved at position: " + touch.position);
         spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
         mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
     }
 
     private void HandleTouchStationary(Touch touch)
     {
-        Debug.Log("Touch stationary at position: " + touch.position);
+        spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
+        mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
+        //Debug.Log("Touch stationary at position: " + touch.position);
     }
 
     private void HandleTouchEndedOrCanceled(Touch touch)
     {
-        Debug.Log("Touch ended or canceled at position: " + touch.position);
+        //Debug.Log("Touch ended or canceled at position: " + touch.position);
+        DoDropCircle();
+    }
+    private void DoDropCircle()
+    {
+        if (mainCircle == null) return;
         canDrop = false;
         DoGrapplingHook();
         _lineRenderer.gameObject.SetActive(false);
         mainCircle.GotoState(mainCircle.Drop);
-        int firstInQueue = EndlessLevel.Instance.intQueue[0];
-        EndlessLevel.Instance.intQueue.Remove(firstInQueue);
-        EndlessLevel.Instance.main = null;
-        EndlessLevel.Instance.RandomCircle();
-        IngameController.instance.FirstCircle();
+        mainCircle = null;
+        onCircleDropped?.Invoke(true);
         _lineRenderer.gameObject.SetActive(true);
-        canDrop = true;
     }
     void MouseDown()
     {
@@ -204,6 +219,7 @@ public class Player : MonoBehaviour
             canDrop = false;
             _lineRenderer.gameObject.SetActive(false);
             mainCircle.GotoState(mainCircle.Drop);
+
             onCircleDropped?.Invoke(true);
             yield return new WaitForSeconds(0.5f);
             canDrop = true;
@@ -239,5 +255,12 @@ public class Player : MonoBehaviour
         ResetPos();
         canDrop = true;
         mainCircle = null;
+    }
+    public void SetUpLineRender()
+    {
+        //Vector3 vector3 = colliders[3].transform.position + new Vector3(0, 0.5f);
+        dropLinePos = WallScript.Instance.GetBoxPosition();
+        dropLinePos.x = pos.x;
+        _lineRenderer.SetPosition(1, dropLinePos);
     }
 }

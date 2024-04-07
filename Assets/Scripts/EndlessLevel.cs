@@ -45,7 +45,6 @@ public class EndlessLevel : MonoBehaviour
     private void OnEnable()
     {
         onCircleDropped = Player.instance.onCircleDropped;
-
         onTarget.AddListener(TargetCircle);
         onCircleDropped.AddListener(SpawnNewAfterDrop);
     }
@@ -73,21 +72,13 @@ public class EndlessLevel : MonoBehaviour
         _circles = new List<CircleObject>();
         spriteType = DataAPIController.instance.GetCurrentFruitSkin();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void SpawnNewAfterDrop(bool isDropped)
     {
         if (!isDropped) return;
-        int firstInQueue = intQueue.First();
+        int firstInQueue = intQueue[0];
         intQueue.Remove(firstInQueue);
         main = null;
         RandomCircle();
-        main.transform.position = Player.instance.transform.position;
         IngameController.instance.FirstCircle();
     }
     void TargetCircle(bool isOnTarget)
@@ -114,7 +105,6 @@ public class EndlessLevel : MonoBehaviour
 
             if (intQueue.Count == 5)
             {
-
                 StartCoroutine(SpawnFirstCircle());
             }
             if (level > 0 && level <= 3)

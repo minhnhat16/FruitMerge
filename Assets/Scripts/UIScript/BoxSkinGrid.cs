@@ -16,10 +16,6 @@ public class BoxSkinGrid : MonoBehaviour
     List<PriceConfigRecord> priceConfig = new();
     ShopConfigRecord shopConfig = new();
     List<int> playerData = new();
-    private void Awake()
-    {
-
-    }
     private void Start()
     {
         itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();

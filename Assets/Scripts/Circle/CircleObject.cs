@@ -34,8 +34,7 @@ public class CircleObject : FSMSystem
 
     public Vector2 force;
 
-    [SerializeField]
-    private GameObject mergeVfx;
+
     [SerializeField]
     private TargetRender targetRender;
     [SerializeField]
@@ -77,7 +76,7 @@ public class CircleObject : FSMSystem
         //id++;
         skinType = DataAPIController.instance.GetCurrentFruitSkin();
         var spriteName = SpriteLibControl.Instance.GetCircleSpriteName(skinType, id);
-        Debug.Log($"skinType {skinType}, id {id}, sprite name {spriteName}");
+        //Debug.Log($"skinType {skinType}, id {id}, sprite name {spriteName}");
         spriteRenderer.sprite = SpriteLibControl.Instance.GetSpriteByName(spriteName);
     }
     public void SetDropVelocity()
@@ -261,7 +260,7 @@ public class CircleObject : FSMSystem
             tween?.Kill();
         });
         Physics2D.IgnoreCollision(_collider, col._collider);
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(0.01f);
         col.GetComponent<CircleObject>().contactCircle = contactCircle = null;
         CirclePool.instance.pool.DeSpawnNonGravity(col.GetComponent<CircleObject>());
         CirclePool.instance.pool.DeSpawnNonGravity(this);
@@ -273,7 +272,7 @@ public class CircleObject : FSMSystem
         c.transform.localScale = Vector3.zero;
         c.SpawnCircle(t);
 
-        c._collider.GetComponent<CircleCollider2D>().radius = c.circleType.Radius;
+        c._collider.radius = c.circleType.Radius;
 
        // PlayMergeVFX(c);//play spawn particles
         c.RandomMergeSFX();
@@ -281,6 +280,7 @@ public class CircleObject : FSMSystem
         c.transform.SetPositionAndRotation(col.transform.position, Quaternion.identity);
         c.rigdBody.bodyType = RigidbodyType2D.Dynamic;
         c.ClaimPosition();
+        PlayMergeVFX(c);
         //PopAroundCircle();
         IngameController.instance.AddScore(typeID + c.typeID);
         EndlessLevel.Instance.FindLargestType(typeID + 1);
@@ -289,11 +289,11 @@ public class CircleObject : FSMSystem
     {
         MergeVFX vfx = MergeVFXPool.instance.pool.SpawnNonGravity();
         vfx.SetTransform(transform.position);
-        vfx.SetScale(transform.localScale + Vector3.one* 0.5f);
+        vfx.SetScale(transform.localScale + Vector3.one* 0.74f);
         var color = circle.circleType.Color;
         //Debug.Log($"PlayMergeVFX color {color}");
         SetParticleColor(color, vfx.MainVFX);
-        vfx.MainVFX.Play();
+        vfx.PlayParticle();
 
     }
     void SetParticleColor(Color color, ParticleSystem particle)
@@ -303,7 +303,7 @@ public class CircleObject : FSMSystem
     }
     public void SpawnCircle(int i)
     {
-        Debug.Log($"type id {i}");
+        //Debug.Log($"type id {i}");
         i--;
         if (IngameController.instance.isGameOver) return;
         instanceID = 0;

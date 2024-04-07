@@ -376,6 +376,10 @@ PrefabInstance:
       propertyPath: wire
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1189132359462350415, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1189132359462350418, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1226,7 +1230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6856916742232912422, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6953268179810971381, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_AnchorMax.y

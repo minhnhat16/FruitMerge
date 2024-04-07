@@ -21,18 +21,18 @@ public class SpriteLibControl : MonoBehaviour
         foreach(var sprite in _sprite)
         {
             //Debug.Log(sprite.name.ToString ());
-            Debug.Log(sprite.name);
+            //Debug.Log(sprite.name);
             spriteDict.Add(sprite.name, sprite);
         }
     }
 
     public Sprite GetSpriteByName(string name)
     {
-        Debug.Log($"GetSpriteByName{name}");
+        //Debug.Log($"GetSpriteByName{name}");
         if (spriteDict.ContainsKey(name)) return spriteDict[name];
         else
         {
-            Debug.Log($"GetSpriteByName:{name} == null");
+            //Debug.Log($"GetSpriteByName:{name} == null");
            return null;
         }
     }

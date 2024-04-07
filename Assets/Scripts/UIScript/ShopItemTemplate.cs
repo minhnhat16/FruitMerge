@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ShopItemTemplate : MonoBehaviour
 {
+    [SerializeField] private int id ;
     [SerializeField] private Image backGround;
     [SerializeField] private Image itemImg;
     [SerializeField] private ItemType type;
-    [SerializeField] private TextMeshProUGUI name_lb;
+    [SerializeField] private TMP_Text name_lb;
     [SerializeField] private Image ContainBox;
     [SerializeField] private int  totalItem;
-    [SerializeField] private TextMeshProUGUI total_lb;
+    [SerializeField] private TMP_Text total_lb;
     [SerializeField] private int intCost;
-    [SerializeField] private TextMeshProUGUI cost_lb;
+    [SerializeField] private TMP_Text cost_lb;
     [SerializeField] private bool enable;
     [SerializeField] List<GameObject> buttonType = new();
 
@@ -24,10 +24,10 @@ public class ShopItemTemplate : MonoBehaviour
     public int IntCost { get => intCost; set => intCost = value; }
     public int TotalItem { get => totalItem; set => totalItem = value; }
     public Image ItemImg { get => itemImg; set => itemImg = value; }
-    public TextMeshProUGUI Name_lb { get => name_lb; set => name_lb = value; }
+    public TMP_Text Name_lb { get => name_lb; set => name_lb = value; }
     public Image ContainBox1 { get => ContainBox; set => ContainBox = value; }
-    public TextMeshProUGUI Total_lb { get => total_lb; set => total_lb = value; }
-    public TextMeshProUGUI Cost_lb { get => cost_lb; set => cost_lb = value; }
+    public TMP_Text Total_lb { get => total_lb; set => total_lb = value; }
+    public TMP_Text Cost_lb { get => cost_lb; set => cost_lb = value; }
     public bool Enable { get => enable; set => enable = value; }
     
    public virtual void Start()
@@ -51,7 +51,7 @@ public class ShopItemTemplate : MonoBehaviour
     }
     public void SetupItem(int id, int intCost,string spriteName,ItemType type, int total, bool enable)
     {
-    
+        this.id = id;
         this.intCost = intCost;
         //item.ItemImg.SetNativeSize();
         this.type = type;
@@ -87,7 +87,6 @@ public class ShopItemTemplate : MonoBehaviour
             param.plaintext = "WATCH A VIDEO TO CLAIM THIS";
             param.cost = intCost;
             DialogManager.Instance.ShowDialog(DialogIndex.BuyConfirmDialog, param);
-
         }
         else if (enable == true && goldHave >= intCost)
         {
