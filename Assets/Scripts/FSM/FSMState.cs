@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class FSMState<T> : IFSMState where T : FSMSystem
 {
     protected T sys;
@@ -20,4 +22,6 @@ public class FSMState<T> : IFSMState where T : FSMSystem
     public virtual void OnAnimUpdate() {}
 
     public virtual void OnAnimExit() { }
+    public virtual void OnCollisionStay2D(Collision2D collision) { }
+
 }

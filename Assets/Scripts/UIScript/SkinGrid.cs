@@ -1,21 +1,30 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
 public class SkinGrid : MonoBehaviour
 {
+    [SerializeField] public static SkinGrid Instance;
     [SerializeField] private SkinItem crSkinItem;
     [SerializeField] private List<SkinItem> _skins;
     [SerializeField] private static int ShopSkinId = 2;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private UnityEvent<SkinItem> onEquipAction = new UnityEvent<SkinItem>();
-    [SerializeField] private FloatingText  floatingText;
+    [SerializeField] private FloatingText floatingText;
     [SerializeField] private Image crSkinHead;
 
+    private List<ItemConfigRecord> itemConfig = new();
+    private List<PriceConfigRecord> priceConfig = new();
+    private ShopConfigRecord shopConfig = new();
+    private List<int> playerData = new();
+    private void Awake()
+    {
+        if (Instance != null) Instance = this;
+        StartCoroutine(SetupItem());
+    }
     private void Start()
     {
-        InitiateSkinItem();
     }
     private void OnEnable()
     {
@@ -26,13 +35,21 @@ public class SkinGrid : MonoBehaviour
     {
         onEquipAction.RemoveListener(SwitchCurrentSkin);
     }
+    public IEnumerator SetupItem()
+    {
+        Debug.Log("SetupItem SKin ");
+        yield return new WaitUntil(() => ConfigFileManager.Instance.ItemConfig != null
+                     && ConfigFileManager.Instance.PriceConfig != null
+                         && ConfigFileManager.Instance.ShopConfig != null);
+        Debug.Log("SetupItem 2" );
+        itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
+        priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
+        shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
+        playerData = DataAPIController.instance.GetAllFruitSkinOwned();
+        InitiateSkinItem();
+    }
     private void InitiateSkinItem()
     {
-
-        var itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
-        var priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
-        var shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
-        var playerData = DataAPIController.instance.GetAllFruitSkinOwned();
         for (int i = 0; i < itemConfig.Count; i++)
         {
             if (itemConfig[i].Type == ItemType.FRUITSKIN)
@@ -75,7 +92,7 @@ public class SkinGrid : MonoBehaviour
 
         }
     }
-  
+
     public void SwitchCurrentSkin(SkinItem skinEquip)
     {
         Debug.Log("SWICTH CURRENT SKIN " + skinEquip.SkinID);

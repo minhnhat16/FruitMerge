@@ -388,7 +388,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b527b1687387864c8998d612b2cc8d5, type: 2}
+  - {fileID: 2100000, guid: a7dcf59a3f5592a4a82657ed4c1d4161, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -613,4 +613,18 @@ MonoBehaviour:
   dropLinePos: {x: 0, y: 0, z: 0}
   pos: {x: 0, y: 5.15, z: 0}
   circleSpawnPos: {x: 0, y: 0.35, z: 0}
+  leftCamPos: 0
+  rightCamPos: 0
   rotation: 35
+  onTouchStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onTouchHold:
+    m_PersistentCalls:
+      m_Calls: []
+  onTouchRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  onCircleDropped:
+    m_PersistentCalls:
+      m_Calls: []

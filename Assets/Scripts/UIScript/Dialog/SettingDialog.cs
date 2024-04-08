@@ -41,7 +41,6 @@ public class SettingDialog : BaseDialog
         if (EndlessLevel.Instance == null) return;
         if (EndlessLevel.Instance.main != null)
         {
-
             EndlessLevel.Instance.SetActiveMainCircle(false);
         }
         if (IngameController.instance.player != null)
@@ -74,6 +73,8 @@ public class SettingDialog : BaseDialog
     {
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         EndlessLevel.Instance.Clear();
+        Destroy(EndlessLevel.Instance.gameObject);
+
         IngameController.instance.SetIngameObjectActive(false);
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
@@ -141,14 +142,18 @@ public class SettingDialog : BaseDialog
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         //ZenSDK.instance.ShowFullScreen();
         DialogManager.Instance.HideDialog(dialogIndex);
-        IngameController.instance.SetIngameObjectActive(false);
+        Player.instance.gameObject.SetActive(false);
+        //IngameController.instance.SetIngameObjectActive(false);
         LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
         {
             ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
             {
+                EndlessLevel.Instance.main = null; ;
                 IngameController.instance.isPause = false;
-                IngameController.instance.SetUpWall();
-                IngameController.instance.SetUpPlayer();
+                Player.instance.gameObject.SetActive(true);
+                //IngameController.instance.SetUpWall();
+                //IngameController.instance.SetUpPlayer();
+                //IngameController.instance.SetUpWire();
                 Player.instance.ResetPos();
                 IngameController.instance.ResetScore();
                 EndlessLevel.Instance.Clear();

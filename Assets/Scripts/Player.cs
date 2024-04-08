@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class Player : MonoBehaviour
     public bool canDrop = false;
     public Vector2 spawnPoint;
     public CircleObject mainCircle;
-    [SerializeField] private float dropCoolDown;
     [SerializeField] private List<SpriteRenderer> _renders;
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private Vector3 dropLinePos;
@@ -43,15 +43,10 @@ public class Player : MonoBehaviour
         transform.position = pos;
         circleSpawnPos += pos;
     }
-    private void OnEnable()
-    {
-
-    }
     // Start is called before the first frame update
     void Start()
     {
         Input.multiTouchEnabled = false;
-        dropCoolDown = 0.25f;
         StartCanDrop();
         WallScript.Instance.SetUpLineRender();
         if (CameraMain.instance != null)
@@ -60,7 +55,10 @@ public class Player : MonoBehaviour
             rightCamPos = CameraMain.instance.GetRight();
         }
     }
+    private void OnEnable()
+    {
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -71,6 +69,10 @@ public class Player : MonoBehaviour
     {
         spawnPoint = new Vector3(0, spawnPoint.y);
         transform.position = new Vector3(0, transform.position.y);
+        _lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0.35f));
+
+        var linePos = _lineRenderer.GetPosition(1);
+        _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
     }
 
     public void StartCanDrop()
@@ -79,14 +81,15 @@ public class Player : MonoBehaviour
     }
     IEnumerator CanDropPlayer()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitUntil(()=>!IngameController.instance.isGameOver);
         canDrop = true;
     }
-    public bool MousePosition()
+    public bool CheckPosition()
     {
-        var point = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
+        var point = CameraMain.instance.main.ScreenToWorldPoint(Input.GetTouch(0).position);
         //bool isPointerOverUI = GameManager.instance.UIRoot.IsPointerOverUIElement();
-        if (point.y > CameraMain.instance.GetTop() - 3.5f || point.y < CameraMain.instance.GetBottom() + 4.5f)
+        if (point.y > CameraMain.instance.GetTop() - 3.5f || point.y < CameraMain.instance.GetBottom() + 6f)
         {
             return false;
         }
@@ -103,16 +106,18 @@ public class Player : MonoBehaviour
             _lineRenderer.SetPosition(1, new Vector3(transform.position.x, linePos.y));
         }
     }
+   
     void TouchHandle()
     {
-        if (Input.touchCount > 0)
+
+        if (Input.touchCount > 0 && IngameController.instance.isPause ==false)
         {
             // Iterate through each touch
             SetPlayerPosition();
-
             foreach (Touch touch in Input.touches)
             {
                 // Check the phase of the touch
+                if (!CheckPosition()) return;
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
@@ -142,8 +147,9 @@ public class Player : MonoBehaviour
     }
     private void HandleTouchBegan(Touch touch)
     {
+        StartCanDrop();
         mainCircle = EndlessLevel.Instance.main;
-        if (mainCircle == null) return;
+        if (mainCircle == null || !canDrop) return;
         pos.x = touch.position.x;
         transform.position = pos;
         //Debug.Log("Touch began at position: " + touch.position);
@@ -172,6 +178,7 @@ public class Player : MonoBehaviour
     {
         //Debug.Log("Touch ended or canceled at position: " + touch.position);
         DoDropCircle();
+
     }
     private void DoDropCircle()
     {
@@ -184,18 +191,7 @@ public class Player : MonoBehaviour
         onCircleDropped?.Invoke(true);
         _lineRenderer.gameObject.SetActive(true);
     }
-    void MouseDown()
-    {
-        mainCircle = EndlessLevel.Instance.main;
-        if (CameraMain.instance != null && !IngameController.instance.isPause && canDrop == true && MousePosition() == true)
-        {
-
-            if (mainCircle != null)
-            {
-                DropCircle();
-            }
-        }
-    }
+  
     IEnumerator DropCircle()
     {
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
@@ -263,4 +259,5 @@ public class Player : MonoBehaviour
         dropLinePos.x = pos.x;
         _lineRenderer.SetPosition(1, dropLinePos);
     }
+    
 }

@@ -13,7 +13,6 @@ public class ItemConfirmDialog : BaseDialog
 
     public Button Ads { get { return ads; } set { this.ads = value; } }
     public Button Confirm { get { return confirm; } set { this.confirm = value; } }
-
     private void OnEnable()
     {
         ads.onClick.AddListener(() => { PlayAds(); });

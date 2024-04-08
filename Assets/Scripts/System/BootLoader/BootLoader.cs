@@ -13,11 +13,11 @@ public class BootLoader : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         InitDataDone(() =>
         {
+            InitConfig();
             DOTween.SetTweensCapacity(1000, 50);
             gameManager = GetComponentInChildren<GameManager>();
             gameManager.TrackLevelStart = 0;
             ZenSDK.instance.TrackLevelStart(gameManager.TrackLevelStart);
-            InitConfig();
         });
     }
     private void InitDataDone(Action callback)
@@ -39,6 +39,7 @@ public class BootLoader : MonoBehaviour
             {
                 Debug.Log("LoadSenceCallback");
                 DayTimeController.instance.CheckNewDay();
+             
                 ZenSDK.instance.ShowAppOpen((isDone) =>
                 {
                     SoundManager.Instance.PlayMusic(SoundManager.Music.GamplayMusic);

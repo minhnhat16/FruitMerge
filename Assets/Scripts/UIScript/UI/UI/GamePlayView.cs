@@ -223,11 +223,13 @@ public class GamePlayView : BaseView, IPointerClickHandler
         onUpgrade = onUse;
         onBomb = onUse;
         Player.instance.canDrop = true;
+        IngameController.instance.isPause = false;
         EndlessLevel.Instance.DisableTargetCircles();
     }
     public void OnClickChange()
     {
         onTomato = !onTomato;
+        IngameController.instance.isPause = true;
         Player.instance.canDrop = false;
         if (onTomato == false)
         {
@@ -242,6 +244,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     {
         onBomb = !onBomb;
         Player.instance.canDrop = false;
+        IngameController.instance.isPause = true;
         if (onBomb == false)
         {
             CancelItem(false);
@@ -254,6 +257,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
     public void OnClickShake()
     {
         onUpgrade = !onUpgrade;
+        IngameController.instance.isPause = true;
         Player.instance.canDrop = false;
         if (onUpgrade == false)
         {

@@ -18,6 +18,8 @@ public class IngameController : MonoBehaviour
     public int FirstID { get { return firstID; } }
     public int Score { get { return score; } }
     public GameObject Wall { get { return wall; } }
+    public GameObject Wire { get { return wire; } }
+
     public Camera LoseCam { get { return loseCamera; } }
     //[SerializeField] private GameObject level;
     // Start is called before the first frame update
@@ -128,12 +130,12 @@ public class IngameController : MonoBehaviour
         var l = GetComponentInChildren<EndlessLevel>();
         if (l == null)
         {
-            Level = Instantiate(Level, transform);
+           Level = Instantiate(Resources.Load("Prefab/Level", typeof(GameObject)), transform) as GameObject;
         }
-        else
-        {
-            l.Clear();
-        }
+        //else
+        //{
+        //    Lev.Clear();
+        //}
     }
     public void DestroyWall()
     {

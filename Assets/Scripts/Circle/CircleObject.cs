@@ -1,5 +1,4 @@
 using DG.Tweening;
-using NaughtyAttributes.Test;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -14,7 +13,6 @@ public class CircleObject : FSMSystem
     [HideInInspector] public ShakeState Shake;
     [HideInInspector] public GroundedState Grounded;
     [HideInInspector] public DeadState Dead;
-    [SerializeField] CircleTypeConfigRecord record;
     [SerializeField] CircleType circleType;
     [SerializeField] private Rigidbody2D rigdBody;
     [SerializeField]
@@ -43,8 +41,8 @@ public class CircleObject : FSMSystem
     public int TypeID { get { return typeID; } }
     public int ShakeDuration { get { return shakeDuration; } }
 
-    public bool IsMerged { get { return IsMerged; } }
-    public bool IsDropping { get { return isDropping; } }
+    public bool IsMerged { get { return IsMerged; } set { isMerged = value; } }
+    public bool IsDropping { get { return isDropping; } set { isDropping = value; } }
     public bool IsBeingTarget { get { return isBeingTarget; } }
     public bool IsSFXPlayed { get { return isSFXPlayed; } }
     public Rigidbody2D RigBody { get { return rigdBody; } }
@@ -81,17 +79,13 @@ public class CircleObject : FSMSystem
     }
     public void SetDropVelocity()
     {
-        fallSpeed = 10f;
+        fallSpeed *= Time.deltaTime;
         float currentVelocity = 0f;
         float newVelocity = Mathf.SmoothDamp(rigdBody.velocity.y, fallSpeed, ref currentVelocity, smoothTime);
 
         // Apply the new velocity to the Rigidbody
         rigdBody.velocity = new Vector2(rigdBody.velocity.x, newVelocity);
 
-    }
-    public void GetConfigRecord()
-    {
-        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(skinType);
     }
     public void SetColliderRadius()
     {
@@ -155,52 +149,35 @@ public class CircleObject : FSMSystem
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    public void Update()
-    {
-
-    }
     public void SetRotation(Vector3 rotate)
     {
         transform.rotation = new Quaternion(rotate.x, rotate.y, rotate.z, 0);
     }
-    public void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        CollisionDetection(collision);
+    }
 
-        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false && state != "SpawnState")
+    public void CollisionDetection(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
         {
             instanceID = Time.time;
+            isMerged = false;
+            GotoState(Grounded);
             CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
+            if (otherCircle == null || IngameController.instance.isGameOver || otherCircle.isMerged || isMerged) return;
             contactCircle = otherCircle;
             SwitchCircleOption(otherCircle);
-            PlayLandedSFX();
-        }
-        else if (collision.gameObject.CompareTag("Wall") && isDropping == false && state != "SpawnState")
-        {
-            PlayLandedSFX();
-            GotoState(Grounded);
             return;
-
         }
-
+        else if (collision.gameObject.CompareTag("Topwall") && transform.position.y > 8)
+        {
+            isMerged = false;
+            IngameController.instance.isGameOver = true;
+        }
+      
     }
-    //public void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("MergeCircle") && isDropping == false)
-    //    {
-    //        instanceID = Time.time;
-    //        CircleObject otherCircle = collision.gameObject.GetComponentInParent<CircleObject>();
-    //        if (otherCircle == null || IngameController.instance.isGameOver || otherCircle.isMerged || isMerged) return;
-    //        contactCircle = otherCircle;
-    //        SwitchCircleOption(otherCircle);
-    //        return;
-    //    }
-    //    else if (collision.gameObject.CompareTag("Topwall") && transform.position.y > 8)
-    //    {
-    //        IngameController.instance.isGameOver = true;
-    //    }
-
-    //}
     public IEnumerator ResetMerge()
     {
         if(gameObject.activeInHierarchy)
@@ -226,7 +203,7 @@ public class CircleObject : FSMSystem
             RemoveCircle();
             return; //return when reach maximum
         }
-        if (typeID != contactCircle.GetComponent<CircleObject>().typeID)
+        else if (typeID != otherCircle.GetComponent<CircleObject>().typeID)
         {
             contactCircle = null;
             GotoState(Grounded);
@@ -235,7 +212,7 @@ public class CircleObject : FSMSystem
         else
         {
 
-            if (instanceID < contactCircle.GetComponent<CircleObject>().instanceID) return;
+            if (instanceID < otherCircle/*.GetComponent<CircleObject>()*/.instanceID || isDropping || otherCircle.isDropping) return;
             else
             {
                 GotoState(Merge);
@@ -313,8 +290,7 @@ public class CircleObject : FSMSystem
         EndlessLevel.Instance.AddCircle(this);
         isDropping = false;
         isLanded = false;
-        record = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(skinType);
-        circleType = record.GetTypeByID(i);
+        circleType = ConfigFileManager.Instance.CircleConfig.GetRecordByKeySearch(skinType).GetTypeByID(i);
         //Debug.Log($"radius {circleType.Radius} + circleType.ID {circleType.ID}");
         tween = transform.DOScale(circleType.Scale, 0.25f);
         tween.OnComplete(() => tween?.Kill());

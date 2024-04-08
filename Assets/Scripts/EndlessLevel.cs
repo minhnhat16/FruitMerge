@@ -47,6 +47,7 @@ public class EndlessLevel : MonoBehaviour
         onCircleDropped = Player.instance.onCircleDropped;
         onTarget.AddListener(TargetCircle);
         onCircleDropped.AddListener(SpawnNewAfterDrop);
+
     }
     private void OnDisable()
     {
@@ -228,6 +229,7 @@ public class EndlessLevel : MonoBehaviour
         isUpgrade = true;
         AddForceForCircle();
         WallScript.Instance.SetTopWallActive(false);
+        CinemachineShake.instance.gameObject.SetActive(true);
         CinemachineShake.instance.ShakeCamera(shakeItensity, shakeTimer);
         ShakeCouroutine();
     }
@@ -243,6 +245,8 @@ public class EndlessLevel : MonoBehaviour
         Player.instance.canDrop = true;
         IngameController.instance.CancelItem();
         WallScript.Instance.SetTopWallActive(true);
+        CinemachineShake.instance.gameObject.SetActive(false);
+
     }
     public void AfterUsingBombItem()
     {

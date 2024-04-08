@@ -12,7 +12,7 @@ public class DropState : FSMState<CircleObject>
         sys.DropMergeStartCoroutine();
         sys.SetRigidBodyToDynamic();
         sys.SetColliderRadius();
-        sys.SetRigidBodyVelocity(new Vector3(0, -10));
+        sys.SetRigidBodyVelocity(new Vector3(0, -15));
     }
     public override void OnUpdate()
     {

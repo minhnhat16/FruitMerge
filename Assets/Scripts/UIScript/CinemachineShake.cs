@@ -11,6 +11,7 @@ public class CinemachineShake : MonoBehaviour
     {
         instance = this;
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        gameObject.SetActive(false);
     }
     public  void ShakeCamera(float itensity, float time)
     {

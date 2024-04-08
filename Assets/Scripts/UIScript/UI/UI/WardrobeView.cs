@@ -11,8 +11,11 @@ public class WardrobeView : BaseView
     [SerializeField] private GameObject boxSkin;
     [SerializeField] private Image currentSkin;
     [SerializeField] private FloatingText  floatingText;
+    public override void Setup(ViewParam viewParam)
+    {
+        base.Setup(viewParam);
+    }
 
- 
     public override void OnStartShowView()
     {
         base.OnStartHideView();
