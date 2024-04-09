@@ -134,6 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a73a7da4f840064798c565ee943ff79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1197873667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1189132360409479646, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+  m_PrefabInstance: {fileID: 1189132359663979296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1210856368 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6665441774940993734, guid: bf583373d4dadd746a623228634a43ec, type: 3}
@@ -331,6 +336,10 @@ PrefabInstance:
     - target: {fileID: 1189132358880768503, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: uiRoot
       value: 
+      objectReference: {fileID: 1197873667}
+    - target: {fileID: 1189132358880768503, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: uiRootControl
+      value: 
       objectReference: {fileID: 1269701109}
     - target: {fileID: 1189132358880768504, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_RootOrder
@@ -527,6 +536,10 @@ PrefabInstance:
     - target: {fileID: 1189132360311638801, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: amount
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189132360409479646, guid: bf583373d4dadd746a623228634a43ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1189132360617635030, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_IsActive
@@ -1062,7 +1075,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: ccf3c89d82991954faad791ecb2531c9, type: 3}
     - target: {fileID: 1189132360762005493, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: amount
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1189132360900762804, guid: bf583373d4dadd746a623228634a43ec, type: 3}
       propertyPath: m_IsActive

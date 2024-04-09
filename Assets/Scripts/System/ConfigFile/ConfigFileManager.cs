@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConfigFileManager : MonoBehaviour
 {
     public static ConfigFileManager Instance;
-
+    public bool isDone;
     [Header("CSV configs")]
     [SerializeField] private CircleTypeConfig circleConfig;
     [SerializeField] private PriceConfig priceConfig;
@@ -37,6 +37,7 @@ public class ConfigFileManager : MonoBehaviour
 
     IEnumerator WaitInit(Action callback)
     {
+        isDone = false;
         circleConfig = Resources.Load("Config/CircleTypeConfig", typeof(ScriptableObject)) as CircleTypeConfig;
         yield return new WaitUntil(() => circleConfig != null);
         priceConfig = Resources.Load("Config/PriceConfig", typeof(ScriptableObject)) as PriceConfig;
@@ -54,6 +55,7 @@ public class ConfigFileManager : MonoBehaviour
         Debug.Log("(BOOT) // INIT CONFIG DONE");
         yield return new WaitUntil(() => soundFactory != null);
         yield return null;
+        isDone = true;
         callback?.Invoke();
     }
 }

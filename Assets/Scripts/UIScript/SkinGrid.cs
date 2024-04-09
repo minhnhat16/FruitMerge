@@ -14,14 +14,13 @@ public class SkinGrid : MonoBehaviour
     [SerializeField] private FloatingText floatingText;
     [SerializeField] private Image crSkinHead;
 
-    private List<ItemConfigRecord> itemConfig = new();
-    private List<PriceConfigRecord> priceConfig = new();
-    private ShopConfigRecord shopConfig = new();
+    [SerializeField] private List<ItemConfigRecord> itemConfig = new();
+    [SerializeField] private List<PriceConfigRecord> priceConfig = new();
+    [SerializeField] private ShopConfigRecord shopConfig = new();
     private List<int> playerData = new();
     private void Awake()
     {
         if (Instance != null) Instance = this;
-        StartCoroutine(SetupItem());
     }
     private void Start()
     {
@@ -35,12 +34,10 @@ public class SkinGrid : MonoBehaviour
     {
         onEquipAction.RemoveListener(SwitchCurrentSkin);
     }
-    public IEnumerator SetupItem()
+
+    public void SetupItem()
     {
         Debug.Log("SetupItem SKin ");
-        yield return new WaitUntil(() => ConfigFileManager.Instance.ItemConfig != null
-                     && ConfigFileManager.Instance.PriceConfig != null
-                         && ConfigFileManager.Instance.ShopConfig != null);
         Debug.Log("SetupItem 2" );
         itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
         priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
@@ -50,11 +47,11 @@ public class SkinGrid : MonoBehaviour
     }
     private void InitiateSkinItem()
     {
-        for (int i = 0; i < itemConfig.Count; i++)
+       for (int i = 0; i < itemConfig.Count; i++)
         {
             if (itemConfig[i].Type == ItemType.FRUITSKIN)
             {
-                var skin = Instantiate((Resources.Load("Prefab/UIPrefab/SkinItemPrefab", typeof(GameObject))), transform) as GameObject;
+                var skin = Instantiate((Resources.Load("Prefab/UIPrefab/SkinItemPrefab", typeof(GameObject))), scrollRect.content) as GameObject;
                 if (skin == null)
                 {
                     Debug.LogError(" item == null");

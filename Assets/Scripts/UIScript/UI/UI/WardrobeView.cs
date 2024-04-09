@@ -7,15 +7,23 @@ public class WardrobeView : BaseView
 {
     [SerializeField] private BoxTabButton boxTab;
     [SerializeField] private SkinTabButton skinTab;
-    [SerializeField]  private GameObject skinGrid;
-    [SerializeField] private GameObject boxSkin;
+    [SerializeField]  private SkinGrid skinGrid;
+    [SerializeField] private BoxSkinGrid boxSkin;
     [SerializeField] private Image currentSkin;
     [SerializeField] private FloatingText  floatingText;
     public override void Setup(ViewParam viewParam)
     {
         base.Setup(viewParam);
     }
-
+    public override void OnInit()
+    {
+        SetUpView();
+    }
+    public void SetUpView()
+    {
+        skinGrid.SetupItem();
+        boxSkin.SetupBoxGrid();
+    }
     public override void OnStartShowView()
     {
         base.OnStartHideView();
@@ -23,7 +31,7 @@ public class WardrobeView : BaseView
     }
     public void StartTabOn()
     {
-        skinGrid.SetActive(true);
+        skinGrid.gameObject.SetActive(true);
         skinTab.StartTabOn();
         boxTab.OnTabOff();
     }

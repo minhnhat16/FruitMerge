@@ -14,15 +14,14 @@ public class BoxSkinGrid : MonoBehaviour
     public UnityEvent<BoxItem> onEquipBoxAction = new UnityEvent<BoxItem>();
     [SerializeField] private FloatingText floatingText;
 
-    private List<ItemConfigRecord> itemConfig = new();
-    private List<PriceConfigRecord> priceConfig = new();
-    private ShopConfigRecord shopConfig = new();
-    private List<int> playerData = new();
+    [SerializeField] private List<ItemConfigRecord> itemConfig = new();
+    [SerializeField] private List<PriceConfigRecord> priceConfig = new();
+    [SerializeField] private ShopConfigRecord shopConfig = new();
+    [SerializeField] private List<int> playerData = new();
     private void Awake()
     {
         if (Instance != null)
             Instance = this;
-        StartCoroutine(SetupBoxGrid());
     }
     private void Start()
     {
@@ -37,12 +36,13 @@ public class BoxSkinGrid : MonoBehaviour
     {
         onEquipBoxAction.RemoveListener(SwitchCurrentSkin);
     }
-    public IEnumerator SetupBoxGrid()
+    public void StartSetupItem()
+    {
+    }
+    public void SetupBoxGrid()
     {
         Debug.Log("SetupItem BoxSkin ");
-        yield return new WaitUntil(() => ConfigFileManager.Instance.ItemConfig != null
-                       && ConfigFileManager.Instance.PriceConfig != null
-                           && ConfigFileManager.Instance.ShopConfig != null);
+        Debug.Log("SetupItem BoxSkin when done");
         itemConfig = ConfigFileManager.Instance.ItemConfig.GetAllRecord();
         priceConfig = ConfigFileManager.Instance.PriceConfig.GetAllRecord();
         shopConfig = ConfigFileManager.Instance.ShopConfig.GetRecordByKeySearch(ShopSkinId);
@@ -56,7 +56,7 @@ public class BoxSkinGrid : MonoBehaviour
         {
             if (itemConfig[i].Type == ItemType.BOXSKIN)
             {
-                var skin = Instantiate((Resources.Load("Prefab/UIPrefab/BoxSkin", typeof(GameObject))), transform) as GameObject;
+                var skin = Instantiate((Resources.Load("Prefab/UIPrefab/BoxSkin", typeof(GameObject))), scrollRect.content) as GameObject;
                 if (skin == null)
                 {
                     Debug.LogError(" item == null");

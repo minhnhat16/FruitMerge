@@ -14,7 +14,8 @@ public class TabSkin: MonoBehaviour
         tabOff.SetActive(false);
         animator.Play("TabOn");
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
-        ViewManager.Instance.SwitchView(ViewIndex.WardrobeView);
+        ViewParam viewParam = new();
+        ViewManager.Instance.SwitchView(ViewIndex.WardrobeView,viewParam);
     }
     public void OnTabOff()
     {

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class LoadingView : BaseView
 {
     public Image loadingProgress;
-    public TextMeshProUGUI loaddingText;
+    public Text loaddingText;
     private float t1 = 0;
 
     public override void Setup(ViewParam viewParam)

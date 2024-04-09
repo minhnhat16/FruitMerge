@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 8678505796875478550}
   - component: {fileID: 45907475922343378}
   - component: {fileID: 4853817550846187887}
-  - component: {fileID: 1166928124463435291}
+  - component: {fileID: 4575137559957882569}
   m_Layer: 0
   m_Name: SkinName_lb
   m_TagString: Untagged
@@ -589,7 +589,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Skin Fruit
---- !u!114 &1166928124463435291
+--- !u!114 &4575137559957882569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -598,12 +598,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7947064387122523755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Script: {fileID: 11500000, guid: 0848bff101191904ead4bb831f7084db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.53333336, g: 0.32941177, b: 0.043137256, a: 1}
-  m_EffectDistance: {x: 2.72, y: 2}
-  m_UseGraphicAlpha: 1
+  m_BlurFactor: 1
+  m_Style: 3
+  m_EffectColor: {r: 0.6792453, g: 0.22685692, b: 0, a: 1}
+  m_EffectDistance: {x: 3.06, y: -3.18}
+  m_UseGraphicAlpha: 0
 --- !u!1 &8610126822280758138
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +691,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 43838592290194463, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 457028152887703996, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
       propertyPath: m_SizeDelta.x
@@ -961,6 +963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6546282460283754107, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+    - {fileID: 7490603231020689200, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
 --- !u!224 &1002197999160251970 stripped
 RectTransform:
@@ -1006,6 +1009,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 100000
+--- !u!114 &6215685161045299975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4379542736948863249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3848c05badecd434a9efd7df022afdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRichText: 0
+  m_spacing: 0
 --- !u!114 &7950112015760295716 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4520034845365688018, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
