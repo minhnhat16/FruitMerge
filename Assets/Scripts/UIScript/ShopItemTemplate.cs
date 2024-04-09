@@ -11,12 +11,12 @@ public class ShopItemTemplate : MonoBehaviour
     [SerializeField] private Image backGround;
     [SerializeField] private Image itemImg;
     [SerializeField] private ItemType type;
-    [SerializeField] private Text name_lb;
+    [SerializeField] private TMP_Text name_lb;
     [SerializeField] private Image ContainBox;
     [SerializeField] private int  totalItem;
-    [SerializeField] private Text total_lb;
+    [SerializeField] private TMP_Text total_lb;
     [SerializeField] private int intCost;
-    [SerializeField] private Text cost_lb;
+    [SerializeField] private TMP_Text cost_lb;
     [SerializeField] private bool enable;
     [SerializeField] List<GameObject> buttonType = new();
 
@@ -24,10 +24,10 @@ public class ShopItemTemplate : MonoBehaviour
     public int IntCost { get => intCost; set => intCost = value; }
     public int TotalItem { get => totalItem; set => totalItem = value; }
     public Image ItemImg { get => itemImg; set => itemImg = value; }
-    public Text Name_lb { get => name_lb; set => name_lb = value; }
+    public TMP_Text Name_lb { get => name_lb; set => name_lb = value; }
     public Image ContainBox1 { get => ContainBox; set => ContainBox = value; }
-    public Text Total_lb { get => total_lb; set => total_lb = value; }
-    public Text Cost_lb { get => cost_lb; set => cost_lb = value; }
+    public TMP_Text Total_lb { get => total_lb; set => total_lb = value; }
+    public TMP_Text Cost_lb { get => cost_lb; set => cost_lb = value; }
     public bool Enable { get => enable; set => enable = value; }
     
    public virtual void Start()
