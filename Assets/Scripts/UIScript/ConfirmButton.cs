@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class ConfirmButton : MonoBehaviour
 {
     [SerializeField] private ButtonType btnType;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Text text;
     [SerializeField] List<Image> _typesImage;
     public string priceTxt;
     public ButtonType Btntype  { get { return btnType; } }

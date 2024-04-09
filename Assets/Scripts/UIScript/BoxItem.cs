@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class BoxItem : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class BoxItem : MonoBehaviour
     [SerializeField] private bool isOwned;
     [SerializeField] private int skinID;
     [SerializeField] private int price;
-    public TextMeshProUGUI skinName_lb;
+    public Text skinName_lb;
     public GameObject disableMask;
     public GameObject equipedBG;
     public GameObject unquipedBG;

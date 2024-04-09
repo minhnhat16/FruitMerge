@@ -13,7 +13,7 @@ public class SkinItem : MonoBehaviour
     [SerializeField] private int price;
     [SerializeField] private string skinName;
     public List<Image> fruitImages;
-    public TextMeshProUGUI skinName_lb;
+    public Text skinName_lb;
     public Image disableMask;
     public Image unOwn;
     public Image Onwed;
