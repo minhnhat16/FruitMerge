@@ -10,9 +10,6 @@ public class ReviveDialog : BaseDialog
     [SerializeField] private TextMeshProUGUI score_lb;
     [SerializeField] private ReviveDialogParam param;
     [SerializeField] private Camera boxCamera;
-    private void Start()
-    {
-    }   
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -40,22 +37,24 @@ public class ReviveDialog : BaseDialog
     }
     public void RefuseBtn()
     {
-
-        IngameController.instance.isGameOver = false;
-        EndlessLevel.Instance.Clear();
-        DialogManager.Instance.HideDialog(dialogIndex);
-        IngameController.instance.SetIngameObjectActive(false);
-        ZenSDK.instance.ShowFullScreen();
-        LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
+        SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
-            DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog, null, () =>
+            IngameController.instance.isGameOver = false;
+            EndlessLevel.Instance.Clear();
+            Destroy(EndlessLevel.Instance.gameObject);
+            DialogManager.Instance.HideDialog(dialogIndex);
+            IngameController.instance.SetIngameObjectActive(false);
+            ZenSDK.instance.ShowFullScreen();
+            LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
             {
-                IngameController.instance.isPause = false;
-                CirclePool.instance.transform.localScale = Vector3.one;
-                //WallScript.Instance.transform.localScale = Vector3.one;
+                DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog, null, () =>
+                {
+                    IngameController.instance.isPause = false;
+                });
             });
         });
-    }
+        }
     public void ReviveButton()
     {
         ZenSDK.instance.ShowVideoReward((isVideoDone) =>

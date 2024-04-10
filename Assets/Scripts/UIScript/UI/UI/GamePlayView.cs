@@ -67,9 +67,9 @@ public class GamePlayView : BaseView, IPointerClickHandler
     {
         setScoreEvent.RemoveListener(ScoreChange);
         setNextCircleEvent.RemoveListener(NextCircleImage);
-        tomatoItemEvent.AddListener(ChangeItem);
-        bombItemEvent.AddListener(HammerItem);
-        upgradeItemEvent.AddListener(ShakeItem);
+        tomatoItemEvent.RemoveListener(ChangeItem);
+        bombItemEvent.RemoveListener(HammerItem);
+        upgradeItemEvent.RemoveListener(ShakeItem);
     }
     public override void OnStartShowView()
     {
@@ -193,7 +193,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
 
             if (total > 0 && EndlessLevel.Instance._Circles.Count != 0)
             {
-                param.isAds = true;
+                param.isAds = false;
                 SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
 
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
@@ -205,7 +205,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
             }
             else if (total <= 0)
             {
-                param.isAds = false;
+                param.isAds = true;
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
                 {
                     onTomato = true;

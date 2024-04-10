@@ -74,6 +74,7 @@ public class SkinItem : MonoBehaviour
         unOwn.gameObject.SetActive(false);
         unquipedBG.gameObject.SetActive(true);
         equipedBG.gameObject.SetActive(false);
+        Onwed.sprite = SpriteLibControl.Instance.GetSpriteByName(skinName);
         confirmBtnType.SwitchButtonType(ButtonType.Unquiped);
 
     }

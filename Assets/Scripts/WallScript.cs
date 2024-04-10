@@ -17,15 +17,10 @@ public class WallScript : MonoBehaviour
     {
         Instance = this;
     }
-    void Start()
+    private void OnEnable()
     {
         SetUpCollider();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }   
     void SetUpCollider()
     {
         if (CameraMain.instance != null)
@@ -42,15 +37,16 @@ public class WallScript : MonoBehaviour
         {
             Debug.Log("ScaleByScreen not in 2960/1440");
             float mainRate = 1080f / 1920f;
-            _box.transform.localScale += Vector3.one * mainRate;
-            _box.transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3.75f   + mainRate );
+           
+            _box.gameObject.transform.localScale += Vector3.one * mainRate;
+            _box.gameObject.transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3.75f   + mainRate );
         }
         else
         {
             Debug.Log("ScaleByScreen in 2960/1440");
             float mainRate = 1080f / 1920f;
-            _box.transform.localScale += Vector3.one * 0.35f;
-            _box.transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3.75f + mainRate * currentRate);
+            _box.gameObject.transform.localScale += Vector3.one * 0.56f;
+            _box.gameObject.transform.position = new Vector2(0f, CameraMain.instance.GetBottom() + 3.75f + mainRate * currentRate);
         }
     }
     public void TopWallCouroutine()

@@ -1,8 +1,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DataAPIController : MonoBehaviour
 {
@@ -35,7 +35,7 @@ public class DataAPIController : MonoBehaviour
 
         dataModel.ReadData<string>(DataPath.NAME);
     }
- 
+
     public int GetGold()
     {
         //Debug.LogWarning("GETTING GOLD .....");
@@ -47,7 +47,7 @@ public class DataAPIController : MonoBehaviour
     {
         int gold = dataModel.ReadData<int>(DataPath.GOLD);
         gold -= minus;
-        SaveGold(gold,null);
+        SaveGold(gold, null);
     }
     public void AddGold(int add)
     {
@@ -62,7 +62,7 @@ public class DataAPIController : MonoBehaviour
         return level;
     }
 
-  
+
     public int GetCurrentLevel()
     {
         int level = dataModel.ReadData<int>(DataPath.CURRENTLV);
@@ -79,7 +79,8 @@ public class DataAPIController : MonoBehaviour
             dataModel.UpdateData(DataPath.CURRENTLV, level);
         }
     }
-    public void SaveCurrentLevel(int level) {
+    public void SaveCurrentLevel(int level)
+    {
         dataModel.UpdateData(DataPath.CURRENTLV, level);
     }
     #region SKIN DATA
@@ -91,12 +92,14 @@ public class DataAPIController : MonoBehaviour
     }
     public int GetCurrentFruitSkin()
     {
-        int crFruitSkin = dataModel.ReadData<int>(DataPath.CURRENTFRUITSKIN);
+        int crFruitSkin = dataModel.ReadData<int>(DataPath.CURRENTFRUITSKIN); ;
         return crFruitSkin;
     }
-    public void SetCurrenFruitSkin(int id,Action callback)
+    public void SetCurrenFruitSkin(int id, Action callback)
     {
-        dataModel.UpdateData(DataPath.CURRENTFRUITSKIN,id,callback);
+        UnityAction<object> action = new UnityAction<object>((obj) => IngameController.instance.skinChanged?.Invoke((int)obj));
+        DataTrigger.RegisterValueChange(DataPath.CURRENTFRUITSKIN,action);
+        dataModel.UpdateData(DataPath.CURRENTFRUITSKIN, id, callback);
     }
     public int GetCurrentBoxSkin()
     {
@@ -129,12 +132,12 @@ public class DataAPIController : MonoBehaviour
     }
     public void SetDayTimeData(string day)
     {
-       if(!string.IsNullOrEmpty(day))
+        if (!string.IsNullOrEmpty(day))
         {
-            dataModel.UpdateData(DataPath.DAYCHECKED, day,()=>
-            {
-                Debug.Log("SAVE DAYTIME DATA SUCCESSFULL");
-            });
+            dataModel.UpdateData(DataPath.DAYCHECKED, day, () =>
+             {
+                 Debug.Log("SAVE DAYTIME DATA SUCCESSFULL");
+             });
         }
     }
     #endregion
@@ -172,10 +175,10 @@ public class DataAPIController : MonoBehaviour
 
     public void SaveGold(int gold, Action callback)
     {
-        dataModel.UpdateData(DataPath.GOLD, gold,()=>
-        {
-            callback?.Invoke();
-        }); 
+        dataModel.UpdateData(DataPath.GOLD, gold, () =>
+         {
+             callback?.Invoke();
+         });
     }
     public Dictionary<string, DailyData> GetAllDailyData()
     {
@@ -197,11 +200,11 @@ public class DataAPIController : MonoBehaviour
         DailyData dailyData = dataModel.ReadDictionary<DailyData>(DataPath.DAILYDATA, key);
         return dailyData;
     }
-    public void SetDailyData(string day,IEDailyType type)
+    public void SetDailyData(string day, IEDailyType type)
     {
         DailyData dailyData = dataModel.ReadDictionary<DailyData>(DataPath.DAILYDATA, day);
         dailyData.type = type;
-       dataModel.UpdateDataDictionary(DataPath.DAILYDATA,day, dailyData);
+        dataModel.UpdateDataDictionary(DataPath.DAILYDATA, day, dailyData);
     }
     #endregion
 }

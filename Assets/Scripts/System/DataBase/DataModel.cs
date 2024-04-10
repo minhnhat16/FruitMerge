@@ -28,7 +28,7 @@ public static class DataTrigger
         {
             dicvalueChange[path] = new UnityEvent<object>();
         }
-
+        Debug.Log("RegisterValueChange");
         dicvalueChange[path].AddListener(delegateDataChange);
     }
 
@@ -272,7 +272,7 @@ public class DataModel : MonoBehaviour
     public void NewItemData(ItemType type, UserInventory inventory)
     {
         ItemData itemData = new ItemData();
-        int total = ZenSDK.instance.GetConfigInt(type.ToString(), 10);
+        int total = ZenSDK.instance.GetConfigInt(type.ToString(), 100);
         itemData.total = total; // Defaul total item, switch to total when have SDK config
         int id = (int)type;
         itemData.id = type.ToString();

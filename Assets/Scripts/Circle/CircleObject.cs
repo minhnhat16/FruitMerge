@@ -399,7 +399,8 @@ public class CircleObject : FSMSystem
             float randomValue = Random.Range(150f, 250f);
             Debug.Log("randomValue " + randomValue);
             float x = Random.Range(-1, 1);
-            Vector3 force = 5f * randomValue * new Vector3(x,1);
+            float y = Random.Range(-1, 1);
+            Vector3 force = 10f * randomValue * new Vector3(x,y);
             rigdBody.AddForce(force, ForceMode2D.Force);
 
             yield return new WaitForSeconds(0.75f);

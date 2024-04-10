@@ -73,8 +73,6 @@ public class SettingDialog : BaseDialog
     {
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         EndlessLevel.Instance.Clear();
-        Destroy(EndlessLevel.Instance.gameObject);
-
         IngameController.instance.SetIngameObjectActive(false);
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
@@ -140,28 +138,21 @@ public class SettingDialog : BaseDialog
     {
         if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
-        //ZenSDK.instance.ShowFullScreen();
-        DialogManager.Instance.HideDialog(dialogIndex);
-        Player.instance.gameObject.SetActive(false);
-        //IngameController.instance.SetIngameObjectActive(false);
-        LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
+        ZenSDK.instance.ShowFullScreen();
+        Destroy(EndlessLevel.Instance.gameObject);
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
-            ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+            IngameController.instance.SetIngameObjectActive(false);
+            LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
             {
-                EndlessLevel.Instance.main = null; ;
-                IngameController.instance.isPause = false;
-                Player.instance.gameObject.SetActive(true);
-                //IngameController.instance.SetUpWall();
-                //IngameController.instance.SetUpPlayer();
-                //IngameController.instance.SetUpWire();
-                Player.instance.ResetPos();
-                IngameController.instance.ResetScore();
-                EndlessLevel.Instance.Clear();
-                EndlessLevel.Instance.RandomCircle();
-                EndlessLevel.Instance.SpawnFirstCircle();
+                ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
+                {
+                    EndlessLevel.Instance.main = null; ;
+                    IngameController.instance.isPause = false;
+                    IngameController.instance.SetUpIngame();
+                });
             });
         });
-
     }
     public void CloseBtn()
     {

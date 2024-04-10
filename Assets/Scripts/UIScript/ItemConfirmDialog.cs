@@ -18,6 +18,11 @@ public class ItemConfirmDialog : BaseDialog
         ads.onClick.AddListener(() => { PlayAds(); });
         confirm.onClick.AddListener(() => { ConfirmUsingItem(); });
     }
+    private void OnDisable()
+    {
+        ads.onClick.RemoveAllListeners();
+        confirm.onClick.RemoveAllListeners();
+    }
     public override void Setup(DialogParam dialogParam)
     {
         base.Setup(dialogParam);
@@ -45,6 +50,7 @@ public class ItemConfirmDialog : BaseDialog
     {
         base.OnStartShowDialog();
         ItemCase(type);
+        IngameController.instance.isPause = true;
         IngameController.instance.player.GetComponent<Player>().canDrop = false;
     }
     // Start is called before the first frame update

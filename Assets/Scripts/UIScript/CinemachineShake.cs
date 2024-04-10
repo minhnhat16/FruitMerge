@@ -15,6 +15,7 @@ public class CinemachineShake : MonoBehaviour
     }
     public  void ShakeCamera(float itensity, float time)
     {
+        virtualCamera.m_Lens.OrthographicSize = CameraMain.instance.main.orthographicSize;
         CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
         virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         startingIntensity = itensity;

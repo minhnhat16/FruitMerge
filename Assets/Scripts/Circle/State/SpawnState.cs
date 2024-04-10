@@ -20,7 +20,11 @@ public class SpawnState : FSMState<CircleObject>
         sys.SetIsMerge(false);
         sys.SpawnCircle(sys.TypeID);
         sys.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        //sys.SetRigidBodyToNone();
+        //sys.SeRigidBodyToNone();
     }
-
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        sys.IsDropping = true;
+    }
 }

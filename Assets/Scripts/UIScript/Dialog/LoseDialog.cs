@@ -48,7 +48,7 @@ public class LoseDialog : BaseDialog
 
         IngameController.instance.isGameOver = false;
         DialogManager.Instance.HideDialog(dialogIndex);
-        IngameController.instance.DestroyIngameObject();
+        IngameController.instance.SetIngameObjectActive(true);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>
         {
             ZenSDK.instance.OnGameOver(param.score.ToString());
@@ -56,20 +56,18 @@ public class LoseDialog : BaseDialog
             DialogManager.Instance.ShowDialog(DialogIndex.LabelChooseDialog,null, () =>
             {
                 IngameController.instance.isPause = true;
-                CirclePool.instance.transform.localScale = Vector3.one;
-                WallScript.Instance.transform.localScale = Vector3.one;
             });
         });
     }
     public void RePlayBtn()
     {
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
-
+       
         DialogManager.Instance.HideDialog(DialogIndex.LoseDialog, () =>
         {
             EndlessLevel.Instance.Clear();
-            WallScript.Instance.gameObject.SetActive(false);
-            IngameController.instance.Wire.gameObject.SetActive(false);
+            Destroy(EndlessLevel.Instance.gameObject);
+            IngameController.instance.SetIngameObjectActive(false);
             LoadSceneManager.instance.LoadSceneByName("Ingame", () =>
             {
                 ViewManager.Instance.SwitchView(ViewIndex.GamePlayView, null, () =>
@@ -77,19 +75,8 @@ public class LoseDialog : BaseDialog
                     EndlessLevel.Instance.SetLife = 1;
                     IngameController.instance.isGameOver = false;
                     IngameController.instance.LoseCam.gameObject.SetActive(false);
-                    EndlessLevel.Instance.main = null; ;
                     IngameController.instance.isPause = false;
-                    Player.instance.gameObject.SetActive(true);
-                    //IngameController.instance.SetUpWall();
-                    //IngameController.instance.SetUpPlayer();
-                    //IngameController.instance.SetUpWire();
-                    Player.instance.ResetPos();
-                    IngameController.instance.Wire.gameObject.SetActive(true);
-                    WallScript.Instance.gameObject.SetActive(true);
-                    IngameController.instance.ResetScore();
-                    EndlessLevel.Instance.Clear();
-                    EndlessLevel.Instance.RandomCircle();
-                    EndlessLevel.Instance.SpawnFirstCircle();
+                    IngameController.instance.SetUpIngame();
                 });
             });
         });

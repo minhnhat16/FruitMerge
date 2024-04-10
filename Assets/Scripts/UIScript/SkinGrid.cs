@@ -96,7 +96,7 @@ public class SkinGrid : MonoBehaviour
         crSkinItem.SetItemUnquiped();
         crSkinItem = skinEquip;
         crSkinHead.sprite = skinEquip.OwnedImg.sprite;
-        DataAPIController.instance.SetCurrenFruitSkin(skinEquip.SkinID, null);
+        DataAPIController.instance.SetCurrenFruitSkin(skinEquip.SkinID, null) ;
         floatingText.gameObject.SetActive(true);
         floatingText.ShowFloatingText();
     }

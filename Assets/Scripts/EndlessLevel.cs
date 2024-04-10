@@ -52,6 +52,7 @@ public class EndlessLevel : MonoBehaviour
     private void OnDisable()
     {
         onTarget.RemoveAllListeners();
+        onCircleDropped.RemoveAllListeners();
     }
     public void AddCircle(CircleObject item)
     {
@@ -76,6 +77,7 @@ public class EndlessLevel : MonoBehaviour
     void SpawnNewAfterDrop(bool isDropped)
     {
         if (!isDropped) return;
+        Debug.Log("SpawnNewAfterDrop");
         int firstInQueue = intQueue[0];
         intQueue.Remove(firstInQueue);
         main = null;
@@ -139,7 +141,7 @@ public class EndlessLevel : MonoBehaviour
         int first = FirstInQueue();
         main = SpawnCircle(first);
         main.GotoState(main.Spawn);
-        //Debug.Log("POS IN SPAWN PLAYER" + Player.instance.Pos);
+        Debug.Log("SpawmFirtCicle");
     }
     public CircleObject SpawnCircle(int i)
     {
@@ -205,10 +207,16 @@ public class EndlessLevel : MonoBehaviour
     }
     public void UsingChange()
     {
+        Debug.Log("Using change");
+        DespawnMainCircle();
     }
     public void DespawnMainCircle()
     {
-        main.gameObject.SetActive(false);
+        StartCoroutine(SpawnFirstCircle());
+        main.DeSpawnOnBomb(() =>
+        {
+            main = null;
+        });
     }
     public void SetActiveMainCircle(bool activate)
     {

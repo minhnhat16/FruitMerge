@@ -55,9 +55,9 @@ public class Player : MonoBehaviour
             rightCamPos = CameraMain.instance.GetRight();
         }
     }
-    private void OnEnable()
+    private void OnDisable()
     {
-
+        onCircleDropped.RemoveAllListeners();
     }
     // Update is called once per frame
     void Update()
@@ -180,8 +180,9 @@ public class Player : MonoBehaviour
         DoDropCircle();
 
     }
-    private void DoDropCircle()
+    public void DoDropCircle()
     {
+        Debug.Log("DODoDropCircle");
         if (mainCircle == null) return;
         canDrop = false;
         DoGrapplingHook();
@@ -216,7 +217,7 @@ public class Player : MonoBehaviour
             _lineRenderer.gameObject.SetActive(false);
             mainCircle.GotoState(mainCircle.Drop);
 
-            onCircleDropped?.Invoke(true);
+            //onCircleDropped?.Invoke(true);
             yield return new WaitForSeconds(0.5f);
             canDrop = true;
             _lineRenderer.gameObject.SetActive(true);

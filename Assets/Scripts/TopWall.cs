@@ -47,7 +47,8 @@ public class TopWall : MonoBehaviour
             if (circle.GetCurrentState() == "GroundedState"
                 && IngameController.instance.isGameOver == false
                     && circle.transform.position.y > transform.position.y -1f
-                           &&circle.IsDropping == false)
+                           &&circle.IsDropping == false
+                            && circle != EndlessLevel.Instance.main)
             {
                 //Debug.Log("TRIGGER GAME OVER");
                 IngameController.instance.GameOver();

@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   uiRoot: {fileID: 0}
+  uiRootControl: {fileID: 0}
 --- !u!114 &8994215631183607025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +293,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onGoldChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  skinChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1189132359462350416
@@ -653,6 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40af8f3af9a0f9f42989d4aeaa3f5de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDone: 0
   circleConfig: {fileID: 0}
   priceConfig: {fileID: 0}
   shopConfig: {fileID: 0}
@@ -1300,9 +1305,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6f3f951fe8a4a574199aa8bac4a74f16, type: 3}
   - {fileID: 21300000, guid: 3e86457850febaa49b029a3fe85e6ec7, type: 3}
   - {fileID: 21300000, guid: 371178d7a7c216b4d92ac78d1644181f, type: 3}
-  - {fileID: 21300000, guid: fe3d0ebe51e78dd4ea9c73a08aa8e35e, type: 3}
+  - {fileID: 21300000, guid: 541ac6ba71f59f449b05a7fa0a0d29a4, type: 3}
   - {fileID: 21300000, guid: 3ef425303a6968546ab7bec4a5d7fe33, type: 3}
-  - {fileID: 21300000, guid: 09b111e4ae173b74b849b02e34208678, type: 3}
+  - {fileID: 21300000, guid: 148cb8d1b3916bd44aa447114782df6d, type: 3}
   - {fileID: 21300000, guid: 39d9bd5784f4d1147b0c37e1301e972d, type: 3}
   - {fileID: 21300000, guid: 97ad089a14138904eba395411d96931e, type: 3}
   - {fileID: 21300000, guid: 29651db31f186ab45aa8ab3d17525e4d, type: 3}
@@ -1370,7 +1375,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8ac671a1e5c3b2044ad3507259cc215d, type: 3}
   - {fileID: 21300000, guid: eea6a0a3772d9ad418197d49897a1f66, type: 3}
   - {fileID: 21300000, guid: e3ab28981a731f9428c491d79e923e79, type: 3}
-  - {fileID: 21300000, guid: 0389447eca3ef6f42bc259945716b7d1, type: 3}
+  - {fileID: 21300000, guid: 0113cf6bae200434da5cad15f901a7e4, type: 3}
   - {fileID: 21300000, guid: f66fe816609e3f14a8fc36b2077b98e9, type: 3}
   - {fileID: 21300000, guid: 70362d6bb9301c74891356b7fd8bd4db, type: 3}
   - {fileID: 21300000, guid: 69f02dd48b731294380eb425ff45127e, type: 3}
@@ -1394,15 +1399,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3a9afc2f401f74742a0c0de7705bbd97, type: 3}
   - {fileID: 21300000, guid: 907e0254fa0b05a4dbcdd7f030483c7f, type: 3}
   - {fileID: 21300000, guid: 4eda886ada65ae740822b0c5e3209f4d, type: 3}
-  - {fileID: 21300000, guid: 3a991fc65d4160e42895e463c87e632d, type: 3}
+  - {fileID: 21300000, guid: f4b7b590f3c325b438576583bb9a03cb, type: 3}
   - {fileID: 21300000, guid: e91cf709650915a4f9acd7473f13ce6d, type: 3}
-  - {fileID: 21300000, guid: 40d12a3e5f5ae4540bb3e476074eca1f, type: 3}
+  - {fileID: 21300000, guid: d21bbdd09fb729549a5892280e5a3be9, type: 3}
   - {fileID: 21300000, guid: 9e841e4181be43f45b01733261ef4f0c, type: 3}
-  - {fileID: 21300000, guid: d9fd067590ef63948bfccafa4fb81532, type: 3}
+  - {fileID: 21300000, guid: d5b2998376562b74b8ccef1314d8ee9c, type: 3}
   - {fileID: 21300000, guid: d4499aa7328c46347902795985f33beb, type: 3}
-  - {fileID: 21300000, guid: eb0c8517559654344b9394c8c1fb6b02, type: 3}
+  - {fileID: 21300000, guid: f1d8d3419ca77eb4d95f7fa24d13fc90, type: 3}
   - {fileID: 21300000, guid: 37739e655f12e2040bca861bc8729ad7, type: 3}
-  - {fileID: 21300000, guid: 178647dffb01c98499f8252cd7ece654, type: 3}
+  - {fileID: 21300000, guid: e3cfdbfbd2f110243b27fc14270cea0e, type: 3}
   - {fileID: 21300000, guid: ccf3c89d82991954faad791ecb2531c9, type: 3}
 --- !u!1 &1189132360762005491
 GameObject:

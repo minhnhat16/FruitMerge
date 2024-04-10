@@ -39,6 +39,8 @@ public class IngameController : MonoBehaviour
     public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
     [HideInInspector]
     public UnityEvent<int> onGoldChanged = new UnityEvent<int>();
+    public UnityEvent<int> skinChanged = new();
+
     private void OnEnable()
     {
 
