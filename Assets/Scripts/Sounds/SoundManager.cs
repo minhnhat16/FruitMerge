@@ -38,6 +38,7 @@ public class SoundManager : MonoBehaviour
         UIClickSFX_2,
         UIClickSFX_3,
         UIPopSFX,
+        SpinSFX,
     }
 
     [SerializeField] public SoundFactory soundFactory;

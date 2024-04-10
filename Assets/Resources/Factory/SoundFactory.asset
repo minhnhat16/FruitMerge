@@ -58,3 +58,7 @@ MonoBehaviour:
     timer: 0
     timeToDespawn: 1
     audioClip: {fileID: 8300000, guid: 2b8670b132d29984c93743808adbfcb3, type: 3}
+  - sfx: 11
+    timer: 0
+    timeToDespawn: 6.2
+    audioClip: {fileID: 8300000, guid: 57b9eaf991545d34fab87256d3a99772, type: 3}
