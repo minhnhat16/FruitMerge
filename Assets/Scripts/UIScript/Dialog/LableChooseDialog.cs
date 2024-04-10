@@ -1,6 +1,6 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class LableChooseDialog : BaseDialog
 {
@@ -8,7 +8,7 @@ public class LableChooseDialog : BaseDialog
     public TabSkin tabSkin;
     public TabPlay tabPlay;
     public TabLeaderBoard tabLeaderBoard;
-    public TextMeshProUGUI gold_lb;
+    public Text gold_lb;
 
     [HideInInspector]
     public UnityEvent<int> onGoldChanged = new UnityEvent<int>();
