@@ -212,10 +212,9 @@ public class EndlessLevel : MonoBehaviour
     }
     public void DespawnMainCircle()
     {
-        StartCoroutine(SpawnFirstCircle());
         main.DeSpawnOnBomb(() =>
         {
-            main = null;
+            onCircleDropped?.Invoke(true);
         });
     }
     public void SetActiveMainCircle(bool activate)
