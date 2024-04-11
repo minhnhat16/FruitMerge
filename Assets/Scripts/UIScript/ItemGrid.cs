@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 using Debug = UnityEngine.Debug;
 
 public class ItemGrid : MonoBehaviour

@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 4730045063923810108}
   - component: {fileID: 8957321104501044632}
   - component: {fileID: 3337670920342612575}
+  - component: {fileID: 6794544726678478534}
   - component: {fileID: 2441335678491171313}
   m_Layer: 5
   m_Name: Loading
@@ -270,7 +271,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 47c79f891d1ed824f87356e6e6e8c5fe, type: 3}
+    m_Font: {fileID: 12800000, guid: 9376c1dfa3dd3094db299b93d73b2891, type: 3}
     m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 1
@@ -283,6 +284,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Loading....
+--- !u!114 &6794544726678478534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796214384986723531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3848c05badecd434a9efd7df022afdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRichText: 0
+  m_spacing: 16.19
 --- !u!114 &2441335678491171313
 MonoBehaviour:
   m_ObjectHideFlags: 0

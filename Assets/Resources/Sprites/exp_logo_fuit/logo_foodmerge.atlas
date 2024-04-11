@@ -1,0 +1,300 @@
+
+logo_foodmerge.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bubble
+  rotate: false
+  xy: 496, 241
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+Hami melon
+  rotate: false
+  xy: 462, 101
+  size: 49, 55
+  orig: 49, 55
+  offset: 0, 0
+  index: -1
+Lemon
+  rotate: false
+  xy: 320, 26
+  size: 20, 22
+  orig: 20, 22
+  offset: 0, 0
+  index: -1
+Peach
+  rotate: false
+  xy: 61, 10
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+UI_menu
+  rotate: true
+  xy: 1, 69
+  size: 180, 320
+  orig: 180, 320
+  offset: 0, 0
+  index: -1
+d
+  rotate: true
+  xy: 452, 35
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1
+e
+  rotate: false
+  xy: 244, 42
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: -1
+e1
+  rotate: true
+  xy: 267, 46
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: -1
+f
+  rotate: true
+  xy: 38, 42
+  size: 25, 34
+  orig: 25, 34
+  offset: 0, 0
+  index: -1
+g
+  rotate: false
+  xy: 487, 33
+  size: 24, 32
+  orig: 24, 32
+  offset: 0, 0
+  index: -1
+leaf
+  rotate: true
+  xy: 30, 6
+  size: 33, 29
+  orig: 33, 29
+  offset: 0, 0
+  index: -1
+leaf_2
+  rotate: false
+  xy: 219, 42
+  size: 23, 25
+  orig: 23, 25
+  offset: 0, 0
+  index: -1
+light
+  rotate: false
+  xy: 323, 112
+  size: 137, 137
+  orig: 137, 137
+  offset: 0, 0
+  index: -1
+m
+  rotate: true
+  xy: 423, 70
+  size: 40, 32
+  orig: 40, 32
+  offset: 0, 0
+  index: -1
+mat nham3
+  rotate: false
+  xy: 496, 211
+  size: 5, 3
+  orig: 5, 3
+  offset: 0, 0
+  index: -1
+mat_angry
+  rotate: false
+  xy: 503, 213
+  size: 4, 4
+  orig: 4, 4
+  offset: 0, 0
+  index: -1
+mat_mo
+  rotate: false
+  xy: 503, 208
+  size: 3, 3
+  orig: 3, 3
+  offset: 0, 0
+  index: -1
+mat_nham1
+  rotate: false
+  xy: 496, 222
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+mat_nham2
+  rotate: true
+  xy: 496, 216
+  size: 4, 5
+  orig: 4, 5
+  offset: 0, 0
+  index: -1
+mieng
+  rotate: false
+  xy: 504, 233
+  size: 7, 5
+  orig: 7, 5
+  offset: 0, 0
+  index: -1
+mieng_angry
+  rotate: true
+  xy: 506, 240
+  size: 9, 5
+  orig: 9, 5
+  offset: 0, 0
+  index: -1
+mieng_chu
+  rotate: true
+  xy: 504, 226
+  size: 5, 6
+  orig: 5, 6
+  offset: 0, 0
+  index: -1
+mieng_cuoi
+  rotate: false
+  xy: 503, 219
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+mieng_luoi
+  rotate: true
+  xy: 496, 229
+  size: 10, 6
+  orig: 10, 6
+  offset: 0, 0
+  index: -1
+nensau
+  rotate: true
+  xy: 462, 158
+  size: 91, 32
+  orig: 91, 32
+  offset: 0, 0
+  index: -1
+o
+  rotate: false
+  xy: 151, 13
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+o_2
+  rotate: true
+  xy: 164, 42
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+r
+  rotate: true
+  xy: 294, 47
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+stroke_Hamimelon
+  rotate: false
+  xy: 323, 50
+  size: 53, 60
+  orig: 53, 60
+  offset: 0, 0
+  index: -1
+stroke_Lemon
+  rotate: false
+  xy: 193, 42
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+stroke_Peach
+  rotate: false
+  xy: 378, 39
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+stroke_d
+  rotate: true
+  xy: 415, 36
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+stroke_e
+  rotate: true
+  xy: 74, 42
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+stroke_e2
+  rotate: true
+  xy: 104, 42
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+stroke_f
+  rotate: true
+  xy: 1, 41
+  size: 26, 35
+  orig: 26, 35
+  offset: 0, 0
+  index: -1
+stroke_g
+  rotate: false
+  xy: 1, 1
+  size: 27, 36
+  orig: 27, 36
+  offset: 0, 0
+  index: -1
+stroke_leaf
+  rotate: false
+  xy: 457, 67
+  size: 36, 32
+  orig: 36, 32
+  offset: 0, 0
+  index: -1
+stroke_leaf_2
+  rotate: true
+  xy: 134, 42
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1
+stroke_m
+  rotate: false
+  xy: 378, 75
+  size: 43, 35
+  orig: 43, 35
+  offset: 0, 0
+  index: -1
+stroke_o
+  rotate: false
+  xy: 93, 11
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+stroke_o_2
+  rotate: false
+  xy: 122, 11
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+stroke_r
+  rotate: false
+  xy: 178, 12
+  size: 23, 28
+  orig: 23, 28
+  offset: 0, 0
+  index: -1

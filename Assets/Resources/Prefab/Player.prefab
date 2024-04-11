@@ -388,7 +388,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a7dcf59a3f5592a4a82657ed4c1d4161, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -604,7 +604,6 @@ MonoBehaviour:
   canDrop: 0
   spawnPoint: {x: 0, y: 0}
   mainCircle: {fileID: 0}
-  dropCoolDown: 10
   _renders:
   - {fileID: 3830457807252273748}
   - {fileID: 5062538727656449479}

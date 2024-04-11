@@ -444,8 +444,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7185056069389833530}
   - component: {fileID: 1915314866907704544}
+  - component: {fileID: 2957385624588322821}
   - component: {fileID: 6642834270806790466}
-  - component: {fileID: 288643980726087423}
+  - component: {fileID: 7157336751938309150}
   m_Layer: 5
   m_Name: Name_lb
   m_TagString: Untagged
@@ -481,6 +482,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3376045976237389078}
   m_CullTransparentMesh: 1
+--- !u!114 &2957385624588322821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376045976237389078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3848c05badecd434a9efd7df022afdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRichText: 0
+  m_spacing: 5.22
 --- !u!114 &6642834270806790466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,10 +517,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: d7ae4b43e1a364e4aae8179091f4cd3d, type: 3}
-    m_FontSize: 15
+    m_Font: {fileID: 12800000, guid: 55e9859eb96498e44abb2e8151ff777b, type: 3}
+    m_FontSize: 60
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 300
     m_Alignment: 4
@@ -515,7 +530,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Kitchen
---- !u!114 &288643980726087423
+--- !u!114 &7157336751938309150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -524,11 +539,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3376045976237389078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Script: {fileID: 11500000, guid: 0848bff101191904ead4bb831f7084db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.7169812, g: 0.42341405, b: 0, a: 1}
-  m_EffectDistance: {x: 3, y: 3}
+  m_BlurFactor: 1
+  m_Style: 3
+  m_EffectColor: {r: 0.7882353, g: 0.0627451, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: -2}
   m_UseGraphicAlpha: 1
 --- !u!1 &4142525417943740520
 GameObject:
@@ -1241,6 +1258,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2237244749393457476, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 95.946
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237244749393457476, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 48.151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237244749393457476, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 26.158997
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237244749393457476, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000016212
+      objectReference: {fileID: 0}
     - target: {fileID: 2279511942258551687, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -1281,10 +1314,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3173571182564451324, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_Text
+      value: 11111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173571182564451324, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 55e9859eb96498e44abb2e8151ff777b, type: 3}
     - target: {fileID: 4520034845365688018, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
       propertyPath: text
       value: 
       objectReference: {fileID: 1870206023860459690}
+    - target: {fileID: 5037942857968075073, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 55e9859eb96498e44abb2e8151ff777b, type: 3}
     - target: {fileID: 5053507288357348441, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -1452,6 +1497,30 @@ PrefabInstance:
     - target: {fileID: 6703219621032363956, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064432565574352261, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 55e9859eb96498e44abb2e8151ff777b, type: 3}
+    - target: {fileID: 7434249397134383495, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_EffectColor.a
+      value: 0.89411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434249397134383495, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_EffectColor.b
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434249397134383495, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_EffectColor.g
+      value: 0.5176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434249397134383495, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434249397134383495, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5be581d07af4b84c9880af94e7f8768, type: 3}

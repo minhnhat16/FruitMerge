@@ -1,8 +1,8 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 public class SpinCircle : MonoBehaviour
@@ -18,7 +18,7 @@ public class SpinCircle : MonoBehaviour
     [SerializeField] ArrowSpin arrow;
     [SerializeField] SpinItem crItem;
     [SerializeField] Button button;
-    [SerializeField] TextMeshProUGUI claim_lb;
+    [SerializeField] Text claim_lb;
     [SerializeField] bool isSpining;
    public UnityEvent<bool> spinnedEvent = new UnityEvent<bool>();
 

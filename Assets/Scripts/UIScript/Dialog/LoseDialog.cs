@@ -1,18 +1,17 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class LoseDialog : BaseDialog
 {
-    [SerializeField] private TextMeshProUGUI score_lb;
+    [SerializeField] private Text score_lb;
     [SerializeField] private LoseDialogParam param;
     [SerializeField] private Camera boxCamera;
     private void Start()
     {
         param = new LoseDialogParam();
-        score_lb = GetComponentInChildren<TextMeshProUGUI>();
+        score_lb = GetComponentInChildren<Text>();
     }
     public override void Setup(DialogParam dialogParam)
     {

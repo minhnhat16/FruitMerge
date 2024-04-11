@@ -1,13 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class ReviveDialog : BaseDialog
 {
-    [SerializeField] private TextMeshProUGUI score_lb;
     [SerializeField] private ReviveDialogParam param;
     [SerializeField] private Camera boxCamera;
     public override void Setup(DialogParam dialogParam)
@@ -17,7 +15,7 @@ public class ReviveDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
-        score_lb.text = "Score: " + IngameController.instance.Score.ToString();
+        //score_lb.text = "Score: " + IngameController.instance.Score.ToString();
         EndlessLevel.Instance.SetActiveMainCircle(false);
         IngameController.instance.isPause = true;
         Player.instance.canDrop = false;

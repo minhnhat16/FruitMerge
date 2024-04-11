@@ -10,7 +10,10 @@ public class TopWall : MonoBehaviour
     public UnityEvent<bool> gameOverEvent = new UnityEvent<bool>();
     private void OnEnable()
     {
+        if (IngameController.instance.isActiveAndEnabled)
+        {
         gameOverEvent = IngameController.instance.gameOverEvent;
+        }
         gameOverEvent.AddListener(GameOverEvent);
     }
     private void OnDisable()

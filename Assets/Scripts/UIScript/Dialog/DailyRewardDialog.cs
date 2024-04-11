@@ -28,9 +28,7 @@ public class DailyRewardDialog : BaseDialog
     {
         base.OnStartShowDialog();
     }
-    private void Update()
-    {
-    }
+
     public void ClickDailyItem(bool isEnable)
     {
         Debug.Log("ClickDailyItem");
@@ -41,10 +39,16 @@ public class DailyRewardDialog : BaseDialog
             claimBtn.CheckButtonType();
             claimBtn.gameObject.SetActive(isEnable);
         }
-        else
+        else if(ZenSDK.instance.IsVideoRewardReady() && !isEnable)
         {
             //claimBtn.enabled = false;
             Debug.Log($"Check Button type {isEnable}");
+            
+            claimBtn.claim.gameObject.SetActive(false);
+            claimBtn.ads.gameObject.SetActive(true);
+        }
+        else
+        {
             claimBtn.gameObject.SetActive(false);
         }
     }
@@ -60,9 +64,14 @@ public class DailyRewardDialog : BaseDialog
     }
     public void OnClickAdsReward(bool isAds)
     {
-        if (isAds)
+        if (isAds && ZenSDK.instance.IsVideoRewardReady())
         {
             Debug.Log("Ads reward showing");
+            ZenSDK.instance.ShowVideoReward((isWatched) =>
+            {
+                if (isWatched) dailyGrid.currentDaily.ItemClaim(isWatched);
+                else Debug.Log("Cant take item form video reward");
+            });
         }
     }
     public void QuitButton()

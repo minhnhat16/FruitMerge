@@ -10,7 +10,11 @@ public class LineScript : BackGroundInGame
     private void OnEnable()
     {
         //Debug.Log(transform.position);
+        if(Player.instance.isActiveAndEnabled)
+        {
         fixPos = Player.instance.transform.position - new Vector3(0,4.75f);
+
+        }
         transform.position = fixPos;
         SetSpriteRenderToCameraScale();
     }

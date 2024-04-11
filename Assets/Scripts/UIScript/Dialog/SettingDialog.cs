@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -15,7 +14,7 @@ public class SettingDialog : BaseDialog
     [SerializeField] private Image sfxOff;
     [SerializeField] private Image vibOn;
     [SerializeField] private Image vibOff;
-    [SerializeField] private TMP_Dropdown language_dr;
+    [SerializeField] private Dropdown language_dr;
 
     [HideInInspector]
     public UnityEvent<bool> musicEvent = new UnityEvent<bool>();
@@ -150,6 +149,7 @@ public class SettingDialog : BaseDialog
                     EndlessLevel.Instance.main = null; ;
                     IngameController.instance.isPause = false;
                     IngameController.instance.SetUpIngame();
+                    CirclePool.instance.pool.DeSpawnAll();
                 });
             });
         });

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +5,7 @@ public class ItemConfirmDialog : BaseDialog
 {
     private ItemType type;
     private bool isAds;
-    [SerializeField] TextMeshProUGUI tutorial_lb;
+    [SerializeField] Text tutorial_lb;
 
     [SerializeField] Button ads;
     [SerializeField] Button confirm;
@@ -40,8 +39,8 @@ public class ItemConfirmDialog : BaseDialog
             }
             else //else show confirm to use
             {
-                ads.gameObject.SetActive(true);
-                confirm.gameObject.SetActive(false);
+                ads.gameObject.SetActive(false);
+                confirm.gameObject.SetActive(true);
             }
         }
 
@@ -76,7 +75,7 @@ public class ItemConfirmDialog : BaseDialog
         switch (type)
         {
             case ItemType.CHANGE:
-                Debug.Log("DESTROY ALL FRUIT BELOW 2");
+                Debug.Log("DESTROY CURRENT FRUIT ON GRAPPLING HOOK");
                 IngameController.instance.ChangeItem();
                 IngameController.instance.CancelItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog,null);
@@ -88,7 +87,7 @@ public class ItemConfirmDialog : BaseDialog
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null) ;
                 break;
             case ItemType.ROTATE:
-                Debug.Log("CHOSE ONE FRUIT TO UPGRADE ");
+                Debug.Log("MAKING ALL FRUIT SHAKE");
                 IngameController.instance.ShakeItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null   );
                 break;

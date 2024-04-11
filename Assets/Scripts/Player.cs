@@ -150,13 +150,15 @@ public class Player : MonoBehaviour
         StartCanDrop();
         mainCircle = EndlessLevel.Instance.main;
         if (mainCircle == null || !canDrop) return;
-        pos.x = touch.position.x;
+        var localTouchPos = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
+        pos.x = localTouchPos.x;
+        pos.y = transform.localPosition.y;
         transform.position = pos;
         //Debug.Log("Touch began at position: " + touch.position);
-        //Debug.Log($" mainC {mainCircle.transform.position} = pos{pos}+ circleSpawnPos{circleSpawnPos};");
-        mainCircle.transform.position = pos + circleSpawnPos;
+        Debug.Log($" mainC {mainCircle.transform.position} = pos{pos}+ circleSpawnPos{circleSpawnPos};");
+        mainCircle.transform.position = transform.localPosition /*+ circleSpawnPos*/;
         mainCircle.SetIsMerge(false);
-        mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
+        mainCircle.transform.position = new Vector3(transform.position.x, transform.localPosition.y);
         spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
     }
 
@@ -164,13 +166,13 @@ public class Player : MonoBehaviour
     {
         //Debug.Log("Touch moved at position: " + touch.position);
         spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
-        mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
+        mainCircle.transform.position = new Vector3(transform.position.x, transform.localPosition.y);
     }
 
     private void HandleTouchStationary(Touch touch)
     {
         spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(touch.position);
-        mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
+        mainCircle.transform.position = new Vector3(transform.position.x, transform.localPosition.y);
         //Debug.Log("Touch stationary at position: " + touch.position);
     }
 
@@ -193,41 +195,6 @@ public class Player : MonoBehaviour
         _lineRenderer.gameObject.SetActive(true);
     }
   
-    IEnumerator DropCircle()
-    {
-        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-        if (Input.GetMouseButtonDown(0) && !Input.GetMouseButton(0))
-        {
-            mainCircle.transform.position = pos + circleSpawnPos;
-            mainCircle.SetIsMerge(false);
-            mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
-            spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-        else if (Input.GetMouseButton(0) && canDrop && mainCircle != null)
-        {
-            circleSpawnPos =
-            spawnPoint = CameraMain.instance.main.ScreenToWorldPoint(Input.mousePosition);
-            mainCircle.transform.position = new Vector3(transform.position.x, CircleSpawnPos.y);
-
-        }
-        else if (Input.GetMouseButtonUp(0) /*&& canDrop && mainCircle != null*/)
-        {
-            DoGrapplingHook();
-            canDrop = false;
-            _lineRenderer.gameObject.SetActive(false);
-            mainCircle.GotoState(mainCircle.Drop);
-
-            //onCircleDropped?.Invoke(true);
-            yield return new WaitForSeconds(0.5f);
-            canDrop = true;
-            _lineRenderer.gameObject.SetActive(true);
-        }
-    }
-    IEnumerator ReleaseToDrop()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-    }
     Tween left;
     Tween right;
     public void DoGrapplingHook()

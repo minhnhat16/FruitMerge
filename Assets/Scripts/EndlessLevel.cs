@@ -44,7 +44,11 @@ public class EndlessLevel : MonoBehaviour
     public UnityEvent<bool> onCircleDropped = new UnityEvent<bool>();
     private void OnEnable()
     {
-        onCircleDropped = Player.instance.onCircleDropped;
+        if ( Player.instance != null)
+        {
+            onCircleDropped = Player.instance.onCircleDropped;
+                
+        }
         onTarget.AddListener(TargetCircle);
         onCircleDropped.AddListener(SpawnNewAfterDrop);
 

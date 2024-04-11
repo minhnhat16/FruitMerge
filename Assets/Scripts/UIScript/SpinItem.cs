@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SpinItem : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class SpinItem : MonoBehaviour
     [SerializeField] ItemType type;
     [SerializeField] int amount;
     [SerializeField] Image itemImg;
-    [SerializeField] TextMeshProUGUI amount_lb;
+    [SerializeField] Text amount_lb;
     // Start is called before the first frame update
 
     public int ID {  get { return id; } }
@@ -26,7 +25,7 @@ public class SpinItem : MonoBehaviour
         id = record.Id;
         type = record.Type;
         amount = record.Amount;
-        amount_lb = GetComponentInChildren<TextMeshProUGUI>();
+        amount_lb = GetComponentInChildren<Text>();
         amount_lb.text = $"{amount}";
         itemImg.sprite = SpriteLibControl.Instance.GetSpriteByName(record.ItemImg);
     }

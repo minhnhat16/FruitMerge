@@ -37,7 +37,7 @@ public class DailyMainScreen : MonoBehaviour
     public void DaiylRemainIcon()
     {
         if (anim == null) return;
-        if (DayTimeController.instance.isNewDay == true)
+        if (DayTimeController.instance.isNewDay == true && DayTimeController.instance !=null)
         {
             DailyRemainAnim(null);
         }

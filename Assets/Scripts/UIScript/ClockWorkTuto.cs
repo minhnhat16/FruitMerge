@@ -12,7 +12,10 @@ public class ClockWorkTuto : MonoBehaviour
     UnityEvent<int> skinChanged = new UnityEvent<int>();
     private void OnEnable()
     {
-        skinChanged = IngameController.instance.skinChanged;
+        if (IngameController.instance.isActiveAndEnabled)
+        {
+            skinChanged = IngameController.instance.skinChanged;
+        }
         skinChanged.AddListener(ChangeSkinByIndex);
         skinID = DataAPIController.instance.GetCurrentFruitSkin();
         ChangeSkinByIndex(skinID);

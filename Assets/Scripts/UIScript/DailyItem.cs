@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,8 +11,8 @@ public class DailyItem : MonoBehaviour
     public int intAmount;
     public int day;
     public string itemName;
-    public TextMeshProUGUI day_lb;
-    public TextMeshProUGUI Amount_lb;
+    public Text day_lb;
+    public Text Amount_lb;
     public IEDailyType currentType;
     public Button daily_btn;
     [SerializeField] public UnityEvent<bool> onClickDailyItem = new();

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 public class GamePlayView : BaseView, IPointerClickHandler
 {
     //[HideInInspector] GamePlayAnim anim;
-    [SerializeField] TextMeshProUGUI score_rb;
+    [SerializeField] Text score_rb;
     [SerializeField] private int _changeGold;
     [SerializeField] private int _curGold;
     [SerializeField] private Image nextBlock;
@@ -48,7 +47,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
     private void OnEnable()
     {
         //setGoldTextEvent = GridSystem.instance.setGoldTextEvent;
-        //setGoldTextEvent.AddListener(ShowGoldAnim);
+        //setGoldTextEvent.AddListener(ShowGoldAnim
+        if (!IngameController.instance.isActiveAndEnabled) return;
         setNextCircleEvent = IngameController.instance.setNextCircleEvent;
         setNextCircleEvent.AddListener(NextCircleImage);
         setScoreEvent = IngameController.instance.setScoreEvent;
@@ -195,7 +195,7 @@ public class GamePlayView : BaseView, IPointerClickHandler
             {
                 param.isAds = false;
                 SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
-
+                Debug.Log("NON ADS");
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
                 {
                     onTomato = true;
@@ -208,6 +208,8 @@ public class GamePlayView : BaseView, IPointerClickHandler
                 param.isAds = true;
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
                 {
+                    Debug.Log("HAVE ADS");
+
                     onTomato = true;
                     onUpgrade = true;
                     onBomb = true;

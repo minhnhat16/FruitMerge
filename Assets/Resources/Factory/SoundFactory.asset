@@ -45,19 +45,19 @@ MonoBehaviour:
   - sfx: 7
     timer: 0
     timeToDespawn: 1
-    audioClip: {fileID: 8300000, guid: 99001d6f0f253fd40b0c768f86436b29, type: 3}
+    audioClip: {fileID: 8300000, guid: 833e5aa8542ef3840beb20386f899ea2, type: 3}
   - sfx: 8
     timer: 0
     timeToDespawn: 1
-    audioClip: {fileID: 8300000, guid: 41c5c2b983676c14abbebce504e00d9a, type: 3}
+    audioClip: {fileID: 8300000, guid: acaa5f7eea95f814ba323c2c6195177d, type: 3}
   - sfx: 9
     timer: 0
     timeToDespawn: 1
-    audioClip: {fileID: 8300000, guid: e759c65f76c80834abc572593f946008, type: 3}
+    audioClip: {fileID: 8300000, guid: 5bc81055775710b40b74f28587b384ed, type: 3}
   - sfx: 10
     timer: 0
     timeToDespawn: 1
-    audioClip: {fileID: 8300000, guid: 2b8670b132d29984c93743808adbfcb3, type: 3}
+    audioClip: {fileID: 8300000, guid: 4a125d79028a367419f0a1c3a9903412, type: 3}
   - sfx: 11
     timer: 0
     timeToDespawn: 6.2

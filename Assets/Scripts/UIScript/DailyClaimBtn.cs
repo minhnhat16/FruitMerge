@@ -6,29 +6,28 @@ using UnityEngine.UI;
 
 public class DailyClaimBtn : MonoBehaviour
 {
-   public List<Button> dailyButtons = new List<Button>();
+    public Button claim;
+    public Button ads;
     private bool isClaimed;
     [HideInInspector] UnityEvent<bool> onClickClaim = new();
     [HideInInspector] UnityEvent<bool> onClickAds = new();
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
-    }
+        claim.onClick.AddListener(ClaimBtn);
+        ads.onClick.AddListener(AdsBtn);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     public void CheckButtonType()
     {
         Debug.Log("Check Button Type");
-        if(isClaimed) return;
+        if(isClaimed )
+        {
+            return;
+        }
         else
         {
-            dailyButtons[0].gameObject.SetActive(true);
+           claim.gameObject.SetActive(true);
         }
     }
     public void SetButtonEvent(UnityEvent<bool> claimEvent, UnityEvent<bool> adsEvent) 
