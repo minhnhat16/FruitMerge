@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public UnityEvent<bool> onTouchHold = new();
     [HideInInspector]
     public UnityEvent<bool> onTouchRelease = new();
-    [HideInInspector]
+    [SerializeField]
     public UnityEvent<bool> onCircleDropped = new();
     public Vector3 Pos { get { return pos; } }
     public Vector3 CircleSpawnPos { get { return circleSpawnPos; } }

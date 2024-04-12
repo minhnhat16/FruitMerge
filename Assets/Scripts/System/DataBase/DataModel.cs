@@ -77,7 +77,7 @@ public class DataModel : MonoBehaviour
             Debug.Log("(BOOT) // CREATE NEW DATA");
             userData = new UserData();
             UserInfo inf = new UserInfo();
-            inf.name = "Player 1";
+            inf.name = ZenSDK.instance.GetConfigString("userName", "player");
             userData.userInfo = inf;
             UserInventory userInventory = new UserInventory();
             userInventory.gold = ZenSDK.instance.GetConfigInt(ItemType.GOLD.ToString(), 10000);

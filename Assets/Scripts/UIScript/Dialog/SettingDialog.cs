@@ -44,7 +44,7 @@ public class SettingDialog : BaseDialog
         }
         if (IngameController.instance.player != null)
         {
-            Player.instance.gameObject.SetActive(false);
+            //Player.instance.gameObject.SetActive(false);
         }
         ZenSDK.instance.ShowFullScreen();
     }
@@ -59,17 +59,19 @@ public class SettingDialog : BaseDialog
     }
     public void PlayButton()
     {
+        if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         IngameController.instance.isPause = false;
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
-            IngameController.instance.player.SetActive(true);
-            EndlessLevel.Instance.main.gameObject.SetActive(true);
+            IngameController.instance.isPause = false;
+            //IngameController.instance.player.SetActive(true);
         });
 
     }
     public void HomeButton()
     {
+        if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         EndlessLevel.Instance.Clear();
         IngameController.instance.SetIngameObjectActive(false);

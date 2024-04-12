@@ -1,16 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Spine.Unity;
 
 public class LoadingView : BaseView
 {
     public Image loadingProgress;
     public Text loaddingText;
     private float t1 = 0;
-
+    [SerializeField] SkeletonGraphic logo;
     public override void Setup(ViewParam viewParam)
     {
         base.Setup(viewParam);
@@ -18,17 +15,30 @@ public class LoadingView : BaseView
     public override void OnStartShowView()
     {
         base.OnStartShowView();
-        //string sceneName = SceneManager.GetActiveScene().name;
-        //if (sceneName == "InGame")
-        //{
-        //    GameManager.instance.SetUpIngame(); 
-        //}
+        logo = GetComponentInChildren<SkeletonGraphic>();
+        PlayStartingAnimation();
     }
     private void Update()
     {
         UpdateLoadingProgress();
     }
+    private void PlayStartingAnimation()
+    {
+        // Get the AnimationState from the SkeletonAnimation component
+        var animationState = logo.AnimationState;
 
+        // Check if the starting animation exists
+        if (animationState.Data.SkeletonData.FindAnimation("startingAnimation") != null)
+        {
+            // Set the animation to the starting animation and play it
+            animationState.SetAnimation(0, "startingAnimation", true);
+        }
+        else
+        {
+            // Log a warning if the starting animation doesn't exist
+            Debug.LogWarning("Starting animation not found!");
+        }
+    }
     private void UpdateLoadingProgress()
     {
         loadingProgress.fillAmount = 1 - LoadSceneManager.instance.progress;

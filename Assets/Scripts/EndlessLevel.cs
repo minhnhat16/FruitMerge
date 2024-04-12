@@ -219,6 +219,7 @@ public class EndlessLevel : MonoBehaviour
         main.DeSpawnOnBomb(() =>
         {
             onCircleDropped?.Invoke(true);
+            Player.instance.canDrop = true;
         });
     }
     public void SetActiveMainCircle(bool activate)
@@ -269,7 +270,6 @@ public class EndlessLevel : MonoBehaviour
     }
     public void AfterUpgradeItem()
     {
-        Player.instance.canDrop = true;
         isUpgrade = false;
         IngameController.instance.CancelItem();
         DisableTargetCircles();
@@ -300,9 +300,9 @@ public class EndlessLevel : MonoBehaviour
 
             if (_circles[i].gameObject.activeSelf)
             {
+                Debug.Log($"Add force for circle {i}");
                 _circles[i].ApplyForceOverTime();
             }
-            else return;
         }
     }
     public void FreezeCircleDead()

@@ -54,7 +54,10 @@ public class ZenSDKV1 : MonoBehaviour, ZenSDK.IZenSDK
 	{
 		return defaultValue;
 	}
-
+	public string GetConfigString(String name, string defaultValue)
+    {
+		return defaultValue;
+    }
 	public string SpecialTileTutorial(String name)
 	{
 		return "";

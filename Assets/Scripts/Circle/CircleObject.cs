@@ -393,16 +393,16 @@ public class CircleObject : FSMSystem
         if (!gameObject.activeSelf) yield break;
         int elapseTime;
         int duration = shakeDuration;
+        Debug.Log("ForceCourountine ");
         for (elapseTime = 0; elapseTime < duration; elapseTime++)
         {
             GotoState(Shake);
             float randomValue = Random.Range(150f, 250f);
             Debug.Log("randomValue " + randomValue);
             float x = Random.Range(-1, 1);
-            float y = Random.Range(-1, 1);
-            Vector3 force = 10f * randomValue * new Vector3(x,y);
+            float y = Random.Range(0, 1.5f);
+            Vector3 force = 15f* randomValue * new Vector3(x,y);
             rigdBody.AddForce(force, ForceMode2D.Force);
-
             yield return new WaitForSeconds(0.75f);
         }   
     }

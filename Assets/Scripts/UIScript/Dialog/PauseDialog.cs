@@ -39,11 +39,12 @@ public class PauseDialog : BaseDialog
     }
     public void PlayButton()
     {
-        IngameController.instance.isPause = false;
-
+        IngameController.instance.isPause = true;
         DialogManager.Instance.HideDialog(DialogIndex.PauseDialog, () =>
         {
             //EndlessLevel.Instance.RandomCircle();
+        IngameController.instance.isPause = false;
+
         });
 
     }
@@ -127,8 +128,13 @@ public class PauseDialog : BaseDialog
     }
     public void CloseBtn()
     {
-        DialogManager.Instance.HideDialog(DialogIndex.PauseDialog);
-        IngameController.instance.isPause = false;
+        IngameController.instance.isPause = true;
+        DialogManager.Instance.HideDialog(dialogIndex, () =>
+        {
+            //EndlessLevel.Instance.RandomCircle();
+            IngameController.instance.isPause = false;
+        });
+
 
     }
 }

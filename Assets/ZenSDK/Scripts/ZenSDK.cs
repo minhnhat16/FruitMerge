@@ -154,8 +154,11 @@ public class ZenSDK : MonoBehaviour
 			return zenObj.GetConfigInt(name, defaultValue);
 	}
 
-
-
+	public string GetConfigString(String name, string defaultValue)
+	{
+		Debug.Log("ZenSDK: GetConfigString");
+		return zenObj.GetConfigString(name, defaultValue);
+	}
 	float pauseTime;
 	public Boolean isResumeFromAds = false;
 
@@ -180,6 +183,7 @@ public class ZenSDK : MonoBehaviour
 		void TrackLevelStart(int n);
 		void TrackLevelCompleted(int n,int scores);
 		int GetConfigInt(string name,int defaultValue);
+		string GetConfigString(string name,string defaultValue);	
 		//for ads
 		void ShowFullScreen();
 		void ShowBanner(bool visible);
