@@ -879,7 +879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fc9256a709a8647b4c72f4c2bbb355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogIndex: 6
+  dialogIndex: 5
   baseDialogAnim: {fileID: 0}
   tutorial_lb: {fileID: 9005270138408037643}
   ads: {fileID: 1011048471724635064}
@@ -1104,9 +1104,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BuyDialog, Assembly-CSharp
-        m_MethodName: CancleBuy
+      - m_Target: {fileID: 4424435083751773269}
+        m_TargetAssemblyTypeName: ItemConfirmDialog, Assembly-CSharp
+        m_MethodName: CancelUsingItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

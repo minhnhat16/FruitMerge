@@ -12,11 +12,8 @@ public class MainScreenView : BaseView
     {
         base.Setup(viewParam);
       
+    }
 
-    }
-    public void Update()
-    {
-    }
     public void StartBtn()
     {
         GameManager.instance.LoadIngameSence();

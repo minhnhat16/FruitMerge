@@ -2,7 +2,7 @@
   "MonoBehaviour": {
     "Version": 4,
     "EnableBurstCompilation": false,
-    "EnableOptimisations": true,
+    "EnableOptimisations": false,
     "EnableSafetyChecks": false,
     "EnableDebugInAllBuilds": false,
     "EnableArmv9SecurityFeatures": false,
@@ -10,7 +10,7 @@
     "CpuMaxTargetX32": 0,
     "CpuMinTargetX64": 0,
     "CpuMaxTargetX64": 0,
-    "CpuTargetsArm64": 512,
-    "OptimizeFor": 0
+    "CpuTargetsArm64": -1,
+    "OptimizeFor": 2
   }
 }

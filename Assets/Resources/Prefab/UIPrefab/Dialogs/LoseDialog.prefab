@@ -759,9 +759,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c944147d236ac8e4a85c4be1c751707e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogIndex: 2
+  dialogIndex: 1
   baseDialogAnim: {fileID: 0}
-  score_lb: {fileID: 0}
+  score_lb: {fileID: 2758884853274294844}
   boxCamera: {fileID: 0}
 --- !u!1 &7562605555712527421
 GameObject:
@@ -798,8 +798,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: -60}
-  m_SizeDelta: {x: 780, y: 780}
+  m_AnchoredPosition: {x: -3, y: 0}
+  m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3320975061804866850
 CanvasRenderer:

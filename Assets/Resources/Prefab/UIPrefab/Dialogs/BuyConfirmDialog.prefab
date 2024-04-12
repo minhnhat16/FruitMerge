@@ -928,7 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586e0c30103eb9c4fa003a0686a12225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogIndex: 5
+  dialogIndex: 4
   baseDialogAnim: {fileID: 0}
   cost: 0
   total_lb: {fileID: 4990771847559967116}

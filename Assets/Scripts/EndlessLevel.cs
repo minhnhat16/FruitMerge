@@ -220,6 +220,8 @@ public class EndlessLevel : MonoBehaviour
         {
             onCircleDropped?.Invoke(true);
             Player.instance.canDrop = true;
+            IngameController.instance.CancelItem();
+
         });
     }
     public void SetActiveMainCircle(bool activate)
@@ -271,7 +273,6 @@ public class EndlessLevel : MonoBehaviour
     public void AfterUpgradeItem()
     {
         isUpgrade = false;
-        IngameController.instance.CancelItem();
         DisableTargetCircles();
     }
     public void EnableTargetCircles()

@@ -153,7 +153,7 @@ public class SpriteLibControl : MonoBehaviour
         if (id > 0 && id <= 11)
         {
 
-            Debug.Log("Name" + name);
+            //Debug.Log("Name" + name);
             return name;
         }
         else return null;

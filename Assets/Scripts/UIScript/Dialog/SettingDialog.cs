@@ -37,6 +37,7 @@ public class SettingDialog : BaseDialog
     public override void OnStartShowDialog()
     {
         base.OnStartShowDialog();
+        IngameController.instance.isPause = true;
         if (EndlessLevel.Instance == null) return;
         if (EndlessLevel.Instance.main != null)
         {
@@ -53,7 +54,7 @@ public class SettingDialog : BaseDialog
         base.OnEndHideDialog();
         if (Player.instance != null)
         {
-            Player.instance.canDrop = true;
+
         }
         //EndlessLevel.Instance.main.gameObject.SetActive(true);
     }
@@ -65,6 +66,7 @@ public class SettingDialog : BaseDialog
         DialogManager.Instance.HideDialog(dialogIndex, () =>
         {
             IngameController.instance.isPause = false;
+            Player.instance.canDrop = true;
             //IngameController.instance.player.SetActive(true);
         });
 
@@ -74,6 +76,7 @@ public class SettingDialog : BaseDialog
         if (ViewManager.Instance.currentView.viewIndex != ViewIndex.GamePlayView) return;
         SoundManager.Instance.PlaySFX(SoundManager.SFX.UIClickSFX);
         EndlessLevel.Instance.Clear();
+        Destroy(EndlessLevel.Instance.gameObject);
         IngameController.instance.SetIngameObjectActive(false);
         DialogManager.Instance.HideDialog(dialogIndex);
         LoadSceneManager.instance.LoadSceneByName("Buffer", () =>

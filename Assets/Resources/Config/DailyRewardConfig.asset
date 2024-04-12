@@ -44,7 +44,7 @@ MonoBehaviour:
     itemName: gold
     totalItem: 500
   - id: 6
-    spriteName: jackpot
+    spriteName: 11_Chinesefood
     type: 1
-    itemName: jackpot
+    itemName: 11_Chinesefood
     totalItem: 1

@@ -550,8 +550,6 @@ GameObject:
   - component: {fileID: 5556668045146298334}
   - component: {fileID: 6446653146492899474}
   - component: {fileID: 2694969537518115985}
-  - component: {fileID: 5174150306355524775}
-  - component: {fileID: 3709618182973716297}
   m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
@@ -617,40 +615,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &5174150306355524775
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742764128867729083}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4688b7bedca2f5a4496c82cd69f18e1c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3709618182973716297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742764128867729083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05ee72e3b11566479340e32134b9f9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5174150306355524775}
 --- !u!1 &6378772059653825682
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +906,7 @@ MonoBehaviour:
   angleSteps: []
   angleCheck: 0
   spinConfig: {fileID: 0}
-  arrow: {fileID: 3709618182973716297}
+  arrow: {fileID: 0}
   crItem: {fileID: 0}
   button: {fileID: 4126390919587343148}
   claim_lb: {fileID: 4921440369868951343}
@@ -985,7 +949,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.2869263, y: -0.049987793}
+  m_AnchoredPosition: {x: -1.2869263, y: -0.050048828}
   m_SizeDelta: {x: 2.4738, y: -0.099976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9002832219030679210

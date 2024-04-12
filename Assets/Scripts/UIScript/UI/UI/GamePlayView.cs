@@ -209,7 +209,6 @@ public class GamePlayView : BaseView, IPointerClickHandler
                 DialogManager.Instance.ShowDialog(DialogIndex.ItemConfirmDialog, param, () =>
                 {
                     Debug.Log("HAVE ADS");
-
                     onTomato = true;
                     onUpgrade = true;
                     onBomb = true;

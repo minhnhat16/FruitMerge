@@ -77,9 +77,7 @@ public class ItemConfirmDialog : BaseDialog
             case ItemType.CHANGE:
                 Debug.Log("DESTROY CURRENT FRUIT ON GRAPPLING HOOK");
                 IngameController.instance.ChangeItem();
-                IngameController.instance.CancelItem();
                 DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog,null);
-
                 break;
             case ItemType.HAMMER:
                 Debug.Log("CHOSE ONE FRUIT TO DESTROY IT");
@@ -89,7 +87,7 @@ public class ItemConfirmDialog : BaseDialog
             case ItemType.ROTATE:
                 Debug.Log("MAKING ALL FRUIT SHAKE");
                 IngameController.instance.ShakeItem();
-                DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null   );
+                DialogManager.Instance.HideDialog(DialogIndex.ItemConfirmDialog, null);
                 break;
         }
     }
@@ -106,13 +104,13 @@ public class ItemConfirmDialog : BaseDialog
         switch (type)
         {
             case ItemType.CHANGE:
-                tutorial_lb.text = "DESTROY ALL FRUIT BELOW 2";
+                tutorial_lb.text = "DESTROY CURRENT FRUIT ON GRAPLING HOOK";
                 break;
             case ItemType.HAMMER:
-                tutorial_lb.text = "CHOSE ONE FRUIT TO DESTROY IT";
+                tutorial_lb.text = "CHOSE ONE FRUIT TO DESTROY IT!!";
                 break;
             case ItemType.ROTATE:
-                tutorial_lb.text = "CHOSE ONE FRUIT TO UPGRADE ";
+                tutorial_lb.text = "USING TO SHAKE BOX MAKE AND FRUIT MOVE";
                 break;
         }
     }

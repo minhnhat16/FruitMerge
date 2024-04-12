@@ -28,10 +28,10 @@ public class LoadingView : BaseView
         var animationState = logo.AnimationState;
 
         // Check if the starting animation exists
-        if (animationState.Data.SkeletonData.FindAnimation("startingAnimation") != null)
+        if (animationState.Data.SkeletonData.FindAnimation("out") != null)
         {
             // Set the animation to the starting animation and play it
-            animationState.SetAnimation(0, "startingAnimation", true);
+            animationState.SetAnimation(0, "out", true);
         }
         else
         {

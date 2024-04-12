@@ -1744,7 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c81c9b64cfff734591c6b5ddbeaab97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogIndex: 3
+  dialogIndex: 2
   baseDialogAnim: {fileID: 0}
   claimBtn: {fileID: 159952144430200411}
   dailyGrid: {fileID: 6651782109236038131}

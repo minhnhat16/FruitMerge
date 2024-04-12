@@ -35,7 +35,7 @@ public class CinemachineShake : MonoBehaviour
                 Debug.LogWarning("Time Over");
                 CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
                 virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-               cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 
+                cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 
                  Mathf.Lerp(startingIntensity, 0f, 1 - (shakeTimer / shakeTimerTotal));
             }
         }
